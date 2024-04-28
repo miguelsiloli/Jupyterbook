@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>t-SNE as a Nonlinear Visualization Technique &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_extras/tsne';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F00_extras/tsne.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/00_extras/tsne.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>t-SNE as a Nonlinear Visualization Technique</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">t-SNE as a Nonlinear Visualization Technique</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">Perplexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-function">Optimization function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-remarks">Final Remarks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-compoent-analysis-as-a-linear-transformation-technique">Principal Compoent Analysis as a linear transformation technique</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca-algorithm">PCA algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-pca">Kernel PCA</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="t-sne-as-a-nonlinear-visualization-technique">
+<h1>t-SNE as a Nonlinear Visualization Technique<a class="headerlink" href="#t-sne-as-a-nonlinear-visualization-technique" title="Link to this heading">#</a></h1>
+<p>We studied (kernel) PCA as an example for a method that reduces the dimensionality of a dataset and makes features apparent by which data points can be efficiently distinguished. Often, it is desirable to more clearly cluster similar data points and visualize this clustering in a low (two- or three-) dimensional space. We focus our attention on a relatively recent algorithm (from 2008) that has proven very performant. It goes by the name t-distributed stochastic neighborhood embedding (t-SNE).</p>
+<p>The basic idea is to think of the data (images, for instance) as objects xi
+in a very high-dimensional space and characterize their relation by the Euclidean distance ||xi−xj|| between them. These pairwise distances are mapped to a probability distribution pij. The same is done for the distances ||yi−yj|| of the images of the data points yi in the target low-dimensional space. Their probability distribution is denoted qij. The mapping is optimized by changing the locations yi</p>
+<p>so as to minimize the distance between the two probability distributions. Let us substantiate these words with formulas.</p>
+<p>The probability distribution in the space of data points is given as the symmetrized version (joint probability distribution)</p>
+<p><span class="math notranslate nohighlight">\(p_{ij}=\frac{p_{i|j}+p_{j|i}}{2}\)</span></p>
+<p>of the conditional probabilities</p>
+<p><span class="math notranslate nohighlight">\(p_{j|i}=\frac{\mathrm{exp}\left(-||\mathbf{x}_i-\mathbf{x}_j||^2/2\sigma_i^2\right)}
+{\sum_{k\neq i}\mathrm{exp}\left(-||\mathbf{x}_i-\mathbf{x}_k||^2/2\sigma_i^2\right)}\)</span></p>
+<p>where the choice of variances <span class="math notranslate nohighlight">\(σ_i\)</span> will be explained momentarily. Distances are thus turned into a Gaussian distribution. Note that pj|i≠pi|j while pji=pij.</p>
+<p>The probability distribution in the target space is chosen to be a Student t-distribution</p>
+<p><span class="math notranslate nohighlight">\(q_{ij}=\frac{
+(1+||\mathbf{y}_i-\mathbf{y}_j||^2)^{-1}
+}{
+\sum_{k\neq l}
+(1+||\mathbf{y}_k-\mathbf{y}_l||^2)^{-1}
+}\)</span></p>
+<p><img alt="Application of both methods on 5000 samples from the MNIST handwritten digit dataset." src="00_extras/assets/pca_tSNE.png" /></p>
+<section id="perplexity">
+<h2>Perplexity<a class="headerlink" href="#perplexity" title="Link to this heading">#</a></h2>
+<p>Let us now discuss the choice of <span class="math notranslate nohighlight">\(σ_i\)</span>. Intuitively, in dense regions of the dataset, a smaller value of <span class="math notranslate nohighlight">\(σ_i\)</span> is usually more appropriate than in sparser regions, in order to resolve the distances better. Any particular value of <span class="math notranslate nohighlight">\(σ_i\)</span> induces a probability distribution Pi over all the other data points. This distribution has an entropy (here we use the Shannon entropy, in general it is a measure for the “uncertainty” represented by the distribution)</p>
+<p><span class="math notranslate nohighlight">\(H(P_i)=-\sum_j p_{j|i}\, \mathrm{log}_2 \,p_{j|i}.\)</span></p>
+<p>The value of <span class="math notranslate nohighlight">\(H(Pi)\)</span> increases as <span class="math notranslate nohighlight">\(σ_i\)</span> increases, i.e., the more uncertainty is added to the distances. The algorithm searches for the <span class="math notranslate nohighlight">\(σ_i\)</span> that result in a <span class="math notranslate nohighlight">\(P_i\)</span> with fixed perplexity.</p>
+<p><span class="math notranslate nohighlight">\(\mathrm{Perp}(P_i)=2^{H(P_i)}.\)</span></p>
+<p>The target value of the perplexity is chosen a priory and is the main parameter that controls the outcome of the t-SNE algorithm. It can be interpreted as a smooth measure for the effective number of neighbors. Typical values for the perplexity are between 5 and 50.</p>
+</section>
+<section id="optimization-function">
+<h2>Optimization function<a class="headerlink" href="#optimization-function" title="Link to this heading">#</a></h2>
+<p>Finally, we have to introduce a measure for the similarity between the two probability distributions <span class="math notranslate nohighlight">\(pij\)</span>
+and <span class="math notranslate nohighlight">\(qij\)</span>. This defines a so-called loss function. Here, we choose the <strong>Kullback-Leibler divergence</strong>.</p>
+<p><span class="math notranslate nohighlight">\(L(\{\mathbf{y}_i\})=\sum_i\sum_jp_{ij}\mathrm{log}\frac{p_{ij}}{q_{ij}}\)</span></p>
+<p>The minimization of <span class="math notranslate nohighlight">\(L({yi})\)</span> with respect to the positions yi can be achieved with a variety of methods. In the simplest case it can be gradient descent, which we will discuss in more detail in a later chapter. As the name suggests, it follows the direction of largest gradient of the cost function to find the minimum. To this end it is useful that these gradients can be calculated in a simple form</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial L}{\partial \mathbf{y}_i}
+=4\sum_j (p_{ij}-q_{ij})(\mathbf{y}_i-\mathbf{y}_j)(1+||\mathbf{y}_i-\mathbf{y}_j||^2)^{-1}.\)</span></p>
+</section>
+<section id="final-remarks">
+<h2>Final Remarks<a class="headerlink" href="#final-remarks" title="Link to this heading">#</a></h2>
+<p>While t-SNE is a very powerful clustering technique, it has its limitations.</p>
+<ul class="simple">
+<li><p>(i) The target dimension should be 2 or 3, for much larger dimensions ansatz for <span class="math notranslate nohighlight">\(q_{ij}\)</span> is not suitable.</p></li>
+<li><p>(ii) If the dataset is intrinsically high-dimensional (so that also the PCA pre-processing fails), t-SNE may not be a suitable technique.</p></li>
+<li><p>(iii) Due to the stochastic nature of the optimization, results are not reproducible. The result may end up looking very different when the algorithm is initialized with some slightly different initial values for <span class="math notranslate nohighlight">\(y_i\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="principal-compoent-analysis-as-a-linear-transformation-technique">
+<h1>Principal Compoent Analysis as a linear transformation technique<a class="headerlink" href="#principal-compoent-analysis-as-a-linear-transformation-technique" title="Link to this heading">#</a></h1>
+<p>Very often, we are presented with a dataset containing many types of information, called features of the data. Such a dataset is also described as being high-dimensional. Techniques that extract information from such a dataset are broadly summarised as high-dimensional inference.</p>
+<p>PCA is a systematic way to find out which feature or combination of features varies the most across the data samples. We can think of PCA as approximating the data with a high-dimensional ellipsoid, where the principal axes of this ellipsoid correspond to the principal components. A feature, which is almost constant across the samples, in other words has a very short principal axis, might not be very useful. PCA then has two main applications:</p>
+<ul class="simple">
+<li><p>(1) It helps to visualise the data in a low dimensional space and</p></li>
+<li><p>(2) it can reduce the dimensionality of the input data to an amount that a more complex algorithm can handle.</p></li>
+</ul>
+<section id="pca-algorithm">
+<h2>PCA algorithm<a class="headerlink" href="#pca-algorithm" title="Link to this heading">#</a></h2>
+<p>The procedure to perform PCA can then be described as follows:</p>
+<div class="admonition-principle-component-analysis admonition">
+<p class="admonition-title">Principle Component Analysis</p>
+<ol class="arabic">
+<li><p>Center the data by subtracting from each column the mean of that
+column,</p>
+<div class="math notranslate nohighlight">
+\[{x}_i \mapsto {x}_{i} - \frac{1}{m} \sum_{i=1}^{m} {x}_{i}.
+      %  x_{ij} \longrightarrow x_{ij} - \frac{1}{m} \sum_{i=1}^{m} x_{ij}.\]</div>
+<p>This ensures that the mean of each data feature is zero.</p>
+</li>
+<li><p>Form the <span class="math notranslate nohighlight">\(n\)</span> by <span class="math notranslate nohighlight">\(n\)</span> (unnormalised) covariance matrix</p>
+<div class="math notranslate nohighlight" id="equation-eqn-pca-covariance-matrix">
+<span class="eqno">()<a class="headerlink" href="#equation-eqn-pca-covariance-matrix" title="Link to this equation">#</a></span>\[C = {X}^{T}{X} = \sum_{i=1}^{m} {x}_{i}{x}_{i}^{T}.\]</div>
+</li>
+<li><p>Diagonalize the matrix to the form
+<span class="math notranslate nohighlight">\(C = {X}^{T}{X} = W\Lambda W^{T}\)</span>, where the columns of <span class="math notranslate nohighlight">\(W\)</span> are the
+normalised eigenvectors, or principal components, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a
+diagonal matrix containing the eigenvalues. It will be helpful to
+arrange the eigenvalues from largest to smallest.</p></li>
+<li><p>Pick the <span class="math notranslate nohighlight">\(l\)</span> largest eigenvalues <span class="math notranslate nohighlight">\(\lambda_1, \dots \lambda_l\)</span>,
+<span class="math notranslate nohighlight">\(l\leq n\)</span> and their corresponding eigenvectors
+<span class="math notranslate nohighlight">\({v}_1 \dots {v}_l\)</span>. Construct the <span class="math notranslate nohighlight">\(n\)</span> by <span class="math notranslate nohighlight">\(l\)</span> matrix
+<span class="math notranslate nohighlight">\(\widetilde{W} = [{v}_1 \dots {v}_l]\)</span>.</p></li>
+<li><p>Dimensional reduction: Transform the data matrix as</p>
+<div class="math notranslate nohighlight" id="equation-eqn-pca-dimensional-reduction">
+<span class="eqno">()<a class="headerlink" href="#equation-eqn-pca-dimensional-reduction" title="Link to this equation">#</a></span>\[        \widetilde{X} = X\widetilde{W}.\]</div>
+</li>
+</ol>
+<p>The transformed data
+matrix <span class="math notranslate nohighlight">\(\widetilde{X}\)</span> now has dimensions <span class="math notranslate nohighlight">\(m\)</span> by <span class="math notranslate nohighlight">\(l\)</span>.</p>
+</div>
+<p>PCA algorithm amounts simply to a rotation of the original data. However, it still produces 2 new features which are orthogonal linear combinations of the original features.</p>
+</section>
+<section id="kernel-pca">
+<h2>Kernel PCA<a class="headerlink" href="#kernel-pca" title="Link to this heading">#</a></h2>
+<p>The basic idea of this method is to apply to the data x∈Rn a chosen non-linear vector-valued transformation function <span class="math notranslate nohighlight">\(Φ(x)\)</span> with</p>
+<p><span class="math notranslate nohighlight">\(\mathbf{\Phi}: \mathbb{R}^{n} \rightarrow \mathbb{R}^{N},\)</span></p>
+<p>which is a map from the original n-dimensional space (corresponding to the n original data features) to a N-dimensional feature space. Kernel PCA then simply involves performing the standard PCA on the transformed data Φ(x). Here, we will assume that the transformed data is centered, i.e.,</p>
+<p><span class="math notranslate nohighlight">\(\sum_i \Phi(\mathbf{x}_i) = 0\)</span></p>
+<p>In practice, when N is large, it is not efficient or even possible to explicitly perform the transformation Φ. Instead we can make use of a method known as the kernel trick. Recall that in standard PCA, the primary aim is to find the eigenvectors and eigenvalues of the covariance matrix C . In the case of kernel PCA, this matrix becomes</p>
+<p><span class="math notranslate nohighlight">\(C = \sum_{i=1}^{m} \mathbf{\Phi}(\mathbf{x}_{i})\mathbf{\Phi}(\mathbf{x}_{i})^T,\)</span></p>
+<p>with the eigenvalue equation</p>
+<p><span class="math notranslate nohighlight">\(\sum_{i=1}^{m} \mathbf{\Phi}(\mathbf{x}_{i})\mathbf{\Phi}(\mathbf{x}_{i})^T \mathbf{v}_{j} = \lambda_{j}\mathbf{v}_{j}.\)</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_extras"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">t-SNE as a Nonlinear Visualization Technique</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">Perplexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-function">Optimization function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-remarks">Final Remarks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-compoent-analysis-as-a-linear-transformation-technique">Principal Compoent Analysis as a linear transformation technique</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca-algorithm">PCA algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-pca">Kernel PCA</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

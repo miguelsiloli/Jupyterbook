@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>02: Time Series Classification &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_Time_Series/00_TimeSeriesBasics/02_ts_classification';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="03: Univariate Time Series Forecast using LightGBM" href="03_tsf_intro_lightgbm.html" />
+    <link rel="prev" title="01: Exploratory Time Series Analysis" href="01_exploratory_analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F02_Time_Series/00_TimeSeriesBasics/02_ts_classification.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/02_Time_Series/00_TimeSeriesBasics/02_ts_classification.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>02: Time Series Classification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="time-series-classification">
+<h1>02: Time Series Classification<a class="headerlink" href="#time-series-classification" title="Link to this heading">#</a></h1>
+<p>To determine a product forecastability, we apply two coefficients:</p>
+<ul class="simple">
+<li><p>the Average Demand Interval (ADI). It measures the demand regularity in time by computing the average interval between two demands.</p></li>
+<li><p>the square of the Coefficient of Variation (CV²). It measures the variation in quantities.</p></li>
+</ul>
+<p>Based on these 2 dimensions, the literature classifies the demand profiles into 4 different categories:</p>
+<ul class="simple">
+<li><p><strong>Smooth demand</strong> (ADI &lt; 1.32 and CV² &lt; 0.49). The demand is very regular in time and in quantity. It is therefore easy to forecast and you won’t have trouble reaching a low forecasting error level.</p></li>
+<li><p><strong>Intermittent demand</strong> (ADI &gt;= 1.32 and CV² &lt; 0.49). The demand history shows very little variation in demand quantity but a high variation in the interval between two demands. Though specific forecasting methods tackle intermittent demands, the forecast error margin is considerably higher.</p></li>
+<li><p><strong>Erratic demand</strong> (ADI &lt; 1.32 and CV² &gt;= 0.49). The demand has regular occurrences in time with high quantity variations. Your forecast accuracy remains shaky.</p></li>
+<li><p><strong>Lumpy demand</strong> (ADI &gt;= 1.32 and CV² &gt;= 0.49). The demand is characterized by a large variation in quantity and in time. It is actually impossible to produce a reliable forecast, no matter which forecasting tools you use. This particular type of demand pattern is unforecastable.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.database</span> <span class="kn">import</span> <span class="o">*</span> 
+<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils.preprocessing</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils.plotting</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils.metrics</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">utils.database</span> <span class="kn">import</span> <span class="o">*</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">utils.preprocessing</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make training set </span>
+<span class="n">train_index</span> <span class="o">=</span> <span class="mi">550</span>
+<span class="n">STEPS</span> <span class="o">=</span> <span class="mi">28</span>
+
+<span class="n">agg_levels</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;level_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;nome_top_parent&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">daily_data</span> <span class="o">=</span> <span class="n">fetch_target</span><span class="p">()</span>
+<span class="n">daily_data</span> <span class="o">=</span> <span class="n">pivot_data</span><span class="p">(</span><span class="n">daily_data</span><span class="p">,</span> <span class="s2">&quot;ettdeb&quot;</span><span class="p">)</span>
+<span class="n">train_agg</span> <span class="o">=</span> <span class="n">aggregation</span><span class="p">(</span><span class="n">daily_data</span><span class="p">,</span> 
+                        <span class="n">agg_levels</span><span class="o">=</span><span class="n">agg_levels</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">train_agg</span> <span class="o">=</span> <span class="n">reconcile_date</span><span class="p">(</span><span class="n">train_agg</span><span class="p">)</span>
+<span class="c1">#train_agg = train_agg.reset_index(drop = False)</span>
+<span class="c1">#train_agg = train_agg.drop(&quot;date&quot;, axis = 1)</span>
+<span class="n">train_agg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Connected to the MySQL database
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Miguel\Desktop\Catolica Data Analytics\CPBS-TS-2\utils\database.py:44: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  daily_data = pd.read_sql(sql_query, connection)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Connection closed
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Artigos Decorativos</th>
+      <th>Bases e Floreiras</th>
+      <th>Casa</th>
+      <th>Flores</th>
+      <th>Fontes</th>
+      <th>Frutos e Vegetais</th>
+      <th>Natal</th>
+      <th>Plantas</th>
+      <th>Tufos e Folhagens</th>
+      <th>Árvores e Arbustos</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-01-04</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>3034.5612</td>
+    </tr>
+    <tr>
+      <th>2018-01-05</th>
+      <td>0.0</td>
+      <td>52.8</td>
+      <td>0.0</td>
+      <td>63.55</td>
+      <td>0.0</td>
+      <td>65.86</td>
+      <td>0.0</td>
+      <td>512.425</td>
+      <td>0.0</td>
+      <td>1536.6440</td>
+    </tr>
+    <tr>
+      <th>2018-01-06</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2018-01-07</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>170.5</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>449.9050</td>
+    </tr>
+    <tr>
+      <th>2018-01-08</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-12-26</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2019-12-27</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2019-12-28</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2019-12-29</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2019-12-30</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>211.2</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+    </tr>
+  </tbody>
+</table>
+<p>726 rows × 10 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_agg</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">train_agg</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="ne">NameError</span>: name &#39;train_agg&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adi_func_interval</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">periods</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trim_zeros</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+    <span class="n">p_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">p_idx</span><span class="p">)</span>
+    <span class="n">periods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
+    <span class="n">periods</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">periods</span><span class="p">)</span>
+    <span class="n">q_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">periods</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Quantile: </span><span class="si">{</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">, Bucket Size: </span><span class="si">{</span><span class="n">q_results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Max interval: </span><span class="si">{</span><span class="n">periods</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean interval: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">periods</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">periods</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">adi_func</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">num_zeros</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> 
+    <span class="n">adi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">/</span><span class="n">num_zeros</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ADI: </span><span class="si">{</span><span class="n">adi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">adi</span>
+
+<span class="k">def</span> <span class="nf">cv_sqr_func</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">series_mean</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">series_std</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="c1"># Compute Coefficient of Variation (CV)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="p">(</span><span class="n">series_std</span> <span class="o">/</span> <span class="n">series_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CV: </span><span class="si">{</span><span class="n">cv</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cv</span>
+
+<span class="k">def</span> <span class="nf">classify_demand</span><span class="p">(</span><span class="n">adi</span><span class="p">,</span> <span class="n">cv_squared</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">adi</span> <span class="o">&lt;</span> <span class="mf">1.32</span> <span class="ow">and</span> <span class="n">cv_squared</span> <span class="o">&lt;</span> <span class="mf">0.49</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Smooth demand&quot;</span>
+    <span class="k">elif</span> <span class="n">adi</span> <span class="o">&gt;=</span> <span class="mf">1.32</span> <span class="ow">and</span> <span class="n">cv_squared</span> <span class="o">&lt;</span> <span class="mf">0.49</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Intermittent demand&quot;</span>
+    <span class="k">elif</span> <span class="n">adi</span> <span class="o">&lt;</span> <span class="mf">1.32</span> <span class="ow">and</span> <span class="n">cv_squared</span> <span class="o">&gt;=</span> <span class="mf">0.49</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Erratic demand&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Lumpy demand&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">train_agg</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">adi</span> <span class="o">=</span> <span class="n">adi_func_interval</span><span class="p">(</span><span class="n">train_agg</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">cv_sqr_func</span><span class="p">(</span><span class="n">train_agg</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="n">adi_func</span><span class="p">(</span><span class="n">train_agg</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classify_demand</span><span class="p">(</span><span class="n">adi</span><span class="p">,</span> <span class="n">cv</span><span class="p">))</span>
+    <span class="n">train_agg</span><span class="p">[[</span><span class="n">column</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;line&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantile: 0.5, Bucket Size: 16.0
+Quantile: 0.75, Bucket Size: 41.5
+Quantile: 0.95, Bucket Size: 104.90000000000006
+Quantile: 0.99, Bucket Size: 164.1799999999999
+
+Max interval: 179
+
+Mean interval: 33.15
+CV: 128.66565113164546
+ADI: 1.0297872340425531
+Lumpy demand
+Quantile: 0.5, Bucket Size: 18.0
+Quantile: 0.75, Bucket Size: 27.5
+Quantile: 0.95, Bucket Size: 78.39999999999998
+Quantile: 0.99, Bucket Size: 93.87999999999998
+
+Max interval: 97
+
+Mean interval: 24.51851851851852
+CV: 52.046343159654164
+ADI: 1.0401146131805157
+Lumpy demand
+Quantile: 0.5, Bucket Size: 54.0
+Quantile: 0.75, Bucket Size: 61.5
+Quantile: 0.95, Bucket Size: 101.59999999999997
+Quantile: 0.99, Bucket Size: 113.11999999999998
+
+Max interval: 116
+
+Mean interval: 54.42857142857143
+CV: 129.96575825763296
+ADI: 1.011142061281337
+Lumpy demand
+Quantile: 0.5, Bucket Size: 3.0
+Quantile: 0.75, Bucket Size: 6.0
+Quantile: 0.95, Bucket Size: 15.0
+Quantile: 0.99, Bucket Size: 19.0
+
+Max interval: 21
+
+Mean interval: 4.7465753424657535
+CV: 27.125678354682115
+ADI: 1.2538860103626943
+Lumpy demand
+Quantile: 0.5, Bucket Size: 110.0
+Quantile: 0.75, Bucket Size: 110.0
+Quantile: 0.95, Bucket Size: 110.0
+Quantile: 0.99, Bucket Size: 110.0
+
+Max interval: 110
+
+Mean interval: 110.0
+CV: 447.061137451123
+ADI: 1.0027624309392265
+Lumpy demand
+Quantile: 0.5, Bucket Size: 9.5
+Quantile: 0.75, Bucket Size: 26.75
+Quantile: 0.95, Bucket Size: 136.85
+Quantile: 0.99, Bucket Size: 142.57
+
+Max interval: 144
+
+Mean interval: 32.42857142857143
+CV: 123.47910358011679
+ADI: 1.021097046413502
+Lumpy demand
+Quantile: 0.5, Bucket Size: 2.0
+Quantile: 0.75, Bucket Size: 4.0
+Quantile: 0.95, Bucket Size: 20.349999999999994
+Quantile: 0.99, Bucket Size: 59.699999999999875
+
+Max interval: 70
+
+Mean interval: 5.388059701492537
+CV: 20.023851695149474
+ADI: 1.2284263959390862
+Lumpy demand
+Quantile: 0.5, Bucket Size: 6.0
+Quantile: 0.75, Bucket Size: 14.0
+Quantile: 0.95, Bucket Size: 36.899999999999984
+Quantile: 0.99, Bucket Size: 64.92000000000009
+
+Max interval: 86
+
+Mean interval: 11.142857142857142
+CV: 169.36691333049848
+ADI: 1.096676737160121
+Lumpy demand
+Quantile: 0.5, Bucket Size: 4.0
+Quantile: 0.75, Bucket Size: 7.0
+Quantile: 0.95, Bucket Size: 19.0
+Quantile: 0.99, Bucket Size: 26.489999999999995
+
+Max interval: 33
+
+Mean interval: 5.966101694915254
+CV: 28.685756027716856
+ADI: 1.1960461285008237
+Lumpy demand
+Quantile: 0.5, Bucket Size: 3.0
+Quantile: 0.75, Bucket Size: 5.0
+Quantile: 0.95, Bucket Size: 14.650000000000006
+Quantile: 0.99, Bucket Size: 19.6400000000001
+
+Max interval: 28
+
+Mean interval: 4.255952380952381
+CV: 13.489714265993594
+ADI: 1.303411131059246
+Lumpy demand
+</pre></div>
+</div>
+<img alt="../../_images/79ac3da65f823e212f6c95ba666616915eea3e7d7c0dee7569f6355294f0e193.png" src="../../_images/79ac3da65f823e212f6c95ba666616915eea3e7d7c0dee7569f6355294f0e193.png" />
+<img alt="../../_images/abb3f294bb3175c2fc8bf3a77495fcaa4dc4058a630df07790b66e7f0335f7b4.png" src="../../_images/abb3f294bb3175c2fc8bf3a77495fcaa4dc4058a630df07790b66e7f0335f7b4.png" />
+<img alt="../../_images/d83a8f91e1aa4b1041f9b488a724f24e14ee36f8255b777b8b65d626c9efdb55.png" src="../../_images/d83a8f91e1aa4b1041f9b488a724f24e14ee36f8255b777b8b65d626c9efdb55.png" />
+<img alt="../../_images/1a5cf76f8d7b7f572343c2800c8c1c404915ca3ce8f7d8bb16388b947d8587e6.png" src="../../_images/1a5cf76f8d7b7f572343c2800c8c1c404915ca3ce8f7d8bb16388b947d8587e6.png" />
+<img alt="../../_images/51d162e441bee8514685807cc077e3271f9184c6b04c4a74333df9297ac01d5e.png" src="../../_images/51d162e441bee8514685807cc077e3271f9184c6b04c4a74333df9297ac01d5e.png" />
+<img alt="../../_images/1d209e1e810387ea76131cd11d7755bd6d9ce9f9da847c5706fbb2724d1ce755.png" src="../../_images/1d209e1e810387ea76131cd11d7755bd6d9ce9f9da847c5706fbb2724d1ce755.png" />
+<img alt="../../_images/5d6605df491f19c2a4fd89cdb3f5de8e1f54e5d5bb92726e3a6710ae0157f7f2.png" src="../../_images/5d6605df491f19c2a4fd89cdb3f5de8e1f54e5d5bb92726e3a6710ae0157f7f2.png" />
+<img alt="../../_images/09bf521a27633176c89832631a68fc8e180f618a4af542b59d337b8728a6168d.png" src="../../_images/09bf521a27633176c89832631a68fc8e180f618a4af542b59d337b8728a6168d.png" />
+<img alt="../../_images/c72b267296f117499e7cfba021d6bc99d0e2b70e249b4ffc3885ee3caed121e3.png" src="../../_images/c72b267296f117499e7cfba021d6bc99d0e2b70e249b4ffc3885ee3caed121e3.png" />
+<img alt="../../_images/427eb0e8ff76bbd3d585f1f3843fb3f70dd4c1d0a5376977959d0e7f8423f860.png" src="../../_images/427eb0e8ff76bbd3d585f1f3843fb3f70dd4c1d0a5376977959d0e7f8423f860.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02_Time_Series\00_TimeSeriesBasics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_exploratory_analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">01: Exploratory Time Series Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_tsf_intro_lightgbm.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">03: Univariate Time Series Forecast using LightGBM</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

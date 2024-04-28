@@ -1,0 +1,29 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+
+parts:
+  - caption: Vinted Project
+    chapters:
+    # - file: 01_Vinted_Project/00_intro
+    - file: 01_Vinted_Project/01_price_prediction
+    - file: 01_Vinted_Project/02_catalog_clustering
+    - file: 01_Vinted_Project/03_optimization-book
+    - file: 01_Vinted_Project/04_premium-classification
+
+  - caption: Time Series
+    chapters:
+    #- file: 02_Time_Series/00_intro
+    - file: 02_Time_Series/00_TimeSeriesBasics/01_exploratory_analysis
+    - file: 02_Time_Series/00_TimeSeriesBasics/02_ts_classification
+    - file: 02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm
+    #- file: 02_Time_Series/01_Hyperparam_Tuning/01_hyperparam_tuning
+    #- file: 02_Time_Series/01_Hyperparam_Tuning/02_lightgbm_opt
+    #- file: 02_Time_Series/02_Time_Series_Clustering/01_timeseries_clustering
+    #- file: 02_Time_Series/02_Time_Series_Clustering/02_ts_clustering_distribution
+
+# vinted pipeline blog
+# time series forecasting blog
+# brand segmentation
