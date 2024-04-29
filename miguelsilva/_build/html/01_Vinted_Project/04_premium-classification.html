@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Premium classification with logistic regression &#8212; My sample book</title>
+    <title>04: Premium classification with logistic regression &#8212; Visualization Curriculum</title>
   
   
   
@@ -63,8 +63,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Price Regression with LightGBM" href="01_price_prediction.html" />
-    <link rel="prev" title="Product basket optimization approach using mean-variance optimization" href="03_optimization-book.html" />
+    <link rel="next" title="03: Univariate Time Series Forecast using LightGBM" href="../02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm.html" />
+    <link rel="prev" title="03: Product basket optimization approach using mean-variance optimization" href="03_optimization-book.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,8 +153,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
   
   
 </a></div>
@@ -363,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Premium classification with logistic regression</h1>
+    <h1>04: Premium classification with logistic regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -373,15 +373,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model training</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model">Logistic binary classification model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian Optimization</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function">Acquisition function</a></li>
@@ -404,7 +407,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="premium-classification-with-logistic-regression">
-<h1>Premium classification with logistic regression<a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
+<h1>04: Premium classification with logistic regression<a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>The problem scope defines a product as expensive if the product price is above the percentile 85. We predict 1 (True) if product is expensive, 0 (False) if not.</p>
 <p><span class="math notranslate nohighlight">\(Price_p &gt; Percentile(80)\)</span></p>
 <p>Naturally, this creates an imbalanced issue on the dataset, since there will be 85% of the data classified as 0.</p>
@@ -434,8 +439,120 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_credentials</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;aws_rds_credentials.json&quot;</span><span class="p">):</span>
+     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+          <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+     <span class="c1"># set up credentials</span>
+     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+          <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+     <span class="k">return</span>
+
+<span class="n">time_interval</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1">#days</span>
+
+<span class="n">load_credentials</span><span class="p">()</span>
+
+<span class="n">aws_rds_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;postgresql://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">?sslmode=require&quot;</span>
+
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">aws_rds_url</span><span class="p">)</span>
+<span class="n">sql_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT catalog_id, price_numeric, size_title, brand_title, country, color1, status</span>
+<span class="s2">               FROM public.tracking_staging </span>
+<span class="s2">               WHERE date &gt;= CURRENT_DATE - INTERVAL &#39;</span><span class="si">{</span><span class="n">time_interval</span><span class="si">}</span><span class="s2"> days&#39;</span>
+<span class="s2">               LIMIT 100000</span>
+<span class="s2">               &quot;&quot;&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql_query</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>catalog_id</th>
+      <th>price_numeric</th>
+      <th>size_title</th>
+      <th>brand_title</th>
+      <th>country</th>
+      <th>color1</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1835</td>
+      <td>4</td>
+      <td>M / 38 / 10</td>
+      <td>Primark</td>
+      <td>France</td>
+      <td>Preto</td>
+      <td>Novo sem etiquetas</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>198</td>
+      <td>6</td>
+      <td>L / 40 / 12</td>
+      <td>Primark</td>
+      <td>France</td>
+      <td>Branco</td>
+      <td>Muito bom</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1045</td>
+      <td>3</td>
+      <td>L / 40 / 12</td>
+      <td>Primark</td>
+      <td>France</td>
+      <td>Preto</td>
+      <td>Novo sem etiquetas</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>194</td>
+      <td>3</td>
+      <td>M / 38 / 10</td>
+      <td>Nasty Gal</td>
+      <td>France</td>
+      <td>Creme</td>
+      <td>Muito bom</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>194</td>
+      <td>2</td>
+      <td>L / 40 / 12</td>
+      <td>LC Waikiki</td>
+      <td>France</td>
+      <td>Preto</td>
+      <td>Bom</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <section id="the-dataset">
-<h2>The dataset<a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h2>
+<h3>The dataset<a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Field</p></th>
@@ -469,84 +586,25 @@ document.write(`
 <p>Price numeric doesn’t account any discounts from the seller side nor additional fees incurred from the buyer side.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_credentials</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;aws_rds_credentials.json&quot;</span><span class="p">):</span>
-     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-          <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-
-     <span class="c1"># set up credentials</span>
-     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-          <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-
-     <span class="k">return</span>
-
-<span class="n">time_interval</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1">#days</span>
-
-<span class="n">load_credentials</span><span class="p">()</span>
-
-<span class="n">aws_rds_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;postgresql://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">?sslmode=require&quot;</span>
-
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">aws_rds_url</span><span class="p">)</span>
-<span class="n">sql_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT catalog_id, price_numeric, size_title, brand_title, country, color1, status</span>
-<span class="s2">               FROM public.tracking_staging </span>
-<span class="s2">               WHERE date &gt;= CURRENT_DATE - INTERVAL &#39;</span><span class="si">{</span><span class="n">time_interval</span><span class="si">}</span><span class="s2"> days&#39;</span>
-<span class="s2">               LIMIT 30000</span>
-<span class="s2">               &quot;&quot;&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql_query</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>      <span class="k">return</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">time_interval</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1">#days</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">load_credentials</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">aws_rds_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;postgresql://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">?sslmode=require&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">aws_rds_url</span><span class="p">)</span>
-
-<span class="nn">Cell In[2], line 2,</span> in <span class="ni">load_credentials</span><span class="nt">(path)</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">load_credentials</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;aws_rds_credentials.json&quot;</span><span class="p">):</span>
-<span class="ne">----&gt; </span><span class="mi">2</span>      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>           <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>      <span class="c1"># set up credentials</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\IPython\core\interactiveshell.py:284,</span> in <span class="ni">_modified_open</span><span class="nt">(file, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>         <span class="sa">f</span><span class="s2">&quot;IPython won&#39;t let you open fd=</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> by default &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">280</span>         <span class="s2">&quot;as it is likely to crash IPython. If you know what you are doing, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span>         <span class="s2">&quot;you can use builtins&#39; open.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">282</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">284</span> <span class="k">return</span> <span class="n">io_open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;aws_rds_credentials.json&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 30000 entries, 0 to 29999
+RangeIndex: 100000 entries, 0 to 99999
 Data columns (total 7 columns):
- #   Column         Non-Null Count  Dtype 
----  ------         --------------  ----- 
- 0   catalog_id     30000 non-null  int64 
- 1   price_numeric  30000 non-null  int64 
- 2   size_title     30000 non-null  object
- 3   brand_title    30000 non-null  object
- 4   country        30000 non-null  object
- 5   color1         26261 non-null  object
- 6   status         30000 non-null  object
+ #   Column         Non-Null Count   Dtype 
+---  ------         --------------   ----- 
+ 0   catalog_id     100000 non-null  int64 
+ 1   price_numeric  100000 non-null  int64 
+ 2   size_title     100000 non-null  object
+ 3   brand_title    100000 non-null  object
+ 4   country        100000 non-null  object
+ 5   color1         86694 non-null   object
+ 6   status         100000 non-null  object
 dtypes: int64(2), object(5)
-memory usage: 1.6+ MB
+memory usage: 5.3+ MB
 </pre></div>
 </div>
 </div>
@@ -559,6 +617,7 @@ memory usage: 1.6+ MB
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="preprocessing">
 <h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
@@ -587,9 +646,8 @@ memory usage: 1.6+ MB
 </div>
 </div>
 </section>
-</section>
 <section id="target-variable">
-<h2>Target variable<a class="headerlink" href="#target-variable" title="Link to this heading">#</a></h2>
+<h3>Target variable<a class="headerlink" href="#target-variable" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.80</span>
@@ -600,8 +658,8 @@ memory usage: 1.6+ MB
 </div>
 </section>
 <section id="dealing-with-class-imbalance">
-<h2>Dealing with class imbalance<a class="headerlink" href="#dealing-with-class-imbalance" title="Link to this heading">#</a></h2>
-<p>The method used to deal with class imbalance is through undersampling because we have more than enough data to train the model, otherwise we might have to choose oversampling.</p>
+<h3>Dealing with class imbalance<a class="headerlink" href="#dealing-with-class-imbalance" title="Link to this heading">#</a></h3>
+<p>The method used to deal with class imbalance is through <strong>undersampling</strong> because we have more than enough data to train the model, otherwise we might have to choose oversampling.</p>
 <p>This approach aims to balance the class distribution by randomly selecting a subset of instances from the majority class, equalizing the number of instances between the majority and minority classes. Undersampling can be an effective strategy when the dataset is sufficiently large and removing instances from the majority class does not significantly impact the representativeness of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -647,16 +705,16 @@ memory usage: 1.6+ MB
   <tbody>
     <tr>
       <th>count</th>
-      <td>8840</td>
-      <td>8840</td>
-      <td>8840</td>
-      <td>8840</td>
-      <td>8840</td>
+      <td>35434</td>
+      <td>35434</td>
+      <td>35434</td>
+      <td>35434</td>
+      <td>35434</td>
     </tr>
     <tr>
       <th>unique</th>
-      <td>173</td>
-      <td>2223</td>
+      <td>215</td>
+      <td>3147</td>
       <td>33</td>
       <td>29</td>
       <td>5</td>
@@ -671,11 +729,11 @@ memory usage: 1.6+ MB
     </tr>
     <tr>
       <th>freq</th>
-      <td>1507</td>
-      <td>1108</td>
-      <td>3387</td>
-      <td>2192</td>
-      <td>4807</td>
+      <td>6569</td>
+      <td>4895</td>
+      <td>14234</td>
+      <td>9047</td>
+      <td>18842</td>
     </tr>
   </tbody>
 </table>
@@ -683,7 +741,7 @@ memory usage: 1.6+ MB
 </div>
 </section>
 <section id="encoding-categorical-features">
-<h2>Encoding categorical features<a class="headerlink" href="#encoding-categorical-features" title="Link to this heading">#</a></h2>
+<h3>Encoding categorical features<a class="headerlink" href="#encoding-categorical-features" title="Link to this heading">#</a></h3>
 <p>The choice of encoding of the feature space is:</p>
 <ul class="simple">
 <li><p>Ordinal Encoding for status because it’s a feature with a natural ranking. Suitable for ordinal categorical variables where there is a clear order or ranking among the categories.</p></li>
@@ -732,19 +790,20 @@ memory usage: 1.6+ MB
 
 <span class="n">model_params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">labels</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">cols</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 <span class="n">model_params</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Labels&quot;</span><span class="p">,</span> <span class="s2">&quot;Decoded&quot;</span><span class="p">]</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The model has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3105
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model has 4127 labels
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="model-training">
-<h2>Model training<a class="headerlink" href="#model-training" title="Link to this heading">#</a></h2>
+</section>
+<section id="logistic-binary-classification-model">
+<h2>Logistic binary classification model<a class="headerlink" href="#logistic-binary-classification-model" title="Link to this heading">#</a></h2>
 <p>Training a logistic regression model with hyperparameter tuning using BayesSearchCV. The saga solver is around n_iters*f(n)**n_features and accepts both “l1”, “l2” regularization. The training was done by using the training set to find the optimal “C” param and then cross_validation on the training data to optimize the feature weights hyperparams. The classifier is a simple logit regression taking the feature space described above as input vector.</p>
 <section id="logistic-regression">
 <h3>Logistic regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h3>
@@ -757,7 +816,7 @@ memory usage: 1.6+ MB
 <section id="bayesian-optimization">
 <h3>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h3>
 <p>A balance between exploration and exploitation</p>
-<p>Bayesian optimization employs a probabilistic surrogate model to approximate the objective function. Gaussian processes (GP) are commonly used as surrogate models due to their ability to capture uncertainty and model complex functions. It’s popular to find (local) in expensive-to-evaluate functions using heurisitics based on bayes theorem.</p>
+<p>Bayesian optimization employs a probabilistic surrogate model to approximate the objective function. Gaussian processes (GP) are commonly used as surrogate models due to their ability to capture uncertainty and model complex functions. It’s popular to find (local) in <strong>expensive-to-evaluate functions using heuristics based on bayes theorem</strong>.</p>
 <section id="acquisition-function">
 <h4>Acquisition function<a class="headerlink" href="#acquisition-function" title="Link to this heading">#</a></h4>
 <p>The acquisition function guides the search process by balancing exploration (sampling from uncertain regions) and exploitation (sampling from regions likely to contain the optimum). Common acquisition functions include:</p>
@@ -775,7 +834,7 @@ memory usage: 1.6+ MB
                         <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;saga&#39;</span><span class="p">)</span>
 
 <span class="c1"># parameter space</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">Real</span><span class="p">(</span><span class="mf">1e-1</span><span class="p">,</span> <span class="mf">1e+1</span><span class="p">,</span> 
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">Real</span><span class="p">(</span><span class="mf">1e-1</span><span class="p">,</span> <span class="mf">1e+0</span><span class="p">,</span> 
                         <span class="n">prior</span><span class="o">=</span><span class="s1">&#39;log-uniform&#39;</span><span class="p">)}</span>
 
 <span class="c1"># Specify scoring metrics</span>
@@ -801,7 +860,7 @@ memory usage: 1.6+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-3 {
+<div class="output text_html"><style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
   --sklearn-color-line: gray;
@@ -831,15 +890,15 @@ memory usage: 1.6+ MB
   }
 }
 
-#sk-container-id-3 {
+#sk-container-id-1 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-3 pre {
+#sk-container-id-1 pre {
   padding: 0;
 }
 
-#sk-container-id-3 input.sk-hidden--visually {
+#sk-container-id-1 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -851,7 +910,7 @@ memory usage: 1.6+ MB
   width: 1px;
 }
 
-#sk-container-id-3 div.sk-dashed-wrapped {
+#sk-container-id-1 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -859,7 +918,7 @@ memory usage: 1.6+ MB
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-3 div.sk-container {
+#sk-container-id-1 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -869,7 +928,7 @@ memory usage: 1.6+ MB
   position: relative;
 }
 
-#sk-container-id-3 div.sk-text-repr-fallback {
+#sk-container-id-1 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -885,14 +944,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-3 div.sk-parallel-item::after {
+#sk-container-id-1 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-3 div.sk-parallel {
+#sk-container-id-1 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -900,28 +959,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-3 div.sk-parallel-item {
+#sk-container-id-1 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-3 div.sk-parallel-item:first-child::after {
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-3 div.sk-parallel-item:last-child::after {
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-3 div.sk-parallel-item:only-child::after {
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-3 div.sk-serial {
+#sk-container-id-1 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -939,14 +998,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-3 div.sk-toggleable {
+#sk-container-id-1 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-3 label.sk-toggleable__label {
+#sk-container-id-1 label.sk-toggleable__label {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -956,7 +1015,7 @@ clickable and can be expanded/collapsed.
   text-align: center;
 }
 
-#sk-container-id-3 label.sk-toggleable__label-arrow:before {
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -964,13 +1023,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-3 div.sk-toggleable__content {
+#sk-container-id-1 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -979,12 +1038,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-3 div.sk-toggleable__content.fitted {
+#sk-container-id-1 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-3 div.sk-toggleable__content pre {
+#sk-container-id-1 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -992,79 +1051,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-3 div.sk-toggleable__content.fitted pre {
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-3 div.sk-label label.sk-toggleable__label,
-#sk-container-id-3 div.sk-label label {
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-3 div.sk-label label {
+#sk-container-id-1 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-3 div.sk-label-container {
+#sk-container-id-1 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-3 div.sk-estimator {
+#sk-container-id-1 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1074,18 +1133,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-3 div.sk-estimator.fitted {
+#sk-container-id-1 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-3 div.sk-estimator:hover {
+#sk-container-id-1 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-3 div.sk-estimator.fitted:hover {
+#sk-container-id-1 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1172,7 +1231,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-3 a.estimator_doc_link {
+#sk-container-id-1 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1187,34 +1246,35 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-3 a.estimator_doc_link.fitted {
+#sk-container-id-1 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-3 a.estimator_doc_link:hover {
+#sk-container-id-1 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-3 a.estimator_doc_link.fitted:hover {
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>BayesSearchCV(cv=10, estimator=LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;),
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>BayesSearchCV(cv=10, estimator=LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;),
               n_iter=10, refit=&#x27;score&#x27;, return_train_score=True,
               scoring={&#x27;accuracy&#x27;: &#x27;accuracy&#x27;, &#x27;recall&#x27;: &#x27;recall&#x27;,
                        &#x27;score&#x27;: &#x27;roc_auc&#x27;},
-              search_spaces={&#x27;C&#x27;: Real(low=0.1, high=10.0, prior=&#x27;log-uniform&#x27;, transform=&#x27;normalize&#x27;)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;BayesSearchCV<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>BayesSearchCV(cv=10, estimator=LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;),
+              search_spaces={&#x27;C&#x27;: Real(low=0.1, high=1.0, prior=&#x27;log-uniform&#x27;, transform=&#x27;normalize&#x27;)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;BayesSearchCV<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>BayesSearchCV(cv=10, estimator=LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;),
               n_iter=10, refit=&#x27;score&#x27;, return_train_score=True,
               scoring={&#x27;accuracy&#x27;: &#x27;accuracy&#x27;, &#x27;recall&#x27;: &#x27;recall&#x27;,
                        &#x27;score&#x27;: &#x27;roc_auc&#x27;},
-              search_spaces={&#x27;C&#x27;: Real(low=0.1, high=10.0, prior=&#x27;log-uniform&#x27;, transform=&#x27;normalize&#x27;)})</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">estimator: LogisticRegression</label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;)</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
+              search_spaces={&#x27;C&#x27;: Real(low=0.1, high=1.0, prior=&#x27;log-uniform&#x27;, transform=&#x27;normalize&#x27;)})</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">estimator: LogisticRegression</label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, solver=&#x27;saga&#x27;)</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
 </div>
+<p>In comparison to GridSearchCV, which is an exploration algorithm more than anything, BayesSearch only iterates a definite number of times over the searching space. This means that at each stage, the algorithm computes the step params which are more likely to improve most the results.</p>
 </section>
 </section>
 <section id="cross-validation">
@@ -1243,6 +1303,151 @@ Lastly, which is not the case here, cross validation helps to assess the stabili
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make cross-validated predictions </span>
 <span class="n">lr_preds</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">_RemoteTraceback</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="ne">_Remote</span>Traceback: 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Traceback (most recent call last):</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\externals\loky\process_executor.py&quot;, line 463, in _process_worker</span>
+<span class="sd">    r = call_item()</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\externals\loky\process_executor.py&quot;, line 291, in __call__</span>
+<span class="sd">    return self.fn(*self.args, **self.kwargs)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py&quot;, line 589, in __call__</span>
+<span class="sd">    return [func(*args, **kwargs)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py&quot;, line 589, in &lt;listcomp&gt;</span>
+<span class="sd">    return [func(*args, **kwargs)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py&quot;, line 129, in __call__</span>
+<span class="sd">    return self.function(*args, **kwargs)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\model_selection\_validation.py&quot;, line 1378, in _fit_and_predict</span>
+<span class="sd">    estimator.fit(X_train, y_train, **fit_params)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py&quot;, line 1474, in wrapper</span>
+<span class="sd">    return fit_method(estimator, *args, **kwargs)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_logistic.py&quot;, line 1201, in fit</span>
+<span class="sd">    X, y = self._validate_data(</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py&quot;, line 650, in _validate_data</span>
+<span class="sd">    X, y = check_X_y(X, y, **check_params)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py&quot;, line 1263, in check_X_y</span>
+<span class="sd">    X = check_array(</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py&quot;, line 997, in check_array</span>
+<span class="sd">    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)</span>
+<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\_array_api.py&quot;, line 521, in _asarray_with_order</span>
+<span class="sd">    array = numpy.asarray(array, order=order, dtype=dtype)</span>
+<span class="sd">numpy.core._exceptions._ArrayMemoryError: Unable to allocate 227. MiB for an array with shape (7382, 4028) and data type float64</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">MemoryError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Make cross-validated predictions </span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">lr_preds</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\_param_validation.py:213,</span> in <span class="ni">validate_params.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>             <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
+<span class="g g-Whitespace">    </span><span class="mi">211</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">213</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">except</span> <span class="n">InvalidParameterError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="c1"># When the function is just a wrapper around an estimator, we allow</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span>     <span class="c1"># the function to delegate validation to the estimator, but we replace</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span>     <span class="c1"># the name of the estimator by the name of the function in the error</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>     <span class="c1"># message to avoid confusion.</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span>         <span class="sa">r</span><span class="s2">&quot;parameter of \w+ must be&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span>         <span class="sa">f</span><span class="s2">&quot;parameter of </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="si">}</span><span class="s2"> must be&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>         <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="p">)</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\model_selection\_validation.py:1293,</span> in <span class="ni">cross_val_predict</span><span class="nt">(estimator, X, y, groups, cv, n_jobs, verbose, fit_params, params, pre_dispatch, method)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1290</span> <span class="c1"># We clone the estimator to make sure that all the folds are</span>
+<span class="g g-Whitespace">   </span><span class="mi">1291</span> <span class="c1"># independent, and that it is pickle-able.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1292</span> <span class="n">parallel</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">pre_dispatch</span><span class="o">=</span><span class="n">pre_dispatch</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1293</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1294</span>     <span class="n">delayed</span><span class="p">(</span><span class="n">_fit_and_predict</span><span class="p">)(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1295</span>         <span class="n">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1296</span>         <span class="n">X</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1297</span>         <span class="n">y</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1298</span>         <span class="n">train</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1299</span>         <span class="n">test</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1300</span>         <span class="n">routed_params</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span>         <span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1302</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1303</span>     <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">splits</span>
+<span class="g g-Whitespace">   </span><span class="mi">1304</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1306</span> <span class="n">inv_test_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_indices</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1307</span> <span class="n">inv_test_indices</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_indices</span><span class="p">))</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py:67,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">67</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1952,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1946</span> <span class="c1"># The first item from the output is blank, but it makes the interpreter</span>
+<span class="g g-Whitespace">   </span><span class="mi">1947</span> <span class="c1"># progress until it enters the Try/Except block of the generator and</span>
+<span class="g g-Whitespace">   </span><span class="mi">1948</span> <span class="c1"># reach the first `yield` statement. This starts the aynchronous</span>
+<span class="g g-Whitespace">   </span><span class="mi">1949</span> <span class="c1"># dispatch of the tasks to the workers.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1950</span> <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1952</span> <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1595,</span> in <span class="ni">Parallel._get_outputs</span><span class="nt">(self, iterator, pre_dispatch)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1592</span>     <span class="k">yield</span>
+<span class="g g-Whitespace">   </span><span class="mi">1594</span>     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">retrieval_context</span><span class="p">():</span>
+<span class="ne">-&gt; </span><span class="mi">1595</span>         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1597</span> <span class="k">except</span> <span class="ne">GeneratorExit</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span>     <span class="c1"># The generator has been garbage collected before being fully</span>
+<span class="g g-Whitespace">   </span><span class="mi">1599</span>     <span class="c1"># consumed. This aborts the remaining tasks if possible and warn</span>
+<span class="g g-Whitespace">   </span><span class="mi">1600</span>     <span class="c1"># the user if necessary.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1601</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1699,</span> in <span class="ni">Parallel._retrieve</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1692</span> <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_retrieval</span><span class="p">():</span>
+<span class="g g-Whitespace">   </span><span class="mi">1693</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1694</span>     <span class="c1"># If the callback thread of a worker has signaled that its task</span>
+<span class="g g-Whitespace">   </span><span class="mi">1695</span>     <span class="c1"># triggered an exception, or if the retrieval loop has raised an</span>
+<span class="g g-Whitespace">   </span><span class="mi">1696</span>     <span class="c1"># exception (e.g. `GeneratorExit`), exit the loop and surface the</span>
+<span class="g g-Whitespace">   </span><span class="mi">1697</span>     <span class="c1"># worker traceback.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1698</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aborting</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1699</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_error_fast</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1700</span>         <span class="k">break</span>
+<span class="g g-Whitespace">   </span><span class="mi">1702</span>     <span class="c1"># If the next job is not ready for retrieval yet, we just wait for</span>
+<span class="g g-Whitespace">   </span><span class="mi">1703</span>     <span class="c1"># async callbacks to progress.</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1734,</span> in <span class="ni">Parallel._raise_error_fast</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1730</span> <span class="c1"># If this error job exists, immediatly raise the error by</span>
+<span class="g g-Whitespace">   </span><span class="mi">1731</span> <span class="c1"># calling get_result. This job might not exists if abort has been</span>
+<span class="g g-Whitespace">   </span><span class="mi">1732</span> <span class="c1"># called directly or if the generator is gc&#39;ed.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1733</span> <span class="k">if</span> <span class="n">error_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1734</span>     <span class="n">error_job</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:736,</span> in <span class="ni">BatchCompletionCallBack.get_result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">730</span> <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">_backend</span>
+<span class="g g-Whitespace">    </span><span class="mi">732</span> <span class="k">if</span> <span class="n">backend</span><span class="o">.</span><span class="n">supports_retrieve_callback</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">733</span>     <span class="c1"># We assume that the result has already been retrieved by the</span>
+<span class="g g-Whitespace">    </span><span class="mi">734</span>     <span class="c1"># callback thread, and is stored internally. It&#39;s just waiting to</span>
+<span class="g g-Whitespace">    </span><span class="mi">735</span>     <span class="c1"># be returned.</span>
+<span class="ne">--&gt; </span><span class="mi">736</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_or_raise</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">738</span> <span class="c1"># For other backends, the main thread needs to run the retrieval step.</span>
+<span class="g g-Whitespace">    </span><span class="mi">739</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:754,</span> in <span class="ni">BatchCompletionCallBack._return_or_raise</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">752</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">TASK_ERROR</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">754</span>         <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span>
+<span class="g g-Whitespace">    </span><span class="mi">755</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span>
+<span class="g g-Whitespace">    </span><span class="mi">756</span> <span class="k">finally</span><span class="p">:</span>
+
+<span class="ne">MemoryError</span>: Unable to allocate 227. MiB for an array with shape (7382, 4028) and data type float64
 </pre></div>
 </div>
 </div>
@@ -1349,15 +1554,15 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Product basket optimization approach using mean-variance optimization</p>
+        <p class="prev-next-title">03: Product basket optimization approach using mean-variance optimization</p>
       </div>
     </a>
     <a class="right-next"
-       href="01_price_prediction.html"
+       href="../02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Price Regression with LightGBM</p>
+        <p class="prev-next-title">03: Univariate Time Series Forecast using LightGBM</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1377,15 +1582,18 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model training</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model">Logistic binary classification model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian Optimization</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function">Acquisition function</a></li>
@@ -1410,7 +1618,7 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Miguel Silva
 </p>
 
   </div>

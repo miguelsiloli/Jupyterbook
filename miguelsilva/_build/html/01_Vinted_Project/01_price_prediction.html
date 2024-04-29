@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>01: Price Regression with LightGBM &#8212; My sample book</title>
+    <title>01: Price Regression with LightGBM &#8212; Visualization Curriculum</title>
   
   
   
@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Clustering of product catalogs with Agglomerative Clustering and t-SNE" href="02_catalog_clustering.html" />
+    <link rel="next" title="02: Clustering of product catalogs with Agglomerative Clustering and t-SNE" href="02_catalog_clustering.html" />
     <link rel="prev" title="Introduction" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,8 +151,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
   
   
 </a></div>
@@ -371,14 +371,25 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far">Issues so far:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title">Taking a deeper look into size title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title">Taking a deeper look into brand title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles">Approaches to size titles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-brand-titles">Approaches to brand titles</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-packages-and-data">Loading packages and data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far">Issues so far:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title">Taking a deeper look into size title</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title">Taking a deeper look into brand title</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles">Approaches to size titles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-brand-titles">Approaches to brand titles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-regression-model">LightGBM regression model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-q-plot">Q-Q Plot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kolmogorov-smirnov-test">Kolmogorov-Smirnov Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-results">Analysis of the results</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shapley-additive-explanations">SHapley Additive exPlanations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
@@ -397,8 +408,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="price-regression-with-lightgbm">
 <h1>01: Price Regression with LightGBM<a class="headerlink" href="#price-regression-with-lightgbm" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Problem definition: Build an algorithm which predicts article prices based on product characteristerics.</p>
 <p><strong>Keywords</strong>: LightGBM, regression modelling, price prediction, Vinted</p>
+<section id="loading-packages-and-data">
+<h3>Loading packages and data<a class="headerlink" href="#loading-packages-and-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -409,11 +424,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 <span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="c1">#import joblib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">import</span> <span class="nn">shap</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 </pre></div>
 </div>
 </div>
@@ -424,27 +439,63 @@ document.write(`
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 <span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1">#import joblib</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">lightgbm</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">lightgbm</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;LightGBM, Light Gradient Boosting Machine.</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> </span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> Contributors: https://github.com/microsoft/LightGBM/graphs/contributors.</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="sd"> &quot;&quot;&quot;</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.basic</span> <span class="kn">import</span> <span class="n">Booster</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">register_logger</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.callback</span> <span class="kn">import</span> <span class="n">EarlyStopException</span><span class="p">,</span> <span class="n">early_stopping</span><span class="p">,</span> <span class="n">log_evaluation</span><span class="p">,</span> <span class="n">record_evaluation</span><span class="p">,</span> <span class="n">reset_parameter</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.basic</span> <span class="kn">import</span> <span class="n">Booster</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">register_logger</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.callback</span> <span class="kn">import</span> <span class="n">EarlyStopException</span><span class="p">,</span> <span class="n">early_stopping</span><span class="p">,</span> <span class="n">log_evaluation</span><span class="p">,</span> <span class="n">record_evaluation</span><span class="p">,</span> <span class="n">reset_parameter</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">.engine</span> <span class="kn">import</span> <span class="n">CVBooster</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span> <span class="n">train</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">lightgbm</span>\<span class="n">basic</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="kn">import</span> <span class="nn">scipy.sparse</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="p">(</span><span class="n">PANDAS_INSTALLED</span><span class="p">,</span> <span class="n">PYARROW_INSTALLED</span><span class="p">,</span> <span class="n">arrow_cffi</span><span class="p">,</span> <span class="n">arrow_is_floating</span><span class="p">,</span> <span class="n">arrow_is_integer</span><span class="p">,</span> <span class="n">concat</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>                      <span class="n">dt_DataTable</span><span class="p">,</span> <span class="n">pa_Array</span><span class="p">,</span> <span class="n">pa_chunked_array</span><span class="p">,</span> <span class="n">pa_ChunkedArray</span><span class="p">,</span> <span class="n">pa_compute</span><span class="p">,</span> <span class="n">pa_Table</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                      <span class="n">pd_CategoricalDtype</span><span class="p">,</span> <span class="n">pd_DataFrame</span><span class="p">,</span> <span class="n">pd_Series</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">.libpath</span> <span class="kn">import</span> <span class="n">find_lib_path</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">lightgbm</span>\<span class="n">compat</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">90</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">NotFittedError</span>
+<span class="ne">---&gt; </span><span class="mi">90</span>     <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">BaseCrossValidator</span><span class="p">,</span> <span class="n">GroupKFold</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+<span class="g g-Whitespace">     </span><span class="mi">91</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>     <span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">BaseCrossValidator</span><span class="p">,</span> <span class="n">GroupKFold</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="n">model_selection</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">typing</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">._plot</span> <span class="kn">import</span> <span class="n">LearningCurveDisplay</span><span class="p">,</span> <span class="n">ValidationCurveDisplay</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">._search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">ParameterGrid</span><span class="p">,</span> <span class="n">ParameterSampler</span><span class="p">,</span> <span class="n">RandomizedSearchCV</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">._split</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">BaseCrossValidator</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">BaseShuffleSplit</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>     <span class="n">train_test_split</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="p">)</span>
 
 <span class="nn">File &lt;frozen importlib._bootstrap&gt;:1027,</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1006,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1002,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:688,</span> in <span class="ni">_load_unlocked</span><span class="nt">(spec)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:945,</span> in <span class="ni">_find_spec</span><span class="nt">(name, path, target)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:879,</span> in <span class="ni">exec_module</span><span class="nt">(self, module)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1439,</span> in <span class="ni">find_spec</span><span class="nt">(cls, fullname, path, target)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:975,</span> in <span class="ni">get_code</span><span class="nt">(self, fullname)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1411,</span> in <span class="ni">_get_spec</span><span class="nt">(cls, fullname, path, target)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1074,</span> in <span class="ni">get_data</span><span class="nt">(self, path)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1577,</span> in <span class="ni">find_spec</span><span class="nt">(self, fullname, target)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:161,</span> in <span class="ni">_path_isfile</span><span class="nt">(path)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:153,</span> in <span class="ni">_path_is_mode_type</span><span class="nt">(path, mode)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:147,</span> in <span class="ni">_path_stat</span><span class="nt">(path)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -483,12 +534,110 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>size_title</th>
+      <th>color1</th>
+      <th>brand_title</th>
+      <th>price_numeric</th>
+      <th>status</th>
+      <th>catalog_id</th>
+      <th>package_size_id</th>
+      <th>country</th>
+      <th>product_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L</td>
+      <td>Cinzento</td>
+      <td>Vintage Dressing</td>
+      <td>20.0</td>
+      <td>Muito bom</td>
+      <td>1813.0</td>
+      <td>1.0</td>
+      <td>France</td>
+      <td>4251158223</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>L</td>
+      <td>Mostarda</td>
+      <td>Vintage Dressing</td>
+      <td>24.0</td>
+      <td>Muito bom</td>
+      <td>1858.0</td>
+      <td>2.0</td>
+      <td>France</td>
+      <td>4246240605</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L / 40 / 12</td>
+      <td>Preto</td>
+      <td>Vintage Dressing</td>
+      <td>30.0</td>
+      <td>Muito bom</td>
+      <td>1078.0</td>
+      <td>2.0</td>
+      <td>France</td>
+      <td>4246219965</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>M</td>
+      <td>Preto</td>
+      <td>Vintage Dressing</td>
+      <td>20.0</td>
+      <td>Muito bom</td>
+      <td>264.0</td>
+      <td>1.0</td>
+      <td>France</td>
+      <td>4243019199</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>M</td>
+      <td>Branco</td>
+      <td>Vintage Dressing</td>
+      <td>35.0</td>
+      <td>Muito bom</td>
+      <td>1815.0</td>
+      <td>1.0</td>
+      <td>France</td>
+      <td>4243016636</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
+</section>
+</section>
+<section id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
 <p>Because the source table is a staging table, there are a lot of repeated records (only with different dates). We will keep only the last row per product_id.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;product_id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span> <span class="s2">&quot;last&quot;</span><span class="p">)</span>
-<span class="n">data</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -524,140 +673,67 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>16</th>
-      <td></td>
-      <td>None</td>
-      <td></td>
-      <td>5</td>
+      <th>1</th>
+      <td>L</td>
+      <td>Mostarda</td>
+      <td>Vintage Dressing</td>
+      <td>24.0</td>
       <td>Muito bom</td>
-      <td>2336</td>
-      <td>1</td>
-      <td>Espagne</td>
-      <td>4100431749</td>
+      <td>1858.0</td>
+      <td>2.0</td>
+      <td>France</td>
+      <td>4246240605</td>
     </tr>
     <tr>
-      <th>43</th>
-      <td>45</td>
+      <th>2</th>
+      <td>L / 40 / 12</td>
+      <td>Preto</td>
+      <td>Vintage Dressing</td>
+      <td>30.0</td>
+      <td>Muito bom</td>
+      <td>1078.0</td>
+      <td>2.0</td>
+      <td>France</td>
+      <td>4246219965</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>M</td>
+      <td>Preto</td>
+      <td>Vintage Dressing</td>
+      <td>20.0</td>
+      <td>Muito bom</td>
+      <td>264.0</td>
+      <td>1.0</td>
+      <td>France</td>
+      <td>4243019199</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>M</td>
       <td>Branco</td>
-      <td>Calvin Klein</td>
-      <td>69</td>
-      <td>Novo com etiquetas</td>
-      <td>1242</td>
-      <td>3</td>
-      <td>France</td>
-      <td>4131293009</td>
-    </tr>
-    <tr>
-      <th>77</th>
-      <td>43</td>
-      <td>Castanho</td>
-      <td>Sebago</td>
-      <td>89</td>
-      <td>Novo com etiquetas</td>
-      <td>2656</td>
-      <td>3</td>
-      <td>France</td>
-      <td>3940328884</td>
-    </tr>
-    <tr>
-      <th>135</th>
-      <td></td>
-      <td>Branco</td>
-      <td></td>
-      <td>5</td>
-      <td>Bom</td>
-      <td>1961</td>
-      <td>8</td>
-      <td>France</td>
-      <td>4094888069</td>
-    </tr>
-    <tr>
-      <th>136</th>
-      <td></td>
-      <td>Multi</td>
-      <td></td>
-      <td>3</td>
+      <td>Vintage Dressing</td>
+      <td>35.0</td>
       <td>Muito bom</td>
-      <td>1956</td>
-      <td>1</td>
+      <td>1815.0</td>
+      <td>1.0</td>
       <td>France</td>
-      <td>4094253329</td>
+      <td>4243016636</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>499995</th>
-      <td></td>
-      <td>None</td>
-      <td></td>
-      <td>2</td>
-      <td>Bom</td>
-      <td>2322</td>
-      <td>1</td>
-      <td>France</td>
-      <td>4198508309</td>
-    </tr>
-    <tr>
-      <th>499996</th>
-      <td>Tamanho único</td>
-      <td>Creme</td>
-      <td></td>
-      <td>15</td>
+      <th>9</th>
+      <td>M</td>
+      <td>Azul-marinho</td>
+      <td>Vintage Dressing</td>
+      <td>40.0</td>
       <td>Muito bom</td>
-      <td>1773</td>
-      <td>3</td>
+      <td>2534.0</td>
+      <td>2.0</td>
       <td>France</td>
-      <td>4197629069</td>
-    </tr>
-    <tr>
-      <th>499997</th>
-      <td></td>
-      <td>Branco</td>
-      <td></td>
-      <td>50</td>
-      <td>Muito bom</td>
-      <td>2924</td>
-      <td>3</td>
-      <td>France</td>
-      <td>4182308625</td>
-    </tr>
-    <tr>
-      <th>499998</th>
-      <td></td>
-      <td>None</td>
-      <td></td>
-      <td>10</td>
-      <td>Muito bom</td>
-      <td>2351</td>
-      <td>3</td>
-      <td>France</td>
-      <td>4112524014</td>
-    </tr>
-    <tr>
-      <th>499999</th>
-      <td></td>
-      <td>None</td>
-      <td></td>
-      <td>10</td>
-      <td>Muito bom</td>
-      <td>2351</td>
-      <td>3</td>
-      <td>France</td>
-      <td>4112514470</td>
+      <td>4235231245</td>
     </tr>
   </tbody>
 </table>
-<p>55195 rows × 9 columns</p>
 </div></div></div>
 </div>
 <p>There is a huge loss of data when considering unique product_ids. Since the purpose of the pipeline is to track products accross time as well, the same product might have a registry for each day.</p>
@@ -668,22 +744,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size_title            0
-color1             7467
-brand_title           0
-price_numeric         0
-status                0
-catalog_id            0
-package_size_id       0
-country               0
-product_id            0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size_title            21
+color1             10753
+brand_title           21
+price_numeric         21
+status              2769
+catalog_id            21
+package_size_id     2769
+country             2769
+product_id             0
 dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
 <section id="issues-so-far">
-<h2>Issues so far:<a class="headerlink" href="#issues-so-far" title="Link to this heading">#</a></h2>
+<h3>Issues so far:<a class="headerlink" href="#issues-so-far" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>catalog_id is int64, other predictors are object. Need to convert them to categorical before feeding to LightGBM</p></li>
 <li><p>color1_id has missing values (why?)</p>
@@ -714,7 +790,7 @@ dtype: int64
 </ul>
 </section>
 <section id="approaches">
-<h2>Approaches<a class="headerlink" href="#approaches" title="Link to this heading">#</a></h2>
+<h3>Approaches<a class="headerlink" href="#approaches" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>change dtypes</p></li>
 <li><p>create a dummy color1_id and assign it to articles missing color1_id (filling with value 0)</p></li>
@@ -731,15 +807,15 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size_title         0
-color1             0
-brand_title        0
-price_numeric      0
-status             0
-catalog_id         0
-package_size_id    0
-country            0
-product_id         0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size_title           21
+color1                0
+brand_title          21
+price_numeric        21
+status             2769
+catalog_id           21
+package_size_id    2769
+country            2769
+product_id            0
 dtype: int64
 </pre></div>
 </div>
@@ -754,7 +830,7 @@ dtype: int64
 </div>
 </section>
 <section id="taking-a-deeper-look-into-size-title">
-<h2>Taking a deeper look into size title<a class="headerlink" href="#taking-a-deeper-look-into-size-title" title="Link to this heading">#</a></h2>
+<h3>Taking a deeper look into size title<a class="headerlink" href="#taking-a-deeper-look-into-size-title" title="Link to this heading">#</a></h3>
 <p>Size title has unbalanced labels.</p>
 <ul class="simple">
 <li><p>Sizes can be further divided into product types. For instance, we have:</p>
@@ -773,8 +849,7 @@ dtype: int64
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming your DataFrame is called data</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;size_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;size_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;size_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> 
              <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;size_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
              <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;Size Title&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">},</span>
@@ -788,7 +863,7 @@ dtype: int64
 </div>
 </section>
 <section id="taking-a-deeper-look-into-brand-title">
-<h2>Taking a deeper look into brand title<a class="headerlink" href="#taking-a-deeper-look-into-brand-title" title="Link to this heading">#</a></h2>
+<h3>Taking a deeper look into brand title<a class="headerlink" href="#taking-a-deeper-look-into-brand-title" title="Link to this heading">#</a></h3>
 <p>Brand titles has too many brands.</p>
 <ul class="simple">
 <li><p>A lot of the brands aren’t even brands (such as dri-fit, b(?), GYM, MI(?), etc)</p></li>
@@ -810,7 +885,7 @@ dtype: int64
 </div>
 </section>
 <section id="approaches-to-size-titles">
-<h2>Approaches to size titles<a class="headerlink" href="#approaches-to-size-titles" title="Link to this heading">#</a></h2>
+<h3>Approaches to size titles<a class="headerlink" href="#approaches-to-size-titles" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Feature engineering</p>
 <ul>
@@ -833,19 +908,20 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;no_size&#39;, &#39;45&#39;, &#39;43&#39;, &#39;S / 36 / 8&#39;, &#39;M / 38 / 10&#39;, &#39;L&#39;, &#39;S&#39;,
-       &#39;14 anos / 164 cm&#39;, &#39;8 anos / 128 cm&#39;, &#39;XL&#39;, &#39;M&#39;, &#39;XXXL / 46 / 18&#39;,
-       &#39;9-12 meses / 74\xa0cm&#39;, &#39;3-6 meses / 62\xa0cm&#39;,
-       &#39;6-9 meses / 68 cm&#39;, &#39;L / 40 / 12&#39;, &#39;37&#39;, &#39;Tamanho único&#39;, &#39;38&#39;,
-       &#39;XXL / 44 / 16&#39;, &#39;10 anos / 140 cm&#39;, &#39;XS&#39;, &#39;XXS / 32 / 4&#39;,
-       &#39;XS / 34 / 6&#39;, &#39;36&#39;, &#39;39&#39;, &#39;12 anos / 152 cm&#39;, &#39;6 anos / 116 cm&#39;,
-       &#39;12-18 meses / 80\xa0cm&#39;, &#39;42,5&#39;, &#39;40&#39;, &#39;XXL&#39;, &#39;13 anos / 158 cm&#39;,
-       &#39;4 anos / 104 cm&#39;, &#39;3 anos / 98 cm&#39;, &#39;41&#39;, &#39;42&#39;, &#39;XL / 42 / 14&#39;,
-       &#39;5 anos / 110 cm&#39;, &#39;24-36 meses / 92 cm&#39;, &#39;1-3 meses / 56\xa0cm&#39;,
-       &#39;18-24 meses / 86\xa0cm&#39;, &#39;Outro&#39;, &#39;16 anos / 176 cm&#39;, &#39;44&#39;,
-       &#39;4XL / 48 / 20&#39;, &#39;11 anos / 146 cm&#39;, &#39;PT 42 | W32&#39;, &#39;PT 40 | W30&#39;,
-       &#39;7 anos / 122 cm&#39;, &#39;Até 1 mês / 50\xa0cm&#39;, &#39;9 anos / 134 cm&#39;],
-      dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;L&#39;, &#39;L / 40 / 12&#39;, &#39;M&#39;, &#39;no_size&#39;, &#39;8 anos / 128 cm&#39;,
+       &#39;5 anos / 110 cm&#39;, &#39;3 anos / 98 cm&#39;, &#39;9-12 meses / 74\xa0cm&#39;,
+       &#39;18-24 meses / 86\xa0cm&#39;, &#39;S / 36 / 8&#39;, &#39;S&#39;, &#39;10 anos / 140 cm&#39;,
+       &#39;6 anos / 116 cm&#39;, &#39;XXXL / 46 / 18&#39;, &#39;XL / 42 / 14&#39;,
+       &#39;XXL / 44 / 16&#39;, &#39;XS / 34 / 6&#39;, &#39;Tamanho único&#39;,
+       &#39;12 anos / 152 cm&#39;, &#39;44&#39;, &#39;4 anos / 104 cm&#39;, &#39;41&#39;, &#39;M / 38 / 10&#39;,
+       &#39;37&#39;, &#39;45&#39;, &#39;40&#39;, &#39;XL&#39;, &#39;42&#39;, &#39;38&#39;, &#39;43&#39;, &#39;39&#39;, &#39;XXL&#39;, &#39;36&#39;,
+       &#39;XXS / 32 / 4&#39;, &#39;24-36 meses / 92 cm&#39;, &#39;XS&#39;, &#39;16 anos / 176 cm&#39;,
+       &#39;12-18 meses / 80\xa0cm&#39;, &#39;PT 42 | W32&#39;, &#39;42,5&#39;,
+       &#39;6-9 meses / 68 cm&#39;, &#39;4XL / 48 / 20&#39;, &#39;14 anos / 164 cm&#39;,
+       &#39;PT 40 | W30&#39;, &#39;1-3 meses / 56\xa0cm&#39;, &#39;3-6 meses / 62\xa0cm&#39;,
+       &#39;7 anos / 122 cm&#39;, &#39;Outro&#39;, &#39;13 anos / 158 cm&#39;, &#39;5XL / 50 / 22&#39;,
+       &#39;Até 1 mês / 50\xa0cm&#39;, &#39;11 anos / 146 cm&#39;, &#39;PT 44 | W34&#39;,
+       &#39;9 anos / 134 cm&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
@@ -866,7 +942,7 @@ dtype: int64
 </div>
 </section>
 <section id="approaches-to-brand-titles">
-<h2>Approaches to brand titles<a class="headerlink" href="#approaches-to-brand-titles" title="Link to this heading">#</a></h2>
+<h3>Approaches to brand titles<a class="headerlink" href="#approaches-to-brand-titles" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Remove size classes below a certain threshold</p></li>
 </ul>
@@ -884,16 +960,18 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;no_brand&#39;, &#39;Calvin Klein&#39;, &#39;Decathlon&#39;, &#39;Local&#39;, &#39;Ralph Lauren&#39;,
-       &#39;Primark&#39;, &#39;Vintage&#39;, &#39;Gémo&#39;, &#39;Lacoste&#39;, &quot;Levi&#39;s&quot;, &#39;Carhartt&#39;,
-       &#39;Puma&#39;, &#39;Kiabi&#39;, &#39;Camaïeu&#39;, &#39;Zara&#39;, &#39;United Colors of Benetton&#39;,
-       &#39;Stradivarius&#39;, &#39;Jack &amp; Jones&#39;, &#39;Shein&#39;, &#39;H&amp;M&#39;, &#39;Jennyfer&#39;,
-       &#39;Tommy Hilfiger&#39;, &#39;Orchestra&#39;, &#39;Pull &amp; Bear&#39;, &#39;Nike&#39;, &#39;Jordan&#39;,
-       &#39;adidas&#39;, &#39;Timberland&#39;, &#39;Bershka&#39;, &#39;Donna&#39;, &#39;In Extenso&#39;,
-       &#39;Hollister&#39;, &#39;Mango&#39;, &#39;Etam&#39;, &#39;Promod&#39;, &#39;The North Face&#39;, &#39;Disney&#39;,
-       &#39;GUESS&#39;, &#39;ONLY&#39;, &#39;Champion&#39;, &#39;Scarpe&#39;, &quot;Tape à l&#39;œil&quot;,
-       &#39;Vintage Dressing&#39;, &#39;Lefties&#39;, &#39;Pimkie&#39;, &#39;Vans&#39;, &#39;TEX&#39;,
-       &#39;Cache Cache&#39;, &#39;Inconnu&#39;, &#39;sans marque&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Vintage Dressing&#39;, &#39;no_brand&#39;, &#39;Mango&#39;, &#39;Kiabi&#39;, &#39;Disney&#39;, &#39;Puma&#39;,
+       &#39;Zara&#39;, &#39;H&amp;M&#39;, &#39;Primark&#39;, &#39;adidas&#39;, &#39;Ralph Lauren&#39;, &#39;Nike&#39;,
+       &#39;Bershka&#39;, &#39;Gémo&#39;, &quot;Levi&#39;s&quot;, &#39;In Extenso&#39;, &quot;Tape à l&#39;œil&quot;,
+       &#39;Lacoste&#39;, &#39;Scarpe&#39;, &#39;Tommy Hilfiger&#39;, &#39;Jack &amp; Jones&#39;, &#39;Local&#39;,
+       &#39;Shein&#39;, &#39;Jordan&#39;, &#39;Camaïeu&#39;, &#39;Pull &amp; Bear&#39;, &#39;Stradivarius&#39;,
+       &#39;GUESS&#39;, &#39;Donna&#39;, &#39;Terranova&#39;, &#39;ONLY&#39;, &#39;TEX&#39;, &#39;Cache Cache&#39;,
+       &#39;Vans&#39;, &#39;Converse&#39;, &#39;Calvin Klein&#39;, &#39;sans marque&#39;,
+       &#39;The North Face&#39;, &#39;Timberland&#39;, &#39;Lefties&#39;, &#39;Hollister&#39;,
+       &#39;United Colors of Benetton&#39;, &#39;Pimkie&#39;, &#39;Okaïdi&#39;, &#39;Orchestra&#39;,
+       &#39;Vintage&#39;, &#39;Champion&#39;, &#39;Carhartt&#39;, &#39;Decathlon&#39;, &#39;Promod&#39;,
+       &#39;Inconnu&#39;, &#39;Jennyfer&#39;, &#39;C&amp;A&#39;, &#39;Undiz&#39;, &#39;Etam&#39;, &#39;Naf Naf&#39;],
+      dtype=object)
 </pre></div>
 </div>
 </div>
@@ -912,21 +990,22 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2336, 1242, 1806, 1813, 2339, 2355, 2346, 2349, 2350, 2363, 2364,
-       1204, 1844,  228, 1803,  196,  532,  267, 1056, 1043, 1099,  222,
-       1042, 1821, 1662, 1809, 2343, 1672, 2632,  584, 2362, 2338,   18,
-       1845, 1065,  225, 1807,  221, 1041, 1055,  198, 1535, 1554, 1811,
-        223, 2333, 2337, 2360,  199,  534, 1812, 2342, 1066, 1801,  529,
-        194,  190,  156,  197,  224, 1071, 2351, 1059,  163, 2344,  178,
-       1223, 2328,  164], dtype=int64)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2344.,   18.,  584., 1042., 1041., 1099.,  221., 1043., 1809.,
+       1242., 2342., 2349., 2355., 1801., 1807., 1662., 1846., 1821.,
+        582.,  224.,  222.,  534.,  538., 1842.,  198., 2360., 1204.,
+       2336., 2632.,  190., 2343., 2351.,  158., 1059., 1065., 1844.,
+        194.,  196., 1066., 1056.,  178.,  164.,  163.,  223.,  532.,
+       1803., 1812., 2362., 2346., 1058., 1813.,  267., 1806., 1805.,
+       1071., 1554.,  225., 2333., 2364., 2337.,  191.,  197., 1811.,
+       2339., 2338., 2363.,  165., 1535., 1055., 2328.,  529.,  156.,
+       2618.,  228., 1845., 2350.,  199.,  189.,  185.,  543.])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="c1"># LightGBM also can handle categorical data directly We go to probe its inner method</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LightGBM also can handle categorical data directly We go to probe its inner method</span>
 
 <span class="c1"># Transform categorical features into the appropriate type that is expected by LightGBM</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -935,7 +1014,6 @@ dtype: int64
         <span class="n">data</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;catalog_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;catalog_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
 <span class="n">data</span><span class="p">[</span><span class="s2">&quot;package_size_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;package_size_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -965,43 +1043,43 @@ dtype: int64
   <tbody>
     <tr>
       <th>count</th>
-      <td>13750.000000</td>
-      <td>1.375000e+04</td>
+      <td>16549.000000</td>
+      <td>1.654900e+04</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>12.501891</td>
-      <td>3.916141e+09</td>
+      <td>12.395311</td>
+      <td>3.901338e+09</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>24.823091</td>
-      <td>6.654657e+08</td>
+      <td>25.257353</td>
+      <td>6.770782e+08</td>
     </tr>
     <tr>
       <th>min</th>
       <td>1.000000</td>
-      <td>6.155628e+07</td>
+      <td>4.609642e+07</td>
     </tr>
     <tr>
       <th>25%</th>
       <td>3.000000</td>
-      <td>3.994917e+09</td>
+      <td>3.952101e+09</td>
     </tr>
     <tr>
       <th>50%</th>
       <td>5.000000</td>
-      <td>4.110502e+09</td>
+      <td>4.091346e+09</td>
     </tr>
     <tr>
       <th>75%</th>
       <td>12.000000</td>
-      <td>4.252169e+09</td>
+      <td>4.244311e+09</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>585.000000</td>
-      <td>4.376377e+09</td>
+      <td>499.000000</td>
+      <td>4.431202e+09</td>
     </tr>
   </tbody>
 </table>
@@ -1049,64 +1127,68 @@ dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>359359</th>
-      <td>L</td>
-      <td>Azul-marinho</td>
-      <td>Lacoste</td>
+      <th>439137</th>
+      <td>XS / 34 / 6</td>
+      <td>Amarelo</td>
+      <td>Zara</td>
       <td>Muito bom</td>
-      <td>1809</td>
-      <td>1</td>
-      <td>Italie</td>
-      <td>4341961902</td>
+      <td>1065.0</td>
+      <td>2.0</td>
+      <td>Espagne</td>
+      <td>620200552</td>
     </tr>
     <tr>
-      <th>268152</th>
-      <td>S / 36 / 8</td>
+      <th>265579</th>
+      <td>XS</td>
+      <td>Cinzento</td>
+      <td>Calvin Klein</td>
+      <td>Muito bom</td>
+      <td>267.0</td>
+      <td>1.0</td>
+      <td>Italia</td>
+      <td>4401641993</td>
+    </tr>
+    <tr>
+      <th>244663</th>
+      <td>S</td>
+      <td>Lilás</td>
+      <td>Pull &amp; Bear</td>
+      <td>Muito bom</td>
+      <td>267.0</td>
+      <td>2.0</td>
+      <td>Portugal</td>
+      <td>4273300775</td>
+    </tr>
+    <tr>
+      <th>494555</th>
+      <td>XL / 42 / 14</td>
       <td>Fúcsia</td>
-      <td>no_brand</td>
+      <td>Decathlon</td>
       <td>Muito bom</td>
-      <td>534</td>
-      <td>1</td>
+      <td>534.0</td>
+      <td>1.0</td>
       <td>France</td>
-      <td>4264395917</td>
+      <td>4102349148</td>
     </tr>
     <tr>
-      <th>495278</th>
-      <td>M / 38 / 10</td>
-      <td>Preto</td>
-      <td>Shein</td>
-      <td>Muito bom</td>
-      <td>224</td>
-      <td>1</td>
-      <td>Belgique</td>
-      <td>4015485677</td>
-    </tr>
-    <tr>
-      <th>497615</th>
-      <td>38</td>
-      <td>Preto</td>
-      <td>Vans</td>
-      <td>Muito bom</td>
-      <td>2632</td>
-      <td>3</td>
-      <td>Spagna</td>
-      <td>4365071152</td>
-    </tr>
-    <tr>
-      <th>246712</th>
-      <td>M / 38 / 10</td>
-      <td>Branco</td>
+      <th>456167</th>
+      <td>XL / 42 / 14</td>
+      <td>Castanho</td>
       <td>no_brand</td>
-      <td>Muito bom</td>
-      <td>1065</td>
-      <td>1</td>
-      <td>France</td>
-      <td>4137437846</td>
+      <td>Novo sem etiquetas</td>
+      <td>191.0</td>
+      <td>1.0</td>
+      <td>Francia</td>
+      <td>3521835285</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+</section>
+</section>
+<section id="lightgbm-regression-model">
+<h2>LightGBM regression model<a class="headerlink" href="#lightgbm-regression-model" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_train</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> 
@@ -1117,7 +1199,7 @@ dtype: int64
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;regression&#39;</span><span class="p">,</span>
     <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>  <span class="c1"># Root Mean Squared Error    </span>
-    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
     <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
     <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>
     <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.01</span>
@@ -1139,16 +1221,18 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found `n_estimators` in params. Will use it instead of argument
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\lightgbm\engine.py:172: UserWarning:
+
+Found `n_estimators` in params. Will use it instead of argument
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.012525 seconds.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[LightGBM] [Info] Auto-choosing row-wise multi-threading, the overhead of testing was 0.000846 seconds.
 You can set `force_row_wise=true` to remove the overhead.
 And if memory is not enough, you can set `force_col_wise=true`.
-[LightGBM] [Info] Total Bins 373
-[LightGBM] [Info] Number of data points in the train set: 11000, number of used features: 8
-[LightGBM] [Info] Start training from score 12.508364
-Mean Squared Error: 337.1370909090909
+[LightGBM] [Info] Total Bins 389
+[LightGBM] [Info] Number of data points in the train set: 13239, number of used features: 8
+[LightGBM] [Info] Start training from score 12.401088
+Mean Squared Error: 239.6667673716012
 </pre></div>
 </div>
 </div>
@@ -1187,28 +1271,28 @@ Mean Squared Error: 337.1370909090909
   <tbody>
     <tr>
       <th>0</th>
-      <td>5</td>
-      <td>8</td>
+      <td>6.0</td>
+      <td>5.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>10</td>
-      <td>10</td>
+      <td>5.0</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>6</td>
-      <td>3</td>
+      <td>4.0</td>
+      <td>13.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>19</td>
-      <td>10</td>
+      <td>10.0</td>
+      <td>20.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>8</td>
-      <td>10</td>
+      <td>9.0</td>
+      <td>7.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1216,33 +1300,33 @@ Mean Squared Error: 337.1370909090909
       <td>...</td>
     </tr>
     <tr>
-      <th>2745</th>
-      <td>4</td>
-      <td>9</td>
+      <th>3305</th>
+      <td>3.0</td>
+      <td>3.0</td>
     </tr>
     <tr>
-      <th>2746</th>
-      <td>6</td>
-      <td>2</td>
+      <th>3306</th>
+      <td>3.0</td>
+      <td>1.0</td>
     </tr>
     <tr>
-      <th>2747</th>
-      <td>3</td>
-      <td>6</td>
+      <th>3307</th>
+      <td>4.0</td>
+      <td>1.0</td>
     </tr>
     <tr>
-      <th>2748</th>
-      <td>22</td>
-      <td>14</td>
+      <th>3308</th>
+      <td>8.0</td>
+      <td>15.0</td>
     </tr>
     <tr>
-      <th>2749</th>
-      <td>8</td>
-      <td>7</td>
+      <th>3309</th>
+      <td>3.0</td>
+      <td>3.0</td>
     </tr>
   </tbody>
 </table>
-<p>2750 rows × 2 columns</p>
+<p>3310 rows × 2 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1266,7 +1350,7 @@ Mean Squared Error: 337.1370909090909
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Actual vs. Predicted&#39;)
 </pre></div>
 </div>
-<img alt="../_images/52fe63d6c6bb6d005d36e2c28e425b7ff98f5ddd4ebe276feb3ee21517995c67.png" src="../_images/52fe63d6c6bb6d005d36e2c28e425b7ff98f5ddd4ebe276feb3ee21517995c67.png" />
+<img alt="../_images/5c0362acf31e5b686ea4683c43746669b813c31f57226b9cd11fe65028b6bf6d.png" src="../_images/5c0362acf31e5b686ea4683c43746669b813c31f57226b9cd11fe65028b6bf6d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1281,7 +1365,7 @@ Mean Squared Error: 337.1370909090909
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1e21924a2ffd4e899fbf201761e3a95a7de125201501287c12b05e461e6eed2a.png" src="../_images/1e21924a2ffd4e899fbf201761e3a95a7de125201501287c12b05e461e6eed2a.png" />
+<img alt="../_images/85fc893080dc8a104351d4691e89e7af7c146ac71e80455f362ac8bb6157d12a.png" src="../_images/85fc893080dc8a104351d4691e89e7af7c146ac71e80455f362ac8bb6157d12a.png" />
 </div>
 </div>
 <section id="q-q-plot">
@@ -1297,7 +1381,7 @@ Mean Squared Error: 337.1370909090909
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/11b389e6d2f4e6a1efee0f25d65e2ae75ec2aa983e3b297997f523f418be2c4c.png" src="../_images/11b389e6d2f4e6a1efee0f25d65e2ae75ec2aa983e3b297997f523f418be2c4c.png" />
+<img alt="../_images/d46ee318dd492c4472514ea03a4e92e88c2f7a4436dc33adb68854c1f749f70d.png" src="../_images/d46ee318dd492c4472514ea03a4e92e88c2f7a4436dc33adb68854c1f749f70d.png" />
 </div>
 </div>
 </section>
@@ -1315,8 +1399,8 @@ Mean Squared Error: 337.1370909090909
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolmogorov-Smirnov Test:
-Test Statistic: 0.35079929152308836
-p-value: 4.577896821001356e-303
+Test Statistic: 0.3147121037013676
+p-value: 7.085304163387243e-292
 </pre></div>
 </div>
 </div>
@@ -1324,6 +1408,9 @@ p-value: 4.577896821001356e-303
 <p>The Kolmogorov-Smirnov test is a statistical test used to assess whether a sample comes from a specific distribution (in this case, a normal distribution).</p>
 <p>We reject the null hypothesis that the errors are normaly distributed.</p>
 </section>
+</section>
+<section id="analysis-of-the-results">
+<h2>Analysis of the results<a class="headerlink" href="#analysis-of-the-results" title="Link to this heading">#</a></h2>
 <section id="shapley-additive-explanations">
 <h3>SHapley Additive exPlanations<a class="headerlink" href="#shapley-additive-explanations" title="Link to this heading">#</a></h3>
 <p>SHAP or SHapley Additive exPlanations is a model agnostic framework which provides interpretability into individual models and feature importance. In short, SHAP accounts for the marginal contribution of each feature to the prediction scores.</p>
@@ -1341,7 +1428,7 @@ p-value: 4.577896821001356e-303
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ba23ea3527db59d9f41bb6f5745ffa0db7be7472741808c7cea6605544b87c95.png" src="../_images/ba23ea3527db59d9f41bb6f5745ffa0db7be7472741808c7cea6605544b87c95.png" />
+<img alt="../_images/11c22760316cef16b944aa2df0dc0815aef0ece46885972842f34cbaea6294c1.png" src="../_images/11c22760316cef16b944aa2df0dc0815aef0ece46885972842f34cbaea6294c1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1351,7 +1438,7 @@ p-value: 4.577896821001356e-303
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/eae7067ad77838ce4e75eda7f86781696458ed2d3adcdf203cb0748c4ecdfac7.png" src="../_images/eae7067ad77838ce4e75eda7f86781696458ed2d3adcdf203cb0748c4ecdfac7.png" />
+<img alt="../_images/b45bb0710c2ce892063d8f58f92cb176300fc574daad5593b25a9316fe5c773e.png" src="../_images/b45bb0710c2ce892063d8f58f92cb176300fc574daad5593b25a9316fe5c773e.png" />
 </div>
 </div>
 </section>
@@ -1423,7 +1510,7 @@ p-value: 4.577896821001356e-303
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Clustering of product catalogs with Agglomerative Clustering and t-SNE</p>
+        <p class="prev-next-title">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1443,14 +1530,25 @@ p-value: 4.577896821001356e-303
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far">Issues so far:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title">Taking a deeper look into size title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title">Taking a deeper look into brand title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles">Approaches to size titles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-brand-titles">Approaches to brand titles</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-packages-and-data">Loading packages and data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far">Issues so far:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title">Taking a deeper look into size title</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title">Taking a deeper look into brand title</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles">Approaches to size titles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-brand-titles">Approaches to brand titles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-regression-model">LightGBM regression model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-q-plot">Q-Q Plot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kolmogorov-smirnov-test">Kolmogorov-Smirnov Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-results">Analysis of the results</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shapley-additive-explanations">SHapley Additive exPlanations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
@@ -1470,7 +1568,7 @@ p-value: 4.577896821001356e-303
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Miguel Silva
 </p>
 
   </div>
