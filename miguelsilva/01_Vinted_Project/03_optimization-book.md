@@ -23,6 +23,29 @@ In this notebook, we will introduce an approach of product basket optimization u
 
 **Keywords**: Portfolio Optimization, Random Portfolio Generation, Covariance Matrix, Expected Returns, Volatility, Diversification, Vinted
 
+- [03: Product basket optimization approach using mean-variance optimization](#03-product-basket-optimization-approach-using-mean-variance-optimization)
+  - [Introduction](#introduction)
+    - [Introduction to mean-variance optimization](#introduction-to-mean-variance-optimization)
+    - [Key Assumptions](#key-assumptions)
+    - [Mathematical Formulation](#mathematical-formulation)
+    - [The dataset](#the-dataset)
+      - [Some robustness in the data points](#some-robustness-in-the-data-points)
+  - [Product Basket Optimization](#product-basket-optimization)
+    - [Generating Portfolios](#generating-portfolios)
+    - [Revenue-Volatility scatterplot](#revenue-volatility-scatterplot)
+    - [Returns-Assets scatterplot](#returns-assets-scatterplot)
+    - [Distribution plot of Sharpe](#distribution-plot-of-sharpe)
+    - [3D scatterplot](#3d-scatterplot)
+    - [Best portfolios](#best-portfolios)
+  - [Benchmarking](#benchmarking)
+    - [Naive portfolio](#naive-portfolio)
+    - [Relative performance](#relative-performance)
+    - [Which catalogs have the best Sharpe ratio](#which-catalogs-have-the-best-sharpe-ratio)
+    - [Conclusions](#conclusions)
+    - [Additional work](#additional-work)
+
+## Introduction
+
 ### Introduction to mean-variance optimization
 
 Modern Portfolio Theory (MPT), introduced by Harry Markowitz in 1952, is a mathematical framework for constructing efficient investment portfolios. MPT is based on the idea that investors can construct portfolios that optimize expected return while minimizing risk.

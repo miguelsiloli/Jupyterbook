@@ -1,5 +1,7 @@
 # Vinted - the rise of ESG marketplace
 
+![Image Description](../assets/vinted_intro/vinted_logo.png)
+
 ## Introduction to the Vinted Project
 
 Vinted is a popular online marketplace that connects buyers and sellers of second-hand clothing, shoes, accessories, and other fashion items. It is a Lithuania-based online marketplace founded in 2008, specializing in second-hand clothing, shoes, accessories, and other fashion items. According to Statista, the global second-hand apparel market was valued at approximately \$200 billion in 2024 and is projected to reach \$350 billion by 2028, representing a compound annual growth rate (CAGR) of 15.5%.
