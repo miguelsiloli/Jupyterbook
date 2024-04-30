@@ -538,7 +538,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 </pre></div>
 </div>
 <p>Let us consider a pivoted table of dates, catalogs and median of price as our input data. The first step is to fill missing values for the series using an imputing strategy. The strategy used here is ‘median’ value inputer because it’s the least likely to alter statistical moments (distribution of the series). It’s also worth noting, the pipeline is somewhat new so this preprocessing step can result in biased data.</p>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/opt1.png" /></p>
+<p><img alt="Image Description" src="../_images/opt1.png" /></p>
 <section id="generating-portfolios">
 <h3>Generating Portfolios<a class="headerlink" href="#generating-portfolios" title="Link to this heading">#</a></h3>
 <p>We begin by constructing a covariance matrix using historical asset returns data. This matrix captures the pairwise relationships between assets and is crucial for modeling portfolio risk. Next, we define a generator function that iteratively generates random portfolios. Each portfolio is represented by a vector of asset weights, where each weight corresponds to the proportion of the portfolio invested in a particular asset. We randomly assign binary values (0 or 1) to these weights, representing whether an asset is included or excluded from the portfolio.</p>
@@ -563,7 +563,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
         <span class="k">yield</span> <span class="n">weights</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">var_proxy</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/port_matrix.png" /></p>
+<p><img alt="Image Description" src="../_images/port_matrix.png" /></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_portfolio_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iterations</span><span class="p">,</span> <span class="n">var_percentile</span><span class="p">):</span>
     <span class="n">port_weights</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">port_returns</span> <span class="o">=</span> <span class="p">[]</span>
@@ -608,7 +608,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/markowitz.png" /></p>
+<p><img alt="Image Description" src="../_images/markowitz.png" /></p>
 </section>
 <section id="returns-assets-scatterplot">
 <h3>Returns-Assets scatterplot<a class="headerlink" href="#returns-assets-scatterplot" title="Link to this heading">#</a></h3>
@@ -629,8 +629,8 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/mark_assets.png" /></p>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/sharpe_size.png" /></p>
+<p><img alt="Image Description" src="../_images/mark_assets.png" /></p>
+<p><img alt="Image Description" src="../_images/sharpe_size.png" /></p>
 </section>
 <section id="distribution-plot-of-sharpe">
 <h3>Distribution plot of Sharpe<a class="headerlink" href="#distribution-plot-of-sharpe" title="Link to this heading">#</a></h3>
@@ -650,7 +650,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">histogram_trace</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/sharpe.png" /></p>
+<p><img alt="Image Description" src="../_images/sharpe.png" /></p>
 </section>
 <section id="d-scatterplot">
 <h3>3D scatterplot<a class="headerlink" href="#d-scatterplot" title="Link to this heading">#</a></h3>
@@ -691,7 +691,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/3dplot.png" /></p>
+<p><img alt="Image Description" src="../_images/3dplot.png" /></p>
 </section>
 <section id="best-portfolios">
 <h3>Best portfolios<a class="headerlink" href="#best-portfolios" title="Link to this heading">#</a></h3>
@@ -782,7 +782,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="Image Description" src="01_Vinted_Project/assets/opt/benchmarking.png" /></p>
+<p><img alt="Image Description" src="../_images/benchmarking.png" /></p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>

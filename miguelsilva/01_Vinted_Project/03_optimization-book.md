@@ -122,7 +122,7 @@ def preprocess_data(data):
 
 Let us consider a pivoted table of dates, catalogs and median of price as our input data. The first step is to fill missing values for the series using an imputing strategy. The strategy used here is 'median' value inputer because it's the least likely to alter statistical moments (distribution of the series). It's also worth noting, the pipeline is somewhat new so this preprocessing step can result in biased data.
 
-![Image Description](assets/opt/opt1.png)
+![Image Description](../assets/opt/opt1.png)
 
 ### Generating Portfolios
 
@@ -151,7 +151,7 @@ def generate_random_portfolios(data, num_port, var_quantile):
         yield weights, returns, std, var_proxy
 ```
 
-![Image Description](assets/opt/port_matrix.png)
+![Image Description](../assets/opt/port_matrix.png)
 
 
 ```python
@@ -199,7 +199,7 @@ fig.update_layout(
 )
 ```
 
-![Image Description](assets/opt/markowitz.png)
+![Image Description](../assets/opt/markowitz.png)
 
 ### Returns-Assets scatterplot
 
@@ -221,10 +221,10 @@ fig.update_layout(
 )
 ```
 
-![Image Description](assets/opt/mark_assets.png)
+![Image Description](../assets/opt/mark_assets.png)
 
 
-![Image Description](assets/opt/sharpe_size.png)
+![Image Description](../assets/opt/sharpe_size.png)
 
 ### Distribution plot of Sharpe
 
@@ -245,7 +245,7 @@ layout = go.Layout(
 fig = go.Figure(data=[histogram_trace], layout=layout)
 ```
 
-![Image Description](assets/opt/sharpe.png)
+![Image Description](../assets/opt/sharpe.png)
 
 
 ### 3D scatterplot
@@ -288,7 +288,7 @@ fig.update_layout(
 )
 ```
 
-![Image Description](assets/opt/3dplot.png)
+![Image Description](../assets/opt/3dplot.png)
 
 ### Best portfolios
 
@@ -347,7 +347,7 @@ fig.update_layout(
 )
 ```
 
-![Image Description](assets/opt/benchmarking.png)
+![Image Description](../assets/opt/benchmarking.png)
 
 |        | Revenue  | Volatility | Sharpe    |
 |--------|----------|------------|-----------|
