@@ -12,12 +12,12 @@ parts:
 
   - caption: Vinted: Data Science
     chapters:
-    - file: 01_Vinted_Project/00_intro
-    - file: 01_Vinted_Project/01_price_prediction
-    - file: 01_Vinted_Project/02_catalog_clustering
-    - file: 01_Vinted_Project/03_optimization-book
-    - file: 01_Vinted_Project/04_premium-classification
-    - file: 01_Vinted_Project/05_user-clustering
+    - file: 03_Vinted_Data_Science/00_intro
+    - file: 03_Vinted_Data_Science/01_price_prediction
+    - file: 03_Vinted_Data_Science/02_catalog_clustering
+    - file: 03_Vinted_Data_Science/03_optimization-book
+    - file: 03_Vinted_Data_Science/04_premium-classification
+    - file: 03_Vinted_Data_Science/05_user-clustering
 
   # - caption: Time Series
     # chapters:
