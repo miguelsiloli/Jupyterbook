@@ -1,5 +1,4 @@
 jupyter-book
-numpy
 lightgbm==4.3.0
 matplotlib==3.8.3
 mysql_connector_repackaged==0.3.1
