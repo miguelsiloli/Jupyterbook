@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Time Series Clustering &#8212; Visualization Curriculum</title>
+    <title>04: Time Series Clustering &#8212; Visualization Curriculum</title>
   
   
   
@@ -363,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Time Series Clustering</h1>
+    <h1>04: Time Series Clustering</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -373,22 +373,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Time Series Clustering</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">04: Time Series Clustering</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data-onto-2d-projection">Visualizing data onto 2D projection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-kmeans">Euclidean KMeans</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-invariance">Size invariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#downsides">Downsides</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data-onto-2d-projection">Visualizing data onto 2D projection</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-kmeans">Euclidean KMeans</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#size-invariance">Size invariance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downsides">Downsides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-invariance">Time invariance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-invariance">Time invariance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-scores">Silhouette scores</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-scores">Silhouette scores</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-time-warping">Dynamic Time Warping</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-dtw">Soft DTW</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-time-warping">Dynamic Time Warping</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-dtw">Soft DTW</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -402,7 +404,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="time-series-clustering">
-<h1>Time Series Clustering<a class="headerlink" href="#time-series-clustering" title="Link to this heading">#</a></h1>
+<h1>04: Time Series Clustering<a class="headerlink" href="#time-series-clustering" title="Link to this heading">#</a></h1>
 <p>The general formulation of time series clustering problem is:</p>
 <div class="math notranslate nohighlight">
 \[\text{Minimize:} \quad \sum_{j=1}^{k} \sum_{x_i \in c_j} d(x_i, c_j)^2\]</div>
@@ -441,11 +443,137 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tslearn.clustering</span> <span class="kn">import</span> <span class="n">TimeSeriesKMeans</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">clustering</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.clustering` module gathers time series specific clustering</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> algorithms.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span><span class="sd">  details.</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.kshape</span> <span class="kn">import</span> <span class="n">KShape</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">EmptyClusterError</span><span class="p">,</span> <span class="n">silhouette_score</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                     <span class="n">TimeSeriesCentroidBasedClusteringMixin</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">.kmeans</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TimeSeriesKMeans</span><span class="p">,</span> <span class="n">KernelKMeans</span><span class="p">)</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">clustering</span>\<span class="n">kshape</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_array</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">tslearn.utils</span> <span class="kn">import</span> <span class="n">to_time_series_dataset</span><span class="p">,</span> <span class="n">check_dims</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">tslearn.metrics</span> <span class="kn">import</span> <span class="n">cdist_normalized_cc</span><span class="p">,</span> <span class="n">y_shifted_sbd_vec</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">preprocessing</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.preprocessing` module gathers time series scalers and </span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> resamplers.</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.preprocessing</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">TimeSeriesScalerMeanVariance</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">TimeSeriesScalerMinMax</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">TimeSeriesResampler</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="s2">&quot;TimeSeriesResampler&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="s2">&quot;TimeSeriesScalerMinMax&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="s2">&quot;TimeSeriesScalerMeanVariance&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="p">]</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">preprocessing</span>\<span class="n">preprocessing</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">tslearn.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">to_time_series_dataset</span><span class="p">,</span> <span class="n">check_equal_size</span><span class="p">,</span> <span class="n">ts_size</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                            <span class="n">check_dims</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">tslearn.bases</span> <span class="kn">import</span> <span class="n">TimeSeriesBaseEstimator</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Romain Tavenard romain.tavenard[at]univ-rennes2.fr&#39;</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">utils</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.utils` module includes various utilities.</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">check_dims</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">check_equal_size</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">to_time_series</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">to_time_series_dataset</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">time_series_to_str</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">timeseries_to_str</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">str_to_time_series</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">str_to_timeseries</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">save_time_series_txt</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">save_timeseries_txt</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">load_time_series_txt</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">load_timeseries_txt</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">ts_size</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">ts_zeros</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">check_dataset</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">LabelCategorizer</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">_load_txt_uea</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">_load_arff_uea</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">.cast</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">to_sklearn_dataset</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">from_cesium_dataset</span><span class="p">,</span> <span class="n">to_cesium_dataset</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="n">from_tsfresh_dataset</span><span class="p">,</span> <span class="n">to_tsfresh_dataset</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="s2">&quot;check_dims&quot;</span><span class="p">,</span> <span class="s2">&quot;check_equal_size&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="s2">&quot;to_time_series&quot;</span><span class="p">,</span> <span class="s2">&quot;to_time_series_dataset&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="s2">&quot;from_tsfresh_dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;to_tsfresh_dataset&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="p">]</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">utils</span>\<span class="n">utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">20</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># Old sklearn versions</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="kn">from</span> <span class="nn">sklearn.utils.estimator_checks</span> <span class="kn">import</span> <span class="n">NotAnArray</span>
+<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">tslearn.backend</span> <span class="kn">import</span> <span class="n">instantiate_backend</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">tslearn.bases</span> <span class="kn">import</span> <span class="n">TimeSeriesBaseEstimator</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Romain Tavenard romain.tavenard[at]univ-rennes2.fr&quot;</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">backend</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.backend` module provides multiple backends.</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> The backends provided are NumPy and PyTorch.</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.backend</span> <span class="kn">import</span> <span class="n">Backend</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">instantiate_backend</span><span class="p">,</span> <span class="n">select_backend</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="s2">&quot;Backend&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="s2">&quot;cast&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="s2">&quot;instantiate_backend&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="s2">&quot;select_backend&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="p">]</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">backend</span>\<span class="n">backend</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tslearn.backend.numpy_backend</span> <span class="kn">import</span> <span class="n">NumPyBackend</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="kn">import</span> <span class="nn">torch</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="kn">from</span> <span class="nn">tslearn.backend.pytorch_backend</span> <span class="kn">import</span> <span class="n">PyTorchBackend</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">torch</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">117</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="k">if</span> <span class="n">with_load_library_flags</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">117</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryExW</span><span class="p">(</span><span class="n">dll</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mh">0x00001100</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">last_error</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">last_error</span> <span class="o">!=</span> <span class="mi">126</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 </section>
-</section>
 <section id="visualizing-data-onto-2d-projection">
-<h1>Visualizing data onto 2D projection<a class="headerlink" href="#visualizing-data-onto-2d-projection" title="Link to this heading">#</a></h1>
+<h2>Visualizing data onto 2D projection<a class="headerlink" href="#visualizing-data-onto-2d-projection" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Visualizing data onto 2D projection</span>
@@ -470,7 +598,7 @@ document.write(`
 </div>
 </section>
 <section id="euclidean-kmeans">
-<h1>Euclidean KMeans<a class="headerlink" href="#euclidean-kmeans" title="Link to this heading">#</a></h1>
+<h2>Euclidean KMeans<a class="headerlink" href="#euclidean-kmeans" title="Link to this heading">#</a></h2>
 <p>In this example we will use the inertia scores and silhouette scores to test the fitness of clustering algorithms. The Eucliden KMeans uses as metric the euclidean distance between analogous points of the time series.</p>
 <div class="math notranslate nohighlight">
 \[d_{\text{Euclidean}}(X, Y) = \sqrt{\sum_{t=1}^{T} (x_t - y_t)^2}\]</div>
@@ -480,12 +608,12 @@ document.write(`
 <li><p>X is the barycenter for T = t, Y is the time series</p></li>
 </ul>
 <section id="size-invariance">
-<h2>Size invariance<a class="headerlink" href="#size-invariance" title="Link to this heading">#</a></h2>
+<h3>Size invariance<a class="headerlink" href="#size-invariance" title="Link to this heading">#</a></h3>
 <p>Before diving into the algorithm, lets consider the problem framing. Clustering is sensitive to spatial distance and thus its spatial aware. One way to deal with this is by transforming the data by a scaling function. The TimeSeriesScalerMeanVariance class scales the input vectors into (0, 1) - (<span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>) reducing the size effects between time series.</p>
 <div class="math notranslate nohighlight">
 \[ N ~ (0, 1) - (\mu, \sigma) \]</div>
 <section id="downsides">
-<h3>Downsides<a class="headerlink" href="#downsides" title="Link to this heading">#</a></h3>
+<h4>Downsides<a class="headerlink" href="#downsides" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p><strong>Loss of information</strong>: Scaling time series will eventually lead to data degradation by stretching and compressing data.</p></li>
 <li><p><strong>Impact on seasonality and trends</strong>: this has to do with the time horizon chosen. For long term series, the scaling will dampen the amplitude of seasonal patterns and trends. For instance, in a non stationary time series, the local properties of the series won’t be the same accross the time spawn.</p></li>
@@ -494,7 +622,7 @@ document.write(`
 </section>
 </section>
 <section id="time-invariance">
-<h2>Time invariance<a class="headerlink" href="#time-invariance" title="Link to this heading">#</a></h2>
+<h3>Time invariance<a class="headerlink" href="#time-invariance" title="Link to this heading">#</a></h3>
 <p>This is outside of the scope of this analysis. Which means that time series with lags may not be appropriately clustered.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -572,7 +700,7 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </section>
 </section>
 <section id="silhouette-scores">
-<h1>Silhouette scores<a class="headerlink" href="#silhouette-scores" title="Link to this heading">#</a></h1>
+<h2>Silhouette scores<a class="headerlink" href="#silhouette-scores" title="Link to this heading">#</a></h2>
 <p>The Silhouette scores do not appear consistent nor robust. The suggestion is to use a number of initializations param “n_init” &gt; 10. It essentially defines the batch size and improves convergence robustness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -662,6 +790,7 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </div>
 </div>
 </section>
+</section>
 <section id="dynamic-time-warping">
 <h1>Dynamic Time Warping<a class="headerlink" href="#dynamic-time-warping" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
@@ -748,9 +877,8 @@ Best number of clusters: 19, Min Inertia: 1.5149108879433901
 <img alt="../../_images/61d1c39b1626bba8eaf8a5fd3919d8bcb894a7a75cfd8447539389a7ad6edcf0.png" src="../../_images/61d1c39b1626bba8eaf8a5fd3919d8bcb894a7a75cfd8447539389a7ad6edcf0.png" />
 </div>
 </div>
-</section>
 <section id="soft-dtw">
-<h1>Soft DTW<a class="headerlink" href="#soft-dtw" title="Link to this heading">#</a></h1>
+<h2>Soft DTW<a class="headerlink" href="#soft-dtw" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_inertia</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
@@ -812,6 +940,7 @@ Best number of clusters: 19, Min Inertia: 1.5149108879433901
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -859,22 +988,24 @@ Best number of clusters: 19, Min Inertia: 1.5149108879433901
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Time Series Clustering</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">04: Time Series Clustering</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data-onto-2d-projection">Visualizing data onto 2D projection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-kmeans">Euclidean KMeans</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-invariance">Size invariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#downsides">Downsides</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data-onto-2d-projection">Visualizing data onto 2D projection</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-kmeans">Euclidean KMeans</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#size-invariance">Size invariance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downsides">Downsides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-invariance">Time invariance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-invariance">Time invariance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-scores">Silhouette scores</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-scores">Silhouette scores</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-time-warping">Dynamic Time Warping</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-dtw">Soft DTW</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-time-warping">Dynamic Time Warping</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-dtw">Soft DTW</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>

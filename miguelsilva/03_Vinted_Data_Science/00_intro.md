@@ -1,4 +1,4 @@
-# Vinted - the rise of ESG marketplace
+# Introduction: Vinted, the rise of ESG marketplace
 
 ![Image Description](../assets/vinted_intro/vinted_logo.png)
 
