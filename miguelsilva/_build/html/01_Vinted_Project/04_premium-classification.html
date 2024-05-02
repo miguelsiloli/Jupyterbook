@@ -63,7 +63,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="03: Univariate Time Series Forecast using LightGBM" href="../02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm.html" />
     <link rel="prev" title="03: Product basket optimization approach using mean-variance optimization" href="03_optimization-book.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -363,7 +362,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>04: Premium classification with logistic regression</h1>
+    <h1><a id='toc1_'></a>04: Premium classification with logistic regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -373,26 +372,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><a id="toc1_1_"></a><span class="xref myst">Introduction</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset"><a id="toc1_1_1_"></a><span class="xref myst">The dataset</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing"><a id="toc1_2_"></a><span class="xref myst">Preprocessing</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection"><a id="toc1_2_1_"></a><span class="xref myst">One Class SVM for novelty detection</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable"><a id="toc1_2_2_"></a><span class="xref myst">Target variable</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance"><a id="toc1_2_3_"></a><span class="xref myst">Dealing with class imbalance</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features"><a id="toc1_2_4_"></a><span class="xref myst">Encoding categorical features</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model">Logistic binary classification model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian Optimization</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function">Acquisition function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model"><a id="toc1_3_"></a><span class="xref myst">Logistic binary classification model</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression"><a id="toc1_3_1_"></a><span class="xref myst">Logistic regression</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization"><a id="toc1_3_2_"></a><span class="xref myst">Bayesian Optimization</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function"><a id="toc1_3_2_1_"></a><span class="xref myst">Acquisition function</span></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross validation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-work">Additional work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation"><a id="toc1_3_3_"></a><span class="xref myst">Cross validation</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis"><a id="toc1_3_4_"></a><span class="xref myst">Analysis</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-work"><a id="toc1_3_5_"></a><span class="xref myst">Additional work</span></a></li>
 </ul>
 </li>
 </ul>
@@ -407,13 +406,53 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="premium-classification-with-logistic-regression">
-<h1>04: Premium classification with logistic regression<a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<h1><a id='toc1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">04: Premium classification with logistic regression</span></a><a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
 <p>The problem scope defines a product as expensive if the product price is above the percentile 85. We predict 1 (True) if product is expensive, 0 (False) if not.</p>
 <p><span class="math notranslate nohighlight">\(Price_p &gt; Percentile(80)\)</span></p>
 <p>Naturally, this creates an imbalanced issue on the dataset, since there will be 85% of the data classified as 0.</p>
 <p><strong>Keywords</strong>: premium-products, logistics-regression, logits, binary-classification, Vinted</p>
+<p><strong>Table of contents</strong><a id='toc0_'></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#toc1_"><span class="xref myst">04: Premium classification with logistic regression</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_1_"><span class="xref myst">Introduction</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_1_1_"><span class="xref myst">The dataset</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#toc1_2_"><span class="xref myst">Preprocessing</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_2_1_"><span class="xref myst">One Class SVM for novelty detection</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_2_2_"><span class="xref myst">Target variable</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_2_3_"><span class="xref myst">Dealing with class imbalance</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_2_4_"><span class="xref myst">Encoding categorical features</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#toc1_3_"><span class="xref myst">Logistic binary classification model</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_3_1_"><span class="xref myst">Logistic regression</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_3_2_"><span class="xref myst">Bayesian Optimization</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_3_2_1_"><span class="xref myst">Acquisition function</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#toc1_3_3_"><span class="xref myst">Cross validation</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_3_4_"><span class="xref myst">Analysis</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_3_5_"><span class="xref myst">Additional work</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- vscode-jupyter-toc-config
+	numbering=false
+	anchor=true
+	flat=false
+	minLevel=1
+	maxLevel=6
+	/vscode-jupyter-toc-config -->
+<!-- THIS CELL WILL BE REPLACED ON TOC UPDATE. DO NOT WRITE YOUR TEXT IN THIS CELL --><section id="introduction">
+<h2><a id='toc1_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Introduction</span></a><a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -499,60 +538,60 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>1835</td>
-      <td>4</td>
-      <td>M / 38 / 10</td>
-      <td>Primark</td>
-      <td>France</td>
-      <td>Preto</td>
-      <td>Novo sem etiquetas</td>
+      <td>267</td>
+      <td>35</td>
+      <td>S</td>
+      <td>HUF</td>
+      <td>Francia</td>
+      <td>Verde</td>
+      <td>Muito bom</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>198</td>
-      <td>6</td>
-      <td>L / 40 / 12</td>
-      <td>Primark</td>
-      <td>France</td>
-      <td>Branco</td>
+      <td>267</td>
+      <td>15</td>
+      <td>XS</td>
+      <td>H&amp;M</td>
+      <td>Francia</td>
+      <td>Preto</td>
       <td>Muito bom</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1045</td>
-      <td>3</td>
-      <td>L / 40 / 12</td>
-      <td>Primark</td>
-      <td>France</td>
-      <td>Preto</td>
+      <td>194</td>
+      <td>4</td>
+      <td>XS / 34 / 6</td>
+      <td>H&amp;M</td>
+      <td>Frankreich</td>
+      <td>Branco</td>
       <td>Novo sem etiquetas</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>194</td>
-      <td>3</td>
+      <td>221</td>
+      <td>2</td>
       <td>M / 38 / 10</td>
-      <td>Nasty Gal</td>
-      <td>France</td>
-      <td>Creme</td>
-      <td>Muito bom</td>
+      <td>Bershka</td>
+      <td>Frankreich</td>
+      <td>Azul claro</td>
+      <td>Novo sem etiquetas</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>194</td>
+      <td>221</td>
       <td>2</td>
-      <td>L / 40 / 12</td>
-      <td>LC Waikiki</td>
-      <td>France</td>
-      <td>Preto</td>
-      <td>Bom</td>
+      <td>XS / 34 / 6</td>
+      <td>tweens</td>
+      <td>Frankreich</td>
+      <td>Branco</td>
+      <td>Novo sem etiquetas</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
 <section id="the-dataset">
-<h3>The dataset<a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_1_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">The dataset</span></a><a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Field</p></th>
@@ -601,7 +640,7 @@ Data columns (total 7 columns):
  2   size_title     100000 non-null  object
  3   brand_title    100000 non-null  object
  4   country        100000 non-null  object
- 5   color1         86694 non-null   object
+ 5   color1         86544 non-null   object
  6   status         100000 non-null  object
 dtypes: int64(2), object(5)
 memory usage: 5.3+ MB
@@ -620,7 +659,7 @@ memory usage: 5.3+ MB
 </section>
 </section>
 <section id="preprocessing">
-<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<h2><a id='toc1_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Preprocessing</span></a><a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>remove outliers</p></li>
 <li><p>define target variable and labels</p></li>
@@ -628,7 +667,7 @@ memory usage: 5.3+ MB
 </ul>
 <p>The first assumption of this model is that some sellers misprice their items. For that reason, we are considering some items are price under or above their fair value. Removing such samples should improve the model performance in real data.</p>
 <section id="one-class-svm-for-novelty-detection">
-<h3>One Class SVM for novelty detection<a class="headerlink" href="#one-class-svm-for-novelty-detection" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_2_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">One Class SVM for novelty detection</span></a><a class="headerlink" href="#one-class-svm-for-novelty-detection" title="Link to this heading">#</a></h3>
 <p>One-Class SVMs learn a representation of the “normal” data distribution and classify instances outside this representation as anomalies. This characteristic makes them particularly suitable for scenarios where anomalies are rare or poorly represented in the training data. We employ the radial basis function (RBF) kernel due to its ability to capture complex relationships in nonlinear data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -647,7 +686,7 @@ memory usage: 5.3+ MB
 </div>
 </section>
 <section id="target-variable">
-<h3>Target variable<a class="headerlink" href="#target-variable" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_2_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Target variable</span></a><a class="headerlink" href="#target-variable" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.80</span>
@@ -658,7 +697,7 @@ memory usage: 5.3+ MB
 </div>
 </section>
 <section id="dealing-with-class-imbalance">
-<h3>Dealing with class imbalance<a class="headerlink" href="#dealing-with-class-imbalance" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_2_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dealing with class imbalance</span></a><a class="headerlink" href="#dealing-with-class-imbalance" title="Link to this heading">#</a></h3>
 <p>The method used to deal with class imbalance is through <strong>undersampling</strong> because we have more than enough data to train the model, otherwise we might have to choose oversampling.</p>
 <p>This approach aims to balance the class distribution by randomly selecting a subset of instances from the majority class, equalizing the number of instances between the majority and minority classes. Undersampling can be an effective strategy when the dataset is sufficiently large and removing instances from the majority class does not significantly impact the representativeness of the data.</p>
 <div class="cell docutils container">
@@ -741,7 +780,7 @@ memory usage: 5.3+ MB
 </div>
 </section>
 <section id="encoding-categorical-features">
-<h3>Encoding categorical features<a class="headerlink" href="#encoding-categorical-features" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_2_4_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Encoding categorical features</span></a><a class="headerlink" href="#encoding-categorical-features" title="Link to this heading">#</a></h3>
 <p>The choice of encoding of the feature space is:</p>
 <ul class="simple">
 <li><p>Ordinal Encoding for status because it’s a feature with a natural ranking. Suitable for ordinal categorical variables where there is a clear order or ranking among the categories.</p></li>
@@ -803,10 +842,10 @@ memory usage: 5.3+ MB
 </section>
 </section>
 <section id="logistic-binary-classification-model">
-<h2>Logistic binary classification model<a class="headerlink" href="#logistic-binary-classification-model" title="Link to this heading">#</a></h2>
+<h2><a id='toc1_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Logistic binary classification model</span></a><a class="headerlink" href="#logistic-binary-classification-model" title="Link to this heading">#</a></h2>
 <p>Training a logistic regression model with hyperparameter tuning using BayesSearchCV. The saga solver is around n_iters*f(n)**n_features and accepts both “l1”, “l2” regularization. The training was done by using the training set to find the optimal “C” param and then cross_validation on the training data to optimize the feature weights hyperparams. The classifier is a simple logit regression taking the feature space described above as input vector.</p>
 <section id="logistic-regression">
-<h3>Logistic regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_3_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Logistic regression</span></a><a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h3>
 <p>Logistic regression is a popular statistical method used for binary classification tasks, where the goal is to predict the probability that an instance belongs to a particular class.</p>
 <p><span class="math notranslate nohighlight">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span></p>
 <p>and</p>
@@ -814,11 +853,11 @@ memory usage: 5.3+ MB
 <p>The decision boundary is p=0.5p=0.5 (standard).</p>
 </section>
 <section id="bayesian-optimization">
-<h3>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_3_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Bayesian Optimization</span></a><a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h3>
 <p>A balance between exploration and exploitation</p>
 <p>Bayesian optimization employs a probabilistic surrogate model to approximate the objective function. Gaussian processes (GP) are commonly used as surrogate models due to their ability to capture uncertainty and model complex functions. It’s popular to find (local) in <strong>expensive-to-evaluate functions using heuristics based on bayes theorem</strong>.</p>
 <section id="acquisition-function">
-<h4>Acquisition function<a class="headerlink" href="#acquisition-function" title="Link to this heading">#</a></h4>
+<h4><a id='toc1_3_2_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Acquisition function</span></a><a class="headerlink" href="#acquisition-function" title="Link to this heading">#</a></h4>
 <p>The acquisition function guides the search process by balancing exploration (sampling from uncertain regions) and exploitation (sampling from regions likely to contain the optimum). Common acquisition functions include:</p>
 <ul class="simple">
 <li><p>Expected Improvement (EI): Measures the expected improvement over the current best value.</p></li>
@@ -1278,7 +1317,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 </section>
 <section id="cross-validation">
-<h3>Cross validation<a class="headerlink" href="#cross-validation" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_3_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Cross validation</span></a><a class="headerlink" href="#cross-validation" title="Link to this heading">#</a></h3>
 <p>The basic idea behind cross-validation is to partition the dataset into multiple subsets, called folds, and iteratively train and evaluate the model on different combinations of these folds. It’s basically a bootstrapping of model errors on chunks of the dataset.</p>
 <p>We take the average results as a better and more consistent estimation of model performance. By averaging performance metrics over multiple folds, cross-validation provides a more reliable estimate of how well the model generalizes to new, unseen data. In alternative, we can identify the one that achieves the best average performance across multiple folds and chose it as the leading model.
 Lastly, which is not the case here, cross validation helps to assess the stability of model performance and learning across different subsets of the data</p>
@@ -1298,156 +1337,32 @@ Lastly, which is not the case here, cross validation helps to assess the stabili
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;fit_time&#39;: array([1011.15518379,  806.09956622, 3791.24398756,  833.71566129,
+        1103.69568086,  888.62024522,  964.58528495, 1074.77968931,
+         931.85009933, 1193.10047197]),
+ &#39;score_time&#39;: array([0.07599783, 0.07599902, 0.06702518, 0.06099772, 0.07004023,
+        0.06797051, 0.06699848, 0.06599665, 0.0989995 , 0.07699633]),
+ &#39;test_score&#39;: array([0.89478673, 0.89400201, 0.87673313, 0.88717395, 0.89346952,
+        0.88065672, 0.8840631 , 0.89159945, 0.87792549, 0.86283873]),
+ &#39;train_score&#39;: array([0.93967515, 0.9265178 , 0.93836995, 0.93970645, 0.9397349 ,
+        0.93617701, 0.93997011, 0.94158156, 0.93219918, 0.94278231]),
+ &#39;test_recall&#39;: array([0.86455982, 0.79909707, 0.78781038, 0.83521445, 0.81941309,
+        0.80586907, 0.82392777, 0.84198646, 0.81941309, 0.77878104]),
+ &#39;train_recall&#39;: array([0.8725859 , 0.85854026, 0.87383998, 0.87484324, 0.87158264,
+        0.87208427, 0.87509406, 0.88337096, 0.86280411, 0.8725859 ]),
+ &#39;test_accuracy&#39;: array([0.81828442, 0.80586907, 0.7979684 , 0.81038375, 0.81715576,
+        0.79458239, 0.7979684 , 0.81828442, 0.80699774, 0.78531073]),
+ &#39;train_accuracy&#39;: array([0.86792926, 0.85112254, 0.86567164, 0.86742757, 0.86429199,
+        0.86140725, 0.8654208 , 0.87156654, 0.85513608, 0.8675696 ])}
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make cross-validated predictions </span>
 <span class="n">lr_preds</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">_RemoteTraceback</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
-<span class="ne">_Remote</span>Traceback: 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Traceback (most recent call last):</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\externals\loky\process_executor.py&quot;, line 463, in _process_worker</span>
-<span class="sd">    r = call_item()</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\externals\loky\process_executor.py&quot;, line 291, in __call__</span>
-<span class="sd">    return self.fn(*self.args, **self.kwargs)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py&quot;, line 589, in __call__</span>
-<span class="sd">    return [func(*args, **kwargs)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py&quot;, line 589, in &lt;listcomp&gt;</span>
-<span class="sd">    return [func(*args, **kwargs)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py&quot;, line 129, in __call__</span>
-<span class="sd">    return self.function(*args, **kwargs)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\model_selection\_validation.py&quot;, line 1378, in _fit_and_predict</span>
-<span class="sd">    estimator.fit(X_train, y_train, **fit_params)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py&quot;, line 1474, in wrapper</span>
-<span class="sd">    return fit_method(estimator, *args, **kwargs)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_logistic.py&quot;, line 1201, in fit</span>
-<span class="sd">    X, y = self._validate_data(</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py&quot;, line 650, in _validate_data</span>
-<span class="sd">    X, y = check_X_y(X, y, **check_params)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py&quot;, line 1263, in check_X_y</span>
-<span class="sd">    X = check_array(</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py&quot;, line 997, in check_array</span>
-<span class="sd">    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)</span>
-<span class="sd">  File &quot;c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\_array_api.py&quot;, line 521, in _asarray_with_order</span>
-<span class="sd">    array = numpy.asarray(array, order=order, dtype=dtype)</span>
-<span class="sd">numpy.core._exceptions._ArrayMemoryError: Unable to allocate 227. MiB for an array with shape (7382, 4028) and data type float64</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">MemoryError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Make cross-validated predictions </span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">lr_preds</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\_param_validation.py:213,</span> in <span class="ni">validate_params.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">207</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">210</span>             <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
-<span class="g g-Whitespace">    </span><span class="mi">211</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">213</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">except</span> <span class="n">InvalidParameterError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="c1"># When the function is just a wrapper around an estimator, we allow</span>
-<span class="g g-Whitespace">    </span><span class="mi">216</span>     <span class="c1"># the function to delegate validation to the estimator, but we replace</span>
-<span class="g g-Whitespace">    </span><span class="mi">217</span>     <span class="c1"># the name of the estimator by the name of the function in the error</span>
-<span class="g g-Whitespace">    </span><span class="mi">218</span>     <span class="c1"># message to avoid confusion.</span>
-<span class="g g-Whitespace">    </span><span class="mi">219</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span>         <span class="sa">r</span><span class="s2">&quot;parameter of \w+ must be&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span>         <span class="sa">f</span><span class="s2">&quot;parameter of </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="si">}</span><span class="s2"> must be&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span>         <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="p">)</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\model_selection\_validation.py:1293,</span> in <span class="ni">cross_val_predict</span><span class="nt">(estimator, X, y, groups, cv, n_jobs, verbose, fit_params, params, pre_dispatch, method)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1290</span> <span class="c1"># We clone the estimator to make sure that all the folds are</span>
-<span class="g g-Whitespace">   </span><span class="mi">1291</span> <span class="c1"># independent, and that it is pickle-able.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1292</span> <span class="n">parallel</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">pre_dispatch</span><span class="o">=</span><span class="n">pre_dispatch</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1293</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1294</span>     <span class="n">delayed</span><span class="p">(</span><span class="n">_fit_and_predict</span><span class="p">)(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1295</span>         <span class="n">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1296</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1297</span>         <span class="n">y</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1298</span>         <span class="n">train</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1299</span>         <span class="n">test</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1300</span>         <span class="n">routed_params</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1301</span>         <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1302</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1303</span>     <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">splits</span>
-<span class="g g-Whitespace">   </span><span class="mi">1304</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1306</span> <span class="n">inv_test_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_indices</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1307</span> <span class="n">inv_test_indices</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_indices</span><span class="p">))</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py:67,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">67</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1952,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1946</span> <span class="c1"># The first item from the output is blank, but it makes the interpreter</span>
-<span class="g g-Whitespace">   </span><span class="mi">1947</span> <span class="c1"># progress until it enters the Try/Except block of the generator and</span>
-<span class="g g-Whitespace">   </span><span class="mi">1948</span> <span class="c1"># reach the first `yield` statement. This starts the aynchronous</span>
-<span class="g g-Whitespace">   </span><span class="mi">1949</span> <span class="c1"># dispatch of the tasks to the workers.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1950</span> <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1952</span> <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1595,</span> in <span class="ni">Parallel._get_outputs</span><span class="nt">(self, iterator, pre_dispatch)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1592</span>     <span class="k">yield</span>
-<span class="g g-Whitespace">   </span><span class="mi">1594</span>     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">retrieval_context</span><span class="p">():</span>
-<span class="ne">-&gt; </span><span class="mi">1595</span>         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1597</span> <span class="k">except</span> <span class="ne">GeneratorExit</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1598</span>     <span class="c1"># The generator has been garbage collected before being fully</span>
-<span class="g g-Whitespace">   </span><span class="mi">1599</span>     <span class="c1"># consumed. This aborts the remaining tasks if possible and warn</span>
-<span class="g g-Whitespace">   </span><span class="mi">1600</span>     <span class="c1"># the user if necessary.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1601</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1699,</span> in <span class="ni">Parallel._retrieve</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1692</span> <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_retrieval</span><span class="p">():</span>
-<span class="g g-Whitespace">   </span><span class="mi">1693</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1694</span>     <span class="c1"># If the callback thread of a worker has signaled that its task</span>
-<span class="g g-Whitespace">   </span><span class="mi">1695</span>     <span class="c1"># triggered an exception, or if the retrieval loop has raised an</span>
-<span class="g g-Whitespace">   </span><span class="mi">1696</span>     <span class="c1"># exception (e.g. `GeneratorExit`), exit the loop and surface the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1697</span>     <span class="c1"># worker traceback.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1698</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aborting</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1699</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_error_fast</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1700</span>         <span class="k">break</span>
-<span class="g g-Whitespace">   </span><span class="mi">1702</span>     <span class="c1"># If the next job is not ready for retrieval yet, we just wait for</span>
-<span class="g g-Whitespace">   </span><span class="mi">1703</span>     <span class="c1"># async callbacks to progress.</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1734,</span> in <span class="ni">Parallel._raise_error_fast</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span> <span class="c1"># If this error job exists, immediatly raise the error by</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span> <span class="c1"># calling get_result. This job might not exists if abort has been</span>
-<span class="g g-Whitespace">   </span><span class="mi">1732</span> <span class="c1"># called directly or if the generator is gc&#39;ed.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> <span class="k">if</span> <span class="n">error_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1734</span>     <span class="n">error_job</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:736,</span> in <span class="ni">BatchCompletionCallBack.get_result</span><span class="nt">(self, timeout)</span>
-<span class="g g-Whitespace">    </span><span class="mi">730</span> <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">_backend</span>
-<span class="g g-Whitespace">    </span><span class="mi">732</span> <span class="k">if</span> <span class="n">backend</span><span class="o">.</span><span class="n">supports_retrieve_callback</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">733</span>     <span class="c1"># We assume that the result has already been retrieved by the</span>
-<span class="g g-Whitespace">    </span><span class="mi">734</span>     <span class="c1"># callback thread, and is stored internally. It&#39;s just waiting to</span>
-<span class="g g-Whitespace">    </span><span class="mi">735</span>     <span class="c1"># be returned.</span>
-<span class="ne">--&gt; </span><span class="mi">736</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_or_raise</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">738</span> <span class="c1"># For other backends, the main thread needs to run the retrieval step.</span>
-<span class="g g-Whitespace">    </span><span class="mi">739</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="nn">File c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:754,</span> in <span class="ni">BatchCompletionCallBack._return_or_raise</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">752</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">TASK_ERROR</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">754</span>         <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span>
-<span class="g g-Whitespace">    </span><span class="mi">755</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span>
-<span class="g g-Whitespace">    </span><span class="mi">756</span> <span class="k">finally</span><span class="p">:</span>
-
-<span class="ne">MemoryError</span>: Unable to allocate 227. MiB for an array with shape (7382, 4028) and data type float64
 </pre></div>
 </div>
 </div>
@@ -1464,22 +1379,22 @@ Lastly, which is not the case here, cross validation helps to assess the stabili
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fit_time         : 71.18
-score_time       : 0.02
-test_score       : 0.77
-train_score      : 0.99
-test_recall      : 0.69
-train_recall     : 0.96
-test_accuracy    : 0.69
-train_accuracy   : 0.97
-Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;saga&#39;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fit_time         : 1259.88
+score_time       : 0.07
+test_score       : 0.88
+train_score      : 0.94
+test_recall      : 0.82
+train_recall     : 0.87
+test_accuracy    : 0.81
+train_accuracy   : 0.86
+Best model: LogisticRegression(C=0.9189588471286575, max_iter=1000, solver=&#39;saga&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="analysis">
-<h3>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_3_4_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Analysis</span></a><a class="headerlink" href="#analysis" title="Link to this heading">#</a></h3>
 <p>The algorithm is clearly overfitting. There is too much performance difference between training and test data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1492,7 +1407,7 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c0346f8a363c4ce368608b70411975af8fced640a02edae35b29567dcb4b16b0.png" src="../_images/c0346f8a363c4ce368608b70411975af8fced640a02edae35b29567dcb4b16b0.png" />
+<img alt="../_images/a4aabbbccd7174aa2c29e25f7caa8f7c5ecc88b5a0a29fa6931d0198be2ec013.png" src="../_images/a4aabbbccd7174aa2c29e25f7caa8f7c5ecc88b5a0a29fa6931d0198be2ec013.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1507,12 +1422,12 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b32c6bbd3b2f71fb79113b277e6ff1602af5dc71e777d8906ef17d2ca7a30a06.png" src="../_images/b32c6bbd3b2f71fb79113b277e6ff1602af5dc71e777d8906ef17d2ca7a30a06.png" />
+<img alt="../_images/8d807e356450590c542bda7d2859ff651106c0d4626b1698c21d3e6306be2a37.png" src="../_images/8d807e356450590c542bda7d2859ff651106c0d4626b1698c21d3e6306be2a37.png" />
 </div>
 </div>
 </section>
 <section id="additional-work">
-<h3>Additional work<a class="headerlink" href="#additional-work" title="Link to this heading">#</a></h3>
+<h3><a id='toc1_3_5_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Additional work</span></a><a class="headerlink" href="#additional-work" title="Link to this heading">#</a></h3>
 <p>Improve the results of the algorithm by improving the data. My suggestion is to stratify data points by having a more sparse collection of data points accross labels.</p>
 </section>
 </section>
@@ -1557,15 +1472,6 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
         <p class="prev-next-title">03: Product basket optimization approach using mean-variance optimization</p>
       </div>
     </a>
-    <a class="right-next"
-       href="../02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">03: Univariate Time Series Forecast using LightGBM</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1582,26 +1488,26 @@ Best model: LogisticRegression(C=1.5622399769630284, max_iter=1000, solver=&#39;
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><a id="toc1_1_"></a><span class="xref myst">Introduction</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset"><a id="toc1_1_1_"></a><span class="xref myst">The dataset</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection">One Class SVM for novelty detection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable">Target variable</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance">Dealing with class imbalance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features">Encoding categorical features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing"><a id="toc1_2_"></a><span class="xref myst">Preprocessing</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm-for-novelty-detection"><a id="toc1_2_1_"></a><span class="xref myst">One Class SVM for novelty detection</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-variable"><a id="toc1_2_2_"></a><span class="xref myst">Target variable</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-class-imbalance"><a id="toc1_2_3_"></a><span class="xref myst">Dealing with class imbalance</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-features"><a id="toc1_2_4_"></a><span class="xref myst">Encoding categorical features</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model">Logistic binary classification model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian Optimization</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function">Acquisition function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-binary-classification-model"><a id="toc1_3_"></a><span class="xref myst">Logistic binary classification model</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression"><a id="toc1_3_1_"></a><span class="xref myst">Logistic regression</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization"><a id="toc1_3_2_"></a><span class="xref myst">Bayesian Optimization</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-function"><a id="toc1_3_2_1_"></a><span class="xref myst">Acquisition function</span></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross validation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-work">Additional work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation"><a id="toc1_3_3_"></a><span class="xref myst">Cross validation</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis"><a id="toc1_3_4_"></a><span class="xref myst">Analysis</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-work"><a id="toc1_3_5_"></a><span class="xref myst">Additional work</span></a></li>
 </ul>
 </li>
 </ul>

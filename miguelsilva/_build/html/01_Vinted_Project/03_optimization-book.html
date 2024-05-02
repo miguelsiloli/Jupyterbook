@@ -373,11 +373,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-mean-variance-optimization">Introduction to mean-variance optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key Assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-robustness-in-the-data-points">Some robustness in the data points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-mean-variance-optimization">Introduction to mean-variance optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#some-robustness-in-the-data-points">Some robustness in the data points</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-basket-optimization">Product Basket Optimization</a><ul class="nav section-nav flex-column">
@@ -419,13 +422,52 @@ document.write(`
 <li><p>Analysis of best portfolios and marginal contribution of individual product catalogs to the portfolio performance</p></li>
 </ul>
 <p><strong>Keywords</strong>: Portfolio Optimization, Random Portfolio Generation, Covariance Matrix, Expected Returns, Volatility, Diversification, Vinted</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#03-product-basket-optimization-approach-using-mean-variance-optimization"><span class="xref myst">03: Product basket optimization approach using mean-variance optimization</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction"><span class="xref myst">Introduction</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction-to-mean-variance-optimization"><span class="xref myst">Introduction to mean-variance optimization</span></a></p></li>
+<li><p><a class="reference internal" href="#key-assumptions"><span class="xref myst">Key Assumptions</span></a></p></li>
+<li><p><a class="reference internal" href="#mathematical-formulation"><span class="xref myst">Mathematical Formulation</span></a></p></li>
+<li><p><a class="reference internal" href="#the-dataset"><span class="xref myst">The dataset</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#some-robustness-in-the-data-points"><span class="xref myst">Some robustness in the data points</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#product-basket-optimization"><span class="xref myst">Product Basket Optimization</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#generating-portfolios"><span class="xref myst">Generating Portfolios</span></a></p></li>
+<li><p><a class="reference internal" href="#revenue-volatility-scatterplot"><span class="xref myst">Revenue-Volatility scatterplot</span></a></p></li>
+<li><p><a class="reference internal" href="#returns-assets-scatterplot"><span class="xref myst">Returns-Assets scatterplot</span></a></p></li>
+<li><p><a class="reference internal" href="#distribution-plot-of-sharpe"><span class="xref myst">Distribution plot of Sharpe</span></a></p></li>
+<li><p><a class="reference internal" href="#3d-scatterplot"><span class="xref myst">3D scatterplot</span></a></p></li>
+<li><p><a class="reference internal" href="#best-portfolios"><span class="xref myst">Best portfolios</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#benchmarking"><span class="xref myst">Benchmarking</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#naive-portfolio"><span class="xref myst">Naive portfolio</span></a></p></li>
+<li><p><a class="reference internal" href="#relative-performance"><span class="xref myst">Relative performance</span></a></p></li>
+<li><p><a class="reference internal" href="#which-catalogs-have-the-best-sharpe-ratio"><span class="xref myst">Which catalogs have the best Sharpe ratio</span></a></p></li>
+<li><p><a class="reference internal" href="#conclusions"><span class="xref myst">Conclusions</span></a></p></li>
+<li><p><a class="reference internal" href="#additional-work"><span class="xref myst">Additional work</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <section id="introduction-to-mean-variance-optimization">
-<h2>Introduction to mean-variance optimization<a class="headerlink" href="#introduction-to-mean-variance-optimization" title="Link to this heading">#</a></h2>
+<h3>Introduction to mean-variance optimization<a class="headerlink" href="#introduction-to-mean-variance-optimization" title="Link to this heading">#</a></h3>
 <p>Modern Portfolio Theory (MPT), introduced by Harry Markowitz in 1952, is a mathematical framework for constructing efficient investment portfolios. MPT is based on the idea that investors can construct portfolios that optimize expected return while minimizing risk.</p>
 <p>The efficient frontier represents the set of portfolios that offer the highest expected return for a given level of risk, or the lowest risk for a given level of expected return.</p>
 </section>
 <section id="key-assumptions">
-<h2>Key Assumptions<a class="headerlink" href="#key-assumptions" title="Link to this heading">#</a></h2>
+<h3>Key Assumptions<a class="headerlink" href="#key-assumptions" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Defining expected return</strong>: The expected return of a portfolio is the weighted average of the expected returns of its individual assets.</p></li>
 </ul>
@@ -440,7 +482,7 @@ document.write(`
 </ul>
 </section>
 <section id="mathematical-formulation">
-<h2>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h2>
+<h3>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h3>
 <p>The optimization problem in MPT can be formulated as a quadratic programming problem to find the optimal portfolio weights that maximize the expected return for a given level of risk or minimize the risk for a given level of expected return, subject to certain constraints such as budget constraints and minimum or maximum weight constraints.</p>
 <p><span class="math notranslate nohighlight">\(\text{Maximize} \quad E(R_p) = \mathbf{w}^T \mathbf{R}\)</span></p>
 <p><span class="math notranslate nohighlight">\(
@@ -461,7 +503,7 @@ w_i \geq 0 &amp; \text{(Non-negativity constraint)}
 </ul>
 </section>
 <section id="the-dataset">
-<h2>The dataset<a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h2>
+<h3>The dataset<a class="headerlink" href="#the-dataset" title="Link to this heading">#</a></h3>
 <p>The dataset contains a lot of features (roughly more than 10) related with the product. For this analysis, we are considering only the price, date and catalog. The catalog is a hierarchical branch of products which share similar features.
 For instance, men shoes is a catalog, but men sport shoes is another (child) catalog.</p>
 <table class="table">
@@ -501,7 +543,7 @@ For instance, men shoes is a catalog, but men sport shoes is another (child) cat
 </tbody>
 </table>
 <section id="some-robustness-in-the-data-points">
-<h3>Some robustness in the data points<a class="headerlink" href="#some-robustness-in-the-data-points" title="Link to this heading">#</a></h3>
+<h4>Some robustness in the data points<a class="headerlink" href="#some-robustness-in-the-data-points" title="Link to this heading">#</a></h4>
 <p>One way to reduce the inherent bias in the data is to pick catalogs having a minimum number of data points accross different dates. This can be done with a CTE (or subquery alternatively) and set the minimum number of days to <strong>time_interval * 0.4</strong>. In addition, we set the minimum count of products per date and catalog to a minimum number of samples <strong>COUNT(product_id) &gt; {n_samples}</strong>.</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="n">catalogs</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">catalog_id</span>
@@ -518,6 +560,7 @@ For instance, men shoes is a catalog, but men sport shoes is another (child) cat
 <span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">product_id</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">{</span><span class="n">n_samples</span><span class="err">}</span><span class="w"> </span><span class="p">;</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 <section id="product-basket-optimization">
@@ -940,7 +983,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</p>
+        <p class="prev-next-title"><a id='toc1_'></a><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></p>
       </div>
     </a>
     <a class="right-next"
@@ -948,7 +991,7 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">04: Premium classification with logistic regression</p>
+        <p class="prev-next-title"><a id='toc1_'></a><span class="xref myst">04: Premium classification with logistic regression</span></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -968,11 +1011,14 @@ In addition, having a sparse product portfolio diversifies portfolio risk. This 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-mean-variance-optimization">Introduction to mean-variance optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key Assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-robustness-in-the-data-points">Some robustness in the data points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-mean-variance-optimization">Introduction to mean-variance optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dataset">The dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#some-robustness-in-the-data-points">Some robustness in the data points</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-basket-optimization">Product Basket Optimization</a><ul class="nav section-nav flex-column">
