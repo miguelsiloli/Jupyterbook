@@ -1,6 +1,6 @@
 jupyter-book
 lightgbm==4.3.0
-matplotlib==3.8.3
+matplotlib
 mysql_connector_repackaged==0.3.1
 numpy==1.26.4
 optuna==3.4.0
