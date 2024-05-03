@@ -63,6 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="05: Clustering users using KMeans and t-SNE" href="05_user_clustering.html" />
     <link rel="prev" title="03: Product basket optimization approach using mean-variance optimization" href="03_optimization-book.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -362,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><a id='toc1_'></a>04: Premium classification with logistic regression</h1>
+    <h1>04: Premium classification with logistic regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -406,7 +407,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="premium-classification-with-logistic-regression">
-<h1><a id='toc1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">04: Premium classification with logistic regression</span></a><a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
+<h1><a class="reference internal" href="#toc0_"><span class="xref myst">04: Premium classification with logistic regression</span></a><a class="headerlink" href="#premium-classification-with-logistic-regression" title="Link to this heading">#</a></h1>
 <p>The problem scope defines a product as expensive if the product price is above the percentile 85. We predict 1 (True) if product is expensive, 0 (False) if not.</p>
 <p><span class="math notranslate nohighlight">\(Price_p &gt; Percentile(80)\)</span></p>
 <p>Naturally, this creates an imbalanced issue on the dataset, since there will be 85% of the data classified as 0.</p>
@@ -538,53 +539,53 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>2342</td>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td>France</td>
-      <td>None</td>
+      <td>532</td>
+      <td>9</td>
+      <td>Tamanho único</td>
+      <td>Henry Cotton´s</td>
+      <td>Italy</td>
+      <td>Preto</td>
       <td>Bom</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2328</td>
-      <td>6</td>
-      <td></td>
-      <td></td>
-      <td>France</td>
-      <td>None</td>
+      <td>119</td>
+      <td>21</td>
+      <td>Outro</td>
+      <td>Dolce &amp; Gabbana</td>
+      <td>Italy</td>
+      <td>Preto</td>
       <td>Muito bom</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2328</td>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td>France</td>
-      <td>None</td>
+      <td>1786</td>
+      <td>8</td>
+      <td>46</td>
+      <td>Made In Italy</td>
+      <td>Italy</td>
+      <td>Cinzento</td>
       <td>Muito bom</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2328</td>
-      <td>5</td>
-      <td></td>
-      <td></td>
-      <td>France</td>
-      <td>None</td>
+      <td>1786</td>
+      <td>9</td>
+      <td>XL</td>
+      <td>Zara essentials</td>
+      <td>Italy</td>
+      <td>Preto</td>
       <td>Muito bom</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1974</td>
-      <td>5</td>
-      <td></td>
-      <td></td>
-      <td>France</td>
-      <td>Branco</td>
-      <td>Bom</td>
+      <td>267</td>
+      <td>6</td>
+      <td>Tamanho único</td>
+      <td>GAS</td>
+      <td>Italy</td>
+      <td>Cinzento</td>
+      <td>Muito bom</td>
     </tr>
   </tbody>
 </table>
@@ -640,7 +641,7 @@ Data columns (total 7 columns):
  2   size_title     100000 non-null  object
  3   brand_title    100000 non-null  object
  4   country        100000 non-null  object
- 5   color1         86624 non-null   object
+ 5   color1         87672 non-null   object
  6   status         100000 non-null  object
 dtypes: int64(2), object(5)
 memory usage: 5.3+ MB
@@ -1471,6 +1472,15 @@ Best model: LogisticRegression(C=0.9189588471286575, max_iter=1000, solver=&#39;
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">03: Product basket optimization approach using mean-variance optimization</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="05_user_clustering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

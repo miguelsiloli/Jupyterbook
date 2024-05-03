@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="02: Clustering of product catalogs with Agglomerative Clustering and t-SNE" href="02_catalog_clustering.html" />
-    <link rel="prev" title="Vinted - the rise of ESG marketplace" href="00_intro.html" />
+    <link rel="prev" title="Introduction: Vinted, the rise of ESG marketplace" href="00_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -361,7 +361,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><a id='toc1_'></a>01: Price Regression with LightGBM</h1>
+    <h1>01: Price Regression with LightGBM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -377,8 +377,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing"><a id="toc1_2_"></a><span class="xref myst">Preprocessing</span></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far"><a id="toc1_2_1_"></a><span class="xref myst">Issues so far:</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches"><a id="toc1_2_2_"></a><span class="xref myst">Approaches</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title"><a id="toc1_2_3_"></a><span class="xref myst">Taking a deeper look into size title</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title"><a id="toc1_2_4_"></a><span class="xref myst">Taking a deeper look into brand title</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles"><a id="toc1_2_5_"></a><span class="xref myst">Approaches to size titles</span></a></li>
@@ -408,7 +406,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="price-regression-with-lightgbm">
-<h1><a id='toc1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">01: Price Regression with LightGBM</span></a><a class="headerlink" href="#price-regression-with-lightgbm" title="Link to this heading">#</a></h1>
+<h1><a class="reference internal" href="#toc0_"><span class="xref myst">01: Price Regression with LightGBM</span></a><a class="headerlink" href="#price-regression-with-lightgbm" title="Link to this heading">#</a></h1>
 <p>This is a dummy example on how to build an algorithm which predicts article prices based on product characteristerics.
 The purpose is to employ LightGBM to solve this regression problem and predict prices according the given data labels and to understand the feature contribution of each underlying variable.</p>
 <p><strong>Keywords</strong>: LightGBM, regression modelling, price prediction, Vinted</p>
@@ -424,8 +422,6 @@ The purpose is to employ LightGBM to solve this regression problem and predict p
 </li>
 <li><p><a class="reference internal" href="#toc1_2_"><span class="xref myst">Preprocessing</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="#toc1_2_1_"><span class="xref myst">Issues so far:</span></a></p></li>
-<li><p><a class="reference internal" href="#toc1_2_2_"><span class="xref myst">Approaches</span></a></p></li>
 <li><p><a class="reference internal" href="#toc1_2_3_"><span class="xref myst">Taking a deeper look into size title</span></a></p></li>
 <li><p><a class="reference internal" href="#toc1_2_4_"><span class="xref myst">Taking a deeper look into brand title</span></a></p></li>
 <li><p><a class="reference internal" href="#toc1_2_5_"><span class="xref myst">Approaches to size titles</span></a></p></li>
@@ -480,58 +476,6 @@ One of the key features of LightGBM is its ability to handle large datasets with
 <span class="kn">import</span> <span class="nn">shap</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">shap</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">125</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="kn">from</span> <span class="nn">.genmod</span> <span class="kn">import</span> <span class="n">api</span> <span class="k">as</span> <span class="n">genmod</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="kn">from</span> <span class="nn">.genmod.api</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">GEE</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">GLM</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="n">families</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span> <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">125</span> <span class="kn">from</span> <span class="nn">.graphics</span> <span class="kn">import</span> <span class="n">api</span> <span class="k">as</span> <span class="n">graphics</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span> <span class="kn">from</span> <span class="nn">.graphics.gofplots</span> <span class="kn">import</span> <span class="n">ProbPlot</span><span class="p">,</span> <span class="n">qqline</span><span class="p">,</span> <span class="n">qqplot</span><span class="p">,</span> <span class="n">qqplot_2samples</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span> <span class="kn">from</span> <span class="nn">.imputation.bayes_mi</span> <span class="kn">import</span> <span class="n">MI</span><span class="p">,</span> <span class="n">BayesGaussMI</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">graphics</span>\<span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">.correlation</span> <span class="kn">import</span> <span class="n">plot_corr</span><span class="p">,</span> <span class="n">plot_corr_grid</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.factorplots</span> <span class="kn">import</span> <span class="n">interaction_plot</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.functional</span> <span class="kn">import</span> <span class="n">fboxplot</span><span class="p">,</span> <span class="n">hdrboxplot</span><span class="p">,</span> <span class="n">rainbowplot</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.plottools</span> <span class="kn">import</span> <span class="n">rainbow</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">graphics</span>\<span class="n">functional</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">comb</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">statsmodels.graphics.utils</span> <span class="kn">import</span> <span class="n">_import_mpl</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">statsmodels.multivariate.pca</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">statsmodels.nonparametric.kernel_density</span> <span class="kn">import</span> <span class="n">KDEMultivariate</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1027,</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1006,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:688,</span> in <span class="ni">_load_unlocked</span><span class="nt">(spec)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:879,</span> in <span class="ni">exec_module</span><span class="nt">(self, module)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:975,</span> in <span class="ni">get_code</span><span class="nt">(self, fullname)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1074,</span> in <span class="ni">get_data</span><span class="nt">(self, path)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -792,8 +736,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<section id="issues-so-far">
-<h3><a id='toc1_2_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Issues so far:</span></a><a class="headerlink" href="#issues-so-far" title="Link to this heading">#</a></h3>
+<p><strong>Issues so far</strong></p>
 <ul class="simple">
 <li><p>catalog_id is int64, other predictors are object. Need to convert them to categorical before feeding to LightGBM</p></li>
 <li><p>color1_id has missing values (why?)</p>
@@ -822,9 +765,7 @@ dtype: int64
 </ul>
 </li>
 </ul>
-</section>
-<section id="approaches">
-<h3><a id='toc1_2_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Approaches</span></a><a class="headerlink" href="#approaches" title="Link to this heading">#</a></h3>
+<p><strong>Approaches</strong></p>
 <ul class="simple">
 <li><p>change dtypes</p></li>
 <li><p>create a dummy color1_id and assign it to articles missing color1_id (filling with value 0)</p></li>
@@ -862,7 +803,6 @@ dtype: int64
 </div>
 </div>
 </div>
-</section>
 <section id="taking-a-deeper-look-into-size-title">
 <h3><a id='toc1_2_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Taking a deeper look into size title</span></a><a class="headerlink" href="#taking-a-deeper-look-into-size-title" title="Link to this heading">#</a></h3>
 <p>Size title has unbalanced labels.</p>
@@ -1568,7 +1508,7 @@ p-value: 7.085304163387243e-292
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Vinted - the rise of ESG marketplace</p>
+        <p class="prev-next-title">Introduction: Vinted, the rise of ESG marketplace</p>
       </div>
     </a>
     <a class="right-next"
@@ -1602,8 +1542,6 @@ p-value: 7.085304163387243e-292
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing"><a id="toc1_2_"></a><span class="xref myst">Preprocessing</span></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-so-far"><a id="toc1_2_1_"></a><span class="xref myst">Issues so far:</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches"><a id="toc1_2_2_"></a><span class="xref myst">Approaches</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-size-title"><a id="toc1_2_3_"></a><span class="xref myst">Taking a deeper look into size title</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#taking-a-deeper-look-into-brand-title"><a id="toc1_2_4_"></a><span class="xref myst">Taking a deeper look into brand title</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches-to-size-titles"><a id="toc1_2_5_"></a><span class="xref myst">Approaches to size titles</span></a></li>

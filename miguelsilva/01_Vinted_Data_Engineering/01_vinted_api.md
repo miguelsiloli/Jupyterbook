@@ -1,4 +1,4 @@
-# Overview of the Vinted API
+# 02: Vinted API
 
 +------------------+       +------------------+       +------------------+
 |      Vinted      |       |      Items       |       |    Requester     |

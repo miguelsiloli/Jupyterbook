@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>03: Pipeline Design &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Vinted_Data_Engineering/02_pipeline_design';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F01_Vinted_Data_Engineering/02_pipeline_design.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01_Vinted_Data_Engineering/02_pipeline_design.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>03: Pipeline Design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidelines">Guidelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-level">Structural Level</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomic-level">Atomic Level</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cool-out-of-the-box-prefect-utils">Cool out-of-the-box prefect utils</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogs-flow">Catalogs flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work-load-block">Single unit of work: Load block</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#subflow-block">Subflow block</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-block">Flow block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pipeline-design">
+<h1>03: Pipeline Design<a class="headerlink" href="#pipeline-design" title="Link to this heading">#</a></h1>
+<section id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Link to this heading">#</a></h2>
+<section id="structural-level">
+<h3>Structural Level<a class="headerlink" href="#structural-level" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Sources and Destinations</strong>: Consider the format, volume, and frequency of data from each source and how it will be integrated into the pipeline. As discussed, the source is mostly Vinted API and HTML, the frequency is batch oriented and the throughput is small (&lt;50mb day excluding images).</p></li>
+<li><p><strong>Data Quality and Validation</strong>: This may involve validating data against predefined rules, detecting and handling missing or erroneous values, and logging any data anomalies for further investigation.</p></li>
+<li><p><strong>Fault Tolerance</strong>: Implement mechanisms such as retry logic, error logging, and checkpointing to recover from errors and resume processing without losing data or compromising data integrity.</p></li>
+<li><p>Other out of scope such as Security, Infrastructure Reliability, Documentation, Monitoring and Logging, Data Compliance, Change Data Capture (CDC)</p></li>
+</ul>
+</section>
+<section id="atomic-level">
+<h3>Atomic Level<a class="headerlink" href="#atomic-level" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Atomicity</strong>: a function should only do one task</p></li>
+<li><p><strong>Idempotency</strong>:</p>
+<ul>
+<li><p>running the same code multiple times with the same input should return the same output</p></li>
+<li><p>the output should not be duplicated</p></li>
+</ul>
+</li>
+<li><p><strong>Data encapsulation</strong>: function encapsulation should be limited to the scope it refers to, no additional external data.</p></li>
+<li><p><strong>Functional composition</strong>: a higher order mechanism which allows to increase the level of abstraction and atomicity. Can be implemented in prefect via subflow calls.</p>
+<ul>
+<li><p>factoring/atomicity</p></li>
+<li><p>code reuse</p></li>
+<li><ul>
+<li><p>abstraction layers (f(g(x)))</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
+<section id="some-background-on-prefect">
+<h3>Some background on prefect<a class="headerlink" href="#some-background-on-prefect" title="Link to this heading">#</a></h3>
+<p>Prefect allows you to define complex workflows as code, making it easy to orchestrate the execution of tasks, handle dependencies, and manage error handling and retries. Let’s break down its core concepts:</p>
+<p><strong>Tasks (UoW)</strong></p>
+<ul class="simple">
+<li><p>Tasks are the building blocks of Prefect workflows. Each task represents a <strong>single unit of work</strong>, such as querying a database, processing data, or sending an email.</p></li>
+<li><p>Tasks are defined as Python functions or classes annotated with &#64;task decorators. These functions encapsulate the logic required to perform the task.</p></li>
+<li><p>Tasks can have inputs and outputs, allowing them to communicate with other tasks in the workflow.</p></li>
+</ul>
+<p><strong>Flows (DAGS)</strong></p>
+<ul class="simple">
+<li><p>Flows are directed acyclic graphs (DAGs) that represent the workflow logic in Prefect.</p></li>
+<li><p>Flows consist of interconnected tasks, where the output of one task serves as the input to another.</p></li>
+<li><p>Flows define the execution order of tasks and handle the orchestration of task execution.</p></li>
+</ul>
+<p><strong>Subflows</strong></p>
+<ul class="simple">
+<li><p>Subflows are reusable components that encapsulate a subset of tasks within a larger workflow.</p></li>
+<li><p>Subflows allow you to modularize your workflow logic by grouping related tasks together and abstracting away implementation details.</p></li>
+<li><p>Subflows can be nested within other subflows or included as part of larger flows, providing flexibility in workflow design.</p></li>
+</ul>
+<section id="cool-out-of-the-box-prefect-utils">
+<h4>Cool out-of-the-box prefect utils<a class="headerlink" href="#cool-out-of-the-box-prefect-utils" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>caching keys</p>
+<blockquote>
+<div><p>An optional callable that, given the task run context and call parameters, generates a string key. If the key matches a previous completed state, that state result will be restored instead of running the task again.</p>
+</div></blockquote>
+</li>
+<li><p>exponential backoff</p></li>
+<li><p>flow signals: allow tasks to communicate with each other and trigger downstream tasks based on conditions or events</p></li>
+</ul>
+</section>
+</section>
+<section id="catalogs-flow">
+<h3>Catalogs flow<a class="headerlink" href="#catalogs-flow" title="Link to this heading">#</a></h3>
+<p><img alt="Local Image" src="../_images/catalog_flow.png" />
+Flow sequential dependency graph.</p>
+<p>We can see here how a single flow is decomposed into lowers levels of abstraction until we reach a single unit of work (a task).</p>
+<section id="single-unit-of-work-load-block">
+<h4>Single unit of work: Load block<a class="headerlink" href="#single-unit-of-work-load-block" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@task</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Load from api&quot;</span><span class="p">,</span> 
+      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+      <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+      <span class="n">retry_delay_seconds</span><span class="o">=</span><span class="n">exponential_backoff</span><span class="p">(</span><span class="n">backoff_factor</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+      <span class="n">retry_jitter_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">load_data_from_api</span><span class="p">(</span><span class="n">vinted</span><span class="p">,</span> <span class="n">nbrRows</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads data from the Vinted API based on specified parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nbrRows (int): Number of rows to fetch from the API.</span>
+<span class="sd">        batch_size (int): Batch size for API requests.</span>
+<span class="sd">        item (str): Item include in the API request.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame containing data fetched from the Vinted API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">vinted</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">search_catalog</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www.vinted.pt/catalog/items?catalog_ids[]=</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&amp;order=newest_first&quot;</span><span class="p">)</span>
+    <span class="c1"># cant process latin characters</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;catalog_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Atomicity</strong>: Loads data from API and assigns the catalog_id to dataframe (optimally should only load data from API, data transformations should be done in different blocks). However, the reason I did this is to have a cleaner code and prevent overloading other tasks with unnecessary variables.</p></li>
+<li><p><strong>Encapsulation</strong>: the load function has no side effects. It starts by accepting an existing connection via dependency injection (vinted obj).</p></li>
+</ul>
+<p><strong>Takeaways</strong>: cursors should be passed outside of loading blocks; input variables should be limited to their use scope; transformation blocks should be apart from load/upload blocks.</p>
+<section id="subflow-block">
+<h5>Subflow block<a class="headerlink" href="#subflow-block" title="Link to this heading">#</a></h5>
+<p><img alt="Local Image" src="../_images/catalog_subflow.png" />
+Tasks sequential dependency graph within a subflow.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@flow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Subflow for catalog.&quot;</span><span class="p">,</span> 
+      <span class="n">flow_run_name</span><span class="o">=</span> <span class="s2">&quot;Subflow for catalog </span><span class="si">{item}</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">catalog_subflow</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">nbrRows</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">vinted</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">sample_frac</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">load_data_from_api</span><span class="p">(</span><span class="n">vinted</span> <span class="o">=</span> <span class="n">vinted</span><span class="p">,</span>
+                            <span class="n">nbrRows</span> <span class="o">=</span> <span class="n">nbrRows</span><span class="p">,</span>
+                            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span><span class="p">,</span>
+                            <span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">parse_size_title</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+    <span class="n">export_data_to_postgres</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> 
+                            <span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>     <span class="c1"># upload first to products due to FK referencing</span>
+    <span class="n">export_sample_to_postgres</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> 
+                              <span class="n">sample_frac</span><span class="o">=</span> <span class="n">sample_frac</span><span class="p">,</span>
+                              <span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
+    <span class="k">return</span>
+
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Functional decomposition</strong>: increasing the levels of abstraction by decomposing a single flow into sub flows.</p>
+<ul>
+<li><p>Before: main_flow -&gt; task1 -&gt; task2 -&gt; etc</p></li>
+<li><p>After: main_flow -&gt; subflow1(task1, task2, etc) -&gt; subflow2(task1, task2, etc)</p></li>
+</ul>
+</li>
+<li><p><strong>Atomicity</strong>: Transformer, loading, export functions are in different blocks.</p></li>
+<li><p><strong>Encapsulation</strong>: external connections are passed as argument to code blocks.</p></li>
+</ul>
+</section>
+</section>
+<section id="flow-block">
+<h4>Flow block<a class="headerlink" href="#flow-block" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@flow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span> <span class="s2">&quot;Fetch from vinted&quot;</span><span class="p">,</span> 
+      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+      <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      Main flow: </span>
+<span class="s2">      start node: fetch vinted/items endpoint </span>
+<span class="s2">      -&gt; simple preprocessing </span>
+<span class="s2">      -&gt; dumps into postgres staging table&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">fetch_data_from_vinted</span><span class="p">(</span><span class="n">sample_frac</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> 
+                           <span class="n">item_ids</span> <span class="o">=</span> <span class="p">[],</span> 
+                           <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> 
+                           <span class="n">nbrRows</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches data from the vinted/items endpoint, preprocesses it, and exports it to a PostgreSQL staging table.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - sample_frac (float): Fraction of data to sample.</span>
+<span class="sd">    - item_ids (list): List of item IDs to fetch data for.</span>
+<span class="sd">    - batch_size (int): Size of each batch to fetch.</span>
+<span class="sd">    - nbrRows (int): Number of rows to fetch.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vinted</span> <span class="o">=</span> <span class="n">Vinted</span><span class="p">()</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;postgresql://user:4202@localhost:5432/vinted-ai&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">__item</span> <span class="ow">in</span> <span class="n">item_ids</span><span class="p">:</span>
+        <span class="n">catalog_subflow</span><span class="p">(</span><span class="n">item</span> <span class="o">=</span> <span class="n">__item</span><span class="p">,</span> 
+                        <span class="n">nbrRows</span><span class="o">=</span> <span class="n">nbrRows</span><span class="p">,</span>
+                        <span class="n">batch_size</span><span class="o">=</span> <span class="n">batch_size</span><span class="p">,</span>
+                        <span class="n">vinted</span> <span class="o">=</span> <span class="n">vinted</span><span class="p">,</span> 
+                        <span class="n">engine</span><span class="o">=</span> <span class="n">engine</span><span class="p">,</span> 
+                        <span class="n">sample_frac</span><span class="o">=</span> <span class="n">sample_frac</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+
+    <span class="k">return</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Catalog flow is well structured according to the rules in place. It’s robust, tasks are decoupled and independent and it’s easier to troubleshoot once an issue arises. The code is clean, having proper descriptions and task names is very helpful.</p></li>
+<li><p>Subflows should be decoupled. They are decoupled from a functional perspective, since the successful execution of one flow is independent from another’s, however if one subflow fails it triggers the fail of the whole flow and stops the pipeline.</p></li>
+</ul>
+<p><strong>About prefect</strong></p>
+<p>A lot of features are locked under prefect cloud, which sucks if you want to build an on premise project. This is important since a lot of out of the box integrations are only supported in the cloud version and its impossible (iirc) to create triggers, dynamic flags, conditional workflows with the on premise version.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./01_Vinted_Data_Engineering"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidelines">Guidelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-level">Structural Level</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomic-level">Atomic Level</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cool-out-of-the-box-prefect-utils">Cool out-of-the-box prefect utils</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogs-flow">Catalogs flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work-load-block">Single unit of work: Load block</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#subflow-block">Subflow block</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-block">Flow block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

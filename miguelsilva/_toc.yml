@@ -7,8 +7,8 @@ root: intro
 parts:
   - caption: Vinted Data Engineering
     chapters:
-    - file: 01_Vinted_Project/00_intro
-    - file: 01_Vinted_Project/01_vinted_api
+    - file: 01_Vinted_Data_Engineering/00_intro
+    - file: 01_Vinted_Data_Engineering/01_vinted_api
 
   - caption: Vinted Data Science
     chapters:

@@ -1,15 +1,11 @@
 
-# Pipeline Design
+# 03: Pipeline Design
 
-### Best practices
+## Guidelines
 
-#### Structural Level
+### Structural Level
 
-- **Data Sources and Destinations**: Consider the format, volume, and frequency of data from each source and how it will be integrated into the pipeline.
-
-- **Slowly Changing Dimensions (SCD)**: This is a key concept in data warehousing and data engineering. In particular, when I dealt with sales data at Bosch, SCD provided not only a way to get data lineage, but it also prevented operating issues. For instance, when dealing with SAP orderbooks, order quantities, purchasing orders, purchasing requisitions, etc, buyers should be able to track price changing and to know which contracts are currently active.
-
-What happens in ERP softwares is that contracts are usually MYC (multi year contracts) and so prices and delivery conditions are negotiated prior to their execution. Sometimes, the contracts are subject to change according to the landscape and strategies and SCD keeps this track record (this case was vality dates, Type 2 SCD).
+- **Data Sources and Destinations**: Consider the format, volume, and frequency of data from each source and how it will be integrated into the pipeline. As discussed, the source is mostly Vinted API and HTML, the frequency is batch oriented and the throughput is small (<50mb day excluding images).
 
 - **Data Quality and Validation**: This may involve validating data against predefined rules, detecting and handling missing or erroneous values, and logging any data anomalies for further investigation.
 
@@ -17,7 +13,7 @@ What happens in ERP softwares is that contracts are usually MYC (multi year cont
 
 - Other out of scope such as Security, Infrastructure Reliability, Documentation, Monitoring and Logging, Data Compliance, Change Data Capture (CDC)
 
-#### Atomic Level
+### Atomic Level
 
 - **Atomicity**: a function should only do one task
 - **Idempotency**: 
@@ -175,3 +171,7 @@ def fetch_data_from_vinted(sample_frac = 0.01,
 
 - Catalog flow is well structured according to the rules in place. It's robust, tasks are decoupled and independent and it's easier to troubleshoot once an issue arises. The code is clean, having proper descriptions and task names is very helpful.
 - Subflows should be decoupled. They are decoupled from a functional perspective, since the successful execution of one flow is independent from another's, however if one subflow fails it triggers the fail of the whole flow and stops the pipeline.
+
+**About prefect**
+
+A lot of features are locked under prefect cloud, which sucks if you want to build an on premise project. This is important since a lot of out of the box integrations are only supported in the cloud version and its impossible (iirc) to create triggers, dynamic flags, conditional workflows with the on premise version.
