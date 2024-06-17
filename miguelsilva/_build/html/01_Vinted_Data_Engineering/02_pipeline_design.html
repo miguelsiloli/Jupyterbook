@@ -65,7 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Modelling" href="03_data_modelling.html" />
+    <link rel="next" title="01: Price Regression with LightGBM" href="../03_Vinted_Data_Science/01_price_prediction.html" />
     <link rel="prev" title="02: Vinted API" href="01_vinted_api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,17 +186,15 @@
 <li class="toctree-l1"><a class="reference internal" href="00_intro.html">01: Overview of the Vinted Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01_vinted_api.html">02: Vinted API</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">03: Pipeline Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_data_modelling.html">Data Modelling</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html"><a id="toc1_"></a><span class="xref myst">Mining in Wallapop 2024 Edition</span></a></li>
 </ul>
 
     </div>
@@ -607,19 +605,21 @@ document.write(`
 <section id="source-replayability">
 <h4>Source Replayability<a class="headerlink" href="#source-replayability" title="Link to this heading">#</a></h4>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*What did the data look like n periods(min/hour/day/months/years) ago?(n can be any reasonable arbitrary number)*, 
-then it is replayable, else it is not. Replayability is critical for backfills [(Data Pipeline Patterns)](https://www.startdataengineering.com/post/design-patterns/#3-data-pipeline-patterns).
+then it is replayable, else it is not. Replayability is critical for backfills. 
 </pre></div>
 </div>
-<p>This data is a replayable source, because if we can easily do a backfill by increasing the parameters on the request. However, this may not be replayable if we want to keep a stateful track of the system state.</p>
+<p>This data is a replayable source, because if we can easily do a backfill by increasing the parameters on the request. However, this may not be replayable if we want to keep a stateful track of the system state <a class="reference external" href="https://www.startdataengineering.com/post/design-patterns/#3-data-pipeline-patterns">(Data Pipeline Patterns)</a>.</p>
 <p>In the tracking pipeline, we are taking a snapshot at a specific time. If we miss one day, it’s gone forever.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>One can create a replayable source from a non-replayable source by dumping the incoming data into a raw/loading/base area. The raw/loading/base area now acts as a replayable source.</p>
 </div>
-<p><strong>Replayability</strong>
-[x] Catalog Pipeline
-[x] Images Pipeline
-[] Tracking Pipeline</p>
+<p><strong>Replayability</strong></p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Catalog Pipeline</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Images Pipeline</p></li>
+<li><p>[] Tracking Pipeline</p></li>
+</ul>
 </section>
 <section id="sink-overwritability-idempotency">
 <h4>Sink Overwritability &amp; Idempotency<a class="headerlink" href="#sink-overwritability-idempotency" title="Link to this heading">#</a></h4>
@@ -1000,11 +1000,11 @@ External connections are passed as argument to code blocks. Vinted and engine ar
       </div>
     </a>
     <a class="right-next"
-       href="03_data_modelling.html"
+       href="../03_Vinted_Data_Science/01_price_prediction.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Modelling</p>
+        <p class="prev-next-title"><span class="xref myst">01: Price Regression with LightGBM</span></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

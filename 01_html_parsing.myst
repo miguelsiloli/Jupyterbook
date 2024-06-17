@@ -1,0 +1,680 @@
+# <a id='toc1_'></a>[Improving the performance of html parsers](#toc0_)
+
+The context of this post is to explore and find a solution to the costly text parsing of html files. This is crucial when developing a webscraper. There are arguably decent solutions such as the Scrapy infrastructure which can parse nodes and data based on their own custom dataclasses. This solution is interesting as it provides an incremental approach (the bulk parsing is done sequentially for each html page parsed), however from a POV of Data Engineering, the good practice should be to parse the raw data as a whole to assure consistency, availability and the ability to do some backfilling if the html content changes.
+
+For this analysis we are using **line_profiler** package.
+
+**Keywords**: webscraping, html-parsing, beautifulsoup4, dask, lxml
+
+
+**Table of contents**<a id='toc0_'></a>    
+- [Improving the performance of html parsers](#toc1_)    
+  - [Introduction](#toc1_1_)    
+    - [Process](#toc1_1_1_)    
+  - [Dask with BS4 with some improvements](#toc1_2_)    
+  - [Dask and lxml for parsing](#toc1_3_)    
+  - [Analysis of the results](#toc1_4_)    
+      - [Lxml](#toc1_4_1_1_)    
+      - [Dask](#toc1_4_1_2_)    
+  - [Conclusions](#toc1_5_)    
+  - [Considerations during optimization](#toc1_6_)    
+
+<!-- vscode-jupyter-toc-config
+	numbering=false
+	anchor=true
+	flat=false
+	minLevel=1
+	maxLevel=6
+	/vscode-jupyter-toc-config -->
+<!-- THIS CELL WILL BE REPLACED ON TOC UPDATE. DO NOT WRITE YOUR TEXT IN THIS CELL -->
+
+## <a id='toc1_1_'></a>[Introduction](#toc0_)
+
+The html parsing of a daily batch of files (about 300 html at about 40mb size total) was taking over 8 minutes.
+Our problem consists in parsing hundreds of raw html files with a similar structure, retrieve the data in a structured format and save it to parquet.
+
+We are going to explore the following methods:
+- Pandas + BS4 (baseline)
+  - This is my first approach to any problem of this kind. Make it work with the least resources spent. I use Pandas and BeautifulSoup4 because their are pretty much the simplest packages for their niche.
+- Dask + BS4
+  - My first optimization was to introduce Dask instead of Pandas due to their similar semantics. However, it raised more issues than I would expect when the html files were invalid.
+- Dask + BS4 with optimizations
+  - Now I started to work on BS4 optimizations by deconstructing a unique parsing function into multiple functions.
+- Dask + lxml
+  - Finally I wasn't happy with the results of BS4
+
+### <a id='toc1_1_1_'></a>[Process](#toc0_)
+
+```mermaid
+sequenceDiagram
+    participant HTMLFiles as HTML Files<br>(Local or Cloud)
+    participant Parser Script
+    participant ChunkReader as HTML File Chunk<br>Reader
+    participant DaskTasks as Dask Delayed Tasks<br>(Parallel Processing)
+    participant Database
+
+    HTMLFiles ->> Parser Script: Batched HTML Files<br>Processed in Chunks
+    Parser Script ->> ChunkReader: Read HTML File Chunks
+    ChunkReader -->> Parser Script: HTML File Data
+    Parser Script ->> DaskTasks: Processed and Merged DataFrames
+    DaskTasks -->> Parser Script: DataFrames
+    Parser Script ->> Database: SQL Commands<br>Bulk Insert
+
+## Data Structure
+
+```mermaid
+erDiagram
+    LISTINGS {
+        string title
+        string home_type
+        string link
+        string garage
+        int price
+        string additional_details
+        string description
+        string home_size
+        int home_area
+        int floor
+        boolean elevator
+        float price_per_sqr_meter
+    }
+```
+
+```{code-cell}
+import pandas as pd
+from bs4 import BeautifulSoup
+import regex as re
+import os
+import duckdb
+import dask
+import dask.dataframe as dd
+import line_profiler
+from duck_handler import DatabaseConnection
+from dask.diagnostics import ProgressBar
+%load_ext line_profiler
+
+```
+
+## Basic parsing function
+
+This is my first iteration of the problem. It fully focused on BS4 as the parsing backbone.
+
+## Pandas with BS4 parsing function
+
+
+```{code-cell}
+def parse_html_to_dataframe(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+        soup = BeautifulSoup(html_content, 'html.parser')
+        listings = []
+
+        # Extract each article which represents a real estate listing
+        articles = soup.find_all('article', class_=['item', 'extended-item'])
+        for article in articles:
+            # Initialize dictionary to store listing details
+            listing_info = {}
+            
+            # Extracting the title and link of the property
+            title_link = article.find('a', class_='item-link')
+            if title_link:
+                listing_info['title'] = title_link.get('title', '')
+                # Split the title by space and take the first word as home_type
+                title_words = listing_info['title'].split()
+                if title_words:  # Check if there is at least one word
+                    listing_info['home_type'] = title_words[0]
+                else:
+                    listing_info['home_type'] = ''  # Handle cases where the title might be empty
+                listing_info['link'] = 'https://www.idealista.pt' + title_link.get('href', '')
+
+            # Extracting price information
+            price_info = article.find('span', class_='item-price')
+            parking_info = article.find('span', class_='item-parking')
+            if parking_info:
+                listing_info['garage'] = "Yes"
+            else:
+                listing_info['garage'] = "No"
+            if price_info:
+                numeric_price = re.findall(r'\d+\.\d+|\d+', price_info.text.strip())
+                if numeric_price:
+                    listing_info['price'] = numeric_price[0]  
+
+            # Extracting detail characters like 'T1', '55 m² área bruta', etc.
+            details = article.find_all('span', class_='item-detail')
+            details_text = [detail.get_text(strip=True) for detail in details]
+            listing_info["additional_details"] = details_text
+            description = article.find('div', class_="item-description description").text.strip()
+            listing_info['description'] = description
+
+            # Adding the listing to the list
+            listings.append(listing_info)
+
+        # Creating a DataFrame
+        df = pd.DataFrame(listings)
+
+        # Initialize the new columns
+        df['home_size'] = None
+        df['home_area'] = None
+        df['floor'] = None
+
+        # Iterate over rows and fill the columns accordingly
+        for idx, row in df.iterrows():
+            details = row['additional_details']
+            if len(details) >= 2:
+                df.at[idx, 'home_size'] = details[0]
+                df.at[idx, 'home_area'] = int(re.search(r'\d+', details[1]).group())
+                if len(details) >= 3 and 'andar' in details[2]:
+                    df.at[idx, 'floor'] = details[2]
+
+        # Drop the original 'additional_details' column
+        # df.drop(columns=['additional_details'], inplace=True)
+        df['elevator'] = df['floor'].str.contains('com elevador')
+        df['floor'] = df['floor'].apply(lambda x: int(re.search(r'\d+', str(x)).group()) if x is not None else None)
+        df['price'] = df['price'].str.replace('.', '')
+        df['price'] = df['price'].astype(int)
+        df['price_per_sqr_meter'] = df['price']/df['home_area']
+        df['elevator'] = df['elevator'].fillna(False)
+        df['floor'] = df['floor'].fillna(0)
+        return df
+```
+
+```{code-cell}
+def process_data_pandas():
+    directory_path = "raw/idealista"
+
+    # List HTML files in the directory
+    html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+
+    # Parse HTML files and create a Dask DataFrame
+    data = [parse_html_to_dataframe(file_path) for file_path in html_files]
+    df = pd.concat(data, axis = 0, ignore_index= True)
+
+    # Connect to DuckDB
+    con = duckdb.connect(database='house_prices.db', read_only=False)
+
+    # Query to create a DuckDB table from DataFrame
+    create_table_query = f"CREATE TABLE html_data AS SELECT * FROM df"
+
+    # Execute the query
+    con.execute("DROP TABLE IF EXISTS html_data")
+    con.execute(create_table_query)  
+```
+
+```{code-cell}
+%lprun -f process_data_pandas process_data_pandas()
+```
+
+```
+
+Total time: 478.326 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data_pandas():
+     2         1          4.0      4.0      0.0      directory_path = "idealista"
+     3                                           
+     4                                               # List HTML files in the directory
+     5         1      40263.0  40263.0      0.1      html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+     6                                           
+     7                                               # Parse HTML files and create a Dask DataFrame
+     8         1   47792357.0    5e+07     99.9      data = [parse_html_to_dataframe(file_path) for file_path in html_files]
+     9                                               df = pd.concat(data, axis = 0, ignore_index= True)
+    10                                           
+    11                                               # Connect to DuckDB
+    12                                               con = duckdb.connect(database='house_prices.sql', read_only=False)
+    13                                           
+    14                                               # Query to create a DuckDB table from DataFrame
+    15                                               create_table_query = f"CREATE TABLE html_data AS SELECT * FROM df"
+    16                                           
+    17                                               # Execute the query
+    18                                               con.execute("DROP TABLE IF EXISTS html_data")
+    19                                               con.execute(create_table_query)
+    
+```
+
+## <a id='toc1_3_'></a>[Dask with BS4 parsing function](#toc0_)
+
+```{code-cell}
+def process_data(parsing_function, directory_path="idealista"):
+    # Check connection first
+    db = DatabaseConnection('house_prices.db')
+    with db.managed_cursor() as con:
+        # List HTML files in the directory
+        html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+        
+        # Use Dask to parse HTML files asynchronously
+        delayed_dataframes = [dask.delayed(parsing_function)(file) for file in html_files]
+        with ProgressBar():
+            # i cant maintain lazy eval because there are some empty dataframes due to parsing inconsistencies
+            computed_dataframes = dask.compute(*delayed_dataframes, scheduler='processes')
+
+        # Filter out empty dataframes
+        filtered_dataframes = [df for df in computed_dataframes if df is not None and not df.empty]
+
+        # Concatenate dataframes efficiently
+        if filtered_dataframes:
+            pandas_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+
+            # Insert into DuckDB
+            con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+            pandas_df.to_sql(directory_path, con, index=False, if_exists='replace')
+```
+
+There's actually an issue which hinders performance which has to do with the html file structure. There are some files which were parsed and didn't contain data as the parsing function expected, so I had to compute the list of dataframes before actually merging them.
+
+```{code-cell}
+%lprun -f process_data process_data(parse_html_to_dataframe)
+```
+
+Timer unit: 1e-07 s
+
+Total time: 257.473 s
+```
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path="idealista"):
+     2                                               # Check connection first
+     3         1         33.0     33.0      0.0      db = DatabaseConnection('house_prices.db')
+     4         2    2430868.0    1e+06      0.1      with db.managed_cursor() as con:
+     5                                                   # List HTML files in the directory
+     6         1      44211.0  44211.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+     7                                                   
+     8                                                   # Use Dask to parse HTML files asynchronously
+     9         1     320066.0 320066.0      0.0          delayed_dataframes = [dask.delayed(parsing_function)(file) for file in html_files]
+    10         2        394.0    197.0      0.0          with ProgressBar():
+    11                                                       # i cant maintain lazy eval because there are some empty dataframes due to parsing inconsistencies
+    12         1  169339803.0    2e+08      6.6              computed_dataframes = dask.compute(*delayed_dataframes, scheduler='processes')
+    13                                           
+    14                                                   # Filter out empty dataframes
+    15         1      27943.0  27943.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None and not df.empty]
+    16                                           
+    17                                                   # Concatenate dataframes efficiently
+...
+    19         1     616761.0 616761.0      0.0              pandas_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    20                                           
+    21                                                       # Insert into DuckDB
+    22         1     356003.0 356003.0      0.0              con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+    23         1 2401595989.0    2e+09     93.3              pandas_df.to_sql(directory_path, con, index=False, if_exists='replace')```
+
+## <a id='toc1_2_'></a>[Dask with BS4 with some improvements](#toc0_)
+
+**Function Decomposition**: Break down the process_data function into smaller, more manageable functions. This can improve readability and potentially uncover more opportunities for optimization.
+
+
+**Adjusting the chunk sizes** in Dask processing can indeed be beneficial if your HTML files are relatively small. By batching these files into larger tasks, you reduce the overhead that comes from managing many small tasks.
+
+
+Steps to Implement Batching:
+
+- Group HTML Files: Divide the list of HTML files into batches (chunks) before processing them with Dask. Each batch will contain multiple files that a single task will process.
+- Modify the Dask Task: Change the Dask delayed function to accept a list of HTML files instead of a single file and modify the parsing function accordingly if necessary.
+- Process Batches in Parallel: Use Dask to process each batch of files in parallel.
+
+```{code-cell}
+import asyncio
+import aiofiles
+
+async def read_html_files_async(directory_path):
+    html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+    return html_files
+
+```
+
+```{code-cell}
+def extract_floor(details):
+    if len(details) >= 3 and 'andar' in details[2]:
+        return details[2]
+    return None
+```
+
+```{code-cell}
+def process_dataframe(df):
+    df['home_type'] = df['title'].apply(lambda x: x.split()[0] if x else '')
+    df['home_size'] = df['additional_details'].apply(lambda x: x[0] if len(x) >= 1 else None)
+    df['home_area'] = df['additional_details'].apply(lambda x: int(re.search(r'\d+', x[1]).group()) if len(x) >= 2 else None)
+    df['floor'] = df['additional_details'].apply(extract_floor)
+
+    df['elevator'] = df['floor'].apply(lambda x: 'com elevador' in str(x))
+    df['floor'] = df['floor'].apply(lambda x: int(re.search(r'\d+', str(x)).group()) if x and re.search(r'\d+', str(x)) else 0)
+
+    df['price_per_sqr_meter'] = df['price'] / df['home_area']
+    df.drop(columns=['additional_details'], inplace=True)
+    df.fillna({'elevator': False, 'floor': 0}, inplace=True)
+    return df
+
+```
+
+```{code-cell}
+def extract_price(article):
+    price_info = article.find('span', class_='item-price')
+    if price_info:
+        numeric_price = re.findall(r'\d+', price_info.text.replace('.', ''))
+        return int(numeric_price[0]) if numeric_price else None
+    return None
+```
+
+```{code-cell}
+def extract_listing_info(article):
+    listing_info = {
+        'title': (title_link := article.find('a', class_='item-link')) and title_link.get('title', ''),
+        'link': 'https://www.idealista.pt' + (title_link.get('href', '') if title_link else ''),
+        'garage': 'Yes' if article.find('span', class_='item-parking') else 'No',
+        'price': extract_price(article),
+        'description': article.find('div', class_="item-description description").text.strip(),
+        'additional_details': [detail.get_text(strip=True) for detail in article.find_all('span', class_='item-detail')]
+    }
+    return listing_info
+```
+
+```{code-cell}
+def parse_html_to_dataframe(file_path):
+    # Read the HTML file
+    with open(file_path, 'r', encoding='utf-8') as file:
+        soup = BeautifulSoup(file, 'html.parser')
+
+    listings = []
+    articles = soup.find_all('article', class_=['item', 'extended-item'])
+    for article in articles:
+        listing_info = extract_listing_info(article)
+        listings.append(listing_info)
+
+    df = pd.DataFrame(listings)
+    if not df.empty:
+        df = process_dataframe(df)
+
+    return df
+```
+
+```{code-cell}
+def chunk_files(file_list, chunk_size):
+    # Generator that yields chunks of files, more efficient that list comprehension
+    for i in range(0, len(file_list), chunk_size):
+        yield file_list[i:i + chunk_size]
+```
+
+```{code-cell}
+def process_html_files(parsing_function, files):
+    # This function processes a batch of HTML files and returns a DataFrame
+    dataframes = []
+    for file in files:
+        df = parsing_function(file)
+        if df is not None and not df.empty:
+            dataframes.append(df)
+    if dataframes:
+        return pd.concat(dataframes, axis=0, ignore_index=True)
+    return None
+```
+
+```{code-cell}
+def process_data(parsing_function, directory_path="idealista", chunk_size=20):
+    db = DatabaseConnection('house_prices.db')
+    with db.managed_cursor() as con:
+        # List HTML files in the directory
+        html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+
+        # Create chunks of HTML files
+        file_chunks = list(chunk_files(html_files, chunk_size))
+
+        # Use Dask to parse HTML files in batches
+        delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+        with ProgressBar():
+            computed_dataframes = dask.compute(*delayed_dataframes, scheduler='processes')
+
+        # Filter out None results from batches
+        filtered_dataframes = [df for df in computed_dataframes if df is not None]
+
+        # Concatenate dataframes efficiently
+        if filtered_dataframes:
+            final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+
+            # Insert into database
+            con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+            final_df.to_sql(directory_path, con, index=False, if_exists='replace', method='multi')
+```
+
+```{code-cell}
+%lprun -f process_data process_data(parse_html_to_dataframe)
+```
+
+```
+Timer unit: 1e-07 s
+
+Total time: 228.601 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path="idealista", chunk_size=10):
+     2         1         50.0     50.0      0.0      db = DatabaseConnection('house_prices.db')
+     3         2    2785587.0    1e+06      0.1      with db.managed_cursor() as con:
+     4                                                   # List HTML files in the directory
+     5         1      47898.0  47898.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+     6                                           
+     7                                                   # Create chunks of HTML files
+     8         1        368.0    368.0      0.0          file_chunks = list(chunk_files(html_files, chunk_size))
+     9                                           
+    10                                                   # Use Dask to parse HTML files in batches
+    11         1      68009.0  68009.0      0.0          delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+    12         2        386.0    193.0      0.0          with ProgressBar():
+    13         1  164562665.0    2e+08      7.2              computed_dataframes = dask.compute(*delayed_dataframes, scheduler='processes')
+    14                                           
+    15                                                   # Filter out None results from batches
+    16         1         86.0     86.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None]
+    17                                           
+...
+    20         1      69317.0  69317.0      0.0              final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    21                                           
+    22                                                       # Insert into database
+    23         1     328203.0 328203.0      0.0              con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+    24         1 2118142445.0    2e+09     92.7              final_df.to_sql(directory_path, con, index=False, if_exists='replace')
+```
+
+## <a id='toc1_3_'></a>[Dask and lxml for parsing](#toc0_)
+
+  
+```mermaid
+graph LR
+    A[Raw HTML Files] --> B[Python Script<br>with lxml & Dask]
+    B --> C[Extract Data]
+    C --> D[Transform to Structured Format]
+    D --> E[Save to Parquet]
+
+    subgraph Process
+        B -->|Batched HTML Files| F[Read HTML Files]
+        F --> G[Parallel Processing<br>with Dask]
+        G --> H[Merge DataFrames]
+        H --> I[Structured Data]
+    end
+
+    A --> F
+    G -->|Processed Data| H
+    H -->|DataFrames| I
+    I --> E
+```
+
+```{code-cell}
+from lxml import html
+
+def parse_html_files_to_dataframe(file_paths):
+    listings = []
+
+    for file_path in file_paths:
+        # Read and parse each HTML file
+        with open(file_path, 'r', encoding='utf-8') as file:
+            parsed_html = html.parse(file)
+
+        # Extract articles that represent real estate listings
+        articles = parsed_html.xpath('//article[contains(@class, "item") or contains(@class, "extended-item")]')
+        for article in articles:
+            listing_info = extract_listing_info(article)
+            listings.append(listing_info)
+
+    # Create a DataFrame from all collected listings
+    df = pd.DataFrame(listings)
+    if not df.empty:
+        df = process_dataframe(df)
+    return df
+
+def extract_listing_info(article):
+    # Extracts data from an article and returns a dictionary of listing info
+    return {
+        'title': article.xpath('.//a[@class="item-link"]/@title')[0] if article.xpath('.//a[@class="item-link"]/@title') else '',
+        'link': 'https://www.idealista.pt' + (article.xpath('.//a[@class="item-link"]/@href')[0] if article.xpath('.//a[@class="item-link"]/@href') else ''),
+        'description': article.xpath('.//div[@class="item-description description"]/text()')[0].strip() if article.xpath('.//div[@class="item-description description"]/text()') else '',
+        'garage': "Yes" if article.xpath('.//span[@class="item-parking"]') else "No",
+        'price': extract_price(article.xpath('.//span[@class="item-price"]/text()')),
+        'additional_details': article.xpath('.//span[@class="item-detail"]/text()')
+    }
+
+def extract_price(price_texts):
+    if price_texts:
+        numeric_price = re.findall(r'\d+', price_texts[0].replace('.', ''))
+        return int(numeric_price[0]) if numeric_price else None
+    return None
+
+def process_dataframe(df):
+    df['home_size'] = df['additional_details'].apply(lambda x: x[0] if x else None)
+    df['home_area'] = df['additional_details'].apply(lambda x: int(re.search(r'\d+', x[1]).group()) if len(x) >= 2 else None)
+    df['floor'] = df['additional_details'].apply(lambda x: x[2] if len(x) >= 3 and 'andar' in x[2] else None)
+    df['elevator'] = df['floor'].apply(lambda x: 'com elevador' in str(x) if x else False)
+    df['floor'] = df['floor'].apply(lambda x: int(re.search(r'\d+', str(x)).group()) if x else 0)
+    df['price_per_sqr_meter'] = df['price'] / df['home_area']
+    df.drop(columns=['additional_details'], inplace=True)
+    df.fillna({'elevator': False, 'floor': 0}, inplace=True)
+
+    return df
+```
+
+```{code-cell}
+def process_data(parsing_function, directory_path="idealista", chunk_size=10):
+    db = DatabaseConnection('house_prices.db')
+    with db.managed_cursor() as con:
+        # List HTML files in the directory
+        html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+
+        # Create chunks of HTML files
+        file_chunks = list(chunk_files(html_files, chunk_size))
+
+        # Use Dask to parse HTML files in batches
+        delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+        with ProgressBar():
+            computed_dataframes = dask.compute(*delayed_dataframes, 
+                                               scheduler='processes')
+
+        # Filter out None results from batches
+        filtered_dataframes = [df for df in computed_dataframes if df is not None]
+
+        # Concatenate dataframes efficiently
+        if filtered_dataframes:
+            final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+
+            # Insert into database
+            con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+            final_df.to_sql(directory_path, con, index=False, if_exists='replace', method='multi')
+```
+
+```{code-cell}
+def process_html_files(parsing_function, files):
+    # This function processes a batch of HTML files and returns a DataFrame
+    dataframes = []
+    for file in files:
+        df = parsing_function(file)
+        if df is not None and not df.empty:
+            dataframes.append(df)
+    if dataframes:
+        return pd.concat(dataframes, axis=0, ignore_index=True)
+    return None
+```
+
+```mermaid
+graph TD;
+    A[parse_html_files_to_df<br>Input: list of strings<br>Output: DataFrame] --> C[extract_listing_info<br>Input: lxml html Element<br>Output: dictionary];
+    C --> D[extract_price<br>Input: list of strings<br>Output: Optional int];
+    D --> E[Database Insertion<br>Input: DataFrame<br>Output: None];
+    A --> B[process_dataframe<br>Input: DataFrame<br>Output: DataFrame];
+    B --> E;
+
+```
+
+```{code-cell}
+%lprun -f process_data process_data(parse_html_to_dataframe)
+```
+
+
+```
+Timer unit: 1e-07 s
+
+Total time: 22.1248 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path="idealista", chunk_size=10):
+     2         1         41.0     41.0      0.0      db = DatabaseConnection('house_prices.db')
+     3         2    2080322.0    1e+06      0.9      with db.managed_cursor() as con:
+     4                                                   # List HTML files in the directory
+     5         1      76743.0  76743.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith('.html')]
+     6                                           
+     7                                                   # Create chunks of HTML files
+     8         1        662.0    662.0      0.0          file_chunks = list(chunk_files(html_files, chunk_size))
+     9         1       3587.0   3587.0      0.0          print(f"Total files: {len(html_files)}")
+    10         1        160.0    160.0      0.0          print(f"Chunk size: {chunk_size}")
+    11         1        139.0    139.0      0.0          print(f"Number of chunks: {len(file_chunks)}")
+    12        29        198.0      6.8      0.0          for idx, chunk in enumerate(file_chunks):
+    13        28       6534.0    233.4      0.0              print(f"Chunk {idx + 1}: {len(chunk)} files")
+    14                                           
+    15                                                   # Use Dask to parse HTML files in batches
+    16         1      97062.0  97062.0      0.0          delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+    17         2        521.0    260.5      0.0          with ProgressBar():
+...
+    26         1      81922.0  81922.0      0.0              final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    27                                           
+    28                                                       # Insert into database
+    29         1     458093.0 458093.0      0.2              con.execute(f"DROP TABLE IF EXISTS {directory_path}")
+    30         1   17028626.0    2e+07      7.7              final_df.to_sql(directory_path, con, index=False, if_exists='replace', method='multi')
+```
+
+## <a id='toc1_4_'></a>[Analysis of the results](#toc0_)
+
+**Over 20 times time reduction from baseline!**
+
+```
+| Library Combination         | Time (s)  |
+|-----------------------------|-----------|
+| Pandas + BS4                | 478.326   |
+| Dask + BS4                  | 257.473   |
+| Dask + BS4/chunking files   | 228.601   |
+| Dask + lxml                 | 22.1248   |
+```
+
+#### <a id='toc1_4_1_1_'></a>[Lxml](#toc0_)
+As we can see the biggest performance comes from implementing lxml instead of BS4. Lxml provides an API to parse DOM data using tree iterators which can handle complex data structures with the lightning speed of C. This matters a lot, specially in the age of GenAI since there's a lot of information from several sources to parse and this efficiency is for sure a way to scale and decrease costs.
+
+#### <a id='toc1_4_1_2_'></a>[Dask](#toc0_)
+
+Its worth noting the performance increase from Pandas to Dask. It could be even better if we fixed the issue with unmatching dataframes during concatenation or provided a dask dataframe schema. We could also explore the optimal batch for chunk processing as well.
+
+## <a id='toc1_5_'></a>[Conclusions](#toc0_)
+
+1. Build a basic parser with BS4 and pandas
+2. Test the parser, make sure it returns the data in the right formats
+3. Test the data types, if possible **optimize data types**
+4. User **function profiling tools** to assess bottlenecks
+5. If the parser is complex, use **functional decomposition** to make it simpler
+6. Apply **vectorization** instead of loops (loop over columns instead of mixed data types or python loops) (ask GPT to help you)
+7. Use dasks **lazy evaluation** and instantiation for ops
+8. Replace BS4 by lxml (ask GPT to help you). lxml is based on C and is lightning fast.
+   1. This is where you might want to add efficiency at the cost of complexity
+9.  Parse html files in chunks of files if they are small. First chunk into list of list then feed to parsing function. Parsing function should take multiple file paths.
+    1.  You can use **async** processing if need be.
+
+file_chunks = list(chunk_files(html_files, chunk_size))
+delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+1.  Pass custom metadata to dask before computing, with optimized data types
+2.  Use chunk insert to SQL, or 'multi'/asynchronous connection
+
+## <a id='toc1_6_'></a>[Considerations during optimization](#toc0_)
+
+- Reducing I/O operations reading files in parallelized chunks
+- Trace the most important functions and avoid waste (lean thinking)
+- Improving the efficiency of data processing by streamlining functions (reducing overhead)
+- Minimize memory usage by using lazy evaluation and optimized data types
+

@@ -196,7 +196,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html"><a id="toc1_"></a><span class="xref myst">Mining in Wallapop 2024 Edition</span></a></li>
 </ul>
 
     </div>
@@ -563,53 +563,53 @@ The reason we didn’t discuss individual param contributions to model score is 
   <tbody>
     <tr>
       <th>0</th>
-      <td>2363</td>
-      <td>9</td>
+      <td>956</td>
+      <td>3</td>
       <td></td>
-      <td></td>
-      <td>Italia</td>
+      <td>Sephora</td>
+      <td>France</td>
       <td>None</td>
-      <td>Novo sem etiquetas</td>
+      <td>Novo com etiquetas</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1807</td>
-      <td>9</td>
-      <td>S</td>
-      <td>Los Angeles Lakers</td>
-      <td>Italia</td>
-      <td>Cinzento</td>
+      <td>153</td>
+      <td>6</td>
+      <td></td>
+      <td>Nature &amp; Decouvertes</td>
+      <td>France</td>
+      <td>None</td>
       <td>Novo com etiquetas</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1055</td>
-      <td>8</td>
-      <td>L / 40 / 12</td>
+      <td>2469</td>
+      <td>4</td>
       <td></td>
-      <td>Italia</td>
-      <td>Coral</td>
-      <td>Novo sem etiquetas</td>
+      <td>be MIX</td>
+      <td>France</td>
+      <td>None</td>
+      <td>Novo com etiquetas</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>26</td>
+      <td>2531</td>
       <td>4</td>
-      <td></td>
-      <td></td>
-      <td>Italia</td>
-      <td>Rosa</td>
-      <td>Novo sem etiquetas</td>
+      <td>S / 36 / 8</td>
+      <td>Chanchan fashion</td>
+      <td>France</td>
+      <td>Multi</td>
+      <td>Muito bom</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>194</td>
+      <td>198</td>
       <td>4</td>
-      <td>M / 38 / 10</td>
-      <td>CKH Clockhouse</td>
-      <td>Italia</td>
-      <td>Cinzento</td>
-      <td>Novo sem etiquetas</td>
+      <td>L / 40 / 12</td>
+      <td></td>
+      <td>France</td>
+      <td>Vermelho</td>
+      <td>Muito bom</td>
     </tr>
   </tbody>
 </table>
@@ -665,7 +665,7 @@ Data columns (total 7 columns):
  2   size_title     10000 non-null  object
  3   brand_title    10000 non-null  object
  4   country        10000 non-null  object
- 5   color1         8636 non-null   object
+ 5   color1         8665 non-null   object
  6   status         10000 non-null  object
 dtypes: int64(2), object(5)
 memory usage: 547.0+ KB
@@ -769,17 +769,17 @@ memory usage: 547.0+ KB
   <tbody>
     <tr>
       <th>count</th>
-      <td>1972</td>
-      <td>1972</td>
-      <td>1972</td>
-      <td>1972</td>
-      <td>1972</td>
+      <td>1868</td>
+      <td>1868</td>
+      <td>1868</td>
+      <td>1868</td>
+      <td>1868</td>
     </tr>
     <tr>
       <th>unique</th>
-      <td>118</td>
-      <td>765</td>
-      <td>28</td>
+      <td>110</td>
+      <td>750</td>
+      <td>26</td>
       <td>29</td>
       <td>5</td>
     </tr>
@@ -793,11 +793,11 @@ memory usage: 547.0+ KB
     </tr>
     <tr>
       <th>freq</th>
-      <td>321</td>
-      <td>231</td>
-      <td>802</td>
-      <td>546</td>
-      <td>1055</td>
+      <td>337</td>
+      <td>238</td>
+      <td>754</td>
+      <td>455</td>
+      <td>1000</td>
     </tr>
   </tbody>
 </table>
@@ -859,7 +859,7 @@ memory usage: 547.0+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model has 1366 labels
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model has 1345 labels
 </pre></div>
 </div>
 </div>
@@ -1062,66 +1062,126 @@ memory usage: 547.0+ KB
 <span class="g g-Whitespace">   </span><span class="mi">1473</span> <span class="p">):</span>
 <span class="ne">-&gt; </span><span class="mi">1474</span>     <span class="k">return</span> <span class="n">fit_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_logistic.py:1201,</span> in <span class="ni">LogisticRegression.fit</span><span class="nt">(self, X, y, sample_weight)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1198</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1199</span>     <span class="n">_dtype</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">]</span>
-<span class="ne">-&gt; </span><span class="mi">1201</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1202</span>     <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1203</span>     <span class="n">y</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1204</span>     <span class="n">accept_sparse</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1205</span>     <span class="n">dtype</span><span class="o">=</span><span class="n">_dtype</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1206</span>     <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1207</span>     <span class="n">accept_large_sparse</span><span class="o">=</span><span class="n">solver</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span> <span class="s2">&quot;sag&quot;</span><span class="p">,</span> <span class="s2">&quot;saga&quot;</span><span class="p">],</span>
-<span class="g g-Whitespace">   </span><span class="mi">1208</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1209</span> <span class="n">check_classification_targets</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1210</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_logistic.py:1296,</span> in <span class="ni">LogisticRegression.fit</span><span class="nt">(self, X, y, sample_weight)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1293</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1294</span>     <span class="n">n_threads</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="ne">-&gt; </span><span class="mi">1296</span> <span class="n">fold_coefs_</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="n">prefer</span><span class="o">=</span><span class="n">prefer</span><span class="p">)(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1297</span>     <span class="n">path_func</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1298</span>         <span class="n">X</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1299</span>         <span class="n">y</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1300</span>         <span class="n">pos_class</span><span class="o">=</span><span class="n">class_</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span>         <span class="n">Cs</span><span class="o">=</span><span class="p">[</span><span class="n">C_</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1302</span>         <span class="n">l1_ratio</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">l1_ratio</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1303</span>         <span class="n">fit_intercept</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fit_intercept</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1304</span>         <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1305</span>         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1306</span>         <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1307</span>         <span class="n">multi_class</span><span class="o">=</span><span class="n">multi_class</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1308</span>         <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1309</span>         <span class="n">class_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_weight</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1310</span>         <span class="n">check_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1311</span>         <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1312</span>         <span class="n">coef</span><span class="o">=</span><span class="n">warm_start_coef_</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1313</span>         <span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1314</span>         <span class="n">max_squared_sum</span><span class="o">=</span><span class="n">max_squared_sum</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1315</span>         <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1316</span>         <span class="n">n_threads</span><span class="o">=</span><span class="n">n_threads</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1317</span>     <span class="p">)</span>
+<span class="nn">   1318     for class_, warm_start_coef_</span> in <span class="ni">zip</span><span class="nt">(classes_, warm_start_coef)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1319</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1321</span> <span class="n">fold_coefs_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">n_iter_</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">fold_coefs_</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1322</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iter_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">n_iter_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span>
 
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:650,</span> in <span class="ni">BaseEstimator._validate_data</span><span class="nt">(self, X, y, reset, validate_separately, cast_to_ndarray, **check_params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">648</span>         <span class="n">y</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">check_y_params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">649</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">650</span>         <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">check_params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="n">out</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
-<span class="g g-Whitespace">    </span><span class="mi">653</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">no_val_X</span> <span class="ow">and</span> <span class="n">check_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ensure_2d&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py:67,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">67</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
 
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py:1263,</span> in <span class="ni">check_X_y</span><span class="nt">(X, y, accept_sparse, accept_large_sparse, dtype, order, copy, force_all_finite, ensure_2d, allow_nd, multi_output, ensure_min_samples, ensure_min_features, y_numeric, estimator)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1258</span>         <span class="n">estimator_name</span> <span class="o">=</span> <span class="n">_check_estimator_name</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1259</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1260</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">estimator_name</span><span class="si">}</span><span class="s2"> requires y to be passed, but the target y is None&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1261</span>     <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1263</span> <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1264</span>     <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1265</span>     <span class="n">accept_sparse</span><span class="o">=</span><span class="n">accept_sparse</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1266</span>     <span class="n">accept_large_sparse</span><span class="o">=</span><span class="n">accept_large_sparse</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1267</span>     <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1268</span>     <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1269</span>     <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1270</span>     <span class="n">force_all_finite</span><span class="o">=</span><span class="n">force_all_finite</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1271</span>     <span class="n">ensure_2d</span><span class="o">=</span><span class="n">ensure_2d</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1272</span>     <span class="n">allow_nd</span><span class="o">=</span><span class="n">allow_nd</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1273</span>     <span class="n">ensure_min_samples</span><span class="o">=</span><span class="n">ensure_min_samples</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1274</span>     <span class="n">ensure_min_features</span><span class="o">=</span><span class="n">ensure_min_features</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1275</span>     <span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1276</span>     <span class="n">input_name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1277</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1279</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_check_y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">multi_output</span><span class="o">=</span><span class="n">multi_output</span><span class="p">,</span> <span class="n">y_numeric</span><span class="o">=</span><span class="n">y_numeric</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1281</span> <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1863,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1861</span>     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sequential_output</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1862</span>     <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1863</span>     <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1865</span> <span class="c1"># Let&#39;s create an ID that uniquely identifies the current call. If the</span>
+<span class="g g-Whitespace">   </span><span class="mi">1866</span> <span class="c1"># call is interrupted early and that the same instance is immediately</span>
+<span class="g g-Whitespace">   </span><span class="mi">1867</span> <span class="c1"># re-used, this id will be used to prevent workers that were</span>
+<span class="g g-Whitespace">   </span><span class="mi">1868</span> <span class="c1"># concurrently finalizing a task from the previous call to run the</span>
+<span class="g g-Whitespace">   </span><span class="mi">1869</span> <span class="c1"># callback.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1870</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
 
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\validation.py:997,</span> in <span class="ni">check_array</span><span class="nt">(array, accept_sparse, accept_large_sparse, dtype, order, copy, force_all_finite, ensure_2d, allow_nd, ensure_min_samples, ensure_min_features, estimator, input_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">995</span>         <span class="n">array</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">996</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">997</span>         <span class="n">array</span> <span class="o">=</span> <span class="n">_asarray_with_order</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">xp</span><span class="o">=</span><span class="n">xp</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">998</span> <span class="k">except</span> <span class="n">ComplexWarning</span> <span class="k">as</span> <span class="n">complex_warning</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">999</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1000</span>         <span class="s2">&quot;Complex data not supported</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1001</span>     <span class="p">)</span> <span class="kn">from</span> <span class="nn">complex_warning</span>
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\joblib\parallel.py:1792,</span> in <span class="ni">Parallel._get_sequential_output</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1790</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_batches</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">   </span><span class="mi">1791</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">-&gt; </span><span class="mi">1792</span> <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1793</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_completed_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">   </span><span class="mi">1794</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_progress</span><span class="p">()</span>
 
-<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\_array_api.py:521,</span> in <span class="ni">_asarray_with_order</span><span class="nt">(array, dtype, order, copy, xp)</span>
-<span class="g g-Whitespace">    </span><span class="mi">519</span>     <span class="n">array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">520</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">521</span>     <span class="n">array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">523</span> <span class="c1"># At this point array is a NumPy ndarray. We convert it to an array</span>
-<span class="g g-Whitespace">    </span><span class="mi">524</span> <span class="c1"># container that is consistent with the input&#39;s namespace.</span>
-<span class="g g-Whitespace">    </span><span class="mi">525</span> <span class="k">return</span> <span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\utils\parallel.py:129,</span> in <span class="ni">_FuncWrapper.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span>     <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">129</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_logistic.py:540,</span> in <span class="ni">_logistic_regression_path</span><span class="nt">(X, y, pos_class, Cs, fit_intercept, max_iter, tol, verbose, solver, coef, class_weight, dual, penalty, intercept_scaling, multi_class, random_state, check_input, max_squared_sum, sample_weight, l1_ratio, n_threads)</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>         <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">C</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span>         <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">C</span><span class="p">)</span> <span class="o">*</span> <span class="n">l1_ratio</span>
+<span class="ne">--&gt; </span><span class="mi">540</span>     <span class="n">w0</span><span class="p">,</span> <span class="n">n_iter_i</span><span class="p">,</span> <span class="n">warm_start_sag</span> <span class="o">=</span> <span class="n">sag_solver</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>         <span class="n">X</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span>         <span class="n">target</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span>         <span class="n">sample_weight</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">544</span>         <span class="n">loss</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">545</span>         <span class="n">alpha</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">546</span>         <span class="n">beta</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">547</span>         <span class="n">max_iter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">548</span>         <span class="n">tol</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">549</span>         <span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">550</span>         <span class="n">random_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span>         <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span>         <span class="n">max_squared_sum</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>         <span class="n">warm_start_sag</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span>         <span class="n">is_saga</span><span class="o">=</span><span class="p">(</span><span class="n">solver</span> <span class="o">==</span> <span class="s2">&quot;saga&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>         <span class="s2">&quot;solver must be one of {&#39;liblinear&#39;, &#39;lbfgs&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">560</span>         <span class="s2">&quot;&#39;newton-cg&#39;, &#39;sag&#39;}, got &#39;</span><span class="si">%s</span><span class="s2">&#39; instead&quot;</span> <span class="o">%</span> <span class="n">solver</span>
+<span class="g g-Whitespace">    </span><span class="mi">561</span>     <span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\linear_model\_sag.py:325,</span> in <span class="ni">sag_solver</span><span class="nt">(X, y, sample_weight, loss, alpha, beta, max_iter, tol, verbose, random_state, check_input, max_squared_sum, warm_start_mem, is_saga)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>     <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>         <span class="s2">&quot;Current sag implementation does not handle &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="s2">&quot;the case step_size * alpha_scaled == 1&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span> <span class="n">sag</span> <span class="o">=</span> <span class="n">sag64</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="k">else</span> <span class="n">sag32</span>
+<span class="ne">--&gt; </span><span class="mi">325</span> <span class="n">num_seen</span><span class="p">,</span> <span class="n">n_iter_</span> <span class="o">=</span> <span class="n">sag</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>     <span class="n">dataset</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>     <span class="n">coef_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>     <span class="n">intercept_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="n">n_samples</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span>     <span class="n">n_features</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">331</span>     <span class="n">n_classes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">332</span>     <span class="n">tol</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">333</span>     <span class="n">max_iter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">334</span>     <span class="n">loss</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span>     <span class="n">step_size</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">336</span>     <span class="n">alpha_scaled</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>     <span class="n">beta_scaled</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>     <span class="n">sum_gradient_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>     <span class="n">gradient_memory_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>     <span class="n">seen_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="n">num_seen_init</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span>     <span class="n">fit_intercept</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">343</span>     <span class="n">intercept_sum_gradient</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span>     <span class="n">intercept_decay</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span>     <span class="n">is_saga</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">346</span>     <span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">347</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">349</span> <span class="k">if</span> <span class="n">n_iter_</span> <span class="o">==</span> <span class="n">max_iter</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">350</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>         <span class="s2">&quot;The max_iter was reached which means the coef_ did not converge&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span>         <span class="n">ConvergenceWarning</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>     <span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>

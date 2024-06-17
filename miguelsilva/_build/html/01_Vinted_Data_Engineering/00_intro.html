@@ -66,7 +66,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="02: Vinted API" href="01_vinted_api.html" />
-    <link rel="prev" title="Introduction" href="../intro.html" />
+    <link rel="prev" title="In sample regressor for house rent prices" href="../05_housing_database/02_price_regression_idealista.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,17 +186,15 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">01: Overview of the Vinted Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01_vinted_api.html">02: Vinted API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_pipeline_design.html">03: Pipeline Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_data_modelling.html">Data Modelling</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html"><a id="toc1_"></a><span class="xref myst">Mining in Wallapop 2024 Edition</span></a></li>
 </ul>
 
     </div>
@@ -392,7 +390,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-vinted-project">Introduction to the Vinted Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vinted-as-a-seller">Vinted as a seller</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pipeline-design">Overview of Pipeline Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-overview">Requirements overview</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layers">Layers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frameworks">Frameworks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-infrastructure">Cloud infrastructure</a></li>
@@ -411,6 +414,74 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="overview-of-the-vinted-project">
 <h1>01: Overview of the Vinted Project<a class="headerlink" href="#overview-of-the-vinted-project" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="#01-overview-of-the-vinted-project"><span class="xref myst">01: Overview of the Vinted Project</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction-to-the-vinted-project"><span class="xref myst">Introduction to the Vinted Project</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#vinted-as-a-seller"><span class="xref myst">Vinted as a seller</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#overview-of-pipeline-design"><span class="xref myst">Overview of Pipeline Design</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements-overview"><span class="xref myst">Requirements overview</span></a></p></li>
+<li><p><a class="reference internal" href="#layers"><span class="xref myst">Layers</span></a></p></li>
+<li><p><a class="reference internal" href="#frameworks"><span class="xref myst">Frameworks</span></a></p></li>
+<li><p><a class="reference internal" href="#cloud-infrastructure"><span class="xref myst">Cloud infrastructure</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="introduction-to-the-vinted-project">
+<h2>Introduction to the Vinted Project<a class="headerlink" href="#introduction-to-the-vinted-project" title="Link to this heading">#</a></h2>
+<p><img alt="Image Description" src="../_images/vinted_logo.png" /></p>
+<p>Vinted is a popular online marketplace that connects buyers and sellers of second-hand clothing, shoes, accessories, and other fashion items. It is a Lithuania-based online marketplace founded in 2008, specializing in second-hand clothing, shoes, accessories, and other fashion items. According to Statista, the global second-hand apparel market was valued at approximately $200 billion in 2024 and is projected to reach $350 billion by 2028, representing a compound annual growth rate (CAGR) of 15.5%.</p>
+<p><strong>Vinted is one of Europe’s hottest startups</strong>.</p>
+<blockquote>
+<div><p>In 2021, Vinted raised $303 million in Series F funding, valuing the company at over $4 billion and cementing its position as one of Europe’s leading tech startups.</p>
+</div></blockquote>
+<p><strong>Vinted is ESG friendly</strong></p>
+<p>In addition, Vinted is a good alternative for growth investors seeking companies complying with Europe’s ESG (environmental, social and corporate responsibilities).</p>
+<blockquote>
+<div><p>Vinted promotes sustainable fashion practices by extending the lifecycle of clothing and reducing the environmental impact of the fashion industry.</p>
+</div></blockquote>
+<blockquote>
+<div><p>According to Vinted’s Sustainability Report, the platform helped save approximately 35,000 tons of CO2 emissions in 2020 through the sale of second-hand items.</p>
+</div></blockquote>
+<p><img alt="Image Description" src="../_images/vinted_market.png" /></p>
+<p>Second hand clothing are on their way to dethrone mid and low tier clothing brands. Both cheap off price retailers and high end luxury should be safe. This marks a <strong>new generation of customer behavior</strong>.</p>
+<blockquote>
+<div><p>Millennials and Generation Z consumers, in particular, are driving the demand for sustainable fashion and are active participants on platforms like Vinted.</p>
+</div></blockquote>
+<p><img alt="Image Description" src="../_images/segment.png" /></p>
+<section id="vinted-as-a-seller">
+<h3>Vinted as a seller<a class="headerlink" href="#vinted-as-a-seller" title="Link to this heading">#</a></h3>
+<p>From a sellers perspective, the main focus points are:</p>
+<ul class="simple">
+<li><p>Easy listings process: Vinted provides a user-friendly platform where you can easily list your pre-owned clothing, shoes, accessories, and other fashion items for sale.</p></li>
+<li><p>Ability to reach a large audience: By selling on Vinted, you gain access to a large and diverse audience of potential buyers.</p></li>
+<li><p>Affordable selling fees</p></li>
+<li><p>Seller (and buyer) protection</p></li>
+<li><p>Direct communication with buyers</p></li>
+<li><p>Feedback and ratings system</p></li>
+</ul>
+</section>
+</section>
+<section id="overview-of-pipeline-design">
+<h2>Overview of Pipeline Design<a class="headerlink" href="#overview-of-pipeline-design" title="Link to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/vinted_schema.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Pipeline Schema (proposed)</p></td>
+</tr>
+</tbody>
+</table>
+<section id="requirements-overview">
+<h3>Requirements overview<a class="headerlink" href="#requirements-overview" title="Link to this heading">#</a></h3>
 <p>Our data pipeline wants to capture:</p>
 <ul class="contains-task-list simple">
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> the stream of new items being added to Vinted’s marketplace in real time</p></li>
@@ -434,18 +505,7 @@ document.write(`
     actor --&gt; C(Get product sales factors)
     actor --&gt; D(Build Dashboards)
     actor --&gt; E(Build ML solutions)
-        </div><section id="overview-of-pipeline-design">
-<h2>Overview of Pipeline Design<a class="headerlink" href="#overview-of-pipeline-design" title="Link to this heading">#</a></h2>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/vinted_schema.png" /></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>Pipeline Schema (proposed)</p></td>
-</tr>
-</tbody>
-</table>
+        </div></section>
 <section id="layers">
 <h3>Layers<a class="headerlink" href="#layers" title="Link to this heading">#</a></h3>
 <p>This pipeline is divided into 3 main stages:</p>
@@ -558,12 +618,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="../05_housing_database/02_price_regression_idealista.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">In sample regressor for house rent prices</p>
       </div>
     </a>
     <a class="right-next"
@@ -591,7 +651,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-vinted-project">Introduction to the Vinted Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vinted-as-a-seller">Vinted as a seller</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pipeline-design">Overview of Pipeline Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-overview">Requirements overview</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layers">Layers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frameworks">Frameworks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-infrastructure">Cloud infrastructure</a></li>

@@ -10,47 +10,18 @@ parts:
     - file: 01_Vinted_Data_Engineering/00_intro
     - file: 01_Vinted_Data_Engineering/01_vinted_api    
     - file: 01_Vinted_Data_Engineering/02_pipeline_design
-    # - file: 01_Vinted_Data_Engineering/03_data_modelling
 
   - caption: Vinted Data Science
     chapters:
-    - file: 03_Vinted_Data_Science/00_intro
     - file: 03_Vinted_Data_Science/01_price_prediction
     - file: 03_Vinted_Data_Science/02_catalog_clustering
-    # - file: 03_Vinted_Data_Science/03_optimization-book
-    # - file: 03_Vinted_Data_Science/04_premium-classification
     - file: 03_Vinted_Data_Science/05_user_clustering
+
+  - caption: Housing Project
+    chapters:
+    - file: 05_housing_database/00
+    - file: 05_housing_database/02_price_regression_idealista
 
   - caption: Wallapop
     chapters:
     - file: 06_Wallapop/01_exploration
-    # hierarchical time series analysis
-
-  - caption: Housing
-    chapters:
-    # - file: 05_housing_database/01_html_parsing
-    - file: 05_housing_database/02_price_regression_idealista
-
-
-
-
-  # - caption: Time Series
-    # chapters:
-    #- file: 02_Time_Series/00_intro
-    #- file: 02_Time_Series/00_TimeSeriesBasics/01_exploratory_analysis
-    #- file: 02_Time_Series/00_TimeSeriesBasics/02_ts_classification
-    # - file: 02_Time_Series/00_TimeSeriesBasics/03_tsf_intro_lightgbm
-    #- file: 02_Time_Series/01_Hyperparam_Tuning/01_hyperparam_tuning
-    #- file: 02_Time_Series/01_Hyperparam_Tuning/02_lightgbm_opt
-    #- file: 02_Time_Series/02_Time_Series_Clustering/01_timeseries_clustering
-    #- file: 02_Time_Series/02_Time_Series_Clustering/02_ts_clustering_distribution
-
-    # add one part for theoretical stuff
-    # LightGBM
-    # Clustering metrics
-    # t-SNE
-    # MLP
-
-# vinted pipeline blog
-# time series forecasting blog
-# brand segmentation

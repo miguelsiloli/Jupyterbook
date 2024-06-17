@@ -65,7 +65,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="In sample regressor for house rent prices" href="../05_housing_database/02_price_regression_idealista.html" />
     <link rel="prev" title="05: Clustering users using KMeans and t-SNE" href="../03_Vinted_Data_Science/05_user_clustering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,11 +185,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
 </ul>
@@ -396,7 +393,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-api">Building the API</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requests-crawler">Requests Crawler</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">Data description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unnormalized-data-structure">Unnormalized Data Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unnormalized-schema">Unnormalized Schema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">Data Cleaning</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a></li>
 </ul>
@@ -433,11 +430,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mining-in-wallapop-2024-edition">
 <h1>Mining in Wallapop 2024 Edition<a class="headerlink" href="#mining-in-wallapop-2024-edition" title="Link to this heading">#</a></h1>
-<p>This blog post was inspired by the post <a class="reference external" href="https://salvacarrion.github.io/data/analysis/2018/05/17/mining-in-wallapop.html">https://salvacarrion.github.io/data/analysis/2018/05/17/mining-in-wallapop.html</a>. I decided to update and recreate the work of another Data Scientist.</p>
-<p>Wallapop is an online marketplace to buy and sell stuff.
-The purpose of this example is to remake Salva Carrion’s work and to learn a bit more about online shopping patterns. During the process I’m going to walk you over how I found this idea, discovered the endpoints and built my own scrapper and how I integrated Cloud services to help me during the process. I will also show some visualizations and statistics about my findings.
+<p>This blog post was inspired by the post <a class="reference external" href="https://salvacarrion.github.io/data/analysis/2018/05/17/mining-in-wallapop.html">https://salvacarrion.github.io/data/analysis/2018/05/17/mining-in-wallapop.html</a>.</p>
+<p>The purpose of this example is to remake Salva Carrion’s work and to learn a bit more about online shopping patterns. During the process I’m going to walk you over how I found this idea, discovered the endpoints and built my own scrapper and how I integrated Cloud services to help me during the process. I will also show some visualizations and statistics about my findings.
 Disclaimer, since there is a lot of data in there and a lot of possible analysis to be made, I’m going to make a super simple generalistic approach and not deep dive into any topic.</p>
-<p><strong>Keywords</strong>: Wallpop, Rest API, AWS, EDA</p>
+<p><strong>Keywords</strong>: Wallpop, Rest API, AWS Athena, AWS Glue, EDA</p>
 <section id="data-collection">
 <h2>Data Collection<a class="headerlink" href="#data-collection" title="Link to this heading">#</a></h2>
 <p>The data was colleted through their rest API following. The process will be explained later, I’ll start with a brief overview diagram of the dataflow.</p>
@@ -487,11 +483,11 @@ Data size: ~10GB raw ~ 1.7GB compressed
 Others: Lots of outliers
 </pre></div>
 </div>
-<p><img alt="View on Eraser!" src="assets/arch_overview.png" /></p>
+<p><img alt="View on Eraser!" src="../_images/arch_overview.png" /></p>
 </section>
-<section id="unnormalized-data-structure">
-<h3>Unnormalized Data Structure<a class="headerlink" href="#unnormalized-data-structure" title="Link to this heading">#</a></h3>
-<p><img alt="ERD!" src="assets/ERD.png" /></p>
+<section id="unnormalized-schema">
+<h3>Unnormalized Schema<a class="headerlink" href="#unnormalized-schema" title="Link to this heading">#</a></h3>
+<p><img alt="ERD!" src="../_images/ERD.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1793,15 +1789,6 @@ One class SVM with a non-linear kernel (RBF): too slow.
         <p class="prev-next-title"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></p>
       </div>
     </a>
-    <a class="right-next"
-       href="../05_housing_database/02_price_regression_idealista.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">In sample regressor for house rent prices</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1822,7 +1809,7 @@ One class SVM with a non-linear kernel (RBF): too slow.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-api">Building the API</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requests-crawler">Requests Crawler</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">Data description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unnormalized-data-structure">Unnormalized Data Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unnormalized-schema">Unnormalized Schema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">Data Cleaning</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a></li>
 </ul>

@@ -138,9 +138,10 @@ Example: Run catalogs flow hourly at 13h, I expect the data fetched is between 1
 #### Source Replayability
 
     *What did the data look like n periods(min/hour/day/months/years) ago?(n can be any reasonable arbitrary number)*, 
-    then it is replayable, else it is not. Replayability is critical for backfills [(Data Pipeline Patterns)](https://www.startdataengineering.com/post/design-patterns/#3-data-pipeline-patterns).
+    then it is replayable, else it is not. Replayability is critical for backfills. 
+    
 
-This data is a replayable source, because if we can easily do a backfill by increasing the parameters on the request. However, this may not be replayable if we want to keep a stateful track of the system state.
+This data is a replayable source, because if we can easily do a backfill by increasing the parameters on the request. However, this may not be replayable if we want to keep a stateful track of the system state [(Data Pipeline Patterns)](https://www.startdataengineering.com/post/design-patterns/#3-data-pipeline-patterns).
 
 
 In the tracking pipeline, we are taking a snapshot at a specific time. If we miss one day, it's gone forever.
@@ -150,9 +151,9 @@ One can create a replayable source from a non-replayable source by dumping the i
 ```
 
 **Replayability**
-[x] Catalog Pipeline
-[x] Images Pipeline
-[] Tracking Pipeline
+- [x] Catalog Pipeline
+- [x] Images Pipeline
+- [] Tracking Pipeline
 
 #### Sink Overwritability & Idempotency
 
