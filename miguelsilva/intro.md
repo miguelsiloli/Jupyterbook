@@ -1,6 +1,6 @@
 # Introduction
 
-**By [Miguel Silva](https://miguelsilva.netlify.app/) 🚀**
+**By [Miguel Silva](https://miguelsilva.netlify.app/)**
 
 Some high effort projects of my own. Hope you like it.
 
