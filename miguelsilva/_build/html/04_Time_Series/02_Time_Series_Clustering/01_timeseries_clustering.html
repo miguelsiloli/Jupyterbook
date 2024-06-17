@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -60,6 +61,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '04_Time_Series/02_Time_Series_Clustering/01_timeseries_clustering';</script>
+    <script src="../../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -179,7 +181,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -444,132 +463,352 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tslearn.clustering</span> <span class="kn">import</span> <span class="n">TimeSeriesKMeans</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">clustering</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.clustering` module gathers time series specific clustering</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> algorithms.</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span><span class="sd">  details.</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.kshape</span> <span class="kn">import</span> <span class="n">KShape</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">EmptyClusterError</span><span class="p">,</span> <span class="n">silhouette_score</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                     <span class="n">TimeSeriesCentroidBasedClusteringMixin</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">.kmeans</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TimeSeriesKMeans</span><span class="p">,</span> <span class="n">KernelKMeans</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">clustering</span>\<span class="n">kshape</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_array</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">tslearn.utils</span> <span class="kn">import</span> <span class="n">to_time_series_dataset</span><span class="p">,</span> <span class="n">check_dims</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">tslearn.metrics</span> <span class="kn">import</span> <span class="n">cdist_normalized_cc</span><span class="p">,</span> <span class="n">y_shifted_sbd_vec</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">preprocessing</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.preprocessing` module gathers time series scalers and </span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> resamplers.</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.preprocessing</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">TimeSeriesScalerMeanVariance</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">TimeSeriesScalerMinMax</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">TimeSeriesResampler</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="s2">&quot;TimeSeriesResampler&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="s2">&quot;TimeSeriesScalerMinMax&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="s2">&quot;TimeSeriesScalerMeanVariance&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="p">]</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">preprocessing</span>\<span class="n">preprocessing</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">tslearn.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">to_time_series_dataset</span><span class="p">,</span> <span class="n">check_equal_size</span><span class="p">,</span> <span class="n">ts_size</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>                            <span class="n">check_dims</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">tslearn.bases</span> <span class="kn">import</span> <span class="n">TimeSeriesBaseEstimator</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Romain Tavenard romain.tavenard[at]univ-rennes2.fr&#39;</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">utils</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.utils` module includes various utilities.</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">check_dims</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">check_equal_size</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">to_time_series</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">to_time_series_dataset</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">time_series_to_str</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">timeseries_to_str</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">str_to_time_series</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">str_to_timeseries</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">save_time_series_txt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">save_timeseries_txt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">load_time_series_txt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">load_timeseries_txt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">ts_size</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">ts_zeros</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">check_dataset</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">LabelCategorizer</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">_load_txt_uea</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">_load_arff_uea</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">.cast</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">to_sklearn_dataset</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">from_cesium_dataset</span><span class="p">,</span> <span class="n">to_cesium_dataset</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="n">from_tsfresh_dataset</span><span class="p">,</span> <span class="n">to_tsfresh_dataset</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="s2">&quot;check_dims&quot;</span><span class="p">,</span> <span class="s2">&quot;check_equal_size&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="s2">&quot;to_time_series&quot;</span><span class="p">,</span> <span class="s2">&quot;to_time_series_dataset&quot;</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="s2">&quot;from_tsfresh_dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;to_tsfresh_dataset&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="p">]</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">utils</span>\<span class="n">utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">20</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># Old sklearn versions</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="kn">from</span> <span class="nn">sklearn.utils.estimator_checks</span> <span class="kn">import</span> <span class="n">NotAnArray</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">tslearn.backend</span> <span class="kn">import</span> <span class="n">instantiate_backend</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">tslearn.bases</span> <span class="kn">import</span> <span class="n">TimeSeriesBaseEstimator</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Romain Tavenard romain.tavenard[at]univ-rennes2.fr&quot;</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">backend</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> The :mod:`tslearn.backend` module provides multiple backends.</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> The backends provided are NumPy and PyTorch.</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.backend</span> <span class="kn">import</span> <span class="n">Backend</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">instantiate_backend</span><span class="p">,</span> <span class="n">select_backend</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="s2">&quot;Backend&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="s2">&quot;cast&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="s2">&quot;instantiate_backend&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="s2">&quot;select_backend&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="p">]</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tslearn</span>\<span class="n">backend</span>\<span class="n">backend</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tslearn.backend.numpy_backend</span> <span class="kn">import</span> <span class="n">NumPyBackend</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="kn">import</span> <span class="nn">torch</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="kn">from</span> <span class="nn">tslearn.backend.pytorch_backend</span> <span class="kn">import</span> <span class="n">PyTorchBackend</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">torch</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">117</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="k">if</span> <span class="n">with_load_library_flags</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">117</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryExW</span><span class="p">(</span><span class="n">dll</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mh">0x00001100</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">last_error</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">last_error</span> <span class="o">!=</span> <span class="mi">126</span><span class="p">:</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>date</th>
+      <th>2018-01-31</th>
+      <th>2018-02-28</th>
+      <th>2018-03-31</th>
+      <th>2018-04-30</th>
+      <th>2018-05-31</th>
+      <th>2018-06-30</th>
+      <th>2018-07-31</th>
+      <th>2018-08-31</th>
+      <th>2018-09-30</th>
+      <th>2018-10-31</th>
+      <th>2018-11-30</th>
+      <th>2018-12-31</th>
+      <th>2019-01-31</th>
+      <th>2019-02-28</th>
+      <th>2019-03-31</th>
+      <th>2019-04-30</th>
+      <th>2019-05-31</th>
+      <th>2019-06-30</th>
+      <th>2019-07-31</th>
+      <th>2019-08-31</th>
+      <th>2019-09-30</th>
+      <th>2019-10-31</th>
+      <th>2019-11-30</th>
+      <th>2019-12-31</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Total</th>
+      <td>43347.4855</td>
+      <td>23756.7667</td>
+      <td>37784.6243</td>
+      <td>19860.4246</td>
+      <td>34531.2473</td>
+      <td>2363.1088</td>
+      <td>9649.4321</td>
+      <td>9881.8506</td>
+      <td>11306.1056</td>
+      <td>16066.5439</td>
+      <td>12118.2309</td>
+      <td>6529.3997</td>
+      <td>2171.4008</td>
+      <td>4638.9813</td>
+      <td>3394.3797</td>
+      <td>1482.344</td>
+      <td>6240.3639</td>
+      <td>6227.278</td>
+      <td>9508.7676</td>
+      <td>6331.2085</td>
+      <td>7236.5693</td>
+      <td>13691.0258</td>
+      <td>7062.9143</td>
+      <td>3678.0051</td>
+    </tr>
+    <tr>
+      <th>Artigos Decorativos</th>
+      <td>24.0525</td>
+      <td>461.5050</td>
+      <td>622.0800</td>
+      <td>126.3650</td>
+      <td>54.4850</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>5.2250</td>
+      <td>0.0000</td>
+      <td>97.4050</td>
+      <td>24.6400</td>
+      <td>20.9000</td>
+      <td>0.0000</td>
+      <td>38.7200</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>655.8850</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>26.2680</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Bases e Floreiras</th>
+      <td>525.7350</td>
+      <td>394.3500</td>
+      <td>379.1060</td>
+      <td>371.2700</td>
+      <td>16.5000</td>
+      <td>0.0000</td>
+      <td>15.5840</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>327.7580</td>
+      <td>101.7500</td>
+      <td>0.0000</td>
+      <td>136.0360</td>
+      <td>633.0000</td>
+      <td>7.9750</td>
+      <td>106.700</td>
+      <td>0.0000</td>
+      <td>38.500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>55.0275</td>
+      <td>133.6500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Casa</th>
+      <td>0.0000</td>
+      <td>49.3250</td>
+      <td>0.0000</td>
+      <td>49.5160</td>
+      <td>0.0000</td>
+      <td>24.3350</td>
+      <td>0.0000</td>
+      <td>101.7500</td>
+      <td>0.0000</td>
+      <td>184.8200</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>31.1850</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Flores</th>
+      <td>3538.5955</td>
+      <td>1526.6135</td>
+      <td>6407.9869</td>
+      <td>378.2920</td>
+      <td>862.7100</td>
+      <td>655.7890</td>
+      <td>157.4625</td>
+      <td>297.1860</td>
+      <td>302.4660</td>
+      <td>466.9227</td>
+      <td>349.3346</td>
+      <td>202.2325</td>
+      <td>322.0722</td>
+      <td>310.7750</td>
+      <td>187.5870</td>
+      <td>178.981</td>
+      <td>193.4625</td>
+      <td>147.246</td>
+      <td>727.3420</td>
+      <td>971.0250</td>
+      <td>134.3540</td>
+      <td>113.2245</td>
+      <td>148.3870</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5995.0</th>
+      <td>0.0000</td>
+      <td>149.2760</td>
+      <td>0.0000</td>
+      <td>183.6860</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>322.030</td>
+      <td>153.1620</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>168.9000</td>
+      <td>72.5200</td>
+      <td>11.5731</td>
+    </tr>
+    <tr>
+      <th>5996.0</th>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>329.7000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>37.8800</td>
+      <td>0.0000</td>
+      <td>24.6000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>5997.0</th>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>190.6730</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>748.3200</td>
+      <td>0.0000</td>
+      <td>601.1300</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>269.3922</td>
+      <td>64.3060</td>
+      <td>0.000</td>
+      <td>140.5100</td>
+      <td>0.000</td>
+      <td>195.7500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>5998.0</th>
+      <td>942.7000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>375.2490</td>
+      <td>0.0000</td>
+      <td>695.5960</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>151.2610</td>
+      <td>274.790</td>
+      <td>0.0000</td>
+      <td>816.6800</td>
+      <td>1001.4000</td>
+      <td>201.0030</td>
+      <td>295.2180</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>5999.0</th>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>1019.2600</td>
+      <td>0.0000</td>
+      <td>1902.1036</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>905.1600</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.000</td>
+      <td>0.0000</td>
+      <td>2144.000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+    </tr>
+  </tbody>
+</table>
+<p>125 rows × 24 columns</p>
+</div></div></div>
 </div>
 </section>
 <section id="visualizing-data-onto-2d-projection">
@@ -593,7 +832,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e789bcb8018f65af04ada10ba7ebc1078625f54f88876db55ce6192ce38addd5.png" src="../../_images/e789bcb8018f65af04ada10ba7ebc1078625f54f88876db55ce6192ce38addd5.png" />
+<img alt="../../_images/7487a8818249c6b880ef0ba6f32bf8252c10ba99e5213812dcb3acc258408cea.png" src="../../_images/7487a8818249c6b880ef0ba6f32bf8252c10ba99e5213812dcb3acc258408cea.png" />
 </div>
 </div>
 </section>
@@ -674,27 +913,61 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 2, Inertia: 18.02338633061857
-Number of clusters: 3, Inertia: 16.141003005800567
-Number of clusters: 4, Inertia: 14.691878587239723
-Number of clusters: 5, Inertia: 13.429196404344774
-Number of clusters: 6, Inertia: 11.962993892680958
-Number of clusters: 7, Inertia: 11.263981448621788
-Number of clusters: 8, Inertia: 10.464235224325906
-Number of clusters: 9, Inertia: 9.51965202368137
-Number of clusters: 10, Inertia: 8.859590096845437
-Number of clusters: 11, Inertia: 8.520474838526816
-Number of clusters: 12, Inertia: 8.232545820335634
-Number of clusters: 13, Inertia: 7.751171603960899
-Number of clusters: 14, Inertia: 7.48993792916117
-Number of clusters: 15, Inertia: 6.99863140120731
-Number of clusters: 16, Inertia: 6.885549503705598
-Number of clusters: 17, Inertia: 6.494676404114721
-Number of clusters: 18, Inertia: 6.301125000865093
-Number of clusters: 19, Inertia: 5.999819863059946
-Best number of clusters: 19, Min Inertia: 5.999819863059946
 </pre></div>
 </div>
-<img alt="../../_images/672ff713cc9b4798d31266abf5e403516c245415fdbe9459b785bc4f72b088f6.png" src="../../_images/672ff713cc9b4798d31266abf5e403516c245415fdbe9459b785bc4f72b088f6.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 3, Inertia: 16.11659675433741
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 4, Inertia: 14.683800531267703
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 5, Inertia: 13.262040082130131
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 6, Inertia: 12.066002012769594
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 7, Inertia: 11.118618939283794
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 8, Inertia: 10.269788810476863
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 9, Inertia: 9.573675755782418
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 10, Inertia: 9.040115397211649
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 11, Inertia: 8.350413438006322
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 12, Inertia: 8.123034551725631
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 13, Inertia: 7.691220845794773
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 14, Inertia: 7.395895883603535
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 15, Inertia: 7.086905829205476
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 16, Inertia: 6.935870713003314
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 17, Inertia: 6.521844163465453
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 18, Inertia: 6.375333366203261
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 19, Inertia: 6.017257699245889
+Best number of clusters: 19, Min Inertia: 6.017257699245889
+</pre></div>
+</div>
+<img alt="../../_images/f6f8e0e62137436ac54b50f147d04388c0c2a04531101bcbc1c869f7b63d5128.png" src="../../_images/f6f8e0e62137436ac54b50f147d04388c0c2a04531101bcbc1c869f7b63d5128.png" />
 </div>
 </div>
 </section>
@@ -716,7 +989,7 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/dc7d5ba2a3875d3d62aa7c290b65f204f3f57f1b06311259eb140d911dfe49c4.png" src="../../_images/dc7d5ba2a3875d3d62aa7c290b65f204f3f57f1b06311259eb140d911dfe49c4.png" />
+<img alt="../../_images/1315d7e0e769450715144a4c344bc2640e5b5ea1bc75c3f7b64a62fbf24b3904.png" src="../../_images/1315d7e0e769450715144a4c344bc2640e5b5ea1bc75c3f7b64a62fbf24b3904.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -749,14 +1022,14 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Temp\ipykernel_8936\1629654913.py:23: UserWarning: Tight layout not applied. tight_layout cannot make axes height small enough to accommodate all axes decorations.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Temp\ipykernel_5892\2538675891.py:23: UserWarning: Tight layout not applied. tight_layout cannot make axes height small enough to accommodate all axes decorations.
   plt.tight_layout()
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.7914972467700838
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.6862627344533136
 </pre></div>
 </div>
-<img alt="../../_images/bd0bd9fd557aa9519e70e1bbbc910b7ee8a20193897cf61795d4956e03eef22e.png" src="../../_images/bd0bd9fd557aa9519e70e1bbbc910b7ee8a20193897cf61795d4956e03eef22e.png" />
+<img alt="../../_images/49e2055e97fcbc92fa582af0d0fd4dade999d7628a490bd10d6fe9b6d09d45ec.png" src="../../_images/49e2055e97fcbc92fa582af0d0fd4dade999d7628a490bd10d6fe9b6d09d45ec.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -786,7 +1059,7 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/bc89c723edd83d02651e643a1022c340424532345df8d57f20b49f08de6200cc.png" src="../../_images/bc89c723edd83d02651e643a1022c340424532345df8d57f20b49f08de6200cc.png" />
+<img alt="../../_images/f4840d898b936976522c7ecef76a9b80be4499b2a0c78d328f7c506da9ce7a0b.png" src="../../_images/f4840d898b936976522c7ecef76a9b80be4499b2a0c78d328f7c506da9ce7a0b.png" />
 </div>
 </div>
 </section>
@@ -836,28 +1109,122 @@ Best number of clusters: 19, Min Inertia: 5.999819863059946
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 2, Inertia: 5.420586151711464
-Number of clusters: 3, Inertia: 4.177304652832527
-Number of clusters: 4, Inertia: 3.738524798373651
-Number of clusters: 5, Inertia: 3.355609905212012
-Number of clusters: 6, Inertia: 3.047946604392453
-Number of clusters: 7, Inertia: 2.6824537222464815
-Number of clusters: 8, Inertia: 2.6551042978969828
-Number of clusters: 9, Inertia: 2.351653098282396
-Number of clusters: 10, Inertia: 2.2726030892463607
-Number of clusters: 11, Inertia: 2.1646271210243997
-Number of clusters: 12, Inertia: 2.0675028000743736
-Number of clusters: 13, Inertia: 2.002537714616747
-Number of clusters: 14, Inertia: 1.9077890543759322
-Number of clusters: 15, Inertia: 1.7959126600725064
-Number of clusters: 16, Inertia: 1.7257878891101073
-Number of clusters: 17, Inertia: 1.648691026393821
-Number of clusters: 18, Inertia: 1.644524936567957
-Number of clusters: 19, Inertia: 1.5149108879433901
-Best number of clusters: 19, Min Inertia: 1.5149108879433901
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 2, Inertia: 5.461726024709912
 </pre></div>
 </div>
-<img alt="../../_images/f082d9eba27d347582949e576bfb43d55c4d0b60173adcc0d3dc8d1590253768.png" src="../../_images/f082d9eba27d347582949e576bfb43d55c4d0b60173adcc0d3dc8d1590253768.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 3, Inertia: 4.283936332829489
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of clusters: 4, Inertia: 3.6221073430189463
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="k">for</span> <span class="n">n_clusters</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_clusters</span><span class="p">):</span>  <span class="c1"># Try different numbers of clusters</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">dba_km</span> <span class="o">=</span> <span class="n">TimeSeriesKMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                               <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                               <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;dtw&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                               <span class="n">max_iter_barycenter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                               <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">14</span>     <span class="n">dba_km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">silhuette</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">dba_km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;dtw&quot;</span><span class="p">)</span>  
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">inertia</span> <span class="o">=</span> <span class="n">dba_km</span><span class="o">.</span><span class="n">inertia_</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\clustering\kmeans.py:821,</span> in <span class="ni">TimeSeriesKMeans.fit</span><span class="nt">(self, X, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">819</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Init </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_successful</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">820</span> <span class="n">n_attempts</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">821</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_one_init</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">x_squared_norms</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">822</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inertia_</span> <span class="o">&lt;</span> <span class="n">min_inertia</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">823</span>     <span class="n">best_correct_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\clustering\kmeans.py:687,</span> in <span class="ni">TimeSeriesKMeans._fit_one_init</span><span class="nt">(self, X, x_squared_norms, rs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">684</span> <span class="n">old_inertia</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">inf</span>
+<span class="g g-Whitespace">    </span><span class="mi">686</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">687</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">688</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">689</span>         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">inertia_</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; --&gt; &quot;</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\clustering\kmeans.py:727,</span> in <span class="ni">TimeSeriesKMeans._assign</span><span class="nt">(self, X, update_class_attributes)</span>
+<span class="g g-Whitespace">    </span><span class="mi">726</span> <span class="k">def</span> <span class="nf">_assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">update_class_attributes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">727</span>     <span class="n">dists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">728</span>     <span class="n">matched_labels</span> <span class="o">=</span> <span class="n">dists</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="k">if</span> <span class="n">update_class_attributes</span><span class="p">:</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\clustering\kmeans.py:711,</span> in <span class="ni">TimeSeriesKMeans._transform</span><span class="nt">(self, X)</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="k">return</span> <span class="n">cdist</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>         <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>         <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;dtw&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">711</span>     <span class="k">return</span> <span class="n">cdist_dtw</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>         <span class="n">X</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span>         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span>         <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span>         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span>         <span class="o">**</span><span class="n">metric_params</span>
+<span class="g g-Whitespace">    </span><span class="mi">717</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">718</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;softdtw&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">719</span>     <span class="k">return</span> <span class="n">cdist_soft_dtw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">,</span> <span class="o">**</span><span class="n">metric_params</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\metrics\dtw_variants.py:1934,</span> in <span class="ni">cdist_dtw</span><span class="nt">(dataset1, dataset2, global_constraint, sakoe_chiba_radius, itakura_max_slope, n_jobs, verbose, be)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1833</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute cross-similarity matrix using Dynamic Time Warping (DTW)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1834</span><span class="sd"> similarity measure.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1835</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1931</span><span class="sd">        Signal Processing, vol. 26(1), pp. 43--49, 1978.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1932</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="g g-Whitespace">   </span><span class="mi">1933</span> <span class="n">be</span> <span class="o">=</span> <span class="n">instantiate_backend</span><span class="p">(</span><span class="n">be</span><span class="p">,</span> <span class="n">dataset1</span><span class="p">,</span> <span class="n">dataset2</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1934</span> <span class="k">return</span> <span class="n">_cdist_generic</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1935</span>     <span class="n">dist_fun</span><span class="o">=</span><span class="n">dtw</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1936</span>     <span class="n">dataset1</span><span class="o">=</span><span class="n">dataset1</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1937</span>     <span class="n">dataset2</span><span class="o">=</span><span class="n">dataset2</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1938</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1939</span>     <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1940</span>     <span class="n">compute_diagonal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1941</span>     <span class="n">global_constraint</span><span class="o">=</span><span class="n">global_constraint</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1942</span>     <span class="n">sakoe_chiba_radius</span><span class="o">=</span><span class="n">sakoe_chiba_radius</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1943</span>     <span class="n">itakura_max_slope</span><span class="o">=</span><span class="n">itakura_max_slope</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1944</span>     <span class="n">be</span><span class="o">=</span><span class="n">be</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1945</span> <span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\metrics\utils.py:77,</span> in <span class="ni">_cdist_generic</span><span class="nt">(dist_fun, dataset1, dataset2, n_jobs, verbose, compute_diagonal, dtype, be, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Compute cross-similarity matrix with joblib parallelization for a given</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span><span class="sd"> similarity function.</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="sd">     Cross-similarity matrix.</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span> <span class="n">be</span> <span class="o">=</span> <span class="n">instantiate_backend</span><span class="p">(</span><span class="n">be</span><span class="p">,</span> <span class="n">dataset1</span><span class="p">,</span> <span class="n">dataset2</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">77</span> <span class="n">dataset1</span> <span class="o">=</span> <span class="n">to_time_series_dataset</span><span class="p">(</span><span class="n">dataset1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">be</span><span class="o">=</span><span class="n">be</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="k">if</span> <span class="n">dataset2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="c1"># Inspired from code by @GillesVandewiele:</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="c1"># https://github.com/rtavenar/tslearn/pull/128#discussion_r314978479</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">matrix</span> <span class="o">=</span> <span class="n">be</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset1</span><span class="p">)))</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\utils\utils.py:231,</span> in <span class="ni">to_time_series_dataset</span><span class="nt">(dataset, dtype, be)</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="n">dataset_out</span> <span class="o">=</span> <span class="n">be</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_ts</span><span class="p">,</span> <span class="n">max_sz</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span> <span class="o">+</span> <span class="n">be</span><span class="o">.</span><span class="n">nan</span>
+<span class="g g-Whitespace">    </span><span class="mi">230</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ts</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">231</span>     <span class="n">ts</span> <span class="o">=</span> <span class="n">to_time_series</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">remove_nans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">be</span><span class="o">=</span><span class="n">be</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="n">dataset_out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ts</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span> <span class="k">return</span> <span class="n">be</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">dataset_out</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\utils\utils.py:163,</span> in <span class="ni">to_time_series</span><span class="nt">(ts, remove_nans, be)</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span>     <span class="n">ts_out</span> <span class="o">=</span> <span class="n">be</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ts_out</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">be</span><span class="o">.</span><span class="n">is_float</span><span class="p">(</span><span class="n">ts_out</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">163</span>     <span class="n">ts_out</span> <span class="o">=</span> <span class="n">be</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">ts_out</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="k">if</span> <span class="n">remove_nans</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="n">ts_out</span> <span class="o">=</span> <span class="n">ts_out</span><span class="p">[:</span> <span class="n">ts_size</span><span class="p">(</span><span class="n">ts_out</span><span class="p">,</span> <span class="n">be</span><span class="o">=</span><span class="n">be</span><span class="p">)]</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\backend\numpy_backend.py:90,</span> in <span class="ni">NumPyBackend.cast</span><span class="nt">(x, dtype)</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="nd">@staticmethod</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">def</span> <span class="nf">cast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">90</span>     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">

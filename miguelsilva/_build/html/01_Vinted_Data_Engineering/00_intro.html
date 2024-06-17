@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>01: Overview of the Data Pipeline &#8212; Visualization Curriculum</title>
+    <title>01: Overview of the Vinted Project &#8212; Visualization Curriculum</title>
   
   
   
@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,7 +58,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '01_Vinted_Data_Engineering/00_intro';</script>
+    <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -177,7 +181,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -361,7 +382,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>01: Overview of the Data Pipeline</h1>
+    <h1>01: Overview of the Vinted Project</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,24 +392,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source-api">Data source: API</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiling-and-api-endpoints">APK Decompiling and API endpoints</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiled">APK Decompiled</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-endpoints">Useful Endpoints</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pipeline-design">Overview of Pipeline Design</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layers">Layers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frameworks">Frameworks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-choices">Design choices</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-orchestration">Data Orchestration</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-manipulation">Data Manipulation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-and-dashboarding">Visualization and Dashboarding</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-infrastructure">Cloud infrastructure</a></li>
 </ul>
 </li>
 </ul>
@@ -402,91 +409,36 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="overview-of-the-data-pipeline">
-<h1>01: Overview of the Data Pipeline<a class="headerlink" href="#overview-of-the-data-pipeline" title="Link to this heading">#</a></h1>
-<section id="data-source-api">
-<h2>Data source: API<a class="headerlink" href="#data-source-api" title="Link to this heading">#</a></h2>
-<p>The first step of the pipeline is the source of the data. The source of the data in this scenario is the Vinted API which can be accessed by this endpoint: <a class="reference external" href="https://www.vinted.pt/api/v2/users/77283267/items">https://www.vinted.pt/api/v2/users/77283267/items</a></p>
-<section id="apk-decompiling-and-api-endpoints">
-<h3>APK Decompiling and API endpoints<a class="headerlink" href="#apk-decompiling-and-api-endpoints" title="Link to this heading">#</a></h3>
-<p>We can download some  the APK from the Vinted app store and decompile it with <a class="reference external" href="https://ibotpeaches.github.io/Apktool/">apktool</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apktool<span class="w"> </span>d<span class="w"> </span>vinted.apk
-</pre></div>
-</div>
-<p>Other alternatives are:</p>
-<ul class="simple">
-<li><p>Dex2jar</p></li>
-<li><p>Jadx</p></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="overview-of-the-vinted-project">
+<h1>01: Overview of the Vinted Project<a class="headerlink" href="#overview-of-the-vinted-project" title="Link to this heading">#</a></h1>
+<p>Our data pipeline wants to capture:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> the stream of new items being added to Vinted’s marketplace in real time</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> a system to track these items over time</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> a system to store and label images from products</p></li>
 </ul>
-<section id="apk-decompiled">
-<h4>APK Decompiled<a class="headerlink" href="#apk-decompiled" title="Link to this heading">#</a></h4>
-<p>Once the app is decompiled look into words such as ‘api’, ‘latitude’, ‘brand_ids’, ‘rest’, ‘status’, etc.</p>
-<p><img alt="Local Image" src="../_images/vintedapi.png" /></p>
-</section>
-<section id="useful-endpoints">
-<h4>Useful Endpoints<a class="headerlink" href="#useful-endpoints" title="Link to this heading">#</a></h4>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="err">params</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;search_text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;+&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;search_text&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;catalog_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;catalog_ids[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;color_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;color_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;brand_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;brand_ids[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;size_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;size_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;material_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;material_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;status_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;status[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;country_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;country_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;city_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;city_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;is_for_swap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;disposal[]&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;currency&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;price_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;price_to&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;price_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;price_from&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">page</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;per_page&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">ba</span><span class="kc">t</span><span class="err">ch_size</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
-<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;order&quot;</span><span class="p">]</span><span class="err">)</span>
-<span class="w">    </span><span class="err">)</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>These are our string query params used in the API calls which are currently supported. In practice, I don’t use most of them.</p>
-</section>
-<section id="limitations">
-<h4>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h4>
-<p>The API doesn’t provide a full list of possible params for these query params.</p>
-</section>
-</section>
-</section>
-<section id="overview-of-pipeline-design">
+<p>The purpose of this project is to create an underlying structure to allow ad hoc analysis. Some of the most important analysis are:</p>
+<ul class="simple">
+<li><p><strong>Get product statistics with aggregations</strong>: the ability to provide the user an idea of average price by product categories, different sizes, different item conditioning, etc.</p></li>
+<li><p><strong>Get a sense of existing and future trends</strong>: this requires a longitudinal approach where we not only collect the data at a certain point in time, but we continuously track this data with snapshots accross time.</p></li>
+<li><p><strong>Get product sales</strong> factors: this goes with the idea above, which is the ability to track products and detect when they were sold.</p></li>
+<li><p><strong>Build Dashboards</strong>: Dashboards are built on Cubes or other OLAP solutions for aggregated queries.</p></li>
+<li><p><strong>Build ML solutions</strong>: the idea which comes to mind is the ability to predict product trends or price regression.</p></li>
+</ul>
+<div class="mermaid">
+            graph TD
+    actor[User]
+
+    actor --&gt; A(Get product descriptive statistics)
+    actor --&gt; B(Get product trends)
+    actor --&gt; C(Get product sales factors)
+    actor --&gt; D(Build Dashboards)
+    actor --&gt; E(Build ML solutions)
+        </div><section id="overview-of-pipeline-design">
 <h2>Overview of Pipeline Design<a class="headerlink" href="#overview-of-pipeline-design" title="Link to this heading">#</a></h2>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/project_schema.png" /></p></th>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/vinted_schema.png" /></p></th>
 </tr>
 </thead>
 <tbody>
@@ -497,12 +449,28 @@ document.write(`
 <section id="layers">
 <h3>Layers<a class="headerlink" href="#layers" title="Link to this heading">#</a></h3>
 <p>This pipeline is divided into 3 main stages:</p>
-<ul class="simple">
-<li><p><strong>Ingestion</strong>: ingestion layer is the first ETL layer where we scrap raw data from the source and store in s3 buckets. This first layer should be the simplest, with minimum to no transformations to the raw data.
-Data is scrapped in json and is stored in json (<strong>non/semi structured format</strong>).</p></li>
-<li><p><strong>Digestion</strong>: this is the first normalization step where we build staging tables in our RDS and store the data in a structured format for the first time. In a later phase, the data is normalized into a normalized layer. This is where <strong>data modelling</strong> and <strong>data normalization</strong> occurs.</p></li>
-<li><p><strong>Serving</strong>: this is the last step of data transformation. It is where data is aggregated, joined and partitioned according to its semantics and served in an analytics layer. This can be another schema within our RDS (<strong>data mart</strong>).</p></li>
-</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Layer</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Details</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Raw</strong></p></td>
+<td><p>The raw layer is the first ETL layer where we scrape raw data from the source and store it in S3 buckets. This first layer should be the simplest, with minimal to no transformations to the raw data. Data is scraped in JSON format and stored in JSON.</p></td>
+<td><p>- <strong>Source</strong>: Raw data<br>- <strong>Storage</strong>: S3 buckets<br>- Format: JSON</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Staging</strong></p></td>
+<td><p>The staging layer is the first normalization step where we build staging tables in our RDS and store the data in a structured format for the first time. In a later phase, the data is normalized into a normalized layer. This is where <strong>data modeling</strong> and <strong>data normalization</strong> occur.</p></td>
+<td><p>- <strong>Source</strong>: Staging tables<br>- <strong>Storage</strong>: RDS<br>- <strong>Processes</strong>: Data modeling, data normalization</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Serving</strong></p></td>
+<td><p>The serving layer is the final step of data transformation. It is where data is aggregated, joined, and partitioned according to its semantics and served in an analytics layer. This can be another schema within our RDS (<strong>data mart</strong>).</p></td>
+<td><p>- <strong>Source</strong>: Aggregated data<br>- <strong>Storage</strong>: Analytics layer, data mart<br>- <strong>Processes</strong>: Aggregation, joining, partitioning</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="frameworks">
 <h3>Frameworks<a class="headerlink" href="#frameworks" title="Link to this heading">#</a></h3>
@@ -526,21 +494,17 @@ Data is scrapped in json and is stored in json (<strong>non/semi structured form
 <tr class="row-odd"><td><p>Machine Learning</p></td>
 <td><p>Scikit-learn</p></td>
 </tr>
-<tr class="row-even"><td><p>ML Orchestration</p></td>
-<td><p>MLFlow</p></td>
-</tr>
-<tr class="row-odd"><td><p>Visualization</p></td>
+<tr class="row-even"><td><p>Visualization</p></td>
 <td><p>Plotly</p></td>
-</tr>
-<tr class="row-even"><td><p>Model Deployment</p></td>
-<td><p>FastAPI</p></td>
 </tr>
 <tr class="row-odd"><td><p>WSGI Server</p></td>
 <td><p>Streamlit</p></td>
 </tr>
 </tbody>
 </table>
-<p>Cloud infrastructure</p>
+</section>
+<section id="cloud-infrastructure">
+<h3>Cloud infrastructure<a class="headerlink" href="#cloud-infrastructure" title="Link to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Category</p></th>
@@ -559,220 +523,6 @@ Data is scrapped in json and is stored in json (<strong>non/semi structured form
 </tr>
 </tbody>
 </table>
-</section>
-<section id="design-choices">
-<h3>Design choices<a class="headerlink" href="#design-choices" title="Link to this heading">#</a></h3>
-<section id="data-orchestration">
-<h4>Data Orchestration<a class="headerlink" href="#data-orchestration" title="Link to this heading">#</a></h4>
-<p>Prefect is a modernized, simpler verson of Airflow which is not only exciting to learn but it also fits well in the Pythonic ecosystem.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Feature</p></th>
-<th class="head"><p>Prefect</p></th>
-<th class="head"><p>Airflow</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Ease of Use</p></td>
-<td><p>Simpler syntax and configuration</p></td>
-<td><p>Steeper learning curve, more complex setup (Linux based)</p></td>
-</tr>
-<tr class="row-odd"><td><p>DAG Definition</p></td>
-<td><p>Python-based with native Python code</p></td>
-<td><p>Uses Python but requires additional concepts like Operators and Hooks</p></td>
-</tr>
-<tr class="row-even"><td><p>Error Handling</p></td>
-<td><p>Built-in error handling and retries</p></td>
-<td><p>Retries require more manual configuration</p></td>
-</tr>
-<tr class="row-odd"><td><p>Monitoring</p></td>
-<td><p>UI is easier to use</p></td>
-<td><p>Provides a UI dashboard which has been updated</p></td>
-</tr>
-<tr class="row-even"><td><p>Community Support</p></td>
-<td><p>Growing community with active development</p></td>
-<td><p>Mature community with large user base</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ecosystem Integration</p></td>
-<td><p>Integrates well with other Python libraries and tools</p></td>
-<td><p>Provides a vast support for integrations as well</p></td>
-</tr>
-</tbody>
-</table>
-<p>The most important reasons why I chose Prefect over popular frameworks such as Airflow is it’s simplicity, easy setup and configuration and native Python coding. In addition, it’s much easier to run on Windows since you don’t need to run Docker or windows linux compatibility patch.</p>
-<p>In addition, Prefect already provides an extensible support for most frameworks and cloud infrastructure out-of-the-box. For instance, it provides support for Dask, Spark, great-expectations and dbt.</p>
-</section>
-<section id="data-manipulation">
-<h4>Data Manipulation<a class="headerlink" href="#data-manipulation" title="Link to this heading">#</a></h4>
-<p>Pandas is king in Python environments. The only reason I’m switching to other alternatives is due to performance issues (I/O ops or computing). This project doesn’t handle huge data volumes.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Feature</p></th>
-<th class="head"><p>Pandas</p></th>
-<th class="head"><p>Polars</p></th>
-<th class="head"><p>Dask</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Language</p></td>
-<td><p>Python</p></td>
-<td><p>Rust (with Python bindings)</p></td>
-<td><p>Python</p></td>
-</tr>
-<tr class="row-odd"><td><p>Backend</p></td>
-<td><p>Single-threaded</p></td>
-<td><p>Multi-threaded</p></td>
-<td><p>Distributed computing</p></td>
-</tr>
-<tr class="row-even"><td><p>Performance</p></td>
-<td><p>Fast for small to medium datasets</p></td>
-<td><p>Very fast, especially for large datasets</p></td>
-<td><p>Good for distributed computing</p></td>
-</tr>
-<tr class="row-odd"><td><p>Memory Usage</p></td>
-<td><p>Relatively high</p></td>
-<td><p>Lower memory footprint</p></td>
-<td><p>Efficient memory usage</p></td>
-</tr>
-<tr class="row-even"><td><p>Scalability</p></td>
-<td><p>Limited scalability</p></td>
-<td><p>Limited scalability</p></td>
-<td><p>Scales well with distributed computing</p></td>
-</tr>
-<tr class="row-odd"><td><p>DataFrame Operations</p></td>
-<td><p>Extensive operations and functions</p></td>
-<td><p>Comprehensive operations and functions</p></td>
-<td><p>Comprehensive operations and functions</p></td>
-</tr>
-<tr class="row-even"><td><p>Parallel Processing</p></td>
-<td><p>Limited parallelism</p></td>
-<td><p>Utilizes multi-threading</p></td>
-<td><p>Supports distributed computing</p></td>
-</tr>
-<tr class="row-odd"><td><p>Deployment</p></td>
-<td><p>Suitable for single-node deployment</p></td>
-<td><p>Suitable for single-node deployment</p></td>
-<td><p>Suitable for single-node or cluster deployment</p></td>
-</tr>
-<tr class="row-even"><td><p>Community Support</p></td>
-<td><p>Large and active community</p></td>
-<td><p>Growing community</p></td>
-<td><p>Large and active community</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ease of Use</p></td>
-<td><p>Familiar syntax and API</p></td>
-<td><p>Familiar syntax and API</p></td>
-<td><p>Similar syntax to Pandas, easy to learn</p></td>
-</tr>
-<tr class="row-even"><td><p>Ecosystem Integration</p></td>
-<td><p>Integrates well with Python libraries and tools</p></td>
-<td><p>Expanding ecosystem</p></td>
-<td><p>Extensive ecosystem integration</p></td>
-</tr>
-<tr class="row-odd"><td><p>Development Status</p></td>
-<td><p>Mature and widely used</p></td>
-<td><p>Rapidly evolving</p></td>
-<td><p>Rapidly evolving</p></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Pandas</strong></p>
-<p>For data manipulation, pandas is the one which provides more flexibility and integration into python libraries, so it’s my go to choice. However, there are some great alternatives for data manipulation, specially to deal with huge datasets.</p>
-<p>In addition, pandas provides several backends instead of numpy which can further accelerate data manipulation.</p>
-<p><strong>Polars</strong></p>
-<p>I never used Polars before but it has grown in popularity. It has an exciting premise of accelerating data wrangling operations on the same infrastructure using parallel execution.</p>
-<blockquote>
-<div><p>This benchmark aims to replicate data wrangling operations used in practice. Polars easily trumps other solutions due to its parallel execution engine, efficient algorithms and use of vectorization with SIMD (Single Instruction, Multiple Data). Compared to pandas, it can achieve more than 30x performance gains.</p>
-</div></blockquote>
-<p>source: <a class="reference external" href="https://pola.rs/">https://pola.rs/</a></p>
-<p><strong>Dask</strong></p>
-<p>Dask seems like a step between Polars and Spark. It scales much better than Polars since it uses distributed computing and Dask clusters to process data, but it’s not efficient as Spark on very large datasets.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Just pandas: Dask DataFrames are a collection of many pandas DataFrames.
-
-The API is the same. The execution is the same.
-
-Large scale: Works on 100 GiB on a laptop, or 100 TiB on a cluster.
-
-Easy to use: Pure Python, easy to set up and debug.
-</pre></div>
-</div>
-<p>source: <a class="reference external" href="https://docs.dask.org">https://docs.dask.org</a></p>
-<p>I have used Dask before, and there are some functions I really like.</p>
-<p><strong>I/O ops and reads</strong></p>
-<p>By using both the pyarrow engine and datatypes, by partioning the object into smaller chunks, by preemptively passing dataframe structure and  by deferring execution (lazy instantiation) Dask is able to optimize tasks (DAGs) and perform much faster operations.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
-<span class="kn">import</span> <span class="nn">dask_expr</span> <span class="k">as</span> <span class="nn">dd</span>
-
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;measurements.txt&quot;</span><span class="p">,</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
-    <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;station&quot;</span><span class="p">,</span> <span class="s2">&quot;measure&quot;</span><span class="p">],</span>
-    <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">,</span>
-    <span class="n">dtype_backend</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span>
-<span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;station&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">])</span>
-<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">()</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;station&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><strong>Processing data out of memory</strong></p>
-<p>Dask allows you to read several Gigs files into RAM by creating multiple partitions. It also provides a fairly strong API to overcome memory issues such as the ability to delete data, both local and remote and cancel operations on futures/collections.</p>
-</section>
-<section id="visualization-and-dashboarding">
-<h4>Visualization and Dashboarding<a class="headerlink" href="#visualization-and-dashboarding" title="Link to this heading">#</a></h4>
-<p>Dash is by far the most exciting dashboarding app right now. It’s arguably much harder to use with a steeper learning curve, but its results are remarkable.</p>
-<p>However, I find streamlit the easiest tool to use by far altough I dislike some things about it such as it’s linear run flow (Dash provides a way to deal with callbacks and responsive components which is much easier). It also doesn’t support native JS (altough Dash doesn’t either but it’s easier to add custome components).</p>
-<p>The bottom line is, when creating a product, if you are focusing on Time to Market or developing an MVP, streamlit is much better.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Feature</p></th>
-<th class="head"><p>Dash</p></th>
-<th class="head"><p>Streamlit</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Type of Tool</p></td>
-<td><p>Web application framework for building interactive web applications</p></td>
-<td><p>Web application framework for building data apps</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ease of Use</p></td>
-<td><p>Requires knowledge of Python and web development (HTML, CSS, JavaScript)</p></td>
-<td><p>Extremely easy to use with intuitive Python syntax</p></td>
-</tr>
-<tr class="row-even"><td><p>Interactivity</p></td>
-<td><p>Highly interactive with support for complex web applications</p></td>
-<td><p>Interactive widgets and components for real-time updates</p></td>
-</tr>
-<tr class="row-odd"><td><p>Customization</p></td>
-<td><p>Highly customizable with full control over layout and components</p></td>
-<td><p>Limited customization options compared to Dash</p></td>
-</tr>
-<tr class="row-even"><td><p>Deployment</p></td>
-<td><p>Can be deployed as standalone web applications or integrated into existing web apps</p></td>
-<td><p>Simple deployment process with built-in support for sharing via URL or Docker</p></td>
-</tr>
-<tr class="row-odd"><td><p>Community Support</p></td>
-<td><p>Large and active community with extensive documentation and resources</p></td>
-<td><p>Rapidly growing community with increasing adoption and resources</p></td>
-</tr>
-<tr class="row-even"><td><p>Backend Technology</p></td>
-<td><p>Based on Flask and ReactJS</p></td>
-<td><p>Based on Python with built-in support for machine learning and data processing</p></td>
-</tr>
-<tr class="row-odd"><td><p>Real-Time Updates</p></td>
-<td><p>Supports real-time updates and data streaming with WebSocket integration</p></td>
-<td><p>Supports real-time updates with automatic reactivity</p></td>
-</tr>
-<tr class="row-even"><td><p>Machine Learning</p></td>
-<td><p>Can be integrated with machine learning models for dynamic visualizations</p></td>
-<td><p>Built-in support for machine learning libraries and model integration</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 </section>
 </section>
 </section>
@@ -841,24 +591,10 @@ Easy to use: Pure Python, easy to set up and debug.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source-api">Data source: API</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiling-and-api-endpoints">APK Decompiling and API endpoints</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiled">APK Decompiled</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-endpoints">Useful Endpoints</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pipeline-design">Overview of Pipeline Design</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layers">Layers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frameworks">Frameworks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-choices">Design choices</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-orchestration">Data Orchestration</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-manipulation">Data Manipulation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-and-dashboarding">Visualization and Dashboarding</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-infrastructure">Cloud infrastructure</a></li>
 </ul>
 </li>
 </ul>

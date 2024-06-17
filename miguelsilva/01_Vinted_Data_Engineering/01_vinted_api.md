@@ -1,47 +1,100 @@
 # 02: Vinted API
 
-+------------------+       +------------------+       +------------------+
-|      Vinted      |       |      Items       |       |    Requester     |
-+------------------+       +------------------+       +------------------+
-|                  |       |                  |       |                  |
-|  - items: Items  |<----->|                  |       |                  |
-|                  |       |                  |       |                  |
-+------------------+       +------------------+       +------------------+
-      |                          |                           |
-      |                          |                           |
-      |     +------------------->|                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |    +--------------+       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    |              |       |
-      |     |                    |    +--------------+       |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |<-------------------+                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     |                    |                           |
-      |     v                    v                           v
+- [02: Vinted API](#02-vinted-api)
+  - [Data source: API](#data-source-api)
+      - [APK Decompiling and API endpoints](#apk-decompiling-and-api-endpoints)
+        - [APK Decompiled](#apk-decompiled)
+        - [Useful Endpoints](#useful-endpoints)
+        - [Limitations](#limitations)
+  - [Singleton Requester](#singleton-requester)
+  - [Vinted Endpoint Class](#vinted-endpoint-class)
+    - [Url Encoding Search params](#url-encoding-search-params)
+    - [Search catalog function](#search-catalog-function)
+    - [Search item based on user\_id](#search-item-based-on-user_id)
+    - [Wrapping up with Vinted class](#wrapping-up-with-vinted-class)
+  - [Conclusions](#conclusions)
 
+## Data source: API
+
+The first step of the pipeline is the source of the data. The source of the data in this scenario is the Vinted API which can be accessed by this endpoint: https://www.vinted.pt/api/v2/users/77283267/items
+
+#### APK Decompiling and API endpoints
+
+We can download some  the APK from the Vinted app store and decompile it with [apktool](https://ibotpeaches.github.io/Apktool/).
+
+```bash
+apktool d vinted.apk
+```
+
+Other alternatives are:
+- Dex2jar
+- Jadx
+
+##### APK Decompiled
+
+Once the app is decompiled look into words such as 'api', 'latitude', 'brand_ids', 'rest', 'status', etc.
+
+|![Local Image](../assets/data_engineering/vintedapi.png)|
+|:--:| 
+|Reverse engineer of the Vinted search params using apktool.|
+
+##### Useful Endpoints
+
+``` json
+params = {
+    "search_text": "+".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "search_text"])
+    ),
+    "catalog_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "catalog_ids[]"])
+    ),
+    "color_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "color_id[]"])
+    ),
+    "brand_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "brand_ids[]"])
+    ),
+    "size_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "size_id[]"])
+    ),
+    "material_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "material_id[]"])
+    ),
+    "status_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "status[]"])
+    ),
+    "country_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "country_id[]"])
+    ),
+    "city_ids": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "city_id[]"])
+    ),
+    "is_for_swap": ",".join(
+        map(str, [1 for tpl in querys if tpl[0] == "disposal[]"])
+    ),
+    "currency": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "currency"])
+    ),
+    "price_to": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "price_to"])
+    ),
+    "price_from": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "price_from"])
+    ),
+    "page": page,
+    "per_page": batch_size,
+    "order": ",".join(
+        map(str, [tpl[1] for tpl in querys if tpl[0] == "order"])
+    ),
+    "time": time
+}
+```
+
+These are our string query params used in the API calls which are currently supported. In practice, I don't use most of them.
+
+##### Limitations
+
+The API doesn't provide a full list of possible params for these query params.
 
 
 ## Singleton Requester
@@ -58,6 +111,7 @@ The base class for the API is a custom implementation of Requests library. The p
 - Limit the amount of sessions, sharing a single state accross the application
 - Global configuration of headers, cookies and other session params
 
+```{caution}
 **Why singleton can be considered an anti-pattern**
 
 > However, if we were to later modify the architecture to use multiple threads to handle many requests within a single instance of the application, this assumption suddenly turns out to be false, and it becomes necessary to rework the code significantly to handle this new condition.
@@ -67,7 +121,7 @@ For this instance, async requests are far fetched as of now because Vinted is ra
 > Coupled architectures often arise when modules rely heavily on global state, singletons, or shared mutable state.
 
 Singletons encourage coupled architectures as they share a global state accross the application
-
+```
 
 ## Vinted Endpoint Class
 
@@ -77,8 +131,8 @@ Singletons encourage coupled architectures as they share a global state accross 
 All the searching params we found using the reverse engineering of the Vinted API are going into a utility function.
 This function is nothing but an interface between the browser search url and the corresponding api endpoint url.
 
-URL: https://www.vinted.pt/catalog/2657-espadrilles
-Endpoint API: https://www.vinted.pt/api/v2/items?catalog[]=2657
+- URL: https://www.vinted.pt/catalog/2657-espadrilles
+- Endpoint API: https://www.vinted.pt/api/v2/items?catalog[]=2657
 
 
 ```python
@@ -274,26 +328,36 @@ class Vinted:
         self.items = Items()
 ```
 
+```{mermaid}
+classDiagram
+    class Vinted {
+        +get_catalog_ids()
+        +search_all(nbrRows, *args, **kwargs)
+        +search_catalog(url, batch_size: int, page: int) : pd.DataFrame
+        +search_colors(max_retries: int) : pd.DataFrame
+        +search_item(user_id, time: int) : pd.DataFrame
+        +search_brands(brand_id) : pd.DataFrame
+        +parseUrl(url, batch_size: int, page: int, time: int) : Dict
+    }
+
+    class Requester {
+        +get(url: str, headers: Dict) : requests.Response
+    }
+
+    class ProxyHandler {
+        +manage_proxies()
+    }
+
+    Vinted ..> Requester : calls
+    Vinted ..> ProxyHandler : calls
+```
+
 ## Conclusions
 
 Poor unfexible design which abuses Classes resulting in unnecessary complexity, overhead and functional problems downstream.
 
-**Vinted Class**:
-- Responsibilities: Acts as the main interface for interacting with the pyVinted API. It initializes the system and manages the retrieval of items from Vinted.
-- Strengths: Provides a clear entry point for users of the system, abstracting away details of the internal implementation.
-- Weaknesses: It might be tightly coupled with the specific functionality provided by the Items class, limiting its flexibility if the requirements change.
-
-**Items Class**:
-- Responsibilities: Presumably handles operations related to items, such as retrieving, updating, or managing item data.
-- Strengths: Encapsulates item-related functionality, adhering to the principle of separation of concerns.
-- Weaknesses: Without knowing the implementation details, it's challenging to evaluate its effectiveness in achieving its objectives.
-
-**Requester Class**:
-- Responsibilities: Handles HTTP requests to the Vinted API, including setting up a session and managing proxies.
-- Strengths: Encapsulates HTTP request logic, promoting code reusability and maintainability.
-- Weaknesses: It's not directly visible in the provided code snippet, so its specific implementation and potential limitations are unclear.
-
-**Proxy Handling**:
-- Responsibilities: Manages the usage of proxies, potentially to bypass rate limits or enhance privacy.
-- Strengths: Provides flexibility by allowing the user to specify a proxy if needed.
-- Weaknesses: Proxy usage can introduce additional complexity and potential failure points, such as connection issues or authentication problems.
+| Class            | Responsibilities                                                                                 | Strengths                                                                                               | Weaknesses                                                                                                        |
+|------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| Vinted           | Acts as the main interface for interacting with the pyVinted API. Initializes the system and manages the retrieval of items from Vinted. | Provides a clear entry point for users, abstracting away details of the internal implementation.         | Tightly coupled with the specific functionality provided by the Items class, limiting flexibility if requirements change. |
+| Requester        | Handles HTTP requests to the Vinted API, including setting up a session and managing proxies.    | Encapsulates HTTP request logic, capping requests.                                                      | Impossible to make async requests.                                                                                |
+| Proxy Handling   | Manages the usage of proxies, potentially to bypass rate limits or enhance privacy.              | Provides flexibility by allowing the user to specify a proxy if needed.                                  | Proxy usage can introduce additional complexity and potential failure points, such as connection issues or authentication problems. |

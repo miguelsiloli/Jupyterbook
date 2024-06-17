@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -58,6 +59,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '04_Time_Series/00_TimeSeriesBasics/01_exploratory_analysis';</script>
+    <script src="../../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -177,7 +179,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -510,7 +529,7 @@ Shape of the dataset: (17544, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a96337977b13774b47029845226b11b0f2c843378585a3e90ba46bb795d1f50f.png" src="../../_images/a96337977b13774b47029845226b11b0f2c843378585a3e90ba46bb795d1f50f.png" />
+<img alt="../../_images/c01fa56c53e9738479ecaf52420a0a8470b9076a00dbd3a203f0d74977016ca0.png" src="../../_images/c01fa56c53e9738479ecaf52420a0a8470b9076a00dbd3a203f0d74977016ca0.png" />
 </div>
 </div>
 <section id="moving-average-365-days">
@@ -534,7 +553,7 @@ Shape of the dataset: (17544, 12)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Bike Users - 365-Day Moving Average&#39;}, xlabel=&#39;date_time&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/48a2cbdcc95b23ca0a849f4a2d61870c95b119c5a8d1d16a18420ef2c8afc415.png" src="../../_images/48a2cbdcc95b23ca0a849f4a2d61870c95b119c5a8d1d16a18420ef2c8afc415.png" />
+<img alt="../../_images/610c431367ffa1f313f3806a52c861d81f76d530acd577c6649d701e44f0597d.png" src="../../_images/610c431367ffa1f313f3806a52c861d81f76d530acd577c6649d701e44f0597d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -560,7 +579,7 @@ Shape of the dataset: (17544, 12)
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">~\AppData\Local\Temp\ipykernel_31536\1868564388.py</span> in <span class="ni">?</span><span class="nt">()</span>
+<span class="nn">~\AppData\Local\Temp\ipykernel_8424\1868564388.py</span> in <span class="ni">?</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Model Inputs</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;users&quot;</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 

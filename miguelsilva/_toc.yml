@@ -8,16 +8,31 @@ parts:
   - caption: Vinted Data Engineering
     chapters:
     - file: 01_Vinted_Data_Engineering/00_intro
-    - file: 01_Vinted_Data_Engineering/01_vinted_api
+    - file: 01_Vinted_Data_Engineering/01_vinted_api    
+    - file: 01_Vinted_Data_Engineering/02_pipeline_design
+    # - file: 01_Vinted_Data_Engineering/03_data_modelling
 
   - caption: Vinted Data Science
     chapters:
     - file: 03_Vinted_Data_Science/00_intro
     - file: 03_Vinted_Data_Science/01_price_prediction
     - file: 03_Vinted_Data_Science/02_catalog_clustering
-    - file: 03_Vinted_Data_Science/03_optimization-book
-    - file: 03_Vinted_Data_Science/04_premium-classification
+    # - file: 03_Vinted_Data_Science/03_optimization-book
+    # - file: 03_Vinted_Data_Science/04_premium-classification
     - file: 03_Vinted_Data_Science/05_user_clustering
+
+  - caption: Wallapop
+    chapters:
+    - file: 06_Wallapop/01_exploration
+    # hierarchical time series analysis
+
+  - caption: Housing
+    chapters:
+    # - file: 05_housing_database/01_html_parsing
+    - file: 05_housing_database/02_price_regression_idealista
+
+
+
 
   # - caption: Time Series
     # chapters:

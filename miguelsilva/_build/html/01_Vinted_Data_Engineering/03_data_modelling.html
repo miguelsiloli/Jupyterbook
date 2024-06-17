@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Visualization Curriculum</title>
+    <title>Data Modelling &#8212; Visualization Curriculum</title>
   
   
   
@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,10 +58,15 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '01_Vinted_Data_Engineering/03_data_modelling';</script>
+    <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction: Vinted, the rise of ESG marketplace" href="../03_Vinted_Data_Science/00_intro.html" />
+    <link rel="prev" title="03: Pipeline Design" href="02_pipeline_design.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +128,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -177,7 +181,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -361,7 +382,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Data Modelling</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -370,9 +391,9 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -383,7 +404,487 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-modelling">
+<h1>Data Modelling<a class="headerlink" href="#data-modelling" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Our pipeline design predicts a staging logical schema, normalized schema and serving schema.</p>
+<div class="mermaid">
+            flowchart TD
+    A[Staging Database] -- (-) Minimum ETL Jobs&lt;br&gt; (+) Data Source Preservation --&gt; B
+    B[Normalized Database] -- Conceptual Division&lt;br&gt; (+) Query Complexity&lt;br&gt; (+) Index Support --&gt; C[Serving Database]
+        </div><div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Staging Schema</div>
+<p class="sd-card-text">The staging schema is a minimum ETL approach which makes no transformations to the data aside from flattening the JSON into a dataframe. It acts as an intermediate storage to help with backfills.</p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Normalized Schema</div>
+<p class="sd-card-text">The normalized schema operates in a star schema. It consists of fact tables and dimension tables, making I/O operations much faster due to effective indexing for each table. This schema supports the division of unnormalized content into conceptual fields such as users, products, and catalogs tables, is user-friendly, and supports BI operations.</p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Serving Schema</div>
+<p class="sd-card-text">The serving layer refers to specific use cases, serving normalized data within a restricted scope with more granularity and transformations.</p>
+</div>
+</div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="schemas">Schemas</h2>
+<h3 class="rubric" id="staging-schema">Staging Schema</h3>
+<div class="mermaid">
+            flowchart TD
+    subgraph source [&quot;Source&quot;]
+        Catalog_Pipeline[&quot;Catalog Pipeline&quot;]
+        Tracking_Pipeline[&quot;Tracking Pipeline&quot;]
+        Images_Pipeline[&quot;Images Pipeline&quot;]
+        Brands_Pipeline[&quot;Brands Pipeline&quot;]
+    end
+
+    subgraph sink [&quot;Sink&quot;]
+        Catalog_Staging[&quot;Catalog Staging&quot;]
+        Tracking_Staging[&quot;Tracking Staging&quot;]
+        User_Staging[&quot;User Staging&quot;]
+        S3_Image_Storage[&quot;S3 Image Storage&quot;]
+        Brands_Staging[&quot;Brands Staging&quot;]
+    end
+
+    Catalog_Pipeline --&gt; |feeds| Catalog_Staging
+    Tracking_Pipeline --&gt; |feeds| Tracking_Staging
+    Tracking_Pipeline --&gt; |feeds| User_Staging
+    Images_Pipeline --&gt; |feeds| S3_Image_Storage
+    Brands_Pipeline --&gt; |feeds| Brands_Staging
+        </div><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Local Image" src="../_images/staging_schema.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Staging Schema</p></td>
+</tr>
+</tbody>
+</table>
+<h3 class="rubric" id="normalized-schema">Normalized Schema</h3>
+<div class="mermaid">
+            erDiagram
+    users_fact {
+        INTEGER user_id PK &quot;Unique identifier for the user&quot;
+        VARCHAR username &quot;Username of the user&quot;
+        VARCHAR email &quot;Email address of the user&quot;
+        BOOLEAN is_active &quot;Status indicating if the user is active&quot;
+        TIMESTAMP created_at &quot;Timestamp when the user record was created&quot;
+        TIMESTAMP updated_at &quot;Timestamp when the user record was last updated&quot;
+        INTEGER country_id FK &quot;Foreign key to the country_dim table&quot;
+        VARCHAR country_title &quot;Title of the user's country&quot;
+        VARCHAR profile_url &quot;URL to the user's profile&quot;
+        DATE date &quot;Date of user-related event&quot;
+        INTEGER feedback_count &quot;Count of feedback received by the user&quot;
+    }
+
+    tracking_fact {
+        INTEGER tracking_id PK &quot;Unique identifier for the tracking record&quot;
+        INTEGER user_id FK &quot;Foreign key to the users_fact table&quot;
+        INTEGER product_id FK &quot;Foreign key to the catalog_fact table&quot;
+        TIMESTAMP tracking_time &quot;Timestamp when the tracking occurred&quot;
+        BOOLEAN is_active &quot;Status indicating if the tracking is active&quot;
+        TIMESTAMP created_at &quot;Timestamp when the tracking record was created&quot;
+        TIMESTAMP updated_at &quot;Timestamp when the tracking record was last updated&quot;
+    }
+
+    catalog_fact {
+        INTEGER product_id PK &quot;Unique identifier for the product&quot;
+        VARCHAR product_name &quot;Name of the product&quot;
+        INTEGER brand_id FK &quot;Foreign key to the brand&quot;
+        FLOAT price &quot;Price of the product&quot;
+        VARCHAR description &quot;Description of the product&quot;
+        BOOLEAN is_available &quot;Availability status of the product&quot;
+        TIMESTAMP created_at &quot;Timestamp when the product record was created&quot;
+        TIMESTAMP updated_at &quot;Timestamp when the product record was last updated&quot;
+        INTEGER category_id FK &quot;Foreign key to the category&quot;
+        VARCHAR category_title &quot;Title of the product category&quot;
+        BOOLEAN is_deleted &quot;Status indicating if the product is deleted&quot;
+    }
+
+    city_dim {
+        INTEGER city_id PK &quot;Unique identifier for the city&quot;
+        VARCHAR city &quot;Name of the city&quot;
+        INTEGER country_id FK &quot;Foreign key to the country_dim table&quot;
+    }
+
+    color_dim {
+        INTEGER color_id PK &quot;Unique identifier for the color&quot;
+        VARCHAR color_title &quot;Title of the color&quot;
+    }
+
+    country_dim {
+        INTEGER country_id PK &quot;Unique identifier for the country&quot;
+        VARCHAR country &quot;Name of the country&quot;
+    }
+
+    date_dim {
+        INTEGER date_id PK &quot;Unique identifier for the date&quot;
+        DATE full_date &quot;Full date value&quot;
+        INTEGER day_of_week &quot;Day of the week&quot;
+        INTEGER day_of_month &quot;Day of the month&quot;
+        INTEGER month &quot;Month of the year&quot;
+        INTEGER year &quot;Year&quot;
+    }
+
+    product_dim {
+        INTEGER product_id PK &quot;Unique identifier for the product&quot;
+        VARCHAR product_name &quot;Name of the product&quot;
+        VARCHAR category &quot;Category of the product&quot;
+        INTEGER color_id FK &quot;Foreign key to the color_dim table&quot;
+    }
+
+    customer_dim {
+        INTEGER customer_id PK &quot;Unique identifier for the customer&quot;
+        VARCHAR first_name &quot;First name of the customer&quot;
+        VARCHAR last_name &quot;Last name of the customer&quot;
+        VARCHAR email &quot;Email address of the customer&quot;
+        INTEGER city_id FK &quot;Foreign key to the city_dim table&quot;
+    }
+
+    address_dim {
+        INTEGER address_id PK &quot;Unique identifier for the address&quot;
+        VARCHAR address &quot;Address details&quot;
+        VARCHAR postal_code &quot;Postal code&quot;
+        VARCHAR phone &quot;Phone number&quot;
+        INTEGER city_id FK &quot;Foreign key to the city_dim table&quot;
+    }
+
+    users_fact ||--o{ country_dim : &quot;belongs_to&quot;
+    users_fact ||--o{ city_dim : &quot;located_in&quot;
+    tracking_fact ||--o{ users_fact : &quot;tracked_by&quot;
+    tracking_fact ||--o{ catalog_fact : &quot;tracks&quot;
+    catalog_fact ||--o{ product_dim : &quot;describes&quot;
+    catalog_fact ||--o{ color_dim : &quot;has_color&quot;
+    catalog_fact ||--o{ address_dim : &quot;available_at&quot;
+    customer_dim ||--o{ city_dim : &quot;lives_in&quot;
+    address_dim ||--o{ city_dim : &quot;located_in&quot;
+        </div><h4 class="rubric" id="users-fact">Users Fact</h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Collation</p></th>
+<th class="head"><p>Nullable</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Primary Key</p></th>
+<th class="head"><p>Foreign Key</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>user_id</p></td>
+<td><p>bigint</p></td>
+<td><p></p></td>
+<td><p>not null</p></td>
+<td><p></p></td>
+<td><p>Yes</p></td>
+<td><p>References users_dim(user_id)</p></td>
+</tr>
+<tr class="row-odd"><td><p>item_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>given_item_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>taken_item_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>followers_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>following_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>positive_feedback_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>negative_feedback_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>feedback_reputation</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>feedback_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>date</p></td>
+<td><p>date</p></td>
+<td><p></p></td>
+<td><p>not null</p></td>
+<td><p></p></td>
+<td><p>Yes</p></td>
+<td><p>References date_dimension(date_value)</p></td>
+</tr>
+<tr class="row-odd"><td><p>city_id</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p>References city_dim(city_id)</p></td>
+</tr>
+<tr class="row-even"><td><p>country_id</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p>References country_dim(country_id)</p></td>
+</tr>
+</tbody>
+</table>
+<h4 class="rubric" id="tracking-fact">Tracking Fact</h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Collation</p></th>
+<th class="head"><p>Nullable</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Primary Key</p></th>
+<th class="head"><p>Foreign Key</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>product_id</p></td>
+<td><p>bigint</p></td>
+<td><p></p></td>
+<td><p>not null</p></td>
+<td><p></p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>catalog_id</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>brand_title</p></td>
+<td><p>character varying(155)</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>date</p></td>
+<td><p>date</p></td>
+<td><p></p></td>
+<td><p>not null</p></td>
+<td><p></p></td>
+<td><p>Yes</p></td>
+<td><p>References date_dimension(date_value)</p></td>
+</tr>
+<tr class="row-even"><td><p>size_title</p></td>
+<td><p>character varying(255)</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>color_id</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>favourite_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>view_count</p></td>
+<td><p>integer</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>created_at</p></td>
+<td><p>date</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>original_price_numeric</p></td>
+<td><p>double precision</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>price_numeric</p></td>
+<td><p>double precision</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>package_size_id</p></td>
+<td><p>smallint</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>service_fee</p></td>
+<td><p>double precision</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>user_id</p></td>
+<td><p>bigint</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p>References users_dim(user_id)</p></td>
+</tr>
+<tr class="row-even"><td><p>status</p></td>
+<td><p>character varying(155)</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>text</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<h3 class="rubric" id="indexes">Indexes</h3>
+<p>“tracking_fact_pkey” PRIMARY KEY, btree (product_id, date)</p>
+<p>“catalog_fact_pkey” PRIMARY KEY, btree (catalog_id, date)</p>
+<p>“users_fact_pkey” PRIMARY KEY, btree (user_id, date)</p>
+<h2 class="rubric" id="dbt">DBT</h2>
+<p>DBT (Data Build Tool) is an ETL (Extract, Transform, Load) tool that enables data analysts and engineers to transform data in the warehouse more effectively. It leverages SQL scripts to build tables and views in the database.</p>
+<p>Before using DBT, I actually built a solution in pure python and SQL. I had to build from scratch each function and each step. It was very time consuming, prone to errors and cucumbersome to document.</p>
+<p><strong>Example workloads</strong></p>
+<div class="mermaid">
+            graph TD
+    title[Tracking staging]
+    B[create_engine]
+    B --&gt; C[load_from_tracking_staging]
+    C --&gt; D[color_dim_transform]
+    C --&gt; E[tracking_fact_transform]
+    D --&gt; F[export_color_dim]
+    E --&gt; G[export_tracking_fact]
+        </div><div class="mermaid">
+            graph TD
+    title[Users staging]
+    B[create_engine]
+    B --&gt; C[load_from_users_staging]
+    C --&gt; D[city_dim_transform]
+    C --&gt; E[country_dim_transform]
+    C --&gt; F[users_dim_transform]
+    C --&gt; G[users_fact_transform]
+    D --&gt; H[export_city_dim]
+    E --&gt; I[export_country_dim]
+    F --&gt; J[export_users_dim]
+    G --&gt; K[export_users_fact]
+        </div><p>.. tabs::</p>
+<p>.. tab:: Apples</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Apples are green, or sometimes red.
+</pre></div>
+</div>
+<p>.. tab:: Pears</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Pears are green.
+</pre></div>
+</div>
+<p>.. tab:: Oranges</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Oranges are orange.
+</pre></div>
+</div>
+<h3 class="rubric" id="configurations-and-connections">Configurations and connections</h3>
+<p><strong>profiles.yml</strong></p>
+<p><strong>dbt_project.yml</strong></p>
+</div>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -414,6 +915,24 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="02_pipeline_design.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">03: Pipeline Design</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../03_Vinted_Data_Science/00_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction: Vinted, the rise of ESG marketplace</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -429,9 +948,9 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

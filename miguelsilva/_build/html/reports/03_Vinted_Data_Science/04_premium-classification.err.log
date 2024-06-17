@@ -30,14 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from sklearn import svm
-
-clf = svm.OneClassSVM(nu=0.1, 
-                      kernel="rbf", 
-                      gamma=0.1)
-clf.fit(data["price_numeric"].values.reshape(-1, 1))
-y_pred_train = clf.predict(data["price_numeric"].values.reshape(-1, 1))
-data["svm"] = y_pred_train
-data = data[data["svm"] == 1]
+['X_train, X_test, y_train, y_test = train_test_split(labels, data["target"], random_state=42)', '', '# complexity nf(n)**n_features', 'lr = LogisticRegression(max_iter=1000, ', "                        solver = 'saga')"]
+...
+['                      n_iter=10, ', '                      return_train_score=True)', '', '# We need to fit the BayesSearchCV object to the train data in order to make predictions with the best model later', 'gs_lr.fit(X_train, y_train)']
 -------------------
 

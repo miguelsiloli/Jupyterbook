@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,10 +58,15 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '01_Vinted_Data_Engineering/02_pipeline_design';</script>
+    <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Modelling" href="03_data_modelling.html" />
+    <link rel="prev" title="02: Vinted API" href="01_vinted_api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +128,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -177,7 +181,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -371,22 +392,41 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidelines">Guidelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-level">Structural Level</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomic-level">Atomic Level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-design-fundamentals">Pipeline design fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-pattern">Extraction pattern</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range">Time Range</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cool-out-of-the-box-prefect-utils">Cool out-of-the-box prefect utils</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-sink">Source &amp; Sink</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#source-replayability">Source Replayability</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sink-overwritability-idempotency">Sink Overwritability &amp; Idempotency</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogs-flow">Catalogs flow</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work-load-block">Single unit of work: Load block</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windowing">Windowing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-pipelines-with-prefect">Designing Pipelines with Prefect</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prefect-pipeline">Prefect Pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-flow">Catalog flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-catalog-flow">Analysis of Catalog Flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work">Single unit of work</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#subflow-block">Subflow block</a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-block">Flow block</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up-with-a-main-flow">Wrapping up with a main flow</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dags">DAGs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Catalog flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-flow">Tracking flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#images-flow">Images flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
 </ul>
 </li>
 </ul>
@@ -405,89 +445,314 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pipeline-design">
 <h1>03: Pipeline Design<a class="headerlink" href="#pipeline-design" title="Link to this heading">#</a></h1>
-<section id="guidelines">
-<h2>Guidelines<a class="headerlink" href="#guidelines" title="Link to this heading">#</a></h2>
-<section id="structural-level">
-<h3>Structural Level<a class="headerlink" href="#structural-level" title="Link to this heading">#</a></h3>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Our data pipeline wants to capture the stream of new items being added to Vinted’s marketplace in real time. This was the initial idea but it’s not possible to do it due to Vinted API request limits - having a streaming connection would quickly result in me getting timed out or banned.</p>
+<p>This is what we are trying to do:</p>
+<div class="mermaid">
+            graph TD
+    actor[User]
+
+    subgraph System
+        A[Check Prices]
+        B[Retrieve Data]
+        C[Select Subset of Articles]
+        D[View Price Information]
+        E[View Data Information]
+        F[Group by catalog_id]
+
+        actor --&gt; A
+        actor --&gt; B
+        
+        A --&gt; C
+        A --&gt; D
+        
+        B --&gt; C
+        B --&gt; E
+        
+        C --&gt; F
+    end
+        </div><p>Instead, our solution is to create a windowed pipeline which slices these streams into chunks and process these chunks into fixed time windows <a class="reference external" href="https://static.googleusercontent.com/media/research.google.com/pt-PT//pubs/archive/43864.pdf">(Google Research on Watermarking)</a>. We then use a timestamp watermark to keep track of when the articles were first fetched.</p>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Data Sources and Destinations</strong>: Consider the format, volume, and frequency of data from each source and how it will be integrated into the pipeline. As discussed, the source is mostly Vinted API and HTML, the frequency is batch oriented and the throughput is small (&lt;50mb day excluding images).</p></li>
-<li><p><strong>Data Quality and Validation</strong>: This may involve validating data against predefined rules, detecting and handling missing or erroneous values, and logging any data anomalies for further investigation.</p></li>
-<li><p><strong>Fault Tolerance</strong>: Implement mechanisms such as retry logic, error logging, and checkpointing to recover from errors and resume processing without losing data or compromising data integrity.</p></li>
-<li><p>Other out of scope such as Security, Infrastructure Reliability, Documentation, Monitoring and Logging, Data Compliance, Change Data Capture (CDC)</p></li>
+<li><p><a class="reference internal" href="#03-pipeline-design"><span class="xref myst">03: Pipeline Design</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction"><span class="xref myst">Introduction</span></a></p></li>
+<li><p><a class="reference internal" href="#table-of-contents"><span class="xref myst">Table of Contents</span></a></p></li>
+<li><p><a class="reference internal" href="#pipeline-design-fundamentals"><span class="xref myst">Pipeline design fundamentals</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#extraction-pattern"><span class="xref myst">Extraction pattern</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#time-range"><span class="xref myst">Time Range</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#source--sink"><span class="xref myst">Source &amp; Sink</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#source-replayability"><span class="xref myst">Source Replayability</span></a></p></li>
+<li><p><a class="reference internal" href="#sink-overwritability--idempotency"><span class="xref myst">Sink Overwritability &amp; Idempotency</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#windowing"><span class="xref myst">Windowing</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#designing-pipelines-with-prefect"><span class="xref myst">Designing Pipelines with Prefect</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#some-background-on-prefect"><span class="xref myst">Some background on prefect</span></a></p></li>
+<li><p><a class="reference internal" href="#prefect-pipeline"><span class="xref myst">Prefect Pipeline</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#example"><span class="xref myst">Example</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#catalog-flow"><span class="xref myst">Catalog flow</span></a></p></li>
+<li><p><a class="reference internal" href="#analysis-of-catalog-flow"><span class="xref myst">Analysis of Catalog Flow</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#single-unit-of-work"><span class="xref myst">Single unit of work</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#subflow-block"><span class="xref myst">Subflow block</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#wrapping-up-with-a-main-flow"><span class="xref myst">Wrapping up with a main flow</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#dags"><span class="xref myst">DAGs</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#catalog-flow-1"><span class="xref myst">Catalog flow</span></a></p></li>
+<li><p><a class="reference internal" href="#tracking-flow"><span class="xref myst">Tracking flow</span></a></p></li>
+<li><p><a class="reference internal" href="#images-flow"><span class="xref myst">Images flow</span></a></p></li>
+<li><p><a class="reference internal" href="#dependencies"><span class="xref myst">Dependencies</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusions"><span class="xref myst">Conclusions</span></a></p></li>
+</ul>
+</li>
 </ul>
 </section>
-<section id="atomic-level">
-<h3>Atomic Level<a class="headerlink" href="#atomic-level" title="Link to this heading">#</a></h3>
+<section id="pipeline-design-fundamentals">
+<h2>Pipeline design fundamentals<a class="headerlink" href="#pipeline-design-fundamentals" title="Link to this heading">#</a></h2>
+<table border="0">
+ <tr>
+    <td style="vertical-align: top;"><b style="font-size:30px">Structural Level</b></td>
+    <td style="vertical-align: top;"><b style="font-size:30px">Atomic Level</b></td>
+ </tr>
+ <tr>
+    <td style="vertical-align: top;">
+        <b>Data Sources and Destinations</b>: <br>
+        Consider the format, volume, read/write frequency and frequency of data from each source and how it will be integrated into the pipeline.
+        </ul>
+    </td>
+    <td style="vertical-align: top;">
+        <b>Atomicity</b>:<br> 
+        A function should only do one task.
+    </td>
+ </tr>
+ <tr>
+    <td style="vertical-align: top;">
+        <b>Data Quality and Validation</b>:<br> 
+         This may involve validating data against predefined rules, detecting and handling missing or erroneous values, and logging any data anomalies for further investigation.
+    </td>
+    <td style="vertical-align: top;">
+        <b>Idempotency</b>: 
+        <ul>
+            <li>Running the same code multiple times with the same input should return the same output.</li>
+            <li>The output should not be duplicated.</li>
+        </ul>
+    </td>
+ </tr>
+ <tr>
+    <td style="vertical-align: top;">
+        <b>Fault Tolerance</b>:<br> 
+        Implement mechanisms such as retry logic, error logging, and checkpointing to recover from errors and resume processing without losing data or compromising data integrity.
+    </td>
+    <td style="vertical-align: top;">
+        <b>Data Encapsulation</b>:<br> 
+        Function encapsulation should be limited to the scope it refers to, no additional external data.
+    </td>
+ </tr>
+ <tr>
+    <td style="vertical-align: top;">
+        <b>Other concerns</b>:<br> 
+        Security, Infrastructure, Documentation, Monitoring and Logging, Data Compliance, Change Data Capture (CDC)
+    </td>
+    <td style="vertical-align: top;">
+        <b>Functional Composition</b>: A higher order mechanism which allows to increase the level of abstraction and atomicity. Can be implemented in prefect via subflow calls.
+        <ul>
+            <li>Factoring/atomicity</li>
+            <li>Code reuse</li>
+            <li>Abstraction layers (f(g(x)))</li>
+        </ul>
+    </td>
+ </tr>
+</table>
+<section id="extraction-pattern">
+<h3>Extraction pattern<a class="headerlink" href="#extraction-pattern" title="Link to this heading">#</a></h3>
+<section id="time-range">
+<h4>Time Range<a class="headerlink" href="#time-range" title="Link to this heading">#</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>With a time ranged pull, the data pipeline only pulls the data corresponding to a specific time frame.
+</pre></div>
+</div>
+<p>A run of the pipeline will pull data from an interval of time. In this case, If I run the pipeline every hour I expect the data to be fetched is 1h old max.</p>
+<p>Example: Run catalogs flow hourly at 13h, I expect the data fetched is between 12-13h.</p>
+</section>
+</section>
+<section id="source-sink">
+<h3>Source &amp; Sink<a class="headerlink" href="#source-sink" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Atomicity</strong>: a function should only do one task</p></li>
-<li><p><strong>Idempotency</strong>:</p>
-<ul>
-<li><p>running the same code multiple times with the same input should return the same output</p></li>
-<li><p>the output should not be duplicated</p></li>
+<li><p><strong>Source</strong>: Systems which provide input(s) to your data pipeline.</p></li>
+<li><p><strong>Sink</strong>: Systems where your data pipeline stores the processed data.</p></li>
 </ul>
-</li>
-<li><p><strong>Data encapsulation</strong>: function encapsulation should be limited to the scope it refers to, no additional external data.</p></li>
-<li><p><strong>Functional composition</strong>: a higher order mechanism which allows to increase the level of abstraction and atomicity. Can be implemented in prefect via subflow calls.</p>
-<ul>
-<li><p>factoring/atomicity</p></li>
-<li><p>code reuse</p></li>
-<li><ul>
-<li><p>abstraction layers (f(g(x)))</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<section id="source-replayability">
+<h4>Source Replayability<a class="headerlink" href="#source-replayability" title="Link to this heading">#</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*What did the data look like n periods(min/hour/day/months/years) ago?(n can be any reasonable arbitrary number)*, 
+then it is replayable, else it is not. Replayability is critical for backfills [(Data Pipeline Patterns)](https://www.startdataengineering.com/post/design-patterns/#3-data-pipeline-patterns).
+</pre></div>
+</div>
+<p>This data is a replayable source, because if we can easily do a backfill by increasing the parameters on the request. However, this may not be replayable if we want to keep a stateful track of the system state.</p>
+<p>In the tracking pipeline, we are taking a snapshot at a specific time. If we miss one day, it’s gone forever.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>One can create a replayable source from a non-replayable source by dumping the incoming data into a raw/loading/base area. The raw/loading/base area now acts as a replayable source.</p>
+</div>
+<p><strong>Replayability</strong>
+[x] Catalog Pipeline
+[x] Images Pipeline
+[] Tracking Pipeline</p>
+</section>
+<section id="sink-overwritability-idempotency">
+<h4>Sink Overwritability &amp; Idempotency<a class="headerlink" href="#sink-overwritability-idempotency" title="Link to this heading">#</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Overwritability is crucial to prevent duplicates or partial records when a pipeline fails.
+</pre></div>
+</div>
+<p>This is easily achieved by loading the data into an RDS using upsert.</p>
 </section>
 </section>
-<section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
+<section id="windowing">
+<h3>Windowing<a class="headerlink" href="#windowing" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/windowing.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Windowing</p></td>
+</tr>
+</tbody>
+</table>
+<p>Windowing slices up a dataset into finite chunks for processing as a group. When dealing with unbounded data, windowing is required for some operations (to delineate finite boundaries in most forms of grouping: aggregation, outer joins, time-bounded operations, etc.), and unnecessary for others (filtering, mapping, inner joins, etc.).</p>
+</section>
+</section>
+<section id="designing-pipelines-with-prefect">
+<h2>Designing Pipelines with Prefect<a class="headerlink" href="#designing-pipelines-with-prefect" title="Link to this heading">#</a></h2>
 <section id="some-background-on-prefect">
 <h3>Some background on prefect<a class="headerlink" href="#some-background-on-prefect" title="Link to this heading">#</a></h3>
-<p>Prefect allows you to define complex workflows as code, making it easy to orchestrate the execution of tasks, handle dependencies, and manage error handling and retries. Let’s break down its core concepts:</p>
-<p><strong>Tasks (UoW)</strong></p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Tasks</div>
 <ul class="simple">
-<li><p>Tasks are the building blocks of Prefect workflows. Each task represents a <strong>single unit of work</strong>, such as querying a database, processing data, or sending an email.</p></li>
-<li><p>Tasks are defined as Python functions or classes annotated with &#64;task decorators. These functions encapsulate the logic required to perform the task.</p></li>
-<li><p>Tasks can have inputs and outputs, allowing them to communicate with other tasks in the workflow.</p></li>
+<li><p class="sd-card-text">Tasks are the building blocks of Prefect workflows. Each task represents a <strong>single unit of work</strong>, such as querying a database, processing data, or sending an email.</p></li>
+<li><p class="sd-card-text">Tasks are defined as Python functions or classes annotated with &#64;task decorators. These functions encapsulate the logic required to perform the task.</p></li>
+<li><p class="sd-card-text">Tasks can have inputs and outputs, allowing them to communicate with other tasks in the workflow.</p></li>
 </ul>
-<p><strong>Flows (DAGS)</strong></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Flows</div>
 <ul class="simple">
-<li><p>Flows are directed acyclic graphs (DAGs) that represent the workflow logic in Prefect.</p></li>
-<li><p>Flows consist of interconnected tasks, where the output of one task serves as the input to another.</p></li>
-<li><p>Flows define the execution order of tasks and handle the orchestration of task execution.</p></li>
+<li><p class="sd-card-text">Flows are directed acyclic graphs (DAGs) that represent the workflow logic in Prefect.</p></li>
+<li><p class="sd-card-text">Flows consist of interconnected tasks, where the output of one task serves as the input to another.</p></li>
+<li><p class="sd-card-text">Flows define the execution order of tasks and handle the orchestration of task execution.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="prefect-pipeline">
+<h3>Prefect Pipeline<a class="headerlink" href="#prefect-pipeline" title="Link to this heading">#</a></h3>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
 <p><strong>Subflows</strong></p>
 <ul class="simple">
 <li><p>Subflows are reusable components that encapsulate a subset of tasks within a larger workflow.</p></li>
 <li><p>Subflows allow you to modularize your workflow logic by grouping related tasks together and abstracting away implementation details.</p></li>
 <li><p>Subflows can be nested within other subflows or included as part of larger flows, providing flexibility in workflow design.</p></li>
 </ul>
-<section id="cool-out-of-the-box-prefect-utils">
-<h4>Cool out-of-the-box prefect utils<a class="headerlink" href="#cool-out-of-the-box-prefect-utils" title="Link to this heading">#</a></h4>
+</div>
+<p>Prefect allows you to define complex workflows as code, making it easy to orchestrate the execution of tasks, handle dependencies, and manage error handling and retries. Let’s break down its core concepts:</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Cool out-of-the-box prefect utils<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
 <ul>
-<li><p>caching keys</p>
+<li><p class="sd-card-text"><strong>caching keys</strong></p>
 <blockquote>
-<div><p>An optional callable that, given the task run context and call parameters, generates a string key. If the key matches a previous completed state, that state result will be restored instead of running the task again.</p>
+<div><p class="sd-card-text">An optional callable that, given the task run context and call parameters, generates a string key. If the key matches a previous completed state, that state result will be restored instead of running the task again.</p>
 </div></blockquote>
 </li>
-<li><p>exponential backoff</p></li>
-<li><p>flow signals: allow tasks to communicate with each other and trigger downstream tasks based on conditions or events</p></li>
+<li><p class="sd-card-text"><strong>exponential backoff</strong></p></li>
+<li><p class="sd-card-text"><strong>flow signals</strong>: allow tasks to communicate with each other and trigger downstream tasks based on conditions or events</p></li>
 </ul>
+</div>
+</details></section>
 </section>
-</section>
-<section id="catalogs-flow">
-<h3>Catalogs flow<a class="headerlink" href="#catalogs-flow" title="Link to this heading">#</a></h3>
-<p><img alt="Local Image" src="../_images/catalog_flow.png" />
-Flow sequential dependency graph.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<section id="catalog-flow">
+<h3>Catalog flow<a class="headerlink" href="#catalog-flow" title="Link to this heading">#</a></h3>
+<p>Suppose we want to check the prices and data for a specific subset of articles. These articles are grouped into taxonomy groups according to a hierarchical structure of <em>catalog_id’s</em>.</p>
+<div class="mermaid">
+            graph TD
+    A[fetch_data_from_vinted]
+    B[item_ids, frequency, db_connection]
+    C[vinted API]
+    D[catalog_subflow]
+    F[export_data_quality_artifacts]
+    H[export_data_to_postgres]
+    I[export_sample_to_postgres]
+
+    B --&gt;|input| A
+    A --&gt;|connects to| C
+    A --&gt;|calls| D
+    D --&gt;|calls| F
+    D --&gt;|calls| H
+    D --&gt;|calls| I
+        </div></section>
+<section id="analysis-of-catalog-flow">
+<h3>Analysis of Catalog Flow<a class="headerlink" href="#analysis-of-catalog-flow" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Local Image" src="../_images/catalog_flow.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Flow sequential dependency graph.</p></td>
+</tr>
+</tbody>
+</table>
 <p>We can see here how a single flow is decomposed into lowers levels of abstraction until we reach a single unit of work (a task).</p>
-<section id="single-unit-of-work-load-block">
-<h4>Single unit of work: Load block<a class="headerlink" href="#single-unit-of-work-load-block" title="Link to this heading">#</a></h4>
+<section id="single-unit-of-work">
+<h4>Single unit of work<a class="headerlink" href="#single-unit-of-work" title="Link to this heading">#</a></h4>
+<p><strong>Load Block</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@task</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Load from api&quot;</span><span class="p">,</span> 
-      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-      <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
-      <span class="n">retry_delay_seconds</span><span class="o">=</span><span class="n">exponential_backoff</span><span class="p">(</span><span class="n">backoff_factor</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
-      <span class="n">retry_jitter_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+    <span class="n">retry_delay_seconds</span><span class="o">=</span><span class="n">exponential_backoff</span><span class="p">(</span><span class="n">backoff_factor</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+    <span class="n">retry_jitter_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">load_data_from_api</span><span class="p">(</span><span class="n">vinted</span><span class="p">,</span> <span class="n">nbrRows</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads data from the Vinted API based on specified parameters.</span>
@@ -507,18 +772,31 @@ Flow sequential dependency graph.</p>
     <span class="k">return</span> <span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>Atomicity</strong>: Loads data from API and assigns the catalog_id to dataframe (optimally should only load data from API, data transformations should be done in different blocks). However, the reason I did this is to have a cleaner code and prevent overloading other tasks with unnecessary variables.</p></li>
-<li><p><strong>Encapsulation</strong>: the load function has no side effects. It starts by accepting an existing connection via dependency injection (vinted obj).</p></li>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Atomicity</strong>:
+Loads data from API and assigns the catalog_id to dataframe (optimally should only load data from API, data transformations should be done in different blocks). However, the reason I did this is to have a cleaner code and prevent overloading other tasks with unnecessary variables.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Encapsulation</strong>:
+The load function has no side effects. It starts by accepting an existing connection via dependency injection (vinted obj).</p></li>
 </ul>
-<p><strong>Takeaways</strong>: cursors should be passed outside of loading blocks; input variables should be limited to their use scope; transformation blocks should be apart from load/upload blocks.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Cursors should be passed outside of loading blocks; input variables should be limited to their use scope; transformation blocks should be apart from load/upload blocks.</p>
+</div>
 <section id="subflow-block">
 <h5>Subflow block<a class="headerlink" href="#subflow-block" title="Link to this heading">#</a></h5>
-<p><img alt="Local Image" src="../_images/catalog_subflow.png" />
-Tasks sequential dependency graph within a subflow.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Local Image" src="../_images/catalog_subflow.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Tasks sequential dependency graph within a subflow.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@flow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Subflow for catalog.&quot;</span><span class="p">,</span> 
-      <span class="n">flow_run_name</span><span class="o">=</span> <span class="s2">&quot;Subflow for catalog </span><span class="si">{item}</span><span class="s2">&quot;</span><span class="p">,</span>
-      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">flow_run_name</span><span class="o">=</span> <span class="s2">&quot;Subflow for catalog </span><span class="si">{item}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">catalog_subflow</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">nbrRows</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">vinted</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">sample_frac</span><span class="p">):</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">load_data_from_api</span><span class="p">(</span><span class="n">vinted</span> <span class="o">=</span> <span class="n">vinted</span><span class="p">,</span>
                             <span class="n">nbrRows</span> <span class="o">=</span> <span class="n">nbrRows</span><span class="p">,</span>
@@ -529,26 +807,23 @@ Tasks sequential dependency graph within a subflow.</p>
     <span class="n">export_data_to_postgres</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> 
                             <span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>     <span class="c1"># upload first to products due to FK referencing</span>
     <span class="n">export_sample_to_postgres</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> 
-                              <span class="n">sample_frac</span><span class="o">=</span> <span class="n">sample_frac</span><span class="p">,</span>
-                              <span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
+                            <span class="n">sample_frac</span><span class="o">=</span> <span class="n">sample_frac</span><span class="p">,</span>
+                            <span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
     <span class="k">return</span>
 
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>Functional decomposition</strong>: increasing the levels of abstraction by decomposing a single flow into sub flows.</p>
-<ul>
-<li><p>Before: main_flow -&gt; task1 -&gt; task2 -&gt; etc</p></li>
-<li><p>After: main_flow -&gt; subflow1(task1, task2, etc) -&gt; subflow2(task1, task2, etc)</p></li>
-</ul>
-</li>
-<li><p><strong>Atomicity</strong>: Transformer, loading, export functions are in different blocks.</p></li>
-<li><p><strong>Encapsulation</strong>: external connections are passed as argument to code blocks.</p></li>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Functional decomposition</strong>: increasing the levels of abstraction by decomposing a single flow into sub flows.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Atomicity</strong>:
+Transformer, loading, export functions are in different blocks.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Encapsulation</strong>:
+External connections are passed as argument to code blocks. Vinted and engine are kept as external objectes passed onto the functions.</p></li>
 </ul>
 </section>
 </section>
-<section id="flow-block">
-<h4>Flow block<a class="headerlink" href="#flow-block" title="Link to this heading">#</a></h4>
+<section id="wrapping-up-with-a-main-flow">
+<h4>Wrapping up with a main flow<a class="headerlink" href="#wrapping-up-with-a-main-flow" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@flow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span> <span class="s2">&quot;Fetch from vinted&quot;</span><span class="p">,</span> 
       <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
       <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -588,14 +863,99 @@ Tasks sequential dependency graph within a subflow.</p>
 </div>
 </section>
 </section>
+<section id="dags">
+<h3>DAGs<a class="headerlink" href="#dags" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p><strong>Explanation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Catalog Flow</strong></p></td>
+<td><p>The catalog flow involves retrieving and processing product listings from the Vinted API and HTML sources. It ensures data is fetched in batch, integrated into the pipeline, and validated for quality and completeness.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tracking Flow</strong></p></td>
+<td><p>The tracking flow monitors the status and updates of catalog items. It includes handling updates to existing data, ensuring idempotency, and maintaining accurate and consistent tracking information without duplicating records.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Images Flow</strong></p></td>
+<td><p>The images flow manages the retrieval and processing of images associated with catalog items. This flow handles the download, storage, and linking of images to corresponding products, ensuring efficient and reliable image management.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id1">
+<h4>Catalog flow<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="mermaid">
+            flowchart LR
+    subgraph catalog_subflow
+        direction TB
+        top1[load_data_from_api] --&gt; bottom1[transform]
+        bottom1[transform] --&gt; bottom2[export_data_to_postgres]
+    end
+
+    B[Initialize Vinted and Engine] --&gt; C[Loop Through Item Catalogs]
+    C --&gt; D{Item Catalogs Available?}
+    D -- Yes --&gt; E[Call catalog_subflow]
+    D -- No --&gt; G[End]
+    E[Call catalog_subflow] --&gt; C[Loop Through Item Catalogs]
+        </div></section>
+<section id="tracking-flow">
+<h4>Tracking flow<a class="headerlink" href="#tracking-flow" title="Link to this heading">#</a></h4>
+<div class="mermaid">
+            flowchart LR
+    B[Initialize Vinted and Engine] --&gt; C[load_data_from_postgres]
+    C[load_data_from_postgres] --&gt; D[load_balancer]
+    D[load_balancer] --&gt; E[End]
+
+    subgraph load_balancer
+        top1[loop through chunks] --&gt; bottom1[tracking_subflow]
+        bottom1[tracking_subflow] --&gt; A1[fetch_sample_data]
+        A1[fetch_sample_data] --&gt; A2[transform_images]
+        A1[fetch_sample_data] --&gt; A3[transform_users]
+        A1[fetch_sample_data] --&gt; A6[transform_items]
+        A3[transform_users] --&gt; A4[export_users_to_postgres]
+        A2[transform_images] --&gt; A5[export_images_to_postgres]
+        A6[transform_items] --&gt; A7[export_images_to_postgres]
+    end
+        </div></section>
+<section id="images-flow">
+<h4>Images flow<a class="headerlink" href="#images-flow" title="Link to this heading">#</a></h4>
+<div class="mermaid">
+            graph TD
+    B[Initialize S3 Client] --&gt; H[Upload Image to S3]
+    D[Initialize Vinted and Engine] --&gt; E[Loop image urls]
+    E --&gt; F[get_image_bytes]
+    F --&gt; H[Upload Image to S3]
+    H[Upload Image to S3] --&gt; E
+        </div></section>
+<section id="dependencies">
+<h4>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h4>
+<div class="mermaid">
+            graph TD
+    A[Catalog Flow] --&gt; H[(Postgres)]
+    H[(Postgres)] --&gt; B[Tracking Flow]
+    B[Tracking Flow] --&gt; H[(Postgres)]
+    H[(Postgres)] --&gt; D[Images Flow]
+    D[Images Flow] --&gt; H[(Postgres)]
+        </div></section>
+</section>
 </section>
 <section id="conclusions">
 <h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
-<ul class="simple">
+<ul class="contains-task-list simple">
 <li><p>Catalog flow is well structured according to the rules in place. It’s robust, tasks are decoupled and independent and it’s easier to troubleshoot once an issue arises. The code is clean, having proper descriptions and task names is very helpful.</p></li>
 <li><p>Subflows should be decoupled. They are decoupled from a functional perspective, since the successful execution of one flow is independent from another’s, however if one subflow fails it triggers the fail of the whole flow and stops the pipeline.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Atomicity</strong>: every task has one and one purpose</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Encapsulation</strong>: each task has restricted access to the data and system objects. Only gets what it needs to deliver the tasks. (<em>no side effects</em>)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Functional decomposition</strong>: divided pipelines into tasks, subflows and flows</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Fault tolerance</strong>: exponential timeouts, retry logic and error logging. Employing environment variables for custom timeouts, chunking requests, set flexible throughtput</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Data Quality</strong>: dumping data report artifacts during runs</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <strong>Time Range Pattern</strong> with flexible range, using a environment variable for run periodicity</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> <strong>Documentation</strong>:</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> <strong>Monitoring</strong>: Monitoring doesnt exist</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> <strong>Data Validation</strong>:</p></li>
 </ul>
-<p><strong>About prefect</strong></p>
+<p><strong>Prefect limitations</strong></p>
 <p>A lot of features are locked under prefect cloud, which sucks if you want to build an on premise project. This is important since a lot of out of the box integrations are only supported in the cloud version and its impossible (iirc) to create triggers, dynamic flags, conditional workflows with the on premise version.</p>
 </section>
 </section>
@@ -630,6 +990,24 @@ Tasks sequential dependency graph within a subflow.</p>
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="01_vinted_api.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">02: Vinted API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_data_modelling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Modelling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -646,22 +1024,41 @@ Tasks sequential dependency graph within a subflow.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidelines">Guidelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-level">Structural Level</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomic-level">Atomic Level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-design-fundamentals">Pipeline design fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-pattern">Extraction pattern</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range">Time Range</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cool-out-of-the-box-prefect-utils">Cool out-of-the-box prefect utils</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-sink">Source &amp; Sink</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#source-replayability">Source Replayability</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sink-overwritability-idempotency">Sink Overwritability &amp; Idempotency</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogs-flow">Catalogs flow</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work-load-block">Single unit of work: Load block</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windowing">Windowing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-pipelines-with-prefect">Designing Pipelines with Prefect</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-background-on-prefect">Some background on prefect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prefect-pipeline">Prefect Pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-flow">Catalog flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-catalog-flow">Analysis of Catalog Flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#single-unit-of-work">Single unit of work</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#subflow-block">Subflow block</a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-block">Flow block</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up-with-a-main-flow">Wrapping up with a main flow</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dags">DAGs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Catalog flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-flow">Tracking flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#images-flow">Images flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
 </ul>
 </li>
 </ul>

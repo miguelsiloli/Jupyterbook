@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -57,12 +58,15 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '01_Vinted_Data_Engineering/01_vinted_api';</script>
+    <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction: Vinted, the rise of ESG marketplace" href="../03_Vinted_Data_Science/00_intro.html" />
-    <link rel="prev" title="01: Overview of the Data Pipeline" href="00_intro.html" />
+    <link rel="next" title="03: Pipeline Design" href="02_pipeline_design.html" />
+    <link rel="prev" title="01: Overview of the Vinted Project" href="00_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,7 +181,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -371,6 +392,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source-api">Data source: API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiling-and-api-endpoints">APK Decompiling and API endpoints</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiled">APK Decompiled</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-endpoints">Useful Endpoints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singleton-requester">Singleton Requester</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vinted-endpoint-class">Vinted Endpoint Class</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#url-encoding-search-params">Url Encoding Search params</a></li>
@@ -393,47 +423,120 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="vinted-api">
 <h1>02: Vinted API<a class="headerlink" href="#vinted-api" title="Link to this heading">#</a></h1>
-<p>+——————+       +——————+       +——————+
-|      Vinted      |       |      Items       |       |    Requester     |
-+——————+       +——————+       +——————+
-|                  |       |                  |       |                  |
-|  - items: Items  |&lt;—–&gt;|                  |       |                  |
-|                  |       |                  |       |                  |
-+——————+       +——————+       +——————+
-|                          |                           |
-|                          |                           |
-|     +——————-&gt;|                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |    +————–+       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    |              |       |
-|     |                    |    +————–+       |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |&lt;——————-+                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     |                    |                           |
-|     v                    v                           v</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#02-vinted-api"><span class="xref myst">02: Vinted API</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#data-source-api"><span class="xref myst">Data source: API</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#apk-decompiling-and-api-endpoints"><span class="xref myst">APK Decompiling and API endpoints</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#apk-decompiled"><span class="xref myst">APK Decompiled</span></a></p></li>
+<li><p><a class="reference internal" href="#useful-endpoints"><span class="xref myst">Useful Endpoints</span></a></p></li>
+<li><p><a class="reference internal" href="#limitations"><span class="xref myst">Limitations</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#singleton-requester"><span class="xref myst">Singleton Requester</span></a></p></li>
+<li><p><a class="reference internal" href="#vinted-endpoint-class"><span class="xref myst">Vinted Endpoint Class</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#url-encoding-search-params"><span class="xref myst">Url Encoding Search params</span></a></p></li>
+<li><p><a class="reference internal" href="#search-catalog-function"><span class="xref myst">Search catalog function</span></a></p></li>
+<li><p><a class="reference internal" href="#search-item-based-on-user_id"><span class="xref myst">Search item based on user_id</span></a></p></li>
+<li><p><a class="reference internal" href="#wrapping-up-with-vinted-class"><span class="xref myst">Wrapping up with Vinted class</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusions"><span class="xref myst">Conclusions</span></a></p></li>
+</ul>
+</li>
+</ul>
+<section id="data-source-api">
+<h2>Data source: API<a class="headerlink" href="#data-source-api" title="Link to this heading">#</a></h2>
+<p>The first step of the pipeline is the source of the data. The source of the data in this scenario is the Vinted API which can be accessed by this endpoint: <a class="reference external" href="https://www.vinted.pt/api/v2/users/77283267/items">https://www.vinted.pt/api/v2/users/77283267/items</a></p>
+<section id="apk-decompiling-and-api-endpoints">
+<h3>APK Decompiling and API endpoints<a class="headerlink" href="#apk-decompiling-and-api-endpoints" title="Link to this heading">#</a></h3>
+<p>We can download some  the APK from the Vinted app store and decompile it with <a class="reference external" href="https://ibotpeaches.github.io/Apktool/">apktool</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apktool<span class="w"> </span>d<span class="w"> </span>vinted.apk
+</pre></div>
+</div>
+<p>Other alternatives are:</p>
+<ul class="simple">
+<li><p>Dex2jar</p></li>
+<li><p>Jadx</p></li>
+</ul>
+<section id="apk-decompiled">
+<h4>APK Decompiled<a class="headerlink" href="#apk-decompiled" title="Link to this heading">#</a></h4>
+<p>Once the app is decompiled look into words such as ‘api’, ‘latitude’, ‘brand_ids’, ‘rest’, ‘status’, etc.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Local Image" src="../_images/vintedapi.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Reverse engineer of the Vinted search params using apktool.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="useful-endpoints">
+<h4>Useful Endpoints<a class="headerlink" href="#useful-endpoints" title="Link to this heading">#</a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="err">params</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;search_text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;+&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;search_text&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;catalog_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;catalog_ids[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;color_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;color_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;brand_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;brand_ids[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;size_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;size_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;material_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;material_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;status[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;country_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;country_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;city_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;city_id[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_for_swap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;disposal[]&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;currency&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;price_to&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;price_from&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">page</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;per_page&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">ba</span><span class="kc">t</span><span class="err">ch_size</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="err">.joi</span><span class="kc">n</span><span class="err">(</span>
+<span class="w">        </span><span class="err">map(s</span><span class="kc">tr</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">querys</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="s2">&quot;order&quot;</span><span class="p">]</span><span class="err">)</span>
+<span class="w">    </span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>These are our string query params used in the API calls which are currently supported. In practice, I don’t use most of them.</p>
+</section>
+<section id="limitations">
+<h4>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h4>
+<p>The API doesn’t provide a full list of possible params for these query params.</p>
+</section>
+</section>
+</section>
 <section id="singleton-requester">
 <h2>Singleton Requester<a class="headerlink" href="#singleton-requester" title="Link to this heading">#</a></h2>
 <p>While singletons can be implemented in various ways, they typically involve a static method or property that returns the sole instance of the class. Singletons are often used for managing resources that should be shared across the entire application, such as a database connection pool or a configuration manager.</p>
@@ -448,6 +551,8 @@ document.write(`
 <li><p>Limit the amount of sessions, sharing a single state accross the application</p></li>
 <li><p>Global configuration of headers, cookies and other session params</p></li>
 </ul>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
 <p><strong>Why singleton can be considered an anti-pattern</strong></p>
 <blockquote>
 <div><p>However, if we were to later modify the architecture to use multiple threads to handle many requests within a single instance of the application, this assumption suddenly turns out to be false, and it becomes necessary to rework the code significantly to handle this new condition.</p>
@@ -457,6 +562,7 @@ document.write(`
 <div><p>Coupled architectures often arise when modules rely heavily on global state, singletons, or shared mutable state.</p>
 </div></blockquote>
 <p>Singletons encourage coupled architectures as they share a global state accross the application</p>
+</div>
 </section>
 <section id="vinted-endpoint-class">
 <h2>Vinted Endpoint Class<a class="headerlink" href="#vinted-endpoint-class" title="Link to this heading">#</a></h2>
@@ -464,8 +570,10 @@ document.write(`
 <h3>Url Encoding Search params<a class="headerlink" href="#url-encoding-search-params" title="Link to this heading">#</a></h3>
 <p>All the searching params we found using the reverse engineering of the Vinted API are going into a utility function.
 This function is nothing but an interface between the browser search url and the corresponding api endpoint url.</p>
-<p>URL: <a class="reference external" href="https://www.vinted.pt/catalog/2657-espadrilles">https://www.vinted.pt/catalog/2657-espadrilles</a>
-Endpoint API: <a class="reference external" href="https://www.vinted.pt/api/v2/items?catalog%5B%5D=2657">https://www.vinted.pt/api/v2/items?catalog[]=2657</a></p>
+<ul class="simple">
+<li><p>URL: <a class="reference external" href="https://www.vinted.pt/catalog/2657-espadrilles">https://www.vinted.pt/catalog/2657-espadrilles</a></p></li>
+<li><p>Endpoint API: <a class="reference external" href="https://www.vinted.pt/api/v2/items?catalog%5B%5D=2657">https://www.vinted.pt/api/v2/items?catalog[]=2657</a></p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parseUrl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse Vinted search url to get parameters the for api call.</span>
@@ -651,35 +759,59 @@ Endpoint API: <a class="reference external" href="https://www.vinted.pt/api/v2/i
         <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">Items</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
+<div class="mermaid">
+            classDiagram
+    class Vinted {
+        +get_catalog_ids()
+        +search_all(nbrRows, *args, **kwargs)
+        +search_catalog(url, batch_size: int, page: int) : pd.DataFrame
+        +search_colors(max_retries: int) : pd.DataFrame
+        +search_item(user_id, time: int) : pd.DataFrame
+        +search_brands(brand_id) : pd.DataFrame
+        +parseUrl(url, batch_size: int, page: int, time: int) : Dict
+    }
+
+    class Requester {
+        +get(url: str, headers: Dict) : requests.Response
+    }
+
+    class ProxyHandler {
+        +manage_proxies()
+    }
+
+    Vinted ..&gt; Requester : calls
+    Vinted ..&gt; ProxyHandler : calls
+        </div></section>
 </section>
 <section id="conclusions">
 <h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
 <p>Poor unfexible design which abuses Classes resulting in unnecessary complexity, overhead and functional problems downstream.</p>
-<p><strong>Vinted Class</strong>:</p>
-<ul class="simple">
-<li><p>Responsibilities: Acts as the main interface for interacting with the pyVinted API. It initializes the system and manages the retrieval of items from Vinted.</p></li>
-<li><p>Strengths: Provides a clear entry point for users of the system, abstracting away details of the internal implementation.</p></li>
-<li><p>Weaknesses: It might be tightly coupled with the specific functionality provided by the Items class, limiting its flexibility if the requirements change.</p></li>
-</ul>
-<p><strong>Items Class</strong>:</p>
-<ul class="simple">
-<li><p>Responsibilities: Presumably handles operations related to items, such as retrieving, updating, or managing item data.</p></li>
-<li><p>Strengths: Encapsulates item-related functionality, adhering to the principle of separation of concerns.</p></li>
-<li><p>Weaknesses: Without knowing the implementation details, it’s challenging to evaluate its effectiveness in achieving its objectives.</p></li>
-</ul>
-<p><strong>Requester Class</strong>:</p>
-<ul class="simple">
-<li><p>Responsibilities: Handles HTTP requests to the Vinted API, including setting up a session and managing proxies.</p></li>
-<li><p>Strengths: Encapsulates HTTP request logic, promoting code reusability and maintainability.</p></li>
-<li><p>Weaknesses: It’s not directly visible in the provided code snippet, so its specific implementation and potential limitations are unclear.</p></li>
-</ul>
-<p><strong>Proxy Handling</strong>:</p>
-<ul class="simple">
-<li><p>Responsibilities: Manages the usage of proxies, potentially to bypass rate limits or enhance privacy.</p></li>
-<li><p>Strengths: Provides flexibility by allowing the user to specify a proxy if needed.</p></li>
-<li><p>Weaknesses: Proxy usage can introduce additional complexity and potential failure points, such as connection issues or authentication problems.</p></li>
-</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Responsibilities</p></th>
+<th class="head"><p>Strengths</p></th>
+<th class="head"><p>Weaknesses</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Vinted</p></td>
+<td><p>Acts as the main interface for interacting with the pyVinted API. Initializes the system and manages the retrieval of items from Vinted.</p></td>
+<td><p>Provides a clear entry point for users, abstracting away details of the internal implementation.</p></td>
+<td><p>Tightly coupled with the specific functionality provided by the Items class, limiting flexibility if requirements change.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requester</p></td>
+<td><p>Handles HTTP requests to the Vinted API, including setting up a session and managing proxies.</p></td>
+<td><p>Encapsulates HTTP request logic, capping requests.</p></td>
+<td><p>Impossible to make async requests.</p></td>
+</tr>
+<tr class="row-even"><td><p>Proxy Handling</p></td>
+<td><p>Manages the usage of proxies, potentially to bypass rate limits or enhance privacy.</p></td>
+<td><p>Provides flexibility by allowing the user to specify a proxy if needed.</p></td>
+<td><p>Proxy usage can introduce additional complexity and potential failure points, such as connection issues or authentication problems.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 
@@ -719,15 +851,15 @@ Endpoint API: <a class="reference external" href="https://www.vinted.pt/api/v2/i
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">01: Overview of the Data Pipeline</p>
+        <p class="prev-next-title">01: Overview of the Vinted Project</p>
       </div>
     </a>
     <a class="right-next"
-       href="../03_Vinted_Data_Science/00_intro.html"
+       href="02_pipeline_design.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction: Vinted, the rise of ESG marketplace</p>
+        <p class="prev-next-title">03: Pipeline Design</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -747,6 +879,15 @@ Endpoint API: <a class="reference external" href="https://www.vinted.pt/api/v2/i
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source-api">Data source: API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiling-and-api-endpoints">APK Decompiling and API endpoints</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apk-decompiled">APK Decompiled</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-endpoints">Useful Endpoints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singleton-requester">Singleton Requester</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vinted-endpoint-class">Vinted Endpoint Class</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#url-encoding-search-params">Url Encoding Search params</a></li>

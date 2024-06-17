@@ -1,0 +1,1188 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>In sample regressor for house rent prices &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_housing_database/02_price_regression_idealista';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Improving the performance of html parsers" href="01_parsing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F05_housing_database/02_price_regression_idealista.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/05_housing_database/02_price_regression_idealista.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>In sample regressor for house rent prices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-results">Initial results</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-before-text-wrangling">Preprocessing before text wrangling</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-metrics">Model Performance Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="in-sample-regressor-for-house-rent-prices">
+<h1>In sample regressor for house rent prices<a class="headerlink" href="#in-sample-regressor-for-house-rent-prices" title="Link to this heading">#</a></h1>
+<p>I will show the process behind the development of an housing pricing regressor to predict the rent prices given a feature set of housing properties, starting with the development of the first data models, model fine tuning and further improvement of data models. The model used for this purpose is LightGBM.</p>
+<p>Notice this exercise is not meant to extrapolate any conclusions.</p>
+<p>Models:</p>
+<ul class="simple">
+<li><p>Basic LightGBM + Basic data structure</p></li>
+<li><p>LightGBM finetuning + Basic data/w feature engineering</p></li>
+<li><p>LightGBM finetuning + Data catalog</p></li>
+</ul>
+<p><strong>Keywords</strong>: LightGBM, regression modelling, price prediction, Idealista, Named Entity Recognition</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#in-sample-regressor-for-house-rent-prices"><span class="xref myst">In sample regressor for house rent prices</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction"><span class="xref myst">Introduction</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#lightgbm--data-structure-1"><span class="xref myst">LightGBM + Data Structure 1</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#data-collection-and-preparation"><span class="xref myst">Data Collection and Preparation</span></a></p></li>
+<li><p><a class="reference internal" href="#initial-results"><span class="xref myst">Initial results</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#lightgbm-finetuning--data-structure-1-feature-engineering"><span class="xref myst">LightGBM finetuning + Data Structure 1 (feature engineering)</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#feature-engineering"><span class="xref myst">Feature engineering</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#preprocessing-before-text-wrangling"><span class="xref myst">Preprocessing before text wrangling</span></a></p></li>
+<li><p><a class="reference internal" href="#extract-street-names-from-title"><span class="xref myst">Extract street names from title</span></a></p></li>
+<li><p><a class="reference internal" href="#extract-street-names-from-title-1"><span class="xref myst">Extract street names from title</span></a></p></li>
+<li><p><a class="reference internal" href="#lightgbm-finetuning"><span class="xref myst">LightGBM finetuning</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#results"><span class="xref myst">Results</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#lightgbm-finetuning-2--data-structure-reworked"><span class="xref myst">LightGBM finetuning 2 + Data Structure reworked</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#developing-a-new-datastructure-natural-linkage"><span class="xref myst">Developing a new datastructure: natural linkage</span></a></p></li>
+<li><p><a class="reference internal" href="#lightgbm-finetuning-2"><span class="xref myst">LightGBM finetuning 2</span></a></p></li>
+<li><p><a class="reference internal" href="#results-1"><span class="xref myst">Results</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#results-2"><span class="xref myst">Results</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#model-performance-metrics"><span class="xref myst">Model Performance Metrics</span></a></p></li>
+<li><p><a class="reference internal" href="#feature-importance"><span class="xref myst">Feature Importance</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>The first data model derived from the source data was this table. We used some simple preprocessing functions to remove any outliers and then fit the model.</p>
+<div class="mermaid">
+            erDiagram
+    LISTINGS {
+        string garage
+        int price
+        string home_type
+        string city
+        string home_size
+        int home_area
+        int floor
+        boolean elevator
+        float price_per_sqr_meter
+        string neighborhood
+    }
+        </div><section id="lightgbm-data-structure-1">
+<h3>LightGBM + Data Structure 1<a class="headerlink" href="#lightgbm-data-structure-1" title="Link to this heading">#</a></h3>
+<section id="data-collection-and-preparation">
+<h4>Data Collection and Preparation<a class="headerlink" href="#data-collection-and-preparation" title="Link to this heading">#</a></h4>
+<p>After the inital EDA of the data, the preprocessing approach was to filter the values by quantiles, grouped by city and home sizes.</p>
+<p><img alt="raw" src="../_images/raw_screening.png" /></p>
+<p>358 rows were removed.</p>
+<ul class="simple">
+<li><p>Original df: 2872</p></li>
+<li><p>Filtered df: 2514</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_city_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="c1"># Calculate quantiles within each group</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+    
+    <span class="c1"># Filter based on the upper quantiles</span>
+    <span class="n">filtered_group</span> <span class="o">=</span> <span class="n">group</span><span class="p">[(</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">c1</span><span class="p">)</span> <span class="o">&amp;</span> 
+                           <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">c2</span><span class="p">)</span> <span class="o">&amp;</span> 
+                           <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">c3</span><span class="p">)]</span>
+    
+    <span class="c1"># Calculate the lower quantile for price_per_sqr_meter</span>
+    <span class="n">c4</span> <span class="o">=</span> <span class="n">filtered_group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
+    
+    <span class="c1"># Further filter the group</span>
+    <span class="n">final_filtered_group</span> <span class="o">=</span> <span class="n">filtered_group</span><span class="p">[</span><span class="n">filtered_group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">c4</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">final_filtered_group</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;home_size&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">filter_city_group</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>after preprocessing</strong>
+<img alt="raw" src="../_images/after_preprocessing.png" /></p>
+</section>
+<section id="initial-results">
+<h4>Initial results<a class="headerlink" href="#initial-results" title="Link to this heading">#</a></h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>mean_squared_error</p></td>
+<td><p>1,501,528.9301146849</p></td>
+</tr>
+<tr class="row-odd"><td><p>root_mean_squared_error</p></td>
+<td><p>1,225.3688955227665</p></td>
+</tr>
+<tr class="row-even"><td><p>mean_absolute_error</p></td>
+<td><p>627.2880019512329</p></td>
+</tr>
+<tr class="row-odd"><td><p>median_absolute_error</p></td>
+<td><p>304.87489105188115</p></td>
+</tr>
+<tr class="row-even"><td><p>r2_score</p></td>
+<td><p>0.7919266926096962</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean_absolute_percentage_error</p></td>
+<td><p>0.2422117727534839</p></td>
+</tr>
+<tr class="row-even"><td><p>explained_variance_score</p></td>
+<td><p>0.791961664514626</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_error</p></td>
+<td><p>9,681.896126731974</p></td>
+</tr>
+</tbody>
+</table>
+<p>For the first model we went super simple with a super out of the box approach. In addition, the EDA made me realize ‘tweedie’ objective function made more sense than regression.</p>
+<p>The results are pretty decent. We can already tell the features in our dataset are somewhat meaningful to model rent prices by the r2_score. However, max error is crazy big and MAE and MEDAE are substancial.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;home_type&quot;</span><span class="p">,</span> <span class="s2">&quot;garage&quot;</span><span class="p">,</span> <span class="s2">&quot;home_size&quot;</span><span class="p">,</span> <span class="s2">&quot;floor&quot;</span><span class="p">,</span> <span class="s2">&quot;elevator&quot;</span><span class="p">,</span> <span class="s2">&quot;home_area&quot;</span><span class="p">,</span> <span class="s2">&quot;municipality&quot;</span><span class="p">,</span> <span class="s2">&quot;parish&quot;</span><span class="p">,</span> <span class="s2">&quot;neighborhood&quot;</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">target</span><span class="p">),</span> 
+                                                    <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> 
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">d_train</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> 
+                    <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Define parameters for LightGBM</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>  <span class="c1"># Root Mean Squared Error    </span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.01</span>
+<span class="p">}</span>
+
+<span class="n">clf</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
+              <span class="n">d_train</span><span class="p">)</span> 
+</pre></div>
+</div>
+</section>
+</section>
+<section id="lightgbm-finetuning-data-structure-1-feature-engineering">
+<h3>LightGBM finetuning + Data Structure 1 (feature engineering)<a class="headerlink" href="#lightgbm-finetuning-data-structure-1-feature-engineering" title="Link to this heading">#</a></h3>
+<section id="feature-engineering">
+<h4>Feature engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h4>
+<p>For the feature engineering, we decided to create a new variable “street_names” by extracting it from the title using a mix of pretrained Spacy Named Entity Recognition model and a fixed regex match for a list of special keywords.</p>
+<p>street_keywords = {‘rua’, ‘avenida’, ‘beco’, ‘praça’, ‘travessa’, ‘estrada’, ‘alameda’, ‘largo’, ‘caminho’}</p>
+<div class="mermaid">
+            graph TD
+    A[Start] --&gt; B[Preprocess Text]
+    B --&gt; C{Extract Street Name}
+    C --&gt; D{Entity Label is LOC?}
+    D --&gt;|Yes| E{Contains Street Keyword?}
+    D --&gt;|No| F[Return Empty String]
+    E --&gt;|Yes| G[Return Entity Text]
+    E --&gt;|No| F
+    C --&gt; H[Extract Street Names]
+    H --&gt; I[Parse Text with spaCy]
+    I --&gt; J{Entity Label is LOC or PROPN?}
+    J --&gt;|Yes| K[Collect Entity Text]
+    J --&gt;|No| L[Skip Entity]
+    K --&gt; M[Return Collected Entities as String]
+    F --&gt; N[Check Word Count in Neighborhood Name]
+    N --&gt;|&gt;1 Word| O[Remove Specified Words]
+    N --&gt;|=1 Word| P[Return Name]
+    O --&gt; Q[Remove Extra Whitespace]
+    Q --&gt; P
+    P --&gt; R[Replace Missing Street Names]
+    R --&gt; S[Update Dataset]
+    S --&gt; T[End]
+
+    subgraph Extract Street Name
+    C
+    D
+    E
+    F
+    G
+    end
+
+    subgraph Clean Neighborhood Name
+    N
+    O
+    Q
+    P
+    end
+
+    subgraph Extract Street Names
+    H
+    I
+    J
+    K
+    L
+    M
+    end
+        </div><section id="preprocessing-before-text-wrangling">
+<h5>Preprocessing before text wrangling<a class="headerlink" href="#preprocessing-before-text-wrangling" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preprocesses the given text string by:</span>
+<span class="sd">    - Stripping whitespace from start and end.</span>
+<span class="sd">    - Converting all characters to lowercase.</span>
+<span class="sd">    - Replacing accented characters with their closest ASCII counterparts.</span>
+<span class="sd">    - Optionally: remove punctuation, digits, etc.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str): The text to preprocess.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The preprocessed text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Normalize to a consistent form</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># Strip whitespace</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="c1"># Convert to lowercase</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># Replace accented characters with ASCII equivalents</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Remove specific unwanted characters such as newlines and slashes</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\n/]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>  <span class="c1"># Replacing them with a space</span>
+
+    <span class="c1"># Optionally: remove punctuation</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\w\s]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># Optionally: remove digits</span>
+    <span class="c1"># text = re.sub(r&#39;\d+&#39;, &#39;&#39;, text)</span>
+
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+</div>
+</section>
+<section id="extract-street-names-from-title">
+<h5>Extract street names from title<a class="headerlink" href="#extract-street-names-from-title" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_name</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the street name from a given text.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">    text (str): The input text from which to extract the street name.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    str: The extracted street name, or an empty string if no street name is found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">street_keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rua&#39;</span><span class="p">,</span> <span class="s1">&#39;avenida&#39;</span><span class="p">,</span> <span class="s1">&#39;beco&#39;</span><span class="p">,</span> <span class="s1">&#39;praça&#39;</span><span class="p">,</span> <span class="s1">&#39;travessa&#39;</span><span class="p">,</span> <span class="s1">&#39;estrada&#39;</span><span class="p">,</span> <span class="s1">&#39;alameda&#39;</span><span class="p">,</span> <span class="s1">&#39;largo&#39;</span><span class="p">,</span> <span class="s1">&#39;caminho&#39;</span><span class="p">}</span>
+    
+    <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span> <span class="o">==</span> <span class="s2">&quot;LOC&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">ent</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">street_keywords</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ent</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_neighborhood_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">remove_words</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clean a single neighborhood name by removing specified words.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    name (str): The neighborhood name to clean.</span>
+<span class="sd">    remove_words (set): A set of words to remove from the name.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    str: The cleaned neighborhood name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b(&#39;</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remove_words</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;)\b&#39;</span>
+        <span class="n">cleaned_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">cleaned_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">cleaned_name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cleaned_name</span> <span class="o">=</span> <span class="n">name</span>
+        
+    <span class="k">return</span> <span class="n">cleaned_name</span>
+
+<span class="n">remove_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;home_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;home_size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h5>Extract street names from title<a class="headerlink" href="#id1" title="Link to this heading">#</a></h5>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_names</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># Process the text</span>
+    <span class="c1"># doc = nlp(text)</span>
+
+    <span class="c1"># Filter out stop words</span>
+    <span class="c1"># filtered_sentence = &#39; &#39;.join([token.text for token in doc if not token.is_stop])   </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract potential street names from a text string using spaCy&#39;s NER.&quot;&quot;&quot;</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="c1"># Customize entity labels based on observations and model performance</span>
+    <span class="n">street_entities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LOC&#39;</span><span class="p">,</span> <span class="s1">&#39;PROPN&#39;</span><span class="p">]</span>
+    <span class="n">street_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="k">if</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span> <span class="ow">in</span> <span class="n">street_entities</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">street_names</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="lightgbm-finetuning">
+<h5>LightGBM finetuning<a class="headerlink" href="#lightgbm-finetuning" title="Link to this heading">#</a></h5>
+<p>Built a wrapper over optuna trials to find the best booster given the search space shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback_model</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">trial</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">trial</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
+        <span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;best_booster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">trial</span><span class="o">.</span><span class="n">user_attrs</span><span class="p">[</span><span class="s2">&quot;best_booster&quot;</span><span class="p">])</span>
+
+<span class="c1"># Assuming X_train and y_train are already defined and available</span>
+<span class="n">evals</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># initializing in global scope</span>
+<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="c1"># Train/test split</span>
+    <span class="n">X_train_split</span><span class="p">,</span> <span class="n">X_val_split</span><span class="p">,</span> <span class="n">y_train_split</span><span class="p">,</span> <span class="n">y_val_split</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">evals</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Suggest values for the hyperparameters</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tweedie_variance_power&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s1">&#39;tweedie_variance_power&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span>
+        <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;verbosity&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  
+        <span class="c1"># &#39;boosting_type&#39;: &#39;rf&#39;,</span>
+        <span class="s1">&#39;lambda_l1&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s1">&#39;lambda_l1&#39;</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s1">&#39;lambda_l2&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s1">&#39;lambda_l2&#39;</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;num_leaves&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+        <span class="s1">&#39;feature_fraction&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_uniform</span><span class="p">(</span><span class="s1">&#39;feature_fraction&#39;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="s1">&#39;bagging_fraction&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_uniform</span><span class="p">(</span><span class="s1">&#39;bagging_fraction&#39;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s1">&#39;colsample_bytree&#39;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;min_child_samples&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;min_child_samples&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_loguniform</span><span class="p">(</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">3000</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Create a LightGBM dataset</span>
+    <span class="n">dtrain</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train_split</span><span class="p">,</span> 
+                         <span class="n">label</span><span class="o">=</span><span class="n">y_train_split</span><span class="p">)</span>
+    <span class="n">dvalid</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_val_split</span><span class="p">,</span> 
+                         <span class="n">label</span><span class="o">=</span><span class="n">y_val_split</span><span class="p">)</span>
+
+    <span class="c1"># Train the model</span>
+    <span class="n">gbm</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> 
+                    <span class="n">valid_sets</span><span class="o">=</span><span class="p">[</span><span class="n">dvalid</span><span class="p">],</span>
+                    <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">lgb</span><span class="o">.</span><span class="n">early_stopping</span><span class="p">(</span><span class="n">stopping_rounds</span><span class="o">=</span> <span class="mi">100</span><span class="p">),</span>
+                        <span class="n">lgb</span><span class="o">.</span><span class="n">record_evaluation</span><span class="p">(</span><span class="n">evals</span><span class="p">),</span>
+                    <span class="p">])</span>
+
+    <span class="c1"># Predict on validation set</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">gbm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_split</span><span class="p">,</span> 
+                        <span class="n">num_iteration</span><span class="o">=</span><span class="n">gbm</span><span class="o">.</span><span class="n">best_iteration</span><span class="p">)</span>
+    
+    <span class="n">trial</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;best_booster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">gbm</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate RMSE</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val_split</span><span class="p">,</span> 
+                              <span class="n">preds</span><span class="p">,</span> 
+                              <span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rmse</span>
+</pre></div>
+</div>
+<p><strong>best iteration</strong>
+(took about 15 mins on CPU though)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Best trial:
+    RMSE: 769.3324520631095
+    Params: 
+        tweedie_variance_power: 1.2887153888677096
+        lambda_l1: 0.0970823229464095
+        lambda_l2: 0.001987556236210949
+        num_leaves: 215
+        feature_fraction: 0.7394630777554029
+        bagging_fraction: 0.5254285845293489
+        colsample_bytree: 0.4406038125799569
+        min_child_samples: 19
+        learning_rate: 0.007207126518937185
+</pre></div>
+</div>
+</section>
+</section>
+<section id="results">
+<h4>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean Squared Error (MSE)</p></td>
+<td><p>602,776.7700695128</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Squared Error (RMSE)</p></td>
+<td><p>776.386997617498</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean Absolute Error (MAE)</p></td>
+<td><p>367.0216836685397</p></td>
+</tr>
+<tr class="row-odd"><td><p>Median Absolute Error</p></td>
+<td><p>134.60877328493183</p></td>
+</tr>
+<tr class="row-even"><td><p>R² Score</p></td>
+<td><p>0.8398658418155807</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Absolute Percentage Error</p></td>
+<td><p>0.1605847610960246</p></td>
+</tr>
+<tr class="row-even"><td><p>Explained Variance Score</p></td>
+<td><p>0.8400642395176007</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max Error</p></td>
+<td><p>7916.031221418012</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="lightgbm-finetuning-2-data-structure-reworked">
+<h3>LightGBM finetuning 2 + Data Structure reworked<a class="headerlink" href="#lightgbm-finetuning-2-data-structure-reworked" title="Link to this heading">#</a></h3>
+<section id="developing-a-new-datastructure-natural-linkage">
+<h4>Developing a new datastructure: natural linkage<a class="headerlink" href="#developing-a-new-datastructure-natural-linkage" title="Link to this heading">#</a></h4>
+<p>The purpose of this new datastructure is to create a proper linkage between pages in the different levels of hierarchy of housing location.</p>
+<p><strong>before</strong></p>
+<div class="mermaid">
+            graph LR
+    A[city] --&gt; B[Neighborhood]
+    B --&gt; C[street_name]
+        </div><p><strong>after</strong>
+Note that Neightborhood in before schema is at the same level as Parish in after schema.</p>
+<div class="mermaid">
+            graph LR
+    A[District] --&gt; B[Municipality]
+    B --&gt; C[Parish]
+    C --&gt; D[Neighborhood]
+    D --&gt; E[Neighborhood Link]
+    E --&gt; F[Neighborhood Link: page n]
+        </div><p>Basically I <strong>kept the same parsing class, but changed the parsing scope</strong> to a lower hierarchy level. Given that my parsing class takes a list of links, I just changed my list of links by creating a catalog.</p>
+<p><strong>data catalog</strong></p>
+<p><img alt="raw" src="../_images/catalog.png" /></p>
+<p>In addition, this data catalog parsed every possible href in the website which resulted in more data points.</p>
+</section>
+<section id="lightgbm-finetuning-2">
+<h4>LightGBM finetuning 2<a class="headerlink" href="#lightgbm-finetuning-2" title="Link to this heading">#</a></h4>
+<p>Instead of using a combinatorial searching algorithm, I used the LightGBMTuner which is a sequential tuning algorithm. It’s much faster.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">optuna.integration</span> <span class="kn">import</span> <span class="n">LightGBMTuner</span>
+<span class="n">optuna</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tune_hyperparameters</span><span class="p">(</span><span class="n">d_train</span><span class="p">,</span> <span class="n">d_valid</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;tweedie&#39; or any other suitable according to your task</span>
+        <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>           <span class="c1"># Evaluation metric</span>
+        <span class="s1">&#39;boosting_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gbdt&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;verbosity&#39;</span><span class="p">:</span> <span class="mi">0</span>   <span class="c1"># Default boosting type</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Creating the tuner</span>
+    <span class="n">tuner</span> <span class="o">=</span> <span class="n">LightGBMTuner</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> 
+                          <span class="n">d_train</span><span class="p">,</span>
+                          <span class="n">valid_sets</span><span class="o">=</span><span class="p">[</span><span class="n">d_valid</span><span class="p">],</span>
+                          <span class="n">num_boost_round</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                          <span class="n">show_progress_bar</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Maximum number of boosting iterations</span>
+
+    <span class="c1"># Running the tuning</span>
+    <span class="n">tuner</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score:&quot;</span><span class="p">,</span> <span class="n">tuner</span><span class="o">.</span><span class="n">best_score</span><span class="p">)</span>
+    <span class="n">best_params</span> <span class="o">=</span> <span class="n">tuner</span><span class="o">.</span><span class="n">best_params</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best params:&quot;</span><span class="p">,</span> <span class="n">best_params</span><span class="p">)</span>
+    <span class="n">best_booster</span> <span class="o">=</span> <span class="n">tuner</span><span class="o">.</span><span class="n">get_best_booster</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">best_params</span><span class="p">,</span> <span class="n">best_booster</span>
+
+<span class="n">best_params</span><span class="p">,</span> <span class="n">best_booster</span> <span class="o">=</span> <span class="n">tune_hyperparameters</span><span class="p">(</span><span class="n">d_train</span><span class="p">,</span> <span class="n">d_valid</span><span class="p">)</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">best_booster</span><span class="p">,</span> <span class="s1">&#39;model.joblib&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h4>Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean Squared Error (MSE)</p></td>
+<td><p>914,305.6904228394</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Squared Error (RMSE)</p></td>
+<td><p>956.1933331825941</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean Absolute Error (MAE)</p></td>
+<td><p>483.77187192232515</p></td>
+</tr>
+<tr class="row-odd"><td><p>Median Absolute Error</p></td>
+<td><p>233.53388034923205</p></td>
+</tr>
+<tr class="row-even"><td><p>R² Score</p></td>
+<td><p>0.8816127704566171</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Absolute Percentage Error</p></td>
+<td><p>0.1937938758957172</p></td>
+</tr>
+<tr class="row-even"><td><p>Explained Variance Score</p></td>
+<td><p>0.8817390606991876</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max Error</p></td>
+<td><p>13,460.365708323816</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="id3">
+<h2>Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="model-performance-metrics">
+<h3>Model Performance Metrics<a class="headerlink" href="#model-performance-metrics" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>First Model</p></th>
+<th class="head"><p>Second Model</p></th>
+<th class="head"><p>Third Model</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean Squared Error (MSE)</p></td>
+<td><p>1,501,528.9301146849</p></td>
+<td><p>602,776.7700695128</p></td>
+<td><p>914,305.6904228394</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Squared Error (RMSE)</p></td>
+<td><p>1,225.3688955227665</p></td>
+<td><p>776.386997617498</p></td>
+<td><p>956.1933331825941</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean Absolute Error (MAE)</p></td>
+<td><p>627.2880019512329</p></td>
+<td><p>367.0216836685397</p></td>
+<td><p>483.77187192232515</p></td>
+</tr>
+<tr class="row-odd"><td><p>Median Absolute Error</p></td>
+<td><p>304.87489105188115</p></td>
+<td><p>134.60877328493183</p></td>
+<td><p>233.53388034923205</p></td>
+</tr>
+<tr class="row-even"><td><p>R² Score</p></td>
+<td><p>0.7919266926096962</p></td>
+<td><p>0.8398658418155807</p></td>
+<td><p>0.8816127704566171</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Absolute Percentage Error</p></td>
+<td><p>0.2422117727534839</p></td>
+<td><p>0.1605847610960246</p></td>
+<td><p>0.1937938758957172</p></td>
+</tr>
+<tr class="row-even"><td><p>Explained Variance Score</p></td>
+<td><p>0.791961664514626</p></td>
+<td><p>0.8400642395176007</p></td>
+<td><p>0.8817390606991876</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max Error</p></td>
+<td><p>9,681.896126731974</p></td>
+<td><p>7,916.031221418012</p></td>
+<td><p>13,460.365708323816</p></td>
+</tr>
+</tbody>
+</table>
+<p>The data capture changes between second and third model are notorious. Altough the Variance explainability increased, the errors increased as well. This is concerning and should be looked into.</p>
+<p>One of the possible causes are:</p>
+<ul class="simple">
+<li><p>the increase in locations and data points for new regions with low samples which can make generalization hard</p></li>
+<li><p>presence of noise (max error is huge), suggests preprocessing should be refined</p></li>
+<li><p>differences between traning and testing sets (add cross validation)</p></li>
+</ul>
+</section>
+<section id="feature-importance">
+<h3>Feature Importance<a class="headerlink" href="#feature-importance" title="Link to this heading">#</a></h3>
+<p>By far the most important variable to model housing prices is home area and the least important is home type (Apartment, House, etc).</p>
+<p>However, I’m surprised floor was one of the most important variables. I have some suspicious floor and home_type might be somewhat linked and correlated, since floor = 0 likely means home_type is not an apartment.</p>
+<p><img alt="raw" src="../_images/feature_importance.png" /></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./05_housing_database"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_parsing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><a id='toc1_'></a><span class="xref myst">Improving the performance of html parsers</span></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-results">Initial results</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-before-text-wrangling">Preprocessing before text wrangling</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-metrics">Model Performance Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

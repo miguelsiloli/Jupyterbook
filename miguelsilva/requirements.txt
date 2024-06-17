@@ -15,4 +15,6 @@ shap
 skforecast
 SQLAlchemy
 statsmodels
+sphinxcontrib-plantuml==0.25
+sphinxcontrib-mermaid
 tslearn

@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -58,6 +59,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '04_Time_Series/02_Time_Series_Clustering/02_ts_clustering_distribution';</script>
+    <script src="../../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -177,7 +179,24 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -403,11 +422,6 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\tslearn\bases\bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
-Install h5py to use hdf5 features: http://docs.h5py.org/
-  warn(h5py_msg)
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -790,7 +804,7 @@ Install h5py to use hdf5 features: http://docs.h5py.org/
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f986e2f531db490a13037eb7b4e263624135b65d08ee882765a7e412b1b7822b.png" src="../../_images/f986e2f531db490a13037eb7b4e263624135b65d08ee882765a7e412b1b7822b.png" />
+<img alt="../../_images/a19704adb254a5ad03e6aa1aea62c38d2cb0fc1462861930ae7a5644586a60fe.png" src="../../_images/a19704adb254a5ad03e6aa1aea62c38d2cb0fc1462861930ae7a5644586a60fe.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -812,67 +826,7 @@ Install h5py to use hdf5 features: http://docs.h5py.org/
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<img alt="../../_images/d30b2e95ec6104f7b6e0033d1baec797adcbe7fcff53279c1c157c9752d29978.png" src="../../_images/d30b2e95ec6104f7b6e0033d1baec797adcbe7fcff53279c1c157c9752d29978.png" />
+<img alt="../../_images/5286d27f27dd159b6e9e65d635f789a9b8d0831d7c0e2db44d35a8d8ca4491a4.png" src="../../_images/5286d27f27dd159b6e9e65d635f789a9b8d0831d7c0e2db44d35a8d8ca4491a4.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -894,65 +848,7 @@ C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seabor
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
-</pre></div>
-</div>
-<img alt="../../_images/e44800a483be4c260632597f33d22b342895cb167481dd611e396ac3720c0728.png" src="../../_images/e44800a483be4c260632597f33d22b342895cb167481dd611e396ac3720c0728.png" />
+<img alt="../../_images/930cdfd9e668d89ad7abdd310ca5c116bbbcdfe9fb09b10ef77062197a935b7f.png" src="../../_images/930cdfd9e668d89ad7abdd310ca5c116bbbcdfe9fb09b10ef77062197a935b7f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1131,7 +1027,7 @@ Cluster 26: 3042.0, 4906.0, 5999.0
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.24572712746944725, 0.22887236265426197)
 </pre></div>
 </div>
-<img alt="../../_images/b245282ba38b9996ded61f5ddffeae067624c9dffb0ee1ec6713265f8603864d.png" src="../../_images/b245282ba38b9996ded61f5ddffeae067624c9dffb0ee1ec6713265f8603864d.png" />
+<img alt="../../_images/46209055bf6345cdd036c1f0d15883917f9ab0d9e73169a8d48a4e34eb66aa83.png" src="../../_images/46209055bf6345cdd036c1f0d15883917f9ab0d9e73169a8d48a4e34eb66aa83.png" />
 </div>
 </div>
 </section>

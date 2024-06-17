@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 646, in run_until_complete
+    return future.result()
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from scipy.stats import kruskal
+
+# Separate data by status groups
+status_groups = [data[data['status'] == status]['price_numeric'] for status in data['status'].unique()]
+
+# Perform Kruskal-Wallis test
+statistic, p_value = kruskal(*status_groups)
+
+# Print results
+print("Kruskal-Wallis Test:")
+print(f"Statistic: {statistic}, p-value: {p_value}")
+if p_value < 0.05:
+    print("Reject null hypothesis: distributions are different (p_value < alfa)")
+else:
+    print("Fail to reject null hypothesis: distributions are similar")
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mValueError[0m                                Traceback (most recent call last)
+[1;32m~\AppData\Local\Temp\ipykernel_11672\1662707412.py[0m in [0;36m?[1;34m()[0m
+[0;32m      3[0m [1;31m# Separate data by status groups[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      4[0m [0mstatus_groups[0m [1;33m=[0m [1;33m[[0m[0mdata[0m[1;33m[[0m[0mdata[0m[1;33m[[0m[1;34m'status'[0m[1;33m][0m [1;33m==[0m [0mstatus[0m[1;33m][0m[1;33m[[0m[1;34m'price_numeric'[0m[1;33m][0m [1;32mfor[0m [0mstatus[0m [1;32min[0m [0mdata[0m[1;33m[[0m[1;34m'status'[0m[1;33m][0m[1;33m.[0m[0munique[0m[1;33m([0m[1;33m)[0m[1;33m][0m[1;33m[0m[1;33m[0m[0m
+[0;32m      5[0m [1;33m[0m[0m
+[0;32m      6[0m [1;31m# Perform Kruskal-Wallis test[0m[1;33m[0m[1;33m[0m[0m
+[1;32m----> 7[1;33m [0mstatistic[0m[1;33m,[0m [0mp_value[0m [1;33m=[0m [0mkruskal[0m[1;33m([0m[1;33m*[0m[0mstatus_groups[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m      8[0m [1;33m[0m[0m
+[0;32m      9[0m [1;31m# Print results[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     10[0m [0mprint[0m[1;33m([0m[1;34m"Kruskal-Wallis Test:"[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+
+[1;32m~\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\stats\_axis_nan_policy.py[0m in [0;36m?[1;34m(***failed resolving arguments***)[0m
+[0;32m    519[0m                 [1;31m# behavior of those would break backward compatibility.[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    520[0m [1;33m[0m[0m
+[0;32m    521[0m                 [1;32mif[0m [0msentinel[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    522[0m                     [0msamples[0m [1;33m=[0m [0m_remove_sentinel[0m[1;33m([0m[0msamples[0m[1;33m,[0m [0mpaired[0m[1;33m,[0m [0msentinel[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[1;32m--> 523[1;33m                 [0mres[0m [1;33m=[0m [0mhypotest_fun_out[0m[1;33m([0m[1;33m*[0m[0msamples[0m[1;33m,[0m [1;33m**[0m[0mkwds[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m    524[0m                 [0mres[0m [1;33m=[0m [0mresult_to_tuple[0m[1;33m([0m[0mres[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    525[0m                 [0mres[0m [1;33m=[0m [0m_add_reduced_axes[0m[1;33m([0m[0mres[0m[1;33m,[0m [0mreduced_axes[0m[1;33m,[0m [0mkeepdims[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    526[0m                 [1;32mreturn[0m [0mtuple_to_result[0m[1;33m([0m[1;33m*[0m[0mres[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+
+[1;32m~\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\stats\_stats_py.py[0m in [0;36m?[1;34m(nan_policy, *samples)[0m
+[0;32m   9281[0m     [0msamples[0m [1;33m=[0m [0mlist[0m[1;33m([0m[0mmap[0m[1;33m([0m[0mnp[0m[1;33m.[0m[0masarray[0m[1;33m,[0m [0msamples[0m[1;33m)[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m   9282[0m [1;33m[0m[0m
+[0;32m   9283[0m     [0mnum_groups[0m [1;33m=[0m [0mlen[0m[1;33m([0m[0msamples[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m   9284[0m     [1;32mif[0m [0mnum_groups[0m [1;33m<[0m [1;36m2[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[1;32m-> 9285[1;33m         [1;32mraise[0m [0mValueError[0m[1;33m([0m[1;34m"Need at least two groups in stats.kruskal()"[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m   9286[0m [1;33m[0m[0m
+[0;32m   9287[0m     [1;32mfor[0m [0msample[0m [1;32min[0m [0msamples[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[0;32m   9288[0m         [1;32mif[0m [0msample[0m[1;33m.[0m[0msize[0m [1;33m==[0m [1;36m0[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+
+[1;31mValueError[0m: Need at least two groups in stats.kruskal()
+

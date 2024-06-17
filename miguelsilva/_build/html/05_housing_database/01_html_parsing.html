@@ -1,0 +1,1494 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Improving the performance of html parsers &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_housing_database/01_html_parsing';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="In sample regressor for house rent prices" href="02_price_regression_idealista.html" />
+    <link rel="prev" title="Mining in Wallapop 2024 Edition" href="../06_Wallapop/01_exploration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/03_data_modelling.html">Data Modelling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/00_intro.html">Introduction: Vinted, the rise of ESG marketplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F05_housing_database/01_html_parsing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/05_housing_database/01_html_parsing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><a id='toc1_'></a>Improving the performance of html parsers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><a id="toc1_1_"></a><span class="xref myst">Introduction</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process"><a id="toc1_2_"></a><span class="xref myst">Process</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-parsing-function">Basic parsing function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-with-bs4-parsing-function">Pandas with BS4 parsing function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-with-bs4-parsing-function"><a id="toc1_3_"></a><span class="xref myst">Dask with BS4 parsing function</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-with-bs4-with-some-improvements">Dask with BS4 with some improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-and-lxml-for-parsing"><a id="toc1_4_"></a><span class="xref myst">Dask and lxml for parsing</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-results"><a id="toc1_5_"></a><span class="xref myst">Analysis of the results</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lxml"><a id="toc1_5_1_1_"></a><span class="xref myst">Lxml</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dask"><a id="toc1_5_1_2_"></a><span class="xref myst">Dask</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions"><a id="toc1_6_"></a><span class="xref myst">Conclusions</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-during-optimization"><a id="toc1_7_"></a><span class="xref myst">Considerations during optimization</span></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="improving-the-performance-of-html-parsers">
+<h1><a id='toc1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Improving the performance of html parsers</span></a><a class="headerlink" href="#improving-the-performance-of-html-parsers" title="Link to this heading">#</a></h1>
+<p>The context of this post is to explore and find a solution to the costly text parsing of html files. This is crucial when developing a webscraper. There are arguably decent solutions such as the Scrapy infrastructure which can parse nodes and data based on their own custom dataclasses. This solution is interesting as it provides an incremental approach (the bulk parsing is done sequentially for each html page parsed), however from a POV of Data Engineering, the good practice should be to parse the raw data as a whole to assure consistency, availability and the ability to do some backfilling if the html content changes.</p>
+<p>For this analysis we are using <strong>line_profiler</strong> package.</p>
+<p><strong>Keywords</strong>: webscraping, html-parsing, beautifulsoup4, dask, lxml</p>
+<p><strong>Table of contents</strong><a id='toc0_'></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#toc1_"><span class="xref myst">Improving the performance of html parsers with Dask and lxml</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_1_"><span class="xref myst">Introduction</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_2_"><span class="xref myst">Process</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_3_"><span class="xref myst">Dask with BS4 parsing function</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_4_"><span class="xref myst">Dask and lxml for parsing</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_5_"><span class="xref myst">Analysis of the results</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc1_5_1_1_"><span class="xref myst">Lxml</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_5_1_2_"><span class="xref myst">Dask</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#toc1_6_"><span class="xref myst">Conclusions</span></a></p></li>
+<li><p><a class="reference internal" href="#toc1_7_"><span class="xref myst">Considerations during optimization</span></a></p></li>
+</ul>
+</li>
+</ul>
+<!-- vscode-jupyter-toc-config
+	numbering=false
+	anchor=true
+	flat=false
+	minLevel=1
+	maxLevel=6
+	/vscode-jupyter-toc-config -->
+<!-- THIS CELL WILL BE REPLACED ON TOC UPDATE. DO NOT WRITE YOUR TEXT IN THIS CELL --><section id="introduction">
+<h2><a id='toc1_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Introduction</span></a><a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p><strong>Problem</strong>: The html parsing of a daily batch of files (about 300 html at about 40mb size total) was taking over 8 minutes.
+Our problem consists in parsing hundreds of raw html files with a similar structure, retrieve the data in a structured format and save it to parquet.</p>
+<p>We are going to explore the following methods:</p>
+<ul class="simple">
+<li><p>Pandas + BS4 (baseline)</p>
+<ul>
+<li><p>This is my first approach to any problem of this kind. Make it work with the least resources spent. I use Pandas and BeautifulSoup4 because their are pretty much the simplest packages for their niche.</p></li>
+</ul>
+</li>
+<li><p>Dask + BS4</p>
+<ul>
+<li><p>My first optimization was to introduce Dask instead of Pandas due to their similar semantics. However, it raised more issues than I would expect when the html files were invalid.</p></li>
+</ul>
+</li>
+<li><p>Dask + BS4 with optimizations</p>
+<ul>
+<li><p>Now I started to work on BS4 optimizations by deconstructing a unique parsing function into multiple functions.</p></li>
+</ul>
+</li>
+<li><p>Dask + lxml</p>
+<ul>
+<li><p>Finally I wasn’t happy with the results of BS4</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="process">
+<h2><a id='toc1_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Process</span></a><a class="headerlink" href="#process" title="Link to this heading">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    participant HTMLFiles as HTML Files&lt;br&gt;(Local or Cloud)
+    participant Parser Script
+    participant Database
+    participant ChunkReader as HTML File Chunk&lt;br&gt;Reader
+    participant DaskTasks as Dask Delayed Tasks&lt;br&gt;(Parallel Processing)
+
+    HTMLFiles -&gt;&gt; Parser Script: Batched HTML Files&lt;br&gt;Processed in Chunks
+    Parser Script -&gt;&gt; ChunkReader: Read HTML File Chunks
+    ChunkReader --&gt;&gt; Parser Script: HTML File Data
+    Parser Script -&gt;&gt; DaskTasks: Processed and Merged DataFrames
+    DaskTasks --&gt;&gt; Parser Script: DataFrames
+    Parser Script -&gt;&gt; Database: SQL Commands&lt;br&gt;Bulk Insert
+</pre></div>
+</div>
+</section>
+<section id="data-structure">
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>erDiagram
+    LISTINGS {
+        string title
+        string home_type
+        string link
+        string garage
+        int price
+        string additional_details
+        string description
+        string home_size
+        int home_area
+        int floor
+        boolean elevator
+        float price_per_sqr_meter
+    }
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">duckdb</span>
+<span class="kn">import</span> <span class="nn">dask</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+<span class="kn">import</span> <span class="nn">line_profiler</span>
+<span class="kn">from</span> <span class="nn">duck_handler</span> <span class="kn">import</span> <span class="n">DatabaseConnection</span>
+<span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="o">%</span><span class="k">load_ext</span> line_profiler
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">line_profiler</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">duck_handler</span> <span class="kn">import</span> <span class="n">DatabaseConnection</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;load_ext&#39;</span><span class="p">,</span> <span class="s1">&#39;line_profiler&#39;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;duck_handler&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-parsing-function">
+<h2>Basic parsing function<a class="headerlink" href="#basic-parsing-function" title="Link to this heading">#</a></h2>
+<p>This is my first iteration of the problem. It fully focused on BS4 as the parsing backbone.</p>
+</section>
+<section id="pandas-with-bs4-parsing-function">
+<h2>Pandas with BS4 parsing function<a class="headerlink" href="#pandas-with-bs4-parsing-function" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">html_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+        <span class="n">listings</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Extract each article which represents a real estate listing</span>
+        <span class="n">articles</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">,</span> <span class="s1">&#39;extended-item&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">articles</span><span class="p">:</span>
+            <span class="c1"># Initialize dictionary to store listing details</span>
+            <span class="n">listing_info</span> <span class="o">=</span> <span class="p">{}</span>
+            
+            <span class="c1"># Extracting the title and link of the property</span>
+            <span class="n">title_link</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-link&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">title_link</span><span class="p">:</span>
+                <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="c1"># Split the title by space and take the first word as home_type</span>
+                <span class="n">title_words</span> <span class="o">=</span> <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">title_words</span><span class="p">:</span>  <span class="c1"># Check if there is at least one word</span>
+                    <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;home_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">title_words</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;home_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># Handle cases where the title might be empty</span>
+                <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;link&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://www.idealista.pt&#39;</span> <span class="o">+</span> <span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Extracting price information</span>
+            <span class="n">price_info</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-price&#39;</span><span class="p">)</span>
+            <span class="n">parking_info</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-parking&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parking_info</span><span class="p">:</span>
+                <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;garage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Yes&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;garage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;No&quot;</span>
+            <span class="k">if</span> <span class="n">price_info</span><span class="p">:</span>
+                <span class="n">numeric_price</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+\.\d+|\d+&#39;</span><span class="p">,</span> <span class="n">price_info</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">numeric_price</span><span class="p">:</span>
+                    <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numeric_price</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+
+            <span class="c1"># Extracting detail characters like &#39;T1&#39;, &#39;55 m² área bruta&#39;, etc.</span>
+            <span class="n">details</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-detail&#39;</span><span class="p">)</span>
+            <span class="n">details_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">detail</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="n">details</span><span class="p">]</span>
+            <span class="n">listing_info</span><span class="p">[</span><span class="s2">&quot;additional_details&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">details_text</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;item-description description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">listing_info</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
+
+            <span class="c1"># Adding the listing to the list</span>
+            <span class="n">listings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listing_info</span><span class="p">)</span>
+
+        <span class="c1"># Creating a DataFrame</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">listings</span><span class="p">)</span>
+
+        <span class="c1"># Initialize the new columns</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Iterate over rows and fill the columns accordingly</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">details</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">details</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">details</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">details</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">details</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">&#39;andar&#39;</span> <span class="ow">in</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># Drop the original &#39;additional_details&#39; column</span>
+        <span class="c1"># df.drop(columns=[&#39;additional_details&#39;], inplace=True)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;elevator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;com elevador&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;elevator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;elevator&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data_pandas</span><span class="p">():</span>
+    <span class="n">directory_path</span> <span class="o">=</span> <span class="s2">&quot;raw/idealista&quot;</span>
+
+    <span class="c1"># List HTML files in the directory</span>
+    <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+
+    <span class="c1"># Parse HTML files and create a Dask DataFrame</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">html_files</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Connect to DuckDB</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Query to create a DuckDB table from DataFrame</span>
+    <span class="n">create_table_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CREATE TABLE html_data AS SELECT * FROM df&quot;</span>
+
+    <span class="c1"># Execute the query</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS html_data&quot;</span><span class="p">)</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_table_query</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data_pandas process_data_pandas()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsageError: Line magic function `%lprun` not found.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">Total</span> <span class="n">time</span><span class="p">:</span> <span class="mf">478.326</span> <span class="n">s</span>
+
+<span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
+<span class="o">==============================================================</span>
+     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data_pandas</span><span class="p">():</span>
+     <span class="mi">2</span>         <span class="mi">1</span>          <span class="mf">4.0</span>      <span class="mf">4.0</span>      <span class="mf">0.0</span>      <span class="n">directory_path</span> <span class="o">=</span> <span class="s2">&quot;idealista&quot;</span>
+     <span class="mi">3</span>                                           
+     <span class="mi">4</span>                                               <span class="c1"># List HTML files in the directory</span>
+     <span class="mi">5</span>         <span class="mi">1</span>      <span class="mf">40263.0</span>  <span class="mf">40263.0</span>      <span class="mf">0.1</span>      <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+     <span class="mi">6</span>                                           
+     <span class="mi">7</span>                                               <span class="c1"># Parse HTML files and create a Dask DataFrame</span>
+     <span class="mi">8</span>         <span class="mi">1</span>   <span class="mf">47792357.0</span>    <span class="mf">5e+07</span>     <span class="mf">99.9</span>      <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">html_files</span><span class="p">]</span>
+     <span class="mi">9</span>                                               <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="mi">10</span>                                           
+    <span class="mi">11</span>                                               <span class="c1"># Connect to DuckDB</span>
+    <span class="mi">12</span>                                               <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;house_prices.sql&#39;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="mi">13</span>                                           
+    <span class="mi">14</span>                                               <span class="c1"># Query to create a DuckDB table from DataFrame</span>
+    <span class="mi">15</span>                                               <span class="n">create_table_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CREATE TABLE html_data AS SELECT * FROM df&quot;</span>
+    <span class="mi">16</span>                                           
+    <span class="mi">17</span>                                               <span class="c1"># Execute the query</span>
+    <span class="mi">18</span>                                               <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS html_data&quot;</span><span class="p">)</span>
+    <span class="mi">19</span>                                               <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_table_query</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</section>
+<section id="dask-with-bs4-parsing-function">
+<h2><a id='toc1_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask with BS4 parsing function</span></a><a class="headerlink" href="#dask-with-bs4-parsing-function" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">):</span>
+    <span class="c1"># Check connection first</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="c1"># List HTML files in the directory</span>
+        <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+        
+        <span class="c1"># Use Dask to parse HTML files asynchronously</span>
+        <span class="n">delayed_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dask</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">)(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">html_files</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+            <span class="c1"># i cant maintain lazy eval because there are some empty dataframes due to parsing inconsistencies</span>
+            <span class="n">computed_dataframes</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="n">delayed_dataframes</span><span class="p">,</span> <span class="n">scheduler</span><span class="o">=</span><span class="s1">&#39;processes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Filter out empty dataframes</span>
+        <span class="n">filtered_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">computed_dataframes</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">]</span>
+
+        <span class="c1"># Concatenate dataframes efficiently</span>
+        <span class="k">if</span> <span class="n">filtered_dataframes</span><span class="p">:</span>
+            <span class="n">pandas_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">filtered_dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Insert into DuckDB</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DROP TABLE IF EXISTS </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">pandas_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s actually an issue which hinders performance which has to do with the html file structure. There are some files which were parsed and didn’t contain data as the parsing function expected, so I had to compute the list of dataframes before actually merging them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data process_data(parse_html_to_dataframe)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[########################################] | 100% Completed | 16.59 s
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1858589816.py:23: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  pandas_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timer unit: 1e-07 s
+
+Total time: 257.473 s
+File: C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1858589816.py
+Function: process_data at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path=&quot;idealista&quot;):
+     2                                               # Check connection first
+     3         1         33.0     33.0      0.0      db = DatabaseConnection(&#39;house_prices.db&#39;)
+     4         2    2430868.0    1e+06      0.1      with db.managed_cursor() as con:
+     5                                                   # List HTML files in the directory
+     6         1      44211.0  44211.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith(&#39;.html&#39;)]
+     7                                                   
+     8                                                   # Use Dask to parse HTML files asynchronously
+     9         1     320066.0 320066.0      0.0          delayed_dataframes = [dask.delayed(parsing_function)(file) for file in html_files]
+    10         2        394.0    197.0      0.0          with ProgressBar():
+    11                                                       # i cant maintain lazy eval because there are some empty dataframes due to parsing inconsistencies
+    12         1  169339803.0    2e+08      6.6              computed_dataframes = dask.compute(*delayed_dataframes, scheduler=&#39;processes&#39;)
+    13                                           
+    14                                                   # Filter out empty dataframes
+    15         1      27943.0  27943.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None and not df.empty]
+    16                                           
+    17                                                   # Concatenate dataframes efficiently
+    18         1          7.0      7.0      0.0          if filtered_dataframes:
+    19         1     616761.0 616761.0      0.0              pandas_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    20                                           
+    21                                                       # Insert into DuckDB
+    22         1     356003.0 356003.0      0.0              con.execute(f&quot;DROP TABLE IF EXISTS {directory_path}&quot;)
+    23         1 2401595989.0    2e+09     93.3              pandas_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Timer unit: 1e-07 s</p>
+<p>Total time: 257.473 s</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path=&quot;idealista&quot;):
+     2                                               # Check connection first
+     3         1         33.0     33.0      0.0      db = DatabaseConnection(&#39;house_prices.db&#39;)
+     4         2    2430868.0    1e+06      0.1      with db.managed_cursor() as con:
+     5                                                   # List HTML files in the directory
+     6         1      44211.0  44211.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith(&#39;.html&#39;)]
+     7                                                   
+     8                                                   # Use Dask to parse HTML files asynchronously
+     9         1     320066.0 320066.0      0.0          delayed_dataframes = [dask.delayed(parsing_function)(file) for file in html_files]
+    10         2        394.0    197.0      0.0          with ProgressBar():
+    11                                                       # i cant maintain lazy eval because there are some empty dataframes due to parsing inconsistencies
+    12         1  169339803.0    2e+08      6.6              computed_dataframes = dask.compute(*delayed_dataframes, scheduler=&#39;processes&#39;)
+    13                                           
+    14                                                   # Filter out empty dataframes
+    15         1      27943.0  27943.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None and not df.empty]
+    16                                           
+    17                                                   # Concatenate dataframes efficiently
+...
+    19         1     616761.0 616761.0      0.0              pandas_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    20                                           
+    21                                                       # Insert into DuckDB
+    22         1     356003.0 356003.0      0.0              con.execute(f&quot;DROP TABLE IF EXISTS {directory_path}&quot;)
+    23         1 2401595989.0    2e+09     93.3              pandas_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;)```
+</pre></div>
+</div>
+</section>
+<section id="dask-with-bs4-with-some-improvements">
+<h2>Dask with BS4 with some improvements<a class="headerlink" href="#dask-with-bs4-with-some-improvements" title="Link to this heading">#</a></h2>
+<p><strong>Function Decomposition</strong>: Break down the process_data function into smaller, more manageable functions. This can improve readability and potentially uncover more opportunities for optimization.</p>
+<p><strong>Adjusting the chunk sizes</strong> in Dask processing can indeed be beneficial if your HTML files are relatively small. By batching these files into larger tasks, you reduce the overhead that comes from managing many small tasks.</p>
+<p>Steps to Implement Batching:</p>
+<ul class="simple">
+<li><p>Group HTML Files: Divide the list of HTML files into batches (chunks) before processing them with Dask. Each batch will contain multiple files that a single task will process.</p></li>
+<li><p>Modify the Dask Task: Change the Dask delayed function to accept a list of HTML files instead of a single file and modify the parsing function accordingly if necessary.</p></li>
+<li><p>Process Batches in Parallel: Use Dask to process each batch of files in parallel.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">aiofiles</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_html_files_async</span><span class="p">(</span><span class="n">directory_path</span><span class="p">):</span>
+    <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">html_files</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_floor</span><span class="p">(</span><span class="n">details</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">details</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">&#39;andar&#39;</span> <span class="ow">in</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">extract_floor</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;elevator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;com elevador&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">({</span><span class="s1">&#39;elevator&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;floor&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_price</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+    <span class="n">price_info</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-price&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">price_info</span><span class="p">:</span>
+        <span class="n">numeric_price</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">price_info</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">numeric_price</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_price</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+    <span class="n">listing_info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">title_link</span> <span class="o">:=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-link&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.idealista.pt&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">title_link</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;garage&#39;</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-parking&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">extract_price</span><span class="p">(</span><span class="n">article</span><span class="p">),</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;item-description description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="s1">&#39;additional_details&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">detail</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="n">article</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-detail&#39;</span><span class="p">)]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">listing_info</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="c1"># Read the HTML file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+    <span class="n">listings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">articles</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">,</span> <span class="s1">&#39;extended-item&#39;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">articles</span><span class="p">:</span>
+        <span class="n">listing_info</span> <span class="o">=</span> <span class="n">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+        <span class="n">listings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listing_info</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">listings</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chunk_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">):</span>
+    <span class="c1"># Generator that yields chunks of files, more efficient that list comprehension</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">),</span> <span class="n">chunk_size</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">file_list</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+    <span class="c1"># This function processes a batch of HTML files and returns a DataFrame</span>
+    <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parsing_function</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dataframes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="c1"># List HTML files in the directory</span>
+        <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+
+        <span class="c1"># Create chunks of HTML files</span>
+        <span class="n">file_chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk_files</span><span class="p">(</span><span class="n">html_files</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">))</span>
+
+        <span class="c1"># Use Dask to parse HTML files in batches</span>
+        <span class="n">delayed_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dask</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">process_html_files</span><span class="p">)(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">file_chunks</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+            <span class="n">computed_dataframes</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="n">delayed_dataframes</span><span class="p">,</span> <span class="n">scheduler</span><span class="o">=</span><span class="s1">&#39;processes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Filter out None results from batches</span>
+        <span class="n">filtered_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">computed_dataframes</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Concatenate dataframes efficiently</span>
+        <span class="k">if</span> <span class="n">filtered_dataframes</span><span class="p">:</span>
+            <span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">filtered_dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Insert into database</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DROP TABLE IF EXISTS </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">final_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data process_data(parse_html_to_dataframe)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[########################################] | 100% Completed | 16.27 s
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1981086236.py:24: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  final_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timer unit: 1e-07 s
+
+Total time: 228.601 s
+File: C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1981086236.py
+Function: process_data at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path=&quot;idealista&quot;, chunk_size=10):
+     2         1         50.0     50.0      0.0      db = DatabaseConnection(&#39;house_prices.db&#39;)
+     3         2    2785587.0    1e+06      0.1      with db.managed_cursor() as con:
+     4                                                   # List HTML files in the directory
+     5         1      47898.0  47898.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith(&#39;.html&#39;)]
+     6                                           
+     7                                                   # Create chunks of HTML files
+     8         1        368.0    368.0      0.0          file_chunks = list(chunk_files(html_files, chunk_size))
+     9                                           
+    10                                                   # Use Dask to parse HTML files in batches
+    11         1      68009.0  68009.0      0.0          delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+    12         2        386.0    193.0      0.0          with ProgressBar():
+    13         1  164562665.0    2e+08      7.2              computed_dataframes = dask.compute(*delayed_dataframes, scheduler=&#39;processes&#39;)
+    14                                           
+    15                                                   # Filter out None results from batches
+    16         1         86.0     86.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None]
+    17                                           
+    18                                                   # Concatenate dataframes efficiently
+    19         1          3.0      3.0      0.0          if filtered_dataframes:
+    20         1      69317.0  69317.0      0.0              final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    21                                           
+    22                                                       # Insert into database
+    23         1     328203.0 328203.0      0.0              con.execute(f&quot;DROP TABLE IF EXISTS {directory_path}&quot;)
+    24         1 2118142445.0    2e+09     92.7              final_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Timer</span> <span class="n">unit</span><span class="p">:</span> <span class="mf">1e-07</span> <span class="n">s</span>
+
+<span class="n">Total</span> <span class="n">time</span><span class="p">:</span> <span class="mf">228.601</span> <span class="n">s</span>
+
+<span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
+<span class="o">==============================================================</span>
+     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+     <span class="mi">2</span>         <span class="mi">1</span>         <span class="mf">50.0</span>     <span class="mf">50.0</span>      <span class="mf">0.0</span>      <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
+     <span class="mi">3</span>         <span class="mi">2</span>    <span class="mf">2785587.0</span>    <span class="mf">1e+06</span>      <span class="mf">0.1</span>      <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+     <span class="mi">4</span>                                                   <span class="c1"># List HTML files in the directory</span>
+     <span class="mi">5</span>         <span class="mi">1</span>      <span class="mf">47898.0</span>  <span class="mf">47898.0</span>      <span class="mf">0.0</span>          <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+     <span class="mi">6</span>                                           
+     <span class="mi">7</span>                                                   <span class="c1"># Create chunks of HTML files</span>
+     <span class="mi">8</span>         <span class="mi">1</span>        <span class="mf">368.0</span>    <span class="mf">368.0</span>      <span class="mf">0.0</span>          <span class="n">file_chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk_files</span><span class="p">(</span><span class="n">html_files</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">))</span>
+     <span class="mi">9</span>                                           
+    <span class="mi">10</span>                                                   <span class="c1"># Use Dask to parse HTML files in batches</span>
+    <span class="mi">11</span>         <span class="mi">1</span>      <span class="mf">68009.0</span>  <span class="mf">68009.0</span>      <span class="mf">0.0</span>          <span class="n">delayed_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dask</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">process_html_files</span><span class="p">)(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">file_chunks</span><span class="p">]</span>
+    <span class="mi">12</span>         <span class="mi">2</span>        <span class="mf">386.0</span>    <span class="mf">193.0</span>      <span class="mf">0.0</span>          <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+    <span class="mi">13</span>         <span class="mi">1</span>  <span class="mf">164562665.0</span>    <span class="mf">2e+08</span>      <span class="mf">7.2</span>              <span class="n">computed_dataframes</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="n">delayed_dataframes</span><span class="p">,</span> <span class="n">scheduler</span><span class="o">=</span><span class="s1">&#39;processes&#39;</span><span class="p">)</span>
+    <span class="mi">14</span>                                           
+    <span class="mi">15</span>                                                   <span class="c1"># Filter out None results from batches</span>
+    <span class="mi">16</span>         <span class="mi">1</span>         <span class="mf">86.0</span>     <span class="mf">86.0</span>      <span class="mf">0.0</span>          <span class="n">filtered_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">computed_dataframes</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="mi">17</span>                                           
+<span class="o">...</span>
+    <span class="mi">20</span>         <span class="mi">1</span>      <span class="mf">69317.0</span>  <span class="mf">69317.0</span>      <span class="mf">0.0</span>              <span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">filtered_dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="mi">21</span>                                           
+    <span class="mi">22</span>                                                       <span class="c1"># Insert into database</span>
+    <span class="mi">23</span>         <span class="mi">1</span>     <span class="mf">328203.0</span> <span class="mf">328203.0</span>      <span class="mf">0.0</span>              <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DROP TABLE IF EXISTS </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="mi">24</span>         <span class="mi">1</span> <span class="mf">2118142445.0</span>    <span class="mf">2e+09</span>     <span class="mf">92.7</span>              <span class="n">final_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dask-and-lxml-for-parsing">
+<h2><a id='toc1_4_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask and lxml for parsing</span></a><a class="headerlink" href="#dask-and-lxml-for-parsing" title="Link to this heading">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
+    A[Raw HTML Files] --&gt; B[Python Script&lt;br&gt;with lxml &amp; Dask]
+    B --&gt; C[Extract Data]
+    C --&gt; D[Transform to Structured Format]
+    D --&gt; E[Save to Parquet]
+
+    subgraph Process
+        B --&gt;|Batched HTML Files| F[Read HTML Files]
+        F --&gt; G[Parallel Processing&lt;br&gt;with Dask]
+        G --&gt; H[Merge DataFrames]
+        H --&gt; I[Structured Data]
+    end
+
+    A --&gt; F
+    G --&gt;|Processed Data| H
+    H --&gt;|DataFrames| I
+    I --&gt; E
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">html</span>
+
+<span class="k">def</span> <span class="nf">parse_html_files_to_dataframe</span><span class="p">(</span><span class="n">file_paths</span><span class="p">):</span>
+    <span class="n">listings</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_paths</span><span class="p">:</span>
+        <span class="c1"># Read and parse each HTML file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">parsed_html</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="c1"># Extract articles that represent real estate listings</span>
+        <span class="n">articles</span> <span class="o">=</span> <span class="n">parsed_html</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//article[contains(@class, &quot;item&quot;) or contains(@class, &quot;extended-item&quot;)]&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">articles</span><span class="p">:</span>
+            <span class="n">listing_info</span> <span class="o">=</span> <span class="n">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+            <span class="n">listings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listing_info</span><span class="p">)</span>
+
+    <span class="c1"># Create a DataFrame from all collected listings</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">listings</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+    <span class="c1"># Extracts data from an article and returns a dictionary of listing info</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@title&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@title&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.idealista.pt&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@href&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@href&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//div[@class=&quot;item-description description&quot;]/text()&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//div[@class=&quot;item-description description&quot;]/text()&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;garage&#39;</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//span[@class=&quot;item-parking&quot;]&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;No&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">extract_price</span><span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//span[@class=&quot;item-price&quot;]/text()&#39;</span><span class="p">)),</span>
+        <span class="s1">&#39;additional_details&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//span[@class=&quot;item-detail&quot;]/text()&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">extract_price</span><span class="p">(</span><span class="n">price_texts</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">price_texts</span><span class="p">:</span>
+        <span class="n">numeric_price</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">price_texts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">numeric_price</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_price</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">&#39;andar&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;elevator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;com elevador&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">({</span><span class="s1">&#39;elevator&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;floor&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="c1"># List HTML files in the directory</span>
+        <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+
+        <span class="c1"># Create chunks of HTML files</span>
+        <span class="n">file_chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk_files</span><span class="p">(</span><span class="n">html_files</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">))</span>
+
+        <span class="c1"># Use Dask to parse HTML files in batches</span>
+        <span class="n">delayed_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dask</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">process_html_files</span><span class="p">)(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">file_chunks</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+            <span class="n">computed_dataframes</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="n">delayed_dataframes</span><span class="p">,</span> 
+                                               <span class="n">scheduler</span><span class="o">=</span><span class="s1">&#39;processes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Filter out None results from batches</span>
+        <span class="n">filtered_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">computed_dataframes</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Concatenate dataframes efficiently</span>
+        <span class="k">if</span> <span class="n">filtered_dataframes</span><span class="p">:</span>
+            <span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">filtered_dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Insert into database</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DROP TABLE IF EXISTS </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">final_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+    <span class="c1"># This function processes a batch of HTML files and returns a DataFrame</span>
+    <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parsing_function</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dataframes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD;
+    A[parse_html_files_to_df&lt;br&gt;Input: list of strings&lt;br&gt;Output: DataFrame] --&gt; C[extract_listing_info&lt;br&gt;Input: lxml html Element&lt;br&gt;Output: dictionary];
+    C --&gt; D[extract_price&lt;br&gt;Input: list of strings&lt;br&gt;Output: Optional int];
+    D --&gt; E[Database Insertion&lt;br&gt;Input: DataFrame&lt;br&gt;Output: None];
+    A --&gt; B[process_dataframe&lt;br&gt;Input: DataFrame&lt;br&gt;Output: DataFrame];
+    B --&gt; E;
+
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data process_data(parse_html_to_dataframe)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total files: 277
+Chunk size: 10
+Number of chunks: 28
+Chunk 1: 10 files
+Chunk 2: 10 files
+Chunk 3: 10 files
+Chunk 4: 10 files
+Chunk 5: 10 files
+Chunk 6: 10 files
+Chunk 7: 10 files
+Chunk 8: 10 files
+Chunk 9: 10 files
+Chunk 10: 10 files
+Chunk 11: 10 files
+Chunk 12: 10 files
+Chunk 13: 10 files
+Chunk 14: 10 files
+Chunk 15: 10 files
+Chunk 16: 10 files
+Chunk 17: 10 files
+Chunk 18: 10 files
+Chunk 19: 10 files
+Chunk 20: 10 files
+Chunk 21: 10 files
+Chunk 22: 10 files
+Chunk 23: 10 files
+Chunk 24: 10 files
+Chunk 25: 10 files
+Chunk 26: 10 files
+Chunk 27: 10 files
+Chunk 28: 7 files
+[                                        ] | 0% Completed | 587.00 us
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[########################################] | 100% Completed | 19.93 s
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1320541976.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  final_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;, method=&#39;multi&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timer unit: 1e-07 s
+
+Total time: 22.1248 s
+File: C:\Users\Miguel\AppData\Local\Temp\ipykernel_16744\1320541976.py
+Function: process_data at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def process_data(parsing_function, directory_path=&quot;idealista&quot;, chunk_size=10):
+     2         1         41.0     41.0      0.0      db = DatabaseConnection(&#39;house_prices.db&#39;)
+     3         2    2080322.0    1e+06      0.9      with db.managed_cursor() as con:
+     4                                                   # List HTML files in the directory
+     5         1      76743.0  76743.0      0.0          html_files = [os.path.join(directory_path, f) for f in os.listdir(directory_path) if f.endswith(&#39;.html&#39;)]
+     6                                           
+     7                                                   # Create chunks of HTML files
+     8         1        662.0    662.0      0.0          file_chunks = list(chunk_files(html_files, chunk_size))
+     9         1       3587.0   3587.0      0.0          print(f&quot;Total files: {len(html_files)}&quot;)
+    10         1        160.0    160.0      0.0          print(f&quot;Chunk size: {chunk_size}&quot;)
+    11         1        139.0    139.0      0.0          print(f&quot;Number of chunks: {len(file_chunks)}&quot;)
+    12        29        198.0      6.8      0.0          for idx, chunk in enumerate(file_chunks):
+    13        28       6534.0    233.4      0.0              print(f&quot;Chunk {idx + 1}: {len(chunk)} files&quot;)
+    14                                           
+    15                                                   # Use Dask to parse HTML files in batches
+    16         1      97062.0  97062.0      0.0          delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]
+    17         2        521.0    260.5      0.0          with ProgressBar():
+    18         2  201413020.0    1e+08     91.0              computed_dataframes = dask.compute(*delayed_dataframes, 
+    19         1          5.0      5.0      0.0                                                 scheduler=&#39;processes&#39;)
+    20                                           
+    21                                                   # Filter out None results from batches
+    22         1        101.0    101.0      0.0          filtered_dataframes = [df for df in computed_dataframes if df is not None]
+    23                                           
+    24                                                   # Concatenate dataframes efficiently
+    25         1          3.0      3.0      0.0          if filtered_dataframes:
+    26         1      81922.0  81922.0      0.0              final_df = pd.concat(filtered_dataframes, axis=0, ignore_index=True)
+    27                                           
+    28                                                       # Insert into database
+    29         1     458093.0 458093.0      0.2              con.execute(f&quot;DROP TABLE IF EXISTS {directory_path}&quot;)
+    30         1   17028626.0    2e+07      7.7              final_df.to_sql(directory_path, con, index=False, if_exists=&#39;replace&#39;, method=&#39;multi&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Timer</span> <span class="n">unit</span><span class="p">:</span> <span class="mf">1e-07</span> <span class="n">s</span>
+
+<span class="n">Total</span> <span class="n">time</span><span class="p">:</span> <span class="mf">22.1248</span> <span class="n">s</span>
+
+<span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
+<span class="o">==============================================================</span>
+     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+     <span class="mi">2</span>         <span class="mi">1</span>         <span class="mf">41.0</span>     <span class="mf">41.0</span>      <span class="mf">0.0</span>      <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
+     <span class="mi">3</span>         <span class="mi">2</span>    <span class="mf">2080322.0</span>    <span class="mf">1e+06</span>      <span class="mf">0.9</span>      <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+     <span class="mi">4</span>                                                   <span class="c1"># List HTML files in the directory</span>
+     <span class="mi">5</span>         <span class="mi">1</span>      <span class="mf">76743.0</span>  <span class="mf">76743.0</span>      <span class="mf">0.0</span>          <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
+     <span class="mi">6</span>                                           
+     <span class="mi">7</span>                                                   <span class="c1"># Create chunks of HTML files</span>
+     <span class="mi">8</span>         <span class="mi">1</span>        <span class="mf">662.0</span>    <span class="mf">662.0</span>      <span class="mf">0.0</span>          <span class="n">file_chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk_files</span><span class="p">(</span><span class="n">html_files</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">))</span>
+     <span class="mi">9</span>         <span class="mi">1</span>       <span class="mf">3587.0</span>   <span class="mf">3587.0</span>      <span class="mf">0.0</span>          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total files: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">html_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="mi">10</span>         <span class="mi">1</span>        <span class="mf">160.0</span>    <span class="mf">160.0</span>      <span class="mf">0.0</span>          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunk size: </span><span class="si">{</span><span class="n">chunk_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="mi">11</span>         <span class="mi">1</span>        <span class="mf">139.0</span>    <span class="mf">139.0</span>      <span class="mf">0.0</span>          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of chunks: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">file_chunks</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="mi">12</span>        <span class="mi">29</span>        <span class="mf">198.0</span>      <span class="mf">6.8</span>      <span class="mf">0.0</span>          <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">file_chunks</span><span class="p">):</span>
+    <span class="mi">13</span>        <span class="mi">28</span>       <span class="mf">6534.0</span>    <span class="mf">233.4</span>      <span class="mf">0.0</span>              <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunk </span><span class="si">{</span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">)</span>
+    <span class="mi">14</span>                                           
+    <span class="mi">15</span>                                                   <span class="c1"># Use Dask to parse HTML files in batches</span>
+    <span class="mi">16</span>         <span class="mi">1</span>      <span class="mf">97062.0</span>  <span class="mf">97062.0</span>      <span class="mf">0.0</span>          <span class="n">delayed_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dask</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">process_html_files</span><span class="p">)(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">file_chunks</span><span class="p">]</span>
+    <span class="mi">17</span>         <span class="mi">2</span>        <span class="mf">521.0</span>    <span class="mf">260.5</span>      <span class="mf">0.0</span>          <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+<span class="o">...</span>
+    <span class="mi">26</span>         <span class="mi">1</span>      <span class="mf">81922.0</span>  <span class="mf">81922.0</span>      <span class="mf">0.0</span>              <span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">filtered_dataframes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="mi">27</span>                                           
+    <span class="mi">28</span>                                                       <span class="c1"># Insert into database</span>
+    <span class="mi">29</span>         <span class="mi">1</span>     <span class="mf">458093.0</span> <span class="mf">458093.0</span>      <span class="mf">0.2</span>              <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DROP TABLE IF EXISTS </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="mi">30</span>         <span class="mi">1</span>   <span class="mf">17028626.0</span>    <span class="mf">2e+07</span>      <span class="mf">7.7</span>              <span class="n">final_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="analysis-of-the-results">
+<h2><a id='toc1_5_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Analysis of the results</span></a><a class="headerlink" href="#analysis-of-the-results" title="Link to this heading">#</a></h2>
+<p><strong>Over 20 times time reduction from baseline!</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="n">Library</span> <span class="n">Combination</span>         <span class="o">|</span> <span class="n">Time</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="o">|</span>
+<span class="o">|-----------------------------|-----------|</span>
+<span class="o">|</span> <span class="n">Pandas</span> <span class="o">+</span> <span class="n">BS4</span>                <span class="o">|</span> <span class="mf">478.326</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">Dask</span> <span class="o">+</span> <span class="n">BS4</span>                  <span class="o">|</span> <span class="mf">257.473</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">Dask</span> <span class="o">+</span> <span class="n">BS4</span><span class="o">/</span><span class="n">chunking</span> <span class="n">files</span>   <span class="o">|</span> <span class="mf">228.601</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">Dask</span> <span class="o">+</span> <span class="n">lxml</span>                 <span class="o">|</span> <span class="mf">22.1248</span>   <span class="o">|</span>
+</pre></div>
+</div>
+<section id="lxml">
+<h3><a id='toc1_5_1_1_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Lxml</span></a><a class="headerlink" href="#lxml" title="Link to this heading">#</a></h3>
+<p>As we can see the biggest performance comes from implementing lxml instead of BS4. Lxml provides an API to parse DOM data using tree iterators which can handle complex data structures with the lightning speed of C. This matters a lot, specially in the age of GenAI since there’s a lot of information from several sources to parse and this efficiency is for sure a way to scale and decrease costs.</p>
+</section>
+<section id="dask">
+<h3><a id='toc1_5_1_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask</span></a><a class="headerlink" href="#dask" title="Link to this heading">#</a></h3>
+<p>Its worth noting the performance increase from Pandas to Dask. It could be even better if we fixed the issue with unmatching dataframes during concatenation or provided a dask dataframe schema. We could also explore the optimal batch for chunk processing as well.</p>
+</section>
+</section>
+<section id="conclusions">
+<h2><a id='toc1_6_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Conclusions</span></a><a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Build a basic parser with BS4 and pandas</p></li>
+<li><p>Test the parser, make sure it returns the data in the right formats</p></li>
+<li><p>Test the data types, if possible <strong>optimize data types</strong></p></li>
+<li><p>User <strong>function profiling tools</strong> to assess bottlenecks</p></li>
+<li><p>If the parser is complex, use <strong>functional decomposition</strong> to make it simpler</p></li>
+<li><p>Apply <strong>vectorization</strong> instead of loops (loop over columns instead of mixed data types or python loops) (ask GPT to help you)</p></li>
+<li><p>Use dasks <strong>lazy evaluation</strong> and instantiation for ops</p></li>
+<li><p>Replace BS4 by lxml (ask GPT to help you). lxml is based on C and is lightning fast.</p>
+<ol class="arabic simple">
+<li><p>This is where you might want to add efficiency at the cost of complexity</p></li>
+</ol>
+</li>
+<li><p>Parse html files in chunks of files if they are small. First chunk into list of list then feed to parsing function. Parsing function should take multiple file paths.</p>
+<ol class="arabic simple">
+<li><p>You can use <strong>async</strong> processing if need be.</p></li>
+</ol>
+</li>
+</ol>
+<p>file_chunks = list(chunk_files(html_files, chunk_size))
+delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) for chunk in file_chunks]</p>
+<ol class="arabic simple">
+<li><p>Pass custom metadata to dask before computing, with optimized data types</p></li>
+<li><p>Use chunk insert to SQL, or ‘multi’/asynchronous connection</p></li>
+</ol>
+</section>
+<section id="considerations-during-optimization">
+<h2><a id='toc1_7_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Considerations during optimization</span></a><a class="headerlink" href="#considerations-during-optimization" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Reducing I/O operations reading files in parallelized chunks</p></li>
+<li><p>Trace the most important functions and avoid waste (lean thinking)</p></li>
+<li><p>Improving the efficiency of data processing by streamlining functions (reducing overhead)</p></li>
+<li><p>Minimize memory usage by using lazy evaluation and optimized data types</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./05_housing_database"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../06_Wallapop/01_exploration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Mining in Wallapop 2024 Edition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_price_regression_idealista.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">In sample regressor for house rent prices</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><a id="toc1_1_"></a><span class="xref myst">Introduction</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process"><a id="toc1_2_"></a><span class="xref myst">Process</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-parsing-function">Basic parsing function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-with-bs4-parsing-function">Pandas with BS4 parsing function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-with-bs4-parsing-function"><a id="toc1_3_"></a><span class="xref myst">Dask with BS4 parsing function</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-with-bs4-with-some-improvements">Dask with BS4 with some improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-and-lxml-for-parsing"><a id="toc1_4_"></a><span class="xref myst">Dask and lxml for parsing</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-results"><a id="toc1_5_"></a><span class="xref myst">Analysis of the results</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lxml"><a id="toc1_5_1_1_"></a><span class="xref myst">Lxml</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dask"><a id="toc1_5_1_2_"></a><span class="xref myst">Dask</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions"><a id="toc1_6_"></a><span class="xref myst">Conclusions</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-during-optimization"><a id="toc1_7_"></a><span class="xref myst">Considerations during optimization</span></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
