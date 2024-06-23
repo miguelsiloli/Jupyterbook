@@ -1,0 +1,1003 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a Image Classification Dataset from Data Mining &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04_Vinted_Deep_Learning/01_vinted_dataset';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mining in Wallapop 2024 Edition" href="../06_Wallapop/01_exploration.html" />
+    <link rel="prev" title="Scrapping imovirtual" href="../05_housing_database/03_unravelling_imovirtual.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F04_Vinted_Deep_Learning/01_vinted_dataset.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/04_Vinted_Deep_Learning/01_vinted_dataset.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Creating a Image Classification Dataset from Data Mining</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining">Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-images-flow-pipeline">Overview of images-flow pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-dataset-creation">Pytorch Dataset Creation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data-and-data-labels">Get the data and data labels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#images">Images</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#labels">Labels</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-data-catalog">Create a data catalog</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hdf5-for-the-dataset">Create a HDF5 for the dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-my-solution">Overview of my solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-ouput">Visualizing the ouput</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-dataclass">Custom DataClass</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="creating-a-image-classification-dataset-from-data-mining">
+<h1>Creating a Image Classification Dataset from Data Mining<a class="headerlink" href="#creating-a-image-classification-dataset-from-data-mining" title="Link to this heading">#</a></h1>
+<p>In this chapter I’m going to show how I built an image clothing dataset from my Vinted data engineering pipeline.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>As referenced in my Vinted Data Engineering Chapter, one of the data pipelines developed stored the item images in S3 buckets. About 10k images were collected during the short run of the pipeline (it’s no longer active) with over 500 classes. That’s a huge problem, the dataset is way too small to create a good classifier at first glance (it’s pretty obvious, right?).</p>
+<p><img alt="vinted" src="04_Vinted_Deep_Learning/..%5Cassets%5Cvinted-images%5Cvintedimgs.png" /></p>
+<p>In addition, there is another very obvious issue with the images which is its lack of standardization.</p>
+<p><img alt="vinted" src="04_Vinted_Deep_Learning/..%5Cassets%5Cvinted-images%5Ccombined_image.jpeg" /></p>
+<p>Some of the issues are:</p>
+<ul class="simple">
+<li><p>Different focal lengths</p></li>
+<li><p>Class imbalance</p></li>
+<li><p>People in the photo</p></li>
+<li><p>Diverse backgrounds</p></li>
+<li><p>Different camera angles</p></li>
+<li><p>Misc: lightning conditions, camera quality, “specificness” of the item (show several, etc)</p></li>
+</ul>
+<p>It’s really a nightmarish issue to solve. Actually, the easiest way to solve this is to solve it statistically: assume most pictures are accurate and get a huge dataset. :D</p>
+</section>
+<section id="data-mining">
+<h2>Data Mining<a class="headerlink" href="#data-mining" title="Link to this heading">#</a></h2>
+<p>There’s no data without mining it first. I didn’t go into detail to every pipeline, but now I will go more into detail about the <strong>images-flow</strong> pipeline.</p>
+<section id="overview-of-images-flow-pipeline">
+<h3>Overview of images-flow pipeline<a class="headerlink" href="#overview-of-images-flow-pipeline" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Disclaimer: not my proudest data engineering development, but it does the work.</p>
+<p>It has a redundant design but it works OK.</p>
+</div>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD;
+    subgraph images-flow
+    A[Create Engine] --&gt; B[Load Data from Postgres]
+    B --&gt; C{Are there more product links?}
+    C --&gt;|Yes| D[Get img_url and product_id]
+    D --&gt; E[Get Image Bytes]
+    E --&gt; F[Generate Object Key]
+    F --&gt; G[Upload Image to S3]
+    G --&gt; C
+    C --&gt;|No| H[End]
+    end
+</pre></div>
+</div>
+<p>The pipeline scans the postgres table and returns product links of size <em>sample_size</em>. It then loops over the items, making a request to Vinted API for every link in the data. Finally it stored the data by product_id unique tag in the S3 bucket.</p>
+<p>I had to cap the sample_size because I had multiple pipeline running asynchronously.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@flow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Flow for images.&quot;</span><span class="p">,</span> 
+      <span class="n">flow_run_name</span><span class="o">=</span> <span class="s2">&quot;Flow for images&quot;</span><span class="p">,</span>
+      <span class="n">log_prints</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+      <span class="n">timeout_seconds</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">images_flow</span><span class="p">(</span><span class="n">server_conn_string</span><span class="p">):</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+            <span class="n">aws_access_key_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">server_conn_string</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_data_from_postgres</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">sample_size</span><span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">img_url</span><span class="p">,</span> <span class="n">product_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;product_id&quot;</span><span class="p">]):</span>
+        <span class="n">image_bytes</span> <span class="o">=</span> <span class="n">get_image_bytes</span><span class="p">(</span><span class="n">img_url</span><span class="p">)</span>
+        <span class="n">object_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">product_id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.jpeg&quot;</span>
+        <span class="n">upload_image_to_s3</span><span class="p">(</span><span class="n">s3</span> <span class="o">=</span> <span class="n">s3</span><span class="p">,</span> 
+                           <span class="n">image</span> <span class="o">=</span> <span class="n">image_bytes</span><span class="p">,</span> 
+                           <span class="n">bucket_name</span> <span class="o">=</span> <span class="s2">&quot;vinted-images&quot;</span><span class="p">,</span> 
+                           <span class="n">object_key</span> <span class="o">=</span> <span class="n">object_key</span><span class="p">)</span> <span class="c1"># need to make sure the format is string</span>
+
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p><strong>Limitations</strong>
+I’m going to be upfront with the limitations:</p>
+<ul class="simple">
+<li><p>Redundant calls. I’m looking at product_ids that possibly I have already in S3. Given that API calls are the bottleneck here, it’s insanely expensive mistake.</p></li>
+<li><p>I’m only collecting the first image for each product_id (this is more of a design choice)</p></li>
+<li><p>I ran this just a couple of days for a few hours each day</p></li>
+</ul>
+</section>
+</section>
+<section id="pytorch-dataset-creation">
+<h2>Pytorch Dataset Creation<a class="headerlink" href="#pytorch-dataset-creation" title="Link to this heading">#</a></h2>
+<p>Source: <a class="reference external" href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html">https://pytorch.org/tutorials/beginner/data_loading_tutorial.html</a></p>
+<p>There are quite a few steps in this process. First we need to make a new project with the data and required libraries. Arguably it would have been better to use SageMaker as the data was in the cloud and It has a pre built API for dataset creations but I’ve blown way too much money this month already on Cloud.</p>
+<p>Steps:</p>
+<ul class="simple">
+<li><p>[1] Get the data and data labels</p></li>
+<li><p>[2] Create a directory for each label and group the data in each category (optional)</p></li>
+<li><p>[3] Create a HDF5 (hierarchical data format), standard for datasets</p></li>
+<li><p>[4] Create a custom Dataset DataClass</p></li>
+<li><p>[5] Load the data with Dataloader</p></li>
+</ul>
+<section id="get-the-data-and-data-labels">
+<h3>Get the data and data labels<a class="headerlink" href="#get-the-data-and-data-labels" title="Link to this heading">#</a></h3>
+<p>I need to fetch data from 2 sources:</p>
+<ul class="simple">
+<li><p>RDS for the image labels</p></li>
+<li><p>S3 for the images</p></li>
+</ul>
+<section id="images">
+<h4>Images<a class="headerlink" href="#images" title="Link to this heading">#</a></h4>
+<p>S3 is a hassle when buckets are multipage (over 1k). Just a heads up. I also made some preprocessing transforms to reduce the size of the data.</p>
+<ul class="simple">
+<li><p>Convert to grayscale</p></li>
+<li><p>Resize to 128 x 128</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_and_rescale_images</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">local_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">local_dir</span><span class="p">)</span>
+
+    <span class="n">paginator</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_paginator</span><span class="p">(</span><span class="s1">&#39;list_objects_v2&#39;</span><span class="p">)</span>
+    <span class="n">pages</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;bucket&#39;</span><span class="p">,</span> <span class="n">Prefix</span><span class="o">=</span><span class="s1">&#39;prefix&#39;</span><span class="p">)</span>
+
+    <span class="c1"># since my bucket has +1k items</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pages</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">page</span><span class="p">[</span><span class="s1">&#39;Contents&#39;</span><span class="p">]:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Key&#39;</span><span class="p">]</span>
+            <span class="n">local_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+            <span class="c1"># Download the image from S3</span>
+            <span class="n">s3_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">image_data</span> <span class="o">=</span> <span class="n">s3_response</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image_data</span><span class="p">))</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
+                <span class="c1"># preprocess</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">local_file_path</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloaded and rescaled image saved to </span><span class="si">{</span><span class="n">local_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">local_file_path</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="labels">
+<h4>Labels<a class="headerlink" href="#labels" title="Link to this heading">#</a></h4>
+<p>Just a simple query to my AWS RDS instance and store it locally as csv.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT DISTINCT(product_id), catalog_id FROM tracking_staging&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="create-a-data-catalog">
+<h3>Create a data catalog<a class="headerlink" href="#create-a-data-catalog" title="Link to this heading">#</a></h3>
+<p>This is where we create a directory for each category. To be fair it is optional but I find it useful.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_label_cluster_folders_and_copy_images</span><span class="p">(</span><span class="n">merged_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">image_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates folders based on catalog_id and copies images to corresponding folders.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    merged_df (pd.DataFrame): DataFrame containing product_id and catalog_id columns.</span>
+<span class="sd">    image_dir (str): The directory containing processed JPEG images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">label_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">label_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">label_dir</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">product_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;product_id&#39;</span><span class="p">]</span>
+        <span class="n">catalog_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;catalog_id&#39;</span><span class="p">]</span> 
+
+
+        <span class="n">catalog_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">label_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">catalog_id</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">)</span>
+
+
+        <span class="n">src_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">product_id</span><span class="p">))</span><span class="si">}</span><span class="s2">.jpeg&quot;</span><span class="p">)</span>
+        <span class="n">dest_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">product_id</span><span class="p">))</span><span class="si">}</span><span class="s2">.jpeg&quot;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">src_path</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Copied </span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Source file </span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2"> does not exist&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<ul class="simple">
+<li><p>Over 701 folders tagged by catalog id number.</p></li>
+<li><p>8129 images</p></li>
+<li><p>Size variable, depending on preprocessing (image scaling, compression and colours)</p></li>
+</ul>
+<p><img alt="vinted_dir" src="../_images/vinted_dir.PNG" /></p>
+</section>
+<section id="create-a-hdf5-for-the-dataset">
+<h3>Create a HDF5 for the dataset<a class="headerlink" href="#create-a-hdf5-for-the-dataset" title="Link to this heading">#</a></h3>
+<p>HDF5 files can store data in a hierarchical format, similar to a file system. This structure allows for organizing datasets in a logical and accessible manner. Data can be organized into groups and datasets, making it easy to navigate and retrieve specific pieces of data.</p>
+<p>For this purpose, we will divide the dataset into 4 groups:</p>
+<ul class="simple">
+<li><p>Train data</p></li>
+<li><p>Train labels</p></li>
+<li><p>Test data</p></li>
+<li><p>Test labels</p></li>
+<li><p>Label map</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><b>Chunking and OOM datasets</b></p>
+<p>For big datasets (out of memory datasets) it’s important to process the dataset in batches, otherwise you will run out of memory really fast. The way to do this is by using chunks.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><b>Train test split</b>
+You need to make sure to create <strong>two splits between train and test</strong> if you are going to apply any sort of data augmentation procedure, otherwise you are going to polute the test data leading to overfitting/skewed results.</p>
+<p><b>Stratified splits</b>
+In the train_test_split, you should use stratified sampling making sure the test set is representative of model performance.</p>
+</div>
+<section id="overview-of-my-solution">
+<h4>Overview of my solution<a class="headerlink" href="#overview-of-my-solution" title="Link to this heading">#</a></h4>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD;
+    A[Start] --&gt; B[Initialize data, labels, and label_map]
+    B --&gt; C[Iterate over directories in image_dir]
+    C --&gt; E[Add label and catalog_id to label_map]
+    E --&gt; F[Iterate over image files in catalog_dir]
+    F --&gt; H[Load image and convert to numpy array]
+    H --&gt; I[Append image array to data and label to labels]
+    I --&gt; J
+    F --&gt; C
+    C --&gt; J[Convert data and labels to numpy arrays]
+    J --&gt; K[Reshape data]
+    K --&gt; L[Split data into train and test sets]
+    L --&gt; M[Placeholder transform on train_data and train_labels]
+    M --&gt; N[Convert transformed data and labels to numpy arrays]
+    N --&gt; O[Reshape transformed data]
+    O --&gt; P[Create HDF5 file and save datasets]
+    P --&gt; R[End]
+
+    subgraph build_dataset
+    A[Start]
+    B[Initialize data, labels, and label_map]
+    C[Iterate over directories in image_dir]
+    end
+
+    subgraph image_preprocessing
+    E[Add label and catalog_id to label_map]
+    F[Iterate over image files in catalog_dir]
+    H[Load image and convert to numpy array]
+    I[Append image array to data and label to labels]
+    J[Convert data and labels to numpy arrays]
+    K[Reshape data]
+    L[Split data into train and test sets]
+    end
+
+    subgraph data_augmentation
+    M[Placeholder transform on train_data and train_labels]
+    end
+
+    subgraph data_saving
+    N[Convert transformed data and labels to numpy arrays]
+    O[Reshape transformed data]
+    P[Create HDF5 file and save datasets]
+    R[End]
+    end
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_dataset</span><span class="p">(</span><span class="n">image_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a dataset from images in the directory and save it as an HDF5 file with chunking.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    image_dir (str): The base directory containing label subdirectories.</span>
+<span class="sd">    output_file (str): Path to the output HDF5 file.</span>
+<span class="sd">    test_size (float): Proportion of the dataset to include in the test split.</span>
+<span class="sd">    chunk_size (int): Number of images to process in each chunk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">label_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">catalog_id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">image_dir</span><span class="p">)))):</span>
+        <span class="n">catalog_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="n">catalog_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">label_map</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">catalog_id</span>
+
+        <span class="k">for</span> <span class="n">image_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">image_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">image_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.jpeg&#39;</span><span class="p">):</span>
+                <span class="n">image_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">catalog_dir</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>  <span class="c1"># Ensure image is in grayscale</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>  <span class="c1"># Ensure image is resized to 128x128</span>
+                <span class="n">img_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                <span class="n">img_array</span> <span class="o">=</span> <span class="n">img_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c1"># double check</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_array</span><span class="p">)</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">chunk_size</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+                    <span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+                    <span class="n">augmented_train_data</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">augmented_train_labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+                    <span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">):</span>
+                        <span class="c1"># prototype of augmentation function applied per image</span>
+                        <span class="c1"># you can apply yours</span>
+                        <span class="n">augmented_images</span> <span class="o">=</span> <span class="n">augment_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> 
+                                    <span class="n">flip_probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+                                    <span class="n">rotate_probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rotate_max</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">rotate_min</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> 
+                                    <span class="n">translate_probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">translate_max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">translate_min</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span>
+                                    <span class="n">multiplier</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                    <span class="n">blur_probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                    <span class="n">kernel_size_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                                    <span class="n">noise_probability</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                    <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">stddev</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+                        
+                        <span class="k">for</span> <span class="n">aug_img</span> <span class="ow">in</span> <span class="n">augmented_images</span><span class="p">:</span>
+                            <span class="n">aug_img</span> <span class="o">=</span> <span class="n">aug_img</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># triple check</span>
+                            <span class="n">augmented_train_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aug_img</span><span class="p">)</span>
+                            <span class="n">augmented_train_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+                    <span class="n">augmented_train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">augmented_train_data</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">augmented_train_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">augmented_train_labels</span><span class="p">)</span>
+
+                    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s1">&#39;train_images&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="c1"># f[&#39;train_images&#39;].resize((f[&#39;train_images&#39;].shape[0] + augmented_train_data.shape[0]), axis=0)</span>
+                            <span class="n">f</span><span class="p">[</span><span class="s1">&#39;train_images&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">augmented_train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:]</span> <span class="o">=</span> <span class="n">augmented_train_data</span>
+                            <span class="c1"># f[&#39;train_labels&#39;].resize((f[&#39;train_labels&#39;].shape[0] + augmented_train_labels.shape[0]), axis=0)</span>
+                            <span class="n">f</span><span class="p">[</span><span class="s1">&#39;train_labels&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">augmented_train_labels</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:]</span> <span class="o">=</span> <span class="n">augmented_train_labels</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;train_images&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">augmented_train_data</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">chunks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;train_labels&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">augmented_train_labels</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">chunks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="s1">&#39;test_images&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="c1"># f[&#39;test_images&#39;].resize((f[&#39;test_images&#39;].shape[0] + test_data.shape[0]), axis=0)</span>
+                            <span class="n">f</span><span class="p">[</span><span class="s1">&#39;test_images&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">test_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:]</span> <span class="o">=</span> <span class="n">test_data</span>
+                            <span class="c1"># f[&#39;test_labels&#39;].resize((f[&#39;test_labels&#39;].shape[0] + test_labels.shape[0]), axis=0)</span>
+                            <span class="n">f</span><span class="p">[</span><span class="s1">&#39;test_labels&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">test_labels</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:]</span> <span class="o">=</span> <span class="n">test_labels</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;test_images&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">chunks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;test_labels&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">chunks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># label map</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;label_map&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;label_map&#39;</span><span class="p">]</span> <span class="c1"># im not sure this is necessary though</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;label_map&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">catalog_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">catalog_id</span> <span class="ow">in</span> <span class="n">label_map</span><span class="o">.</span><span class="n">items</span><span class="p">()]))</span>
+
+</pre></div>
+</div>
+<p>The function goes through all folders sequentially and gets each image individually. Converts to a numpy array, procs preprocessing steps such as resizing and grayscale and collects these images until the chunk reaches the max chunk size.</p>
+<p>The the chunk is split in traning and test sets by test set proportion. The training set is passed through a data augmentation function (optional) whereas the test set doesn’t.</p>
+<p>The chunk is appended to the dataset by indexing and finally the label dictionary is appended as well.</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> OOM image processing with variable chunks</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Support for training set augmentation</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Tracking of label dict</p></li>
+</ul>
+<p>All in all, it supports the creation of small (&lt;100gb) datasets with decent scalability.</p>
+</section>
+<section id="visualizing-the-ouput">
+<h4>Visualizing the ouput<a class="headerlink" href="#visualizing-the-ouput" title="Link to this heading">#</a></h4>
+<p>Once again, be careful when working with huge datasets, don’t try to load the whole dataset in memory.</p>
+<p><img alt="&quot;output&quot;" src="04_Vinted_Deep_Learning/..%5Cassets%5Cvinted-images%5Cexample_output.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_random</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">):</span>
+    <span class="c1"># example implementation of sampling a chunk for inspection</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test_images&#39;</span><span class="p">])</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">total_samples</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        <span class="n">selected_indices</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[:</span><span class="n">chunk_size</span><span class="p">]</span>
+
+        <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test_images&#39;</span><span class="p">][</span><span class="nb">sorted</span><span class="p">(</span><span class="n">selected_indices</span><span class="p">)])</span> <span class="c1"># make sure its sorted, you cant access indexes if they are all over the place </span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test_labels&#39;</span><span class="p">][</span><span class="nb">sorted</span><span class="p">(</span><span class="n">selected_indices</span><span class="p">)])</span>
+
+        <span class="n">label_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="nb">eval</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;label_map&#39;</span><span class="p">]])</span>
+        
+    <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">label_map</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="wrapping-up">
+<h3>Wrapping up<a class="headerlink" href="#wrapping-up" title="Link to this heading">#</a></h3>
+<section id="custom-dataclass">
+<h4>Custom DataClass<a class="headerlink" href="#custom-dataclass" title="Link to this heading">#</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>All datasets that represent a map from keys to data samples should subclass
+it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+data sample for a given key. Subclasses could also optionally overwrite
+:meth:`__len__`, which is expected to return the size of the dataset by many
+:class:`~torch.utils.data.Sampler` implementations and the default options
+of :class:`~torch.utils.data.DataLoader`.
+</pre></div>
+</div>
+<p>Pytorch defined a Dataset dataclass to access your data. You need the implementations of these pythonic methods because they are used during training to both iterate over data OOM and fetch data by index:</p>
+<ul class="simple">
+<li><p>__get__item</p></li>
+<li><p>__ add__</p></li>
+</ul>
+<p>I also recommend:</p>
+<ul class="simple">
+<li><p>__ len__</p></li>
+<li><p>num_labels (optional)</p></li>
+</ul>
+<p>The Dataset class then fits and is used in DataLoader, which loads your dataset incrementally.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="n">images</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+
+    <span class="c1"># optional</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">:</span>
+            <span class="c1"># i added this to convert to tensor</span>
+            <span class="c1"># transforms.ToTensor()</span>
+            <span class="c1"># but it works as a Sklearn pipeline, you can pipeline a lot of transformations using torch.transforms</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+    
+    <span class="c1"># optional</span>
+    <span class="k">def</span> <span class="nf">get_num_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># you can access this by label dictionary as well, you dont need this</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./04_Vinted_Deep_Learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../05_housing_database/03_unravelling_imovirtual.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Scrapping imovirtual</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../06_Wallapop/01_exploration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mining in Wallapop 2024 Edition</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining">Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-images-flow-pipeline">Overview of images-flow pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-dataset-creation">Pytorch Dataset Creation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data-and-data-labels">Get the data and data labels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#images">Images</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#labels">Labels</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-data-catalog">Create a data catalog</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hdf5-for-the-dataset">Create a HDF5 for the dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-my-solution">Overview of my solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-ouput">Visualizing the ouput</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-dataclass">Custom DataClass</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

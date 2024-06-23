@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Scrapping imovirtual &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_housing_database/03_unravelling_imovirtual';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mining in Wallapop 2024 Edition" href="../06_Wallapop/01_exploration.html" />
+    <link rel="prev" title="Regressing housing rent prices with LightGBM" href="02_price_regression_idealista.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F05_housing_database/03_unravelling_imovirtual.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/05_housing_database/03_unravelling_imovirtual.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Scrapping imovirtual</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssr-server-side-rendering">SSR (Server Side Rendering)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphql">GraphQL</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-buildid">NextJS BuildID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-data-catalog">Build the data catalog</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graphql-network-extension">GraphQL Network extension</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-my-own-query">Building my own query</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flatten-the-nested-structured">Flatten the nested structured</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-data-catalog">Output: Data Catalog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsing-algorithm">Parsing algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="scrapping-imovirtual">
+<h1>Scrapping imovirtual<a class="headerlink" href="#scrapping-imovirtual" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.imovirtual.com/">Imovirtual</a> is another yet known portuguese online housing marketplace. These are some of the features of the website:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Built on Next.js (Modern stack)</p>
+<ul>
+<li><p>Next js generates a build id for each application version</p></li>
+</ul>
+</li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Server Side Rendering</p>
+<ul>
+<li><p>Requests methods wont work with SSR</p></li>
+</ul>
+</li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> GraphQL endpoints</p></li>
+</ul>
+<p>I built a custom open source imovirtual API to make create custom queries based on the filtering features available in the website. Link here <a class="reference external" href="https://github.com/miguelsiloli/imovirtual_api">ImovirtualAPI</a>.</p>
+<section id="ssr-server-side-rendering">
+<h3>SSR (Server Side Rendering)<a class="headerlink" href="#ssr-server-side-rendering" title="Link to this heading">#</a></h3>
+<p>In Traditional server rendering refers to the method where the server generates the complete HTML for a web page and sends it to the client (usually a web browser) upon request. This is a common approach used by many web frameworks like PHP, <a class="reference external" href="http://ASP.NET">ASP.NET</a>, and older versions of frameworks like Django and Ruby on Rails.</p>
+<p>With <strong>Server Side Rendering</strong> in the context of modern frameworks involves generating the initial HTML of a web page on the server, but with a key difference: once the initial HTML is rendered and sent to the client, JavaScript takes over to make the page interactive and handle subsequent updates.</p>
+<ul class="simple">
+<li><p>Usually the server sends a fully constructed DOM tree but with the key difference of empty elements. Instead, it has placeholders which are then populated by client side Javascript.</p></li>
+</ul>
+<p>Something like this I assume.</p>
+</section>
+<section id="graphql">
+<h3>GraphQL<a class="headerlink" href="#graphql" title="Link to this heading">#</a></h3>
+<p>In contrast with other websites, Imovirtual uses GraphQL instead of traditional REST. GraphQL is the SQL for client server connections in web API’s. It ensures the client can request only the information it requires through a query language, instead of having to load all the information.</p>
+<p>Graphql clients usually transmit queries through JSON documents which consist of two to three keywords: mandatory query and optional operationName and variables:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;operationName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;QueryName&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query QueryName($variable: VariableType) {</span>
+<span class="s2">        field1</span>
+<span class="s2">        field2</span>
+<span class="s2">        filedObject() {</span>
+<span class="s2">            field3</span>
+<span class="s2">            field4</span>
+<span class="s2">        }</span>
+<span class="s2">    }&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;variables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;europe&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>[1] Get next js buildid</p></li>
+<li><p>[2] Build a data catalog</p></li>
+<li><p>[3] Scrape data</p></li>
+</ul>
+<section id="nextjs-buildid">
+<h3>NextJS BuildID<a class="headerlink" href="#nextjs-buildid" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parse the HTML content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">script_tag</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;__NEXT_DATA__&#39;</span><span class="p">)</span>
+<span class="n">json_content</span> <span class="o">=</span> <span class="n">script_tag</span><span class="o">.</span><span class="n">string</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_content</span><span class="p">)</span>
+<span class="n">build_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;buildId&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It’s very straightforward. We need to parse the build id from the static html code.</p>
+</section>
+<section id="build-the-data-catalog">
+<h3>Build the data catalog<a class="headerlink" href="#build-the-data-catalog" title="Link to this heading">#</a></h3>
+<section id="graphql-network-extension">
+<h4>GraphQL Network extension<a class="headerlink" href="#graphql-network-extension" title="Link to this heading">#</a></h4>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/graphql.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>GraphQL using GraphQL Network extension</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can use the default browser network inspector as well but I found this extension much more helpful.</p>
+<p><strong>Endpoint for our purpose</strong>: GetSearchResults</p>
+<div class="mermaid">
+            erDiagram
+    SEARCHADS {
+        string __typename
+        geometries geometries
+        string locationString
+        trackingSet trackingSet
+        pagination pagination
+        FoundAds FoundAds
+    }
+
+    FOUNDEDADS {
+        string __typename
+        geometries geometries
+        trackingSet trackingSet
+        pagination pagination
+        locationString locationString
+        items items
+        recommendationLink recommendationLink
+        locationsObjects locationsObjects
+    }
+
+    LOCATIONSOBJECTS {
+        string id
+        string detailedLevel
+        string name
+        string fullName
+        parentIds parentIds
+        geometry geometry
+        parents parents
+        children children
+    }
+
+    PARENTS {
+        string id
+        string detailedLevel
+        string name
+        string fullName
+        parentIds parentIds
+    }
+
+    CHILDREN {
+        string id
+        string detailedLevel
+    }
+
+    RECOMMENDATIONLINK {
+        string name
+        string estate
+        string transaction
+        string location
+        int count
+    }
+
+    ITEMS {
+        string id
+        string title
+        string slug
+        string estate
+        string transaction
+        address address
+        reverseGeocoding reverseGeocoding
+        images images
+        agency agency
+        totalPrice totalPrice
+        rentPrice rentPrice
+        priceFromPerSquareMeter priceFromPerSquareMeter
+        pricePerSquareMeter pricePerSquareMeter
+        areaInSquareMeters areaInSquareMeters
+        terrainAreaInSquareMeters terrainAreaInSquareMeters
+        roomsNumber roomsNumber
+        hidePrice hidePrice
+        floorNumber floorNumber
+        investmentState investmentState
+        investmentUnitsAreaInSquareMeters investmentUnitsAreaInSquareMeters
+        peoplePerRoom peoplePerRoom
+        dateCreated dateCreated
+        dateCreatedFirst dateCreatedFirst
+        investmentUnitsNumber investmentUnitsNumber
+        investmentUnitsRoomsNumber investmentUnitsRoomsNumber
+        investmentEstimatedDelivery investmentEstimatedDelivery
+        pushedUpAt pushedUpAt
+        specialOffer specialOffer
+        shortDescription shortDescription
+    }
+
+    ADDRESS {
+        string street
+        string city
+        string province
+    }
+
+    REVERSEGEOCODING {
+        locations locations
+    }
+
+    AGENCY {
+        string id
+        string name
+        string slug
+        string imageUrl
+        string type
+        brandingVisible brandingVisible
+        highlightedAds highlightedAds
+    }
+
+    PARENTS ||--o{ LOCATIONSOBJECTS : has
+    LOCATIONSOBJECTS ||--o{ CHILDREN : has
+    LOCATIONSOBJECTS ||--o{ PARENTS : belongs_to
+    FOUNDEDADS ||--o{ LOCATIONSOBJECTS : has
+    FOUNDEDADS ||--o{ RECOMMENDATIONLINK : has
+    FOUNDEDADS ||--o{ ITEMS : has
+    ITEMS ||--o{ ADDRESS : has
+    ITEMS ||--o{ REVERSEGEOCODING : has
+    ITEMS ||--o{ AGENCY : has
+    SEARCHADS ||--o{ FOUNDEDADS : has
+        </div><p>My approach will be similar to the approach I used so far. I’m trying to keep compatibility between the datasets, let’s see how it works.</p>
+<p>First I will create a data catalog with the hierarchical data of locations:</p>
+<div class="mermaid">
+            graph LR
+    A[District] --&gt; B[Municipality/Council]
+    B[Municipality/Council] --&gt; C[Parish]
+        </div></section>
+<section id="building-my-own-query">
+<h4>Building my own query<a class="headerlink" href="#building-my-own-query" title="Link to this heading">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>query locationTree($locationId: String!) {
+  locationTree(locationId: $locationId) {
+    __typename
+    ... on FoundLocationTree {
+      locationTreeObjects {
+        id
+        name
+        detailedLevel
+        sublocations {
+          id
+          detailedLevel
+          name
+          parentIds
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+  }
+}
+</pre></div>
+</div>
+<p>This query is used to retrieve a hierarchical structure of locations starting from a given location ID. It returns detailed information about the location and its sublocations, including their IDs, names, detailed levels, and parent IDs.</p>
+</section>
+<section id="flatten-the-nested-structured">
+<h4>Flatten the nested structured<a class="headerlink" href="#flatten-the-nested-structured" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flatten_df</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">flattened_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;locationTree&quot;</span><span class="p">][</span><span class="s2">&quot;locationTreeObjects&quot;</span><span class="p">]:</span>
+        <span class="n">district</span><span class="p">,</span> <span class="n">municipality</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="n">flattened_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;district&quot;</span><span class="p">:</span> <span class="n">district</span><span class="p">,</span>
+            <span class="s2">&quot;municipality&quot;</span><span class="p">:</span> <span class="n">municipality</span><span class="p">,</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;detailedLevel&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;detailedLevel&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;parentIds&quot;</span><span class="p">:</span> <span class="n">location</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parentIds&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">})</span>
+        <span class="k">for</span> <span class="n">sublocation</span> <span class="ow">in</span> <span class="n">location</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sublocations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">flattened_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;district&quot;</span><span class="p">:</span> <span class="n">district</span><span class="p">,</span>
+                <span class="s2">&quot;municipality&quot;</span><span class="p">:</span> <span class="n">municipality</span><span class="p">,</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">sublocation</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">sublocation</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;detailedLevel&quot;</span><span class="p">:</span> <span class="n">sublocation</span><span class="p">[</span><span class="s2">&quot;detailedLevel&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;parentIds&quot;</span><span class="p">:</span> <span class="n">sublocation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parentIds&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="p">})</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">flattened_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="wrapping-up">
+<h3>Wrapping up<a class="headerlink" href="#wrapping-up" title="Link to this heading">#</a></h3>
+<div class="mermaid">
+            graph TD
+  A[Start] --&gt; B[Loop locationId list]
+  B --&gt; C{Last district?}
+  C -- No --&gt; D[Set variables with locationId]
+  C -- Yes --&gt; K[Concatenate all data into a single DataFrame]
+  K --&gt; L[End]
+  I --&gt; C
+
+  subgraph GraphQL
+    D --&gt; E[Make request with url, query, variables, and headers]
+  end
+
+  subgraph Transforms
+    E --&gt; F[Flatten the response JSON into a DataFrame]
+    F --&gt; G[Add district to the flattened DataFrame]
+    G --&gt; H[Append flattened DataFrame to data list]
+    H --&gt; I[Sleep]
+  end
+        </div></section>
+<section id="output-data-catalog">
+<h3>Output: Data Catalog<a class="headerlink" href="#output-data-catalog" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>district</p></th>
+<th class="head"><p>municipality</p></th>
+<th class="head"><p>id</p></th>
+<th class="head"><p>name</p></th>
+<th class="head"><p>detailedLevel</p></th>
+<th class="head"><p>parentIds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda</p></td>
+<td><p>Águeda</p></td>
+<td><p>council</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/aguada-de-cima</p></td>
+<td><p>Aguada de Cima</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/agueda-e-borralha</p></td>
+<td><p>Águeda e Borralha</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/barro-e-aguada-de-baixo</p></td>
+<td><p>Barrô e Aguada de Baixo</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/belazaima-do-chao-castanheira-do-vouga-e-agadao</p></td>
+<td><p>Belazaima do Chão, Castanheira do Vouga e Agadão</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/fermentelos</p></td>
+<td><p>Fermentelos</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/macinhata-do-vouga</p></td>
+<td><p>Macinhata do Vouga</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/prestimo-e-macieira-de-alcoba</p></td>
+<td><p>Préstimo e Macieira de Alcoba</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/recardaes-e-espinhel</p></td>
+<td><p>Recardães e Espinhel</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/travasso-e-ois-da-ribeira</p></td>
+<td><p>Travassô e Óis da Ribeira</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-even"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/trofa-segadaes-e-lamas-do-vouga</p></td>
+<td><p>Trofa, Segadães e Lamas do Vouga</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+<tr class="row-odd"><td><p>aveiro</p></td>
+<td><p>agueda</p></td>
+<td><p>aveiro/agueda/valongo-do-vouga</p></td>
+<td><p>Valongo do Vouga</p></td>
+<td><p>parish</p></td>
+<td><p>[]</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="parsing-algorithm">
+<h2>Parsing algorithm<a class="headerlink" href="#parsing-algorithm" title="Link to this heading">#</a></h2>
+<div class="mermaid">
+            graph TD
+    A[Start] --&gt; B[Read CSV file]
+    B --&gt; C[Filter rows where detailedLevel is parish]
+    C --&gt; D[Group by district and get list of IDs]
+    D --&gt; E[Get build ID using get_buildid function]
+    E --&gt; F[Iterate over each district]
+    
+    subgraph For each district
+        F --&gt; G{More districts?}
+        G -- No --&gt; Y[End Loop]
+        G -- Yes --&gt; H[Initialize empty all_data dictionary]
+        H --&gt; I[Iterate over each ID in district]
+        
+        subgraph For each ID in district
+            I --&gt; J{More IDs?}
+            J -- No --&gt; Z[End ID Loop]
+            J -- Yes --&gt; K[Format URL using base_url_template and build ID]
+            K --&gt; L[Send GET request to URL]
+            L --&gt; M[Parse JSON response]
+            M --&gt; N[Store searchAds items in all_data]
+            N --&gt; O{For each additional page}
+            
+            subgraph For each additional page
+                O -- Yes --&gt; P[Format paged URL with page number]
+                P --&gt; Q[Send GET request to paged URL]
+                Q --&gt; R[Parse JSON response from paged URL]
+                R --&gt; S[Extend all_data with items from paged response]
+                S --&gt; T[Wait for 5 seconds]
+                T --&gt; O
+                O -- No --&gt; U[All pages done]
+            end
+            
+            U --&gt; J
+        end
+        
+        Z --&gt; G
+    end
+    
+    Y --&gt; V[Save all_data to JSON file]
+    V --&gt; W[Create output directory if it doesn't exist]
+    W --&gt; X[Write JSON data to file]
+    X --&gt; End[End]
+        </div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fetch_imovirtual_data</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">base_url_template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">get_buildid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch data from Imovirtual website and save to JSON files.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - csv_file_path (str): Path to the CSV file containing the list of districts and IDs.</span>
+<span class="sd">    - output_dir (str): Directory where the JSON files will be saved.</span>
+<span class="sd">    - headers (dict): Headers for the HTTP requests.</span>
+<span class="sd">    - base_url_template (str): Template for the base URL used in the requests.</span>
+<span class="sd">    - get_buildid (callable): Function to get the build ID.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;detailedLevel&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;parish&quot;</span><span class="p">]</span> <span class="c1"># if you dont do this, returns will be duplicate due to hierarchical level</span>
+    <span class="n">districts</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;district&quot;</span><span class="p">)[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="c1"># Get the build ID</span>
+    <span class="n">buildid</span> <span class="o">=</span> <span class="n">get_buildid</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over each district and fetch data</span>
+    <span class="k">for</span> <span class="n">district</span><span class="p">,</span> <span class="n">id_list</span> <span class="ow">in</span> <span class="n">districts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">all_data</span> <span class="o">=</span> <span class="p">{}</span> 
+
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">id_list</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">base_url_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">buildid</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">all_data</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pageProps&quot;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;searchAds&#39;</span><span class="p">][</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
+
+            <span class="n">num_pages</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;pageProps&quot;</span><span class="p">][</span><span class="s1">&#39;tracking&#39;</span><span class="p">][</span><span class="s1">&#39;listing&#39;</span><span class="p">][</span><span class="s1">&#39;page_count&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Fetch data from additional pages</span>
+            <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_pages</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">paged_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">?page=</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">paged_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">paged_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+                <span class="n">paged_data</span> <span class="o">=</span> <span class="n">paged_response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="n">all_data</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">paged_data</span><span class="p">[</span><span class="s2">&quot;pageProps&quot;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;searchAds&#39;</span><span class="p">][</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>
+
+                
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">district</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">output_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/imovirtual_output.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Output.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="Pipeline Schema" src="../_images/imovirtual_output2.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Output.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./05_housing_database"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_price_regression_idealista.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Regressing housing rent prices with LightGBM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../06_Wallapop/01_exploration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mining in Wallapop 2024 Edition</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssr-server-side-rendering">SSR (Server Side Rendering)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphql">GraphQL</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-buildid">NextJS BuildID</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-data-catalog">Build the data catalog</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graphql-network-extension">GraphQL Network extension</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-my-own-query">Building my own query</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#flatten-the-nested-structured">Flatten the nested structured</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-up">Wrapping up</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-data-catalog">Output: Data Catalog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsing-algorithm">Parsing algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

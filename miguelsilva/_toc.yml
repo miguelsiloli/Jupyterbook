@@ -15,12 +15,18 @@ parts:
     chapters:
     - file: 03_Vinted_Data_Science/01_price_prediction
     - file: 03_Vinted_Data_Science/02_catalog_clustering
+    - file: 03_Vinted_Data_Science/03_optimization-book
     - file: 03_Vinted_Data_Science/05_user_clustering
 
   - caption: Housing Project
     chapters:
     - file: 05_housing_database/00
     - file: 05_housing_database/02_price_regression_idealista
+    - file: 05_housing_database/03_unravelling_imovirtual
+
+  - caption: Housing Project
+    chapters:
+    - file: 04_Vinted_Deep_Learning/01_vinted_dataset
 
   - caption: Wallapop
     chapters:

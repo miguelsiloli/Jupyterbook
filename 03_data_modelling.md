@@ -273,20 +273,6 @@ def normalize_users_staging():
                      engine = engine)
 ```
 
-.. tabs::
-
-   .. tab:: Apples
-
-      Apples are green, or sometimes red.
-
-   .. tab:: Pears
-
-      Pears are green.
-
-   .. tab:: Oranges
-
-      Oranges are orange.
-
 ### Configurations and connections
 
 **profiles.yml**

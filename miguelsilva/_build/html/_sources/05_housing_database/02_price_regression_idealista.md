@@ -1,35 +1,36 @@
-# In sample regressor for house rent prices
+# Regressing housing rent prices with LightGBM
 
 I will show the process behind the development of an housing pricing regressor to predict the rent prices given a feature set of housing properties, starting with the development of the first data models, model fine tuning and further improvement of data models. The model used for this purpose is LightGBM.
 
-Notice this exercise is not meant to extrapolate any conclusions.
-
-Models:
+**Models**:
 - Basic LightGBM + Basic data structure
-- LightGBM finetuning + Basic data/w feature engineering
+- LightGBM finetuning + Basic data/w Named Entity Recognition
 - LightGBM finetuning + Data catalog
 
 **Keywords**: LightGBM, regression modelling, price prediction, Idealista, Named Entity Recognition
 
-- [In sample regressor for house rent prices](#in-sample-regressor-for-house-rent-prices)
+- [Regressing housing rent prices with LightGBM](#regressing-housing-rent-prices-with-lightgbm)
   - [Introduction](#introduction)
-    - [LightGBM + Data Structure 1](#lightgbm--data-structure-1)
-      - [Data Collection and Preparation](#data-collection-and-preparation)
-      - [Initial results](#initial-results)
-    - [LightGBM finetuning + Data Structure 1 (feature engineering)](#lightgbm-finetuning--data-structure-1-feature-engineering)
-      - [Feature engineering](#feature-engineering)
-        - [Preprocessing before text wrangling](#preprocessing-before-text-wrangling)
-        - [Extract street names from title](#extract-street-names-from-title)
-        - [Extract street names from title](#extract-street-names-from-title-1)
-        - [LightGBM finetuning](#lightgbm-finetuning)
+  - [Data Collection and Preparation](#data-collection-and-preparation)
+  - [LightGBM + Data Structure 1](#lightgbm--data-structure-1)
+    - [Model](#model)
       - [Results](#results)
-    - [LightGBM finetuning 2 + Data Structure reworked](#lightgbm-finetuning-2--data-structure-reworked)
-      - [Developing a new datastructure: natural linkage](#developing-a-new-datastructure-natural-linkage)
-      - [LightGBM finetuning 2](#lightgbm-finetuning-2)
-      - [Results](#results-1)
-  - [Results](#results-2)
+  - [LightGBM finetuning + Data Structure 1 (feature engineering)](#lightgbm-finetuning--data-structure-1-feature-engineering)
+    - [Feature engineering](#feature-engineering)
+      - [Extract street names from title](#extract-street-names-from-title)
+      - [Extract street names from title](#extract-street-names-from-title-1)
+      - [LightGBM finetuning](#lightgbm-finetuning)
+    - [Results](#results-1)
+  - [LightGBM finetuning 2 + Data Structure reworked](#lightgbm-finetuning-2--data-structure-reworked)
+    - [Developing a new datastructure: natural linkage](#developing-a-new-datastructure-natural-linkage)
+    - [LightGBM finetuning 2](#lightgbm-finetuning-2)
+    - [Results](#results-2)
+  - [Results](#results-3)
     - [Model Performance Metrics](#model-performance-metrics)
     - [Feature Importance](#feature-importance)
+  - [Bonus: Regression on a different source](#bonus-regression-on-a-different-source)
+      - [Results](#results-4)
+  - [Conclusions](#conclusions)
 
 
 ## Introduction
@@ -52,18 +53,20 @@ erDiagram
     }
 ```
 
-### LightGBM + Data Structure 1
-
-#### Data Collection and Preparation
+## Data Collection and Preparation
 
 After the inital EDA of the data, the preprocessing approach was to filter the values by quantiles, grouped by city and home sizes.
 
+**before preprocessing**
 ![raw](../assets/housing/raw_screening.png)
 
 358 rows were removed. 
 - Original df: 2872
 - Filtered df: 2514
 
+<details>
+
+<summary><b>Code</b></summary>
 
 ```python
 def filter_city_group(group):
@@ -88,10 +91,41 @@ def filter_city_group(group):
 data = data.groupby(['city', 'home_size']).apply(filter_city_group).reset_index(drop=True)
 ```
 
+</details>
+
 **after preprocessing**
 ![raw](../assets/housing/after_preprocessing.png)
 
-#### Initial results
+## LightGBM + Data Structure 1
+
+### Model
+
+```python
+selected_features = ["home_type", "garage", "home_size", "floor", "elevator", "home_area", "municipality", "parish", "neighborhood"]
+target = ["price"]
+
+X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=target), 
+                                                    data[target], 
+                                                    test_size=0.25, 
+                                                    random_state=42)
+
+d_train=lgb.Dataset(X_train, 
+                    label=y_train)
+
+params = {
+    'objective': 'tweedie',
+    'metric': 'rmse',  # Root Mean Squared Error    
+    'n_estimators': 1000,
+    'max_depth': 32,
+    'num_leaves': 2**6,
+    'learning_rate': 0.01
+}
+
+clf=lgb.train(params,
+              d_train) 
+```
+
+#### Results
 
 | Metric                           | Value                    |
 |----------------------------------|--------------------------|
@@ -109,36 +143,10 @@ For the first model we went super simple with a super out of the box approach. I
 
 The results are pretty decent. We can already tell the features in our dataset are somewhat meaningful to model rent prices by the r2_score. However, max error is crazy big and MAE and MEDAE are substancial.
 
-```python
-selected_features = ["home_type", "garage", "home_size", "floor", "elevator", "home_area", "municipality", "parish", "neighborhood"]
-target = ["price"]
 
-X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=target), 
-                                                    data[target], 
-                                                    test_size=0.25, 
-                                                    random_state=42)
+## LightGBM finetuning + Data Structure 1 (feature engineering)
 
-d_train=lgb.Dataset(X_train, 
-                    label=y_train)
-
-# Define parameters for LightGBM
-params = {
-    'objective': 'tweedie',
-    'metric': 'rmse',  # Root Mean Squared Error    
-    'n_estimators': 1000,
-    'max_depth': 32,
-    'num_leaves': 2**6,
-    'learning_rate': 0.01
-}
-
-clf=lgb.train(params,
-              d_train) 
-```
-
-
-### LightGBM finetuning + Data Structure 1 (feature engineering)
-
-#### Feature engineering
+### Feature engineering
 
 For the feature engineering, we decided to create a new variable "street_names" by extracting it from the title using a mix of pretrained Spacy Named Entity Recognition model and a fixed regex match for a list of special keywords.
 
@@ -193,7 +201,9 @@ graph TD
     end
 ```
 
-##### Preprocessing before text wrangling
+<details>
+
+<summary><b>Code</b></summary>
 
 ```python
 def preprocess_text(text):
@@ -235,7 +245,7 @@ def preprocess_text(text):
     return text
 ```
 
-##### Extract street names from title
+#### Extract street names from title
 
 ```python
 def extract_street_name(text):
@@ -281,7 +291,7 @@ def clean_neighborhood_name(name, remove_words):
 remove_words = set(list(data["home_type"].unique()) + list(data["home_size"].unique()))
 ```
 
-##### Extract street names from title
+#### Extract street names from title
 
 ```python
 def extract_street_names(text):
@@ -301,10 +311,15 @@ def extract_street_names(text):
 
 data['street_names'] = np.where(data['street_names'] == '', data['neighborhood'], data['street_names'])
 ```
+</details>
 
-##### LightGBM finetuning
+#### LightGBM finetuning
 
-Built a wrapper over optuna trials to find the best booster given the search space shown below.
+Built a wrapper over optuna trials to find the best booster given the search space shown below. Optuna works by using an algorithm to go over the search space defined and then return the best score for the objective metrics.
+
+<details>
+
+<summary><b>Code</b></summary>
 
 ```python
 def callback_model(study, trial):
@@ -361,6 +376,9 @@ def objective(trial):
                               squared=False)
     return rmse
 ```
+
+</details>
+
 **best iteration**
 (took about 15 mins on CPU though)
 
@@ -378,7 +396,7 @@ def objective(trial):
             learning_rate: 0.007207126518937185
 
 
-#### Results
+### Results
 
 | Metric                           | Value                      |
 |----------------------------------|----------------------------|
@@ -392,21 +410,21 @@ def objective(trial):
 | Max Error                        | 7916.031221418012          |
 
 
-### LightGBM finetuning 2 + Data Structure reworked
+## LightGBM finetuning 2 + Data Structure reworked
 
-#### Developing a new datastructure: natural linkage
+### Developing a new datastructure: natural linkage
 
 The purpose of this new datastructure is to create a proper linkage between pages in the different levels of hierarchy of housing location.
 
-**before**
+**Before**
 ```{mermaid}
 graph LR
     A[city] --> B[Neighborhood]
     B --> C[street_name]
 ```
 
-**after**
-Note that Neightborhood in before schema is at the same level as Parish in after schema.
+**After**
+
 ```{mermaid}
 graph LR
     A[District] --> B[Municipality]
@@ -418,15 +436,19 @@ graph LR
 
 Basically I **kept the same parsing class, but changed the parsing scope** to a lower hierarchy level. Given that my parsing class takes a list of links, I just changed my list of links by creating a catalog.
 
-**data catalog**
+**Data catalog**
 
 ![raw](../assets/housing/catalog.png)
 
 In addition, this data catalog parsed every possible href in the website which resulted in more data points.
 
-#### LightGBM finetuning 2
+### LightGBM finetuning 2
 
 Instead of using a combinatorial searching algorithm, I used the LightGBMTuner which is a sequential tuning algorithm. It's much faster.
+
+<details>
+
+<summary><b>Code</b></summary>
 
 ```python
 from optuna.integration import LightGBMTuner
@@ -461,7 +483,9 @@ best_params, best_booster = tune_hyperparameters(d_train, d_valid)
 dump(best_booster, 'model.joblib')
 ```
 
-#### Results
+</details>
+
+### Results
 
 | Metric                           | Value                      |
 |----------------------------------|----------------------------|
@@ -490,6 +514,13 @@ dump(best_booster, 'model.joblib')
 | Explained Variance Score         | 0.791961664514626          | 0.8400642395176007        | 0.8817390606991876        |
 | Max Error                        | 9,681.896126731974         | 7,916.031221418012        | 13,460.365708323816       |
 
+```{note}
+First and Second Model share the same data structure, Second model has an additional engineered feature.
+
+
+Third model has a different top-down data structure as result of a different hierarchical parsing approach.
+```
+
 
 The data capture changes between second and third model are notorious. Altough the Variance explainability increased, the errors increased as well. This is concerning and should be looked into.
 
@@ -507,3 +538,148 @@ By far the most important variable to model housing prices is home area and the 
 However, I'm surprised floor was one of the most important variables. I have some suspicious floor and home_type might be somewhat linked and correlated, since floor = 0 likely means home_type is not an apartment.
 
 ![raw](../assets/housing/feature_importance.png)
+
+
+## Bonus: Regression on a different source
+
+```{mermaid}
+erDiagram
+    PROPERTY {
+        int id
+        string title
+        string slug
+        string estate
+        int developmentId
+        string developmentTitle
+        string developmentUrl
+        string transaction
+        bool isExclusiveOffer
+        bool isPrivateOwner
+        bool isPromoted
+        int openDays
+        float rentPrice
+        float priceFromPerSquareMeter
+        float areaInSquareMeters
+        float terrainAreaInSquareMeters
+        int roomsNumber
+        bool hidePrice
+        int floorNumber
+        string investmentState
+        float investmentUnitsAreaInSquareMeters
+        float peoplePerRoom
+        date dateCreated
+        date dateCreatedFirst
+        int investmentUnitsNumber
+        int investmentUnitsRoomsNumber
+        date investmentEstimatedDelivery
+        date pushedUpAt
+        bool specialOffer
+        string shortDescription
+        int totalPossibleImages
+        float location_mapDetails_radius
+        string location_address_street_name
+        string location_address_street_number
+        string location_address_city_name
+        string location_address_province_name
+        string location_reverseGeocoding_locations
+        int agency_id
+        string agency_name
+        string agency_slug
+        string agency_imageUrl
+        string agency_type
+        bool agency_brandingVisible
+        bool agency_highlightedAds
+        float totalPrice_value
+        string totalPrice_currency
+        float pricePerSquareMeter_value
+        string pricePerSquareMeter_currency
+        string location
+        string agency
+        string location_address_street
+        float totalPrice
+        float pricePerSquareMeter
+        float rentPrice_value
+        string rentPrice_currency
+        date date
+    }
+```
+
+This source has a GraphQL endpoint which makes this task much more convinient. The fact we get structured data out of the box is *chefs kiss*. 
+I will apply the last model build out of the box. For the regressor, I picked the following features:
+
+```{python}
+selected_features = ["estate", "developmentId", "areaInSquareMeters", "roomsNumber", "floorNumber", "location_address_city_name", "location_address_province_name", "totalPossibleImages", "agency_name", "agency_type"]
+target = ["totalPrice_value"]
+
+data = data[selected_features + target]
+```
+
+The reason why I picked these features is because there are quite a few attributes with lots of missing data (I'm assuming they are optional in the listings). I kept the maximum data possible.
+
+**Dataset size**
+
+
+*4040 rows*
+
+
+```{mermaid}
+erDiagram
+    PROPERTY {
+        string estate
+        int developmentId
+        float areaInSquareMeters
+        int roomsNumber
+        int floorNumber
+        string location_address_city_name
+        string location_address_province_name
+        int totalPossibleImages
+        string agency_name
+        string agency_type
+    }
+```
+
+#### Results
+
+
+| Metric                         | Value                    |
+|--------------------------------|--------------------------|
+| Mean Squared Error (MSE)       | 2,982,434.8029515054     |
+| Root Mean Squared Error (RMSE) | 1,726.9727279119104      |
+| Mean Absolute Error (MAE)      | 598.4506828602617        |
+| Median Absolute Error (MedAE)  | 271.84776577479283       |
+| R2 Score                       | 0.4050391513547955       |
+| Mean Absolute Percentage Error (MAPE) | 0.23980102053405566 |
+| Explained Variance Score       | 0.40884640176568077      |
+| Max Error                      | 20,629.283680784873      |
+
+
+
+| Metric                           | LightGBM + Raw       | LightGBM + finetuning + feature engineering       | LightGBM + finetuning + data catalog     | Fourth Model              |
+|----------------------------------|-------------------|--------------------|------------------|---------------------------|
+| Mean Absolute Error (MAE)        | 627.29            | **367.02**         | 483.77           | 598.45                    |
+| Median Absolute Error (MedAE)    | 304.87            | **134.61**         | 233.53           | 271.85                    |
+| R² Score                         | 0.7919            | 0.8399             | **0.8816**       | 0.4050                    |
+| Mean Absolute Percentage Error   | 0.2422            | **0.1606**         | 0.1938           | 0.2398                    |
+
+
+![raw](../assets/housing/results_data2.png)
+
+
+Haven't look at this with attention to detail so it's hard to compare datasets. They are somewhat of a similar size however.
+
+
+## Conclusions
+
+<span style="color:yellow">I'm happy with the results!</span>.
+
+
+Altough the results were far from optimal, I'm satisfied the predictors are able to capture a good chunk of variability in the regressor. There are some very promising applications of feature engineering as well as missing features which can be easily added to the model to further improve the scores.
+This is how I would improve this model:
+
+- Join multiple data sources by NUTS (non trivial as well, the data sources do not have simple relationship keys)
+- Develop a NER pipeline to capture street names when they exist (doable with pre trained NER models)
+- Develop a taxonomy system from the description and perhaps create my own NER model to capture this taxonomy (non trivial, requires me to label the data)
+- Add new features such as the number of images, length of title and description, name of agency (if exists)
+- House specific data which would require me to parse every single page in the site, instead of the catalog alone. (easy but would probably get me timed out by the server)
+
+The MAPE and MAE suggest this model can hardly work in production to produce useful results.

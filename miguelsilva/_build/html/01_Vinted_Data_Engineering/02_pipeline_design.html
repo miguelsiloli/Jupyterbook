@@ -194,7 +194,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html"><a id="toc1_"></a><span class="xref myst">Mining in Wallapop 2024 Edition</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
 </ul>
 
     </div>
@@ -454,21 +454,16 @@ document.write(`
     subgraph System
         A[Check Prices]
         B[Retrieve Data]
-        C[Select Subset of Articles]
-        D[View Price Information]
-        E[View Data Information]
-        F[Group by catalog_id]
+        C[View Brand Trends]
+        D[View Price Trends]
+        E[View Catalog Trends]
 
         actor --&gt; A
         actor --&gt; B
         
-        A --&gt; C
         A --&gt; D
         
-        B --&gt; C
         B --&gt; E
-        
-        C --&gt; F
     end
         </div><p>Instead, our solution is to create a windowed pipeline which slices these streams into chunks and process these chunks into fixed time windows <a class="reference external" href="https://static.googleusercontent.com/media/research.google.com/pt-PT//pubs/archive/43864.pdf">(Google Research on Watermarking)</a>. We then use a timestamp watermark to keep track of when the articles were first fetched.</p>
 </section>

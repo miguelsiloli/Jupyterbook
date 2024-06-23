@@ -1,6 +1,7 @@
 # Introduction
 
-**By [Miguel Silva](https://miguelsilva.netlify.app/)**
+I'm an engineer. I solve problems [Miguel Silva](https://miguelsilva.netlify.app/).
+
 
 Some high effort projects of my own. Hope you like it.
 

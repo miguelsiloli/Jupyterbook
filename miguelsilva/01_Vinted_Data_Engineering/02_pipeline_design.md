@@ -14,21 +14,16 @@ graph TD
     subgraph System
         A[Check Prices]
         B[Retrieve Data]
-        C[Select Subset of Articles]
-        D[View Price Information]
-        E[View Data Information]
-        F[Group by catalog_id]
+        C[View Brand Trends]
+        D[View Price Trends]
+        E[View Catalog Trends]
 
         actor --> A
         actor --> B
         
-        A --> C
         A --> D
         
-        B --> C
         B --> E
-        
-        C --> F
     end
 ```
 

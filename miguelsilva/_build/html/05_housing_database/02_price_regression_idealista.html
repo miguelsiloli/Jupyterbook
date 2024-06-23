@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>In sample regressor for house rent prices &#8212; Visualization Curriculum</title>
+    <title>Regressing housing rent prices with LightGBM &#8212; Visualization Curriculum</title>
   
   
   
@@ -65,8 +65,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="01: Overview of the Vinted Project" href="../01_Vinted_Data_Engineering/00_intro.html" />
-    <link rel="prev" title="Improving the performance of html parsers" href="00.html" />
+    <link rel="next" title="Scrapping imovirtual" href="03_unravelling_imovirtual.html" />
+    <link rel="prev" title="01: Improving the efficiency of HTML parsers" href="00.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -380,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>In sample regressor for house rent prices</h1>
+    <h1>Regressing housing rent prices with LightGBM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,36 +390,41 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-results">Initial results</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-before-text-wrangling">Preprocessing before text wrangling</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Results</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-metrics">Model Performance Metrics</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-regression-on-a-different-source">Bonus: Regression on a different source</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 </ul>
             </nav>
         </div>
@@ -431,56 +436,61 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="in-sample-regressor-for-house-rent-prices">
-<h1>In sample regressor for house rent prices<a class="headerlink" href="#in-sample-regressor-for-house-rent-prices" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="regressing-housing-rent-prices-with-lightgbm">
+<h1>Regressing housing rent prices with LightGBM<a class="headerlink" href="#regressing-housing-rent-prices-with-lightgbm" title="Link to this heading">#</a></h1>
 <p>I will show the process behind the development of an housing pricing regressor to predict the rent prices given a feature set of housing properties, starting with the development of the first data models, model fine tuning and further improvement of data models. The model used for this purpose is LightGBM.</p>
-<p>Notice this exercise is not meant to extrapolate any conclusions.</p>
-<p>Models:</p>
+<p><strong>Models</strong>:</p>
 <ul class="simple">
 <li><p>Basic LightGBM + Basic data structure</p></li>
-<li><p>LightGBM finetuning + Basic data/w feature engineering</p></li>
+<li><p>LightGBM finetuning + Basic data/w Named Entity Recognition</p></li>
 <li><p>LightGBM finetuning + Data catalog</p></li>
 </ul>
 <p><strong>Keywords</strong>: LightGBM, regression modelling, price prediction, Idealista, Named Entity Recognition</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#in-sample-regressor-for-house-rent-prices"><span class="xref myst">In sample regressor for house rent prices</span></a></p>
+<li><p><a class="reference internal" href="#regressing-housing-rent-prices-with-lightgbm"><span class="xref myst">Regressing housing rent prices with LightGBM</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="#introduction"><span class="xref myst">Introduction</span></a></p>
-<ul>
+<li><p><a class="reference internal" href="#introduction"><span class="xref myst">Introduction</span></a></p></li>
+<li><p><a class="reference internal" href="#data-collection-and-preparation"><span class="xref myst">Data Collection and Preparation</span></a></p></li>
 <li><p><a class="reference internal" href="#lightgbm--data-structure-1"><span class="xref myst">LightGBM + Data Structure 1</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="#data-collection-and-preparation"><span class="xref myst">Data Collection and Preparation</span></a></p></li>
-<li><p><a class="reference internal" href="#initial-results"><span class="xref myst">Initial results</span></a></p></li>
+<li><p><a class="reference internal" href="#model"><span class="xref myst">Model</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#results"><span class="xref myst">Results</span></a></p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#lightgbm-finetuning--data-structure-1-feature-engineering"><span class="xref myst">LightGBM finetuning + Data Structure 1 (feature engineering)</span></a></p>
 <ul>
 <li><p><a class="reference internal" href="#feature-engineering"><span class="xref myst">Feature engineering</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="#preprocessing-before-text-wrangling"><span class="xref myst">Preprocessing before text wrangling</span></a></p></li>
 <li><p><a class="reference internal" href="#extract-street-names-from-title"><span class="xref myst">Extract street names from title</span></a></p></li>
 <li><p><a class="reference internal" href="#extract-street-names-from-title-1"><span class="xref myst">Extract street names from title</span></a></p></li>
 <li><p><a class="reference internal" href="#lightgbm-finetuning"><span class="xref myst">LightGBM finetuning</span></a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#results"><span class="xref myst">Results</span></a></p></li>
+<li><p><a class="reference internal" href="#results-1"><span class="xref myst">Results</span></a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#lightgbm-finetuning-2--data-structure-reworked"><span class="xref myst">LightGBM finetuning 2 + Data Structure reworked</span></a></p>
 <ul>
 <li><p><a class="reference internal" href="#developing-a-new-datastructure-natural-linkage"><span class="xref myst">Developing a new datastructure: natural linkage</span></a></p></li>
 <li><p><a class="reference internal" href="#lightgbm-finetuning-2"><span class="xref myst">LightGBM finetuning 2</span></a></p></li>
-<li><p><a class="reference internal" href="#results-1"><span class="xref myst">Results</span></a></p></li>
+<li><p><a class="reference internal" href="#results-2"><span class="xref myst">Results</span></a></p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#results-2"><span class="xref myst">Results</span></a></p>
+<li><p><a class="reference internal" href="#results-3"><span class="xref myst">Results</span></a></p>
 <ul>
 <li><p><a class="reference internal" href="#model-performance-metrics"><span class="xref myst">Model Performance Metrics</span></a></p></li>
 <li><p><a class="reference internal" href="#feature-importance"><span class="xref myst">Feature Importance</span></a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#bonus-regression-on-a-different-source"><span class="xref myst">Bonus: Regression on a different source</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#results-4"><span class="xref myst">Results</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusions"><span class="xref myst">Conclusions</span></a></p></li>
 </ul>
 </li>
 </ul>
@@ -501,17 +511,19 @@ document.write(`
         float price_per_sqr_meter
         string neighborhood
     }
-        </div><section id="lightgbm-data-structure-1">
-<h3>LightGBM + Data Structure 1<a class="headerlink" href="#lightgbm-data-structure-1" title="Link to this heading">#</a></h3>
+        </div></section>
 <section id="data-collection-and-preparation">
-<h4>Data Collection and Preparation<a class="headerlink" href="#data-collection-and-preparation" title="Link to this heading">#</a></h4>
+<h2>Data Collection and Preparation<a class="headerlink" href="#data-collection-and-preparation" title="Link to this heading">#</a></h2>
 <p>After the inital EDA of the data, the preprocessing approach was to filter the values by quantiles, grouped by city and home sizes.</p>
-<p><img alt="raw" src="../_images/raw_screening.png" /></p>
+<p><strong>before preprocessing</strong>
+<img alt="raw" src="../_images/raw_screening.png" /></p>
 <p>358 rows were removed.</p>
 <ul class="simple">
 <li><p>Original df: 2872</p></li>
 <li><p>Filtered df: 2514</p></li>
 </ul>
+<details>
+<summary><b>Code</b></summary>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_city_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
     <span class="c1"># Calculate quantiles within each group</span>
     <span class="n">c1</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
@@ -534,11 +546,40 @@ document.write(`
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;home_size&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">filter_city_group</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+</details>
 <p><strong>after preprocessing</strong>
 <img alt="raw" src="../_images/after_preprocessing.png" /></p>
 </section>
-<section id="initial-results">
-<h4>Initial results<a class="headerlink" href="#initial-results" title="Link to this heading">#</a></h4>
+<section id="lightgbm-data-structure-1">
+<h2>LightGBM + Data Structure 1<a class="headerlink" href="#lightgbm-data-structure-1" title="Link to this heading">#</a></h2>
+<section id="model">
+<h3>Model<a class="headerlink" href="#model" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;home_type&quot;</span><span class="p">,</span> <span class="s2">&quot;garage&quot;</span><span class="p">,</span> <span class="s2">&quot;home_size&quot;</span><span class="p">,</span> <span class="s2">&quot;floor&quot;</span><span class="p">,</span> <span class="s2">&quot;elevator&quot;</span><span class="p">,</span> <span class="s2">&quot;home_area&quot;</span><span class="p">,</span> <span class="s2">&quot;municipality&quot;</span><span class="p">,</span> <span class="s2">&quot;parish&quot;</span><span class="p">,</span> <span class="s2">&quot;neighborhood&quot;</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">target</span><span class="p">),</span> 
+                                                    <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> 
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">d_train</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> 
+                    <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>  <span class="c1"># Root Mean Squared Error    </span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.01</span>
+<span class="p">}</span>
+
+<span class="n">clf</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
+              <span class="n">d_train</span><span class="p">)</span> 
+</pre></div>
+</div>
+<section id="results">
+<h4>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h4>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
@@ -574,37 +615,13 @@ document.write(`
 </table>
 <p>For the first model we went super simple with a super out of the box approach. In addition, the EDA made me realize ‘tweedie’ objective function made more sense than regression.</p>
 <p>The results are pretty decent. We can already tell the features in our dataset are somewhat meaningful to model rent prices by the r2_score. However, max error is crazy big and MAE and MEDAE are substancial.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;home_type&quot;</span><span class="p">,</span> <span class="s2">&quot;garage&quot;</span><span class="p">,</span> <span class="s2">&quot;home_size&quot;</span><span class="p">,</span> <span class="s2">&quot;floor&quot;</span><span class="p">,</span> <span class="s2">&quot;elevator&quot;</span><span class="p">,</span> <span class="s2">&quot;home_area&quot;</span><span class="p">,</span> <span class="s2">&quot;municipality&quot;</span><span class="p">,</span> <span class="s2">&quot;parish&quot;</span><span class="p">,</span> <span class="s2">&quot;neighborhood&quot;</span><span class="p">]</span>
-<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span>
-
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">target</span><span class="p">),</span> 
-                                                    <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> 
-                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> 
-                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="n">d_train</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> 
-                    <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
-
-<span class="c1"># Define parameters for LightGBM</span>
-<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>  <span class="c1"># Root Mean Squared Error    </span>
-    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-    <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>
-    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.01</span>
-<span class="p">}</span>
-
-<span class="n">clf</span><span class="o">=</span><span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
-              <span class="n">d_train</span><span class="p">)</span> 
-</pre></div>
-</div>
+</section>
 </section>
 </section>
 <section id="lightgbm-finetuning-data-structure-1-feature-engineering">
-<h3>LightGBM finetuning + Data Structure 1 (feature engineering)<a class="headerlink" href="#lightgbm-finetuning-data-structure-1-feature-engineering" title="Link to this heading">#</a></h3>
+<h2>LightGBM finetuning + Data Structure 1 (feature engineering)<a class="headerlink" href="#lightgbm-finetuning-data-structure-1-feature-engineering" title="Link to this heading">#</a></h2>
 <section id="feature-engineering">
-<h4>Feature engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h4>
+<h3>Feature engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h3>
 <p>For the feature engineering, we decided to create a new variable “street_names” by extracting it from the title using a mix of pretrained Spacy Named Entity Recognition model and a fixed regex match for a list of special keywords.</p>
 <p>street_keywords = {‘rua’, ‘avenida’, ‘beco’, ‘praça’, ‘travessa’, ‘estrada’, ‘alameda’, ‘largo’, ‘caminho’}</p>
 <div class="mermaid">
@@ -654,8 +671,8 @@ document.write(`
     L
     M
     end
-        </div><section id="preprocessing-before-text-wrangling">
-<h5>Preprocessing before text wrangling<a class="headerlink" href="#preprocessing-before-text-wrangling" title="Link to this heading">#</a></h5>
+        </div><details>
+<summary><b>Code</b></summary>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Preprocesses the given text string by:</span>
@@ -695,9 +712,8 @@ document.write(`
     <span class="k">return</span> <span class="n">text</span>
 </pre></div>
 </div>
-</section>
 <section id="extract-street-names-from-title">
-<h5>Extract street names from title<a class="headerlink" href="#extract-street-names-from-title" title="Link to this heading">#</a></h5>
+<h4>Extract street names from title<a class="headerlink" href="#extract-street-names-from-title" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_name</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extracts the street name from a given text.</span>
@@ -742,7 +758,7 @@ document.write(`
 </div>
 </section>
 <section id="id1">
-<h5>Extract street names from title<a class="headerlink" href="#id1" title="Link to this heading">#</a></h5>
+<h4>Extract street names from title<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_names</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="c1"># Process the text</span>
     <span class="c1"># doc = nlp(text)</span>
@@ -761,10 +777,13 @@ document.write(`
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;street_names&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
+</details>
 </section>
 <section id="lightgbm-finetuning">
-<h5>LightGBM finetuning<a class="headerlink" href="#lightgbm-finetuning" title="Link to this heading">#</a></h5>
-<p>Built a wrapper over optuna trials to find the best booster given the search space shown below.</p>
+<h4>LightGBM finetuning<a class="headerlink" href="#lightgbm-finetuning" title="Link to this heading">#</a></h4>
+<p>Built a wrapper over optuna trials to find the best booster given the search space shown below. Optuna works by using an algorithm to go over the search space defined and then return the best score for the objective metrics.</p>
+<details>
+<summary><b>Code</b></summary>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback_model</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">trial</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">trial</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
         <span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;best_booster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">trial</span><span class="o">.</span><span class="n">user_attrs</span><span class="p">[</span><span class="s2">&quot;best_booster&quot;</span><span class="p">])</span>
@@ -820,6 +839,7 @@ document.write(`
     <span class="k">return</span> <span class="n">rmse</span>
 </pre></div>
 </div>
+</details>
 <p><strong>best iteration</strong>
 (took about 15 mins on CPU though)</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Best trial:
@@ -838,8 +858,8 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="results">
-<h4>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h4>
+<section id="id2">
+<h3>Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
@@ -876,17 +896,16 @@ document.write(`
 </section>
 </section>
 <section id="lightgbm-finetuning-2-data-structure-reworked">
-<h3>LightGBM finetuning 2 + Data Structure reworked<a class="headerlink" href="#lightgbm-finetuning-2-data-structure-reworked" title="Link to this heading">#</a></h3>
+<h2>LightGBM finetuning 2 + Data Structure reworked<a class="headerlink" href="#lightgbm-finetuning-2-data-structure-reworked" title="Link to this heading">#</a></h2>
 <section id="developing-a-new-datastructure-natural-linkage">
-<h4>Developing a new datastructure: natural linkage<a class="headerlink" href="#developing-a-new-datastructure-natural-linkage" title="Link to this heading">#</a></h4>
+<h3>Developing a new datastructure: natural linkage<a class="headerlink" href="#developing-a-new-datastructure-natural-linkage" title="Link to this heading">#</a></h3>
 <p>The purpose of this new datastructure is to create a proper linkage between pages in the different levels of hierarchy of housing location.</p>
-<p><strong>before</strong></p>
+<p><strong>Before</strong></p>
 <div class="mermaid">
             graph LR
     A[city] --&gt; B[Neighborhood]
     B --&gt; C[street_name]
-        </div><p><strong>after</strong>
-Note that Neightborhood in before schema is at the same level as Parish in after schema.</p>
+        </div><p><strong>After</strong></p>
 <div class="mermaid">
             graph LR
     A[District] --&gt; B[Municipality]
@@ -895,13 +914,15 @@ Note that Neightborhood in before schema is at the same level as Parish in after
     D --&gt; E[Neighborhood Link]
     E --&gt; F[Neighborhood Link: page n]
         </div><p>Basically I <strong>kept the same parsing class, but changed the parsing scope</strong> to a lower hierarchy level. Given that my parsing class takes a list of links, I just changed my list of links by creating a catalog.</p>
-<p><strong>data catalog</strong></p>
+<p><strong>Data catalog</strong></p>
 <p><img alt="raw" src="../_images/catalog.png" /></p>
 <p>In addition, this data catalog parsed every possible href in the website which resulted in more data points.</p>
 </section>
 <section id="lightgbm-finetuning-2">
-<h4>LightGBM finetuning 2<a class="headerlink" href="#lightgbm-finetuning-2" title="Link to this heading">#</a></h4>
+<h3>LightGBM finetuning 2<a class="headerlink" href="#lightgbm-finetuning-2" title="Link to this heading">#</a></h3>
 <p>Instead of using a combinatorial searching algorithm, I used the LightGBMTuner which is a sequential tuning algorithm. It’s much faster.</p>
+<details>
+<summary><b>Code</b></summary>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">optuna.integration</span> <span class="kn">import</span> <span class="n">LightGBMTuner</span>
 <span class="n">optuna</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -934,9 +955,10 @@ Note that Neightborhood in before schema is at the same level as Parish in after
 <span class="n">dump</span><span class="p">(</span><span class="n">best_booster</span><span class="p">,</span> <span class="s1">&#39;model.joblib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</details>
 </section>
-<section id="id2">
-<h4>Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<section id="id3">
+<h3>Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
@@ -972,9 +994,8 @@ Note that Neightborhood in before schema is at the same level as Parish in after
 </table>
 </section>
 </section>
-</section>
-<section id="id3">
-<h2>Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h2>Results<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <section id="model-performance-metrics">
 <h3>Model Performance Metrics<a class="headerlink" href="#model-performance-metrics" title="Link to this heading">#</a></h3>
 <table class="table">
@@ -1028,6 +1049,11 @@ Note that Neightborhood in before schema is at the same level as Parish in after
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>First and Second Model share the same data structure, Second model has an additional engineered feature.</p>
+<p>Third model has a different top-down data structure as result of a different hierarchical parsing approach.</p>
+</div>
 <p>The data capture changes between second and third model are notorious. Altough the Variance explainability increased, the errors increased as well. This is concerning and should be looked into.</p>
 <p>One of the possible causes are:</p>
 <ul class="simple">
@@ -1042,6 +1068,176 @@ Note that Neightborhood in before schema is at the same level as Parish in after
 <p>However, I’m surprised floor was one of the most important variables. I have some suspicious floor and home_type might be somewhat linked and correlated, since floor = 0 likely means home_type is not an apartment.</p>
 <p><img alt="raw" src="../_images/feature_importance.png" /></p>
 </section>
+</section>
+<section id="bonus-regression-on-a-different-source">
+<h2>Bonus: Regression on a different source<a class="headerlink" href="#bonus-regression-on-a-different-source" title="Link to this heading">#</a></h2>
+<div class="mermaid">
+            erDiagram
+    PROPERTY {
+        int id
+        string title
+        string slug
+        string estate
+        int developmentId
+        string developmentTitle
+        string developmentUrl
+        string transaction
+        bool isExclusiveOffer
+        bool isPrivateOwner
+        bool isPromoted
+        int openDays
+        float rentPrice
+        float priceFromPerSquareMeter
+        float areaInSquareMeters
+        float terrainAreaInSquareMeters
+        int roomsNumber
+        bool hidePrice
+        int floorNumber
+        string investmentState
+        float investmentUnitsAreaInSquareMeters
+        float peoplePerRoom
+        date dateCreated
+        date dateCreatedFirst
+        int investmentUnitsNumber
+        int investmentUnitsRoomsNumber
+        date investmentEstimatedDelivery
+        date pushedUpAt
+        bool specialOffer
+        string shortDescription
+        int totalPossibleImages
+        float location_mapDetails_radius
+        string location_address_street_name
+        string location_address_street_number
+        string location_address_city_name
+        string location_address_province_name
+        string location_reverseGeocoding_locations
+        int agency_id
+        string agency_name
+        string agency_slug
+        string agency_imageUrl
+        string agency_type
+        bool agency_brandingVisible
+        bool agency_highlightedAds
+        float totalPrice_value
+        string totalPrice_currency
+        float pricePerSquareMeter_value
+        string pricePerSquareMeter_currency
+        string location
+        string agency
+        string location_address_street
+        float totalPrice
+        float pricePerSquareMeter
+        float rentPrice_value
+        string rentPrice_currency
+        date date
+    }
+        </div><p>This source has a GraphQL endpoint which makes this task much more convinient. The fact we get structured data out of the box is <em>chefs kiss</em>.
+I will apply the last model build out of the box. For the regressor, I picked the following features:</p>
+<p>The reason why I picked these features is because there are quite a few attributes with lots of missing data (I’m assuming they are optional in the listings). I kept the maximum data possible.</p>
+<p><strong>Dataset size</strong></p>
+<p><em>4040 rows</em></p>
+<div class="mermaid">
+            erDiagram
+    PROPERTY {
+        string estate
+        int developmentId
+        float areaInSquareMeters
+        int roomsNumber
+        int floorNumber
+        string location_address_city_name
+        string location_address_province_name
+        int totalPossibleImages
+        string agency_name
+        string agency_type
+    }
+        </div><section id="id5">
+<h3>Results<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean Squared Error (MSE)</p></td>
+<td><p>2,982,434.8029515054</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Squared Error (RMSE)</p></td>
+<td><p>1,726.9727279119104</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean Absolute Error (MAE)</p></td>
+<td><p>598.4506828602617</p></td>
+</tr>
+<tr class="row-odd"><td><p>Median Absolute Error (MedAE)</p></td>
+<td><p>271.84776577479283</p></td>
+</tr>
+<tr class="row-even"><td><p>R2 Score</p></td>
+<td><p>0.4050391513547955</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Absolute Percentage Error (MAPE)</p></td>
+<td><p>0.23980102053405566</p></td>
+</tr>
+<tr class="row-even"><td><p>Explained Variance Score</p></td>
+<td><p>0.40884640176568077</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max Error</p></td>
+<td><p>20,629.283680784873</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>LightGBM + Raw</p></th>
+<th class="head"><p>LightGBM + finetuning + feature engineering</p></th>
+<th class="head"><p>LightGBM + finetuning + data catalog</p></th>
+<th class="head"><p>Fourth Model</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean Absolute Error (MAE)</p></td>
+<td><p>627.29</p></td>
+<td><p><strong>367.02</strong></p></td>
+<td><p>483.77</p></td>
+<td><p>598.45</p></td>
+</tr>
+<tr class="row-odd"><td><p>Median Absolute Error (MedAE)</p></td>
+<td><p>304.87</p></td>
+<td><p><strong>134.61</strong></p></td>
+<td><p>233.53</p></td>
+<td><p>271.85</p></td>
+</tr>
+<tr class="row-even"><td><p>R² Score</p></td>
+<td><p>0.7919</p></td>
+<td><p>0.8399</p></td>
+<td><p><strong>0.8816</strong></p></td>
+<td><p>0.4050</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Absolute Percentage Error</p></td>
+<td><p>0.2422</p></td>
+<td><p><strong>0.1606</strong></p></td>
+<td><p>0.1938</p></td>
+<td><p>0.2398</p></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="raw" src="../_images/results_data2.png" /></p>
+<p>Haven’t look at this with attention to detail so it’s hard to compare datasets. They are somewhat of a similar size however.</p>
+</section>
+</section>
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<p><span style="color:yellow">I’m happy with the results!</span>.</p>
+<p>Altough the results were far from optimal, I’m satisfied the predictors are able to capture a good chunk of variability in the regressor. There are some very promising applications of feature engineering as well as missing features which can be easily added to the model to further improve the scores.
+This is how I would improve this model:</p>
+<ul class="simple">
+<li><p>Join multiple data sources by NUTS (non trivial as well, the data sources do not have simple relationship keys)</p></li>
+<li><p>Develop a NER pipeline to capture street names when they exist (doable with pre trained NER models)</p></li>
+<li><p>Develop a taxonomy system from the description and perhaps create my own NER model to capture this taxonomy (non trivial, requires me to label the data)</p></li>
+<li><p>Add new features such as the number of images, length of title and description, name of agency (if exists)</p></li>
+<li><p>House specific data which would require me to parse every single page in the site, instead of the catalog alone. (easy but would probably get me timed out by the server)</p></li>
+</ul>
+<p>The MAPE and MAE suggest this model can hardly work in production to produce useful results.</p>
 </section>
 </section>
 
@@ -1081,15 +1277,15 @@ Note that Neightborhood in before schema is at the same level as Parish in after
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Improving the performance of html parsers</p>
+        <p class="prev-next-title">01: Improving the efficiency of HTML parsers</p>
       </div>
     </a>
     <a class="right-next"
-       href="../01_Vinted_Data_Engineering/00_intro.html"
+       href="03_unravelling_imovirtual.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">01: Overview of the Vinted Project</p>
+        <p class="prev-next-title">Scrapping imovirtual</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1109,36 +1305,41 @@ Note that Neightborhood in before schema is at the same level as Parish in after
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-results">Initial results</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-before-text-wrangling">Preprocessing before text wrangling</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection-and-preparation">Data Collection and Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-data-structure-1">LightGBM + Data Structure 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-data-structure-1-feature-engineering">LightGBM finetuning + Data Structure 1 (feature engineering)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-street-names-from-title">Extract street names from title</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Extract street names from title</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning">LightGBM finetuning</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2-data-structure-reworked">LightGBM finetuning 2 + Data Structure reworked</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-a-new-datastructure-natural-linkage">Developing a new datastructure: natural linkage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm-finetuning-2">LightGBM finetuning 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Results</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-metrics">Model Performance Metrics</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-regression-on-a-different-source">Bonus: Regression on a different source</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 </ul>
   </nav></div>
 

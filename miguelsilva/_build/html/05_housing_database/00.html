@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Improving the performance of html parsers &#8212; Visualization Curriculum</title>
+    <title>01: Improving the efficiency of HTML parsers &#8212; Visualization Curriculum</title>
   
   
   
@@ -66,7 +66,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="In sample regressor for house rent prices" href="02_price_regression_idealista.html" />
-    <link rel="prev" title="Introduction" href="../intro.html" />
+    <link rel="prev" title="05: Clustering users using KMeans and t-SNE" href="../03_Vinted_Data_Science/05_user_clustering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -380,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Improving the performance of html parsers</h1>
+    <h1>01: Improving the efficiency of HTML parsers</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,7 +391,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process"><a id="toc1_1_1_"></a>[Process]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process">Process</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
@@ -417,8 +417,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="improving-the-performance-of-html-parsers">
-<h1>Improving the performance of html parsers<a class="headerlink" href="#improving-the-performance-of-html-parsers" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="improving-the-efficiency-of-html-parsers">
+<h1>01: Improving the efficiency of HTML parsers<a class="headerlink" href="#improving-the-efficiency-of-html-parsers" title="Link to this heading">#</a></h1>
 <p>The context of this post is to explore and find a solution to the costly text parsing of html files. This is crucial when developing a webscraper. There are arguably decent solutions such as the Scrapy infrastructure which can parse nodes and data based on their own custom dataclasses. This solution is interesting as it provides an incremental approach (the bulk parsing is done sequentially for each html page parsed), however from a POV of Data Engineering, the good practice should be to parse the raw data as a whole to assure consistency, availability and the ability to do some backfilling if the html content changes.</p>
 <p>For this analysis we are using <strong>line_profiler</strong> package.</p>
 <p><strong>Keywords</strong>: webscraping, html-parsing, beautifulsoup4, dask, lxml</p>
@@ -450,7 +450,7 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 </li>
 </ul>
 <section id="process">
-<h3><a id='toc1_1_1_'></a>[Process]<a class="headerlink" href="#process" title="Link to this heading">#</a></h3>
+<h3>Process<a class="headerlink" href="#process" title="Link to this heading">#</a></h3>
 <div class="mermaid">
             sequenceDiagram
     participant HTMLFiles as HTML Files&lt;br&gt;(Local or Cloud)
@@ -1015,7 +1015,8 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </section>
 <section id="dask-and-lxml-for-parsing">
 <h2><a id='toc1_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask and lxml for parsing</span></a><a class="headerlink" href="#dask-and-lxml-for-parsing" title="Link to this heading">#</a></h2>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
+<div class="mermaid">
+            graph LR
     A[Raw HTML Files] --&gt; B[Python Script&lt;br&gt;with lxml &amp; Dask]
     B --&gt; C[Extract Data]
     C --&gt; D[Transform to Structured Format]
@@ -1032,9 +1033,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     G --&gt;|Processed Data| H
     H --&gt;|DataFrames| I
     I --&gt; E
-</pre></div>
-</div>
-<div class="cell docutils container">
+        </div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">html</span>
 
@@ -1137,16 +1136,15 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 </div>
 </div>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD;
+<div class="mermaid">
+            graph TD;
     A[parse_html_files_to_df&lt;br&gt;Input: list of strings&lt;br&gt;Output: DataFrame] --&gt; C[extract_listing_info&lt;br&gt;Input: lxml html Element&lt;br&gt;Output: dictionary];
     C --&gt; D[extract_price&lt;br&gt;Input: list of strings&lt;br&gt;Output: Optional int];
     D --&gt; E[Database Insertion&lt;br&gt;Input: DataFrame&lt;br&gt;Output: None];
     A --&gt; B[process_dataframe&lt;br&gt;Input: DataFrame&lt;br&gt;Output: DataFrame];
     B --&gt; E;
 
-</pre></div>
-</div>
-<div class="cell docutils container">
+        </div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data process_data(parse_html_to_dataframe)
 </pre></div>
@@ -1358,12 +1356,12 @@ delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) 
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="../03_Vinted_Data_Science/05_user_clustering.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></p>
       </div>
     </a>
     <a class="right-next"
@@ -1392,7 +1390,7 @@ delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) 
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process"><a id="toc1_1_1_"></a>[Process]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process">Process</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
