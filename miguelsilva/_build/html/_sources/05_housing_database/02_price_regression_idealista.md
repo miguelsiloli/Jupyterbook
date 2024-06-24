@@ -1,4 +1,4 @@
-# Regressing housing rent prices with LightGBM
+# 02: Insample house rent price regression with LightGBM
 
 I will show the process behind the development of an housing pricing regressor to predict the rent prices given a feature set of housing properties, starting with the development of the first data models, model fine tuning and further improvement of data models. The model used for this purpose is LightGBM.
 
@@ -9,7 +9,7 @@ I will show the process behind the development of an housing pricing regressor t
 
 **Keywords**: LightGBM, regression modelling, price prediction, Idealista, Named Entity Recognition
 
-- [Regressing housing rent prices with LightGBM](#regressing-housing-rent-prices-with-lightgbm)
+- [02: Insample house rent price regression with LightGBM](#02-insample-house-rent-price-regression-with-lightgbm)
   - [Introduction](#introduction)
   - [Data Collection and Preparation](#data-collection-and-preparation)
   - [LightGBM + Data Structure 1](#lightgbm--data-structure-1)

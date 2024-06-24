@@ -1,4 +1,4 @@
-# Creating a Image Classification Dataset from Data Mining
+# 01: Creating a Image Classification Dataset from Vinted Images
 
 In this chapter I'm going to show how I built an image clothing dataset from my Vinted data engineering pipeline.
 
