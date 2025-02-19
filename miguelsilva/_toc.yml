@@ -24,7 +24,7 @@ parts:
     - file: 05_housing_database/02_price_regression_idealista
     - file: 05_housing_database/03_unravelling_imovirtual
 
-  - caption: Housing Project
+  - caption: Vinted Deep Learning
     chapters:
     - file: 04_Vinted_Deep_Learning/01_vinted_dataset
 
