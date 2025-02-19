@@ -31,3 +31,7 @@ parts:
   - caption: Wallapop
     chapters:
     - file: 06_Wallapop/01_exploration
+
+  - caption: LLM
+    chapters:
+    - file: 07_Wallapop/Airbnb_NER
