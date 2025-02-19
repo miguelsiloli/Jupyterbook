@@ -40,5 +40,16 @@ sphinx:
     html_js_files:
     - js/mermaid.js    
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
 
 
