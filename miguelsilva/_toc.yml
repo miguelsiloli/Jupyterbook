@@ -34,4 +34,4 @@ parts:
 
   - caption: LLM
     chapters:
-    - file: 07_Wallapop/Airbnb_NER
+    - file: 07_LLM/Airbnb_NER
