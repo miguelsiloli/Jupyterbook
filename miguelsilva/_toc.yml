@@ -8,15 +8,15 @@ parts:
   - caption: Vinted Data Engineering
     chapters:
     # - file: 01_Vinted_Data_Engineering/00_intro
-    - file: 01_Vinted_Data_Engineering/01_vinted_api    
-    - file: 01_Vinted_Data_Engineering/02_pipeline_design
+    # - file: 01_Vinted_Data_Engineering/01_vinted_api    
+    - file: 01_Vinted_Data_Engineering/01_pipeline_design
 
   - caption: Vinted Data Science
     chapters:
     - file: 03_Vinted_Data_Science/01_price_prediction
-    - file: 03_Vinted_Data_Science/02_catalog_clustering
-    - file: 03_Vinted_Data_Science/03_optimization-book
-    - file: 03_Vinted_Data_Science/05_user_clustering
+    # - file: 03_Vinted_Data_Science/02_catalog_clustering
+    - file: 03_Vinted_Data_Science/02_optimization-book
+    - file: 03_Vinted_Data_Science/03_user_clustering
 
   # - caption: Housing Project
   #   chapters:

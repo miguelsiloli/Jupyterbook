@@ -185,19 +185,19 @@ $$
 
 It maximizes the likelihood of predicting masked tokens based on the conditional support of unmasked tokens (MLM) and predicting the amenity class given the full context.
 
-### Learning general language features and tasks specific features
+#### Learning general language features and tasks specific features
 
 The addition of a multiclass objective—using Airbnb’s classification system (e.g., property types, pricing tiers, labels)—serves two purposes:
 - **Task Specific Adapatation**: we are leveraging the pretraining phase to tune on labeled data, which might further enhance pretraining
 - **Data Efficiency**: reduce downstream fine tuning costs (model already encodes task relevant features at pretraining).
 
-### Gradient flow
+#### Gradient flow
 
 Mixing unsupervised learning (MLM) and supervised learning (multiclassification) adds different learning signals which may improve gradient flow by injecting gradient diversity and model robustness, reducing the likelihood model stays stuck at local minima and acting as a regularization as well.
 
 This mirrors BERT original training where MLM and Next Sentene Prediction (NSP) are jointly used [https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115]. The principle of multtask-driven gradient flow improvement is well estabilished during transformer pretraining.
 
-### Possible issues
+#### Possible issues
 
 - The cross domain dataset used for pretrained might not be representative of our original dataset
 - Multiobjective learning functions add a bigger computational costs
@@ -346,13 +346,13 @@ flowchart TD
   </tr>
 </table>
 
-### LLM annotations
+#### LLM annotations
 
 ```{plaintext}
 - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada [Amsterdã](Location Features), você volta para casa depois de uma curta caminhada ou uma [viagem de ônibus/bonde](Location Features) neste adorável apartamento tranquilo. Assista a um filme na [Netflix] (Appliances), beba um vinho na [varanda] (Facility) ou vá direto para a [cama] (Hospitality) em um de nossos dois [aconchegantes quartos] (Facility).
 ```
 
-### Validation
+#### Validation
 
 <div style="font-family: sans-serif; line-height: 1.6;">
   <div style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
@@ -413,7 +413,7 @@ flowchart TD
 </div>
 
 
-### Structured output (Before BIO conversion)
+#### Structured output (Before BIO conversion)
 
 ```json
 {
@@ -447,48 +447,42 @@ flowchart TD
 }
 ```
 
+
+### Results
+
 Training loss looks good, with no signs of overfitting. However, it's obvious it underfits (the loss is still a bit too high after learning). This is very likely due to mislabeled entities and Amenity label. **F1 Score: 0.8542**
 
 | Training/Validation Loss | Semantic learning Animation |
 |:---:|:---:|
 | ![After pretraining](../assets/07_LLM/training_validation_loss.png) | ![After pretraining](../assets/07_LLM/embeddings_animation.gif) |
 
-### Label metrics
+**Before pretraining**
+![Before pretraining](../assets/07_LLM/ner_default_embeddings.png) 
+
+**After pretraining**
+(theres an error in the title, its pretrained not fine tuned BERT)
+![After pretraining](../assets/07_LLM/ner_fine_tuned_embeddings.png) 
+
+**Embeddings Space quality validation (after pretraining)**
+
+![SVM boundaries](../assets/07_LLM/svm_decision_boundaries.png)
+
+**After fine tuning**
+![After fine tuning](../assets/07_LLM/entity_embedding_map.png)
+
+#### Label metrics
 
 | Label Metrics | Confusion Matrix |
 |:---:|:---:|
 | ![Entity Metrics](../assets/07_LLM/entity_metrics.png) | ![Confusion Matrix](../assets/07_LLM/confusion_matrix.png) |
 
-# How well does the model knowledge transfer to our target data?
-
 | Top 20 entities by label | Total entities per label |
 |:---:|:---:|
 | ![Entity Metrics](../assets/07_LLM/top_20_entities_by_label.png) | ![Confusion Matrix](../assets/07_LLM/total_entities_per_label.png) |
 
-<table>
-<tr>
-<td><img src="../assets/07_LLM/ner_fine_tuned_embeddings.png" alt="NER Fine-Tuned Embeddings" width="400"></td>
-<td><img src="../assets/07_LLM/entity_embedding_map.png" alt="Entity Embedding Map" width="400"></td>
-</tr>
-<tr>
-<td style="text-align: center;">Cross-domain dataset (train dataset)</td>
-<td style="text-align: center;">Imovirtual listings (test dataset)</td>
-</tr>
-</table>
-
 
 
 <div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #D14B4B; background-color: #FFEFEF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"> <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #D14B4B; border-bottom: 1px solid rgba(209,75,75,0.2); padding-bottom: 0.4em;">Conclusions</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">The target dataset outperforms the translated training dataset in terms of embedding quality and class separation. Clear patterns and semantic alignment indicate a stronger signal-to-noise ratio in the target data.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Translation Losses:</strong> Translated data introduces noise through <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">context loss</span>, <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">idiomatic inaccuracies</span>, and <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">ambiguities</span>, which blur feature distinctions and harm learning.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Ambiguous Expressions:</strong> Less unique entities in the target database ultimately helps. While algorithms might chose different synonyms for the same words, native speakers are usually very keen on using the same expressions.</p> <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key Observations:</strong></p> <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;"> <li>Target embeddings exhibit clearer class definitions and reduced ambiguity.</li> <li>Native Portuguese expressions enhance context relevance and discriminative power.</li> <li>Translated data introduces noise that hampers embedding clarity and model training.</li> </ul> <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(209,75,75,0.2); padding-top: 0.6em;">Translation here acts as a data augmentar and regularization mechanisms as it introduces variability and noise to the data.</p> </div>
-
-### Results
-
-| Before pretraining | After pretraining |
-|:------------------:|:-----------------:|
-| ![Before pretraining](../assets/07_LLM/ner_default_embeddings.png) | ![After pretraining](../assets/07_LLM/ner_fine_tuned_embeddings.png) |
-
-#### Embeddings Space quality validation
-
-![SVM boundaries](../assets/07_LLM/svm_decision_boundaries.png)
 
 <div style="font-family: sans-serif; line-height: 1.6;">
   <h2 style="text-align: center; margin-bottom: 20px;">Model Performance Comparison</h2>
@@ -621,6 +615,8 @@ Training loss looks good, with no signs of overfitting. However, it's obvious it
     </div>
   </div>
 </div>
+
+**These models are not comparable since the dataset and NER definitions are very different**
 The pretrained encoder should create semantically meaningful embeddings. These embeddings should show clearn clusters by entity types and a classification algorithm such as SVM decision boundaries should be able to help validate these clusters semantic sense.
 
 Outliers might indicate data quality issues:

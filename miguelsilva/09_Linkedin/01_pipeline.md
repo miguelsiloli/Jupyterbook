@@ -1,4 +1,4 @@
-# Meet the market: pipeline
+# Part I: Meet the market
 > Using Foundational Models to Extract Career Guiding Insights from LinkedIn Listings
 
 ---
