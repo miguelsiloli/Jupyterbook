@@ -11,7 +11,7 @@ My main interests are: financial modelling, computer vision and data mining. [Mi
 
 Some high effort projects of my own. Hope you like it.
 
-```mermaid
+```{mermaid}
 mindmap
   root((Data Engineering & Data Science Frameworks))
     **Data Engineering**
