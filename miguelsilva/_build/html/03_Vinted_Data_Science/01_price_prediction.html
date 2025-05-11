@@ -14,40 +14,39 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -76,27 +75,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,8 +113,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -143,6 +143,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -164,7 +166,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -188,13 +190,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
 </ul>
 
     </div>
@@ -210,7 +225,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -219,14 +234,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -351,10 +366,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -362,14 +377,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -482,85 +497,40 @@ One of the key features of LightGBM is its ability to handle large datasets with
 <h3><a id='toc1_1_2_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Loading packages and data</span></a><a class="headerlink" href="#loading-packages-and-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-<span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">shap</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kstest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">shap</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span><span class="w"> </span><span class="nn">shap</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kstest</span>
 
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">144</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="kn">from</span> <span class="nn">.tools.tools</span> <span class="kn">import</span> <span class="n">add_constant</span><span class="p">,</span> <span class="n">categorical</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="kn">from</span> <span class="nn">.tools.web</span> <span class="kn">import</span> <span class="n">webdoc</span>
-<span class="ne">--&gt; </span><span class="mi">144</span> <span class="kn">from</span> <span class="nn">.tsa</span> <span class="kn">import</span> <span class="n">api</span> <span class="k">as</span> <span class="n">tsa</span>
-<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="n">load</span> <span class="o">=</span> <span class="n">load_pickle</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">tsa</span>\<span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">78</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span> <span class="kn">from</span> <span class="nn">.holtwinters</span> <span class="kn">import</span> <span class="n">ExponentialSmoothing</span><span class="p">,</span> <span class="n">Holt</span><span class="p">,</span> <span class="n">SimpleExpSmoothing</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="kn">from</span> <span class="nn">.innovations</span> <span class="kn">import</span> <span class="n">api</span> <span class="k">as</span> <span class="n">innovations</span>
-<span class="ne">---&gt; </span><span class="mi">78</span> <span class="kn">from</span> <span class="nn">.regime_switching.markov_autoregression</span> <span class="kn">import</span> <span class="n">MarkovAutoregression</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="kn">from</span> <span class="nn">.regime_switching.markov_regression</span> <span class="kn">import</span> <span class="n">MarkovRegression</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="kn">from</span> <span class="nn">.seasonal</span> <span class="kn">import</span> <span class="n">STL</span><span class="p">,</span> <span class="n">seasonal_decompose</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">tsa</span>\<span class="n">regime_switching</span>\<span class="n">markov_autoregression</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">13</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">statsmodels.base.wrapper</span> <span class="k">as</span> <span class="nn">wrap</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.tsatools</span> <span class="kn">import</span> <span class="n">lagmat</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.regime_switching</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">markov_switching</span><span class="p">,</span> <span class="n">markov_regression</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.tools</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">constrain_stationary_univariate</span><span class="p">,</span> <span class="n">unconstrain_stationary_univariate</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">class</span> <span class="nc">MarkovAutoregression</span><span class="p">(</span><span class="n">markov_regression</span><span class="o">.</span><span class="n">MarkovRegression</span><span class="p">):</span>
-
-<span class="n">File</span> <span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Programs</span>\<span class="n">Python</span>\<span class="n">Python310</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">statsmodels</span>\<span class="n">tsa</span>\<span class="n">regime_switching</span>\<span class="n">markov_switching</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="kn">from</span> <span class="nn">statsmodels.tools.tools</span> <span class="kn">import</span> <span class="n">Bunch</span><span class="p">,</span> <span class="n">pinv_extended</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">import</span> <span class="nn">statsmodels.tsa.base.tsa_model</span> <span class="k">as</span> <span class="nn">tsbase</span>
-<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.regime_switching._hamilton_filter</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">chamilton_filter_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">dhamilton_filter_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>     <span class="n">shamilton_filter_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">zhamilton_filter_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.regime_switching._kim_smoother</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">ckim_smoother_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">dkim_smoother_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="n">skim_smoother_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="n">zkim_smoother_log</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.tools</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="n">find_best_blas_type</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="n">prepare_exog</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="n">_safe_cond</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="p">)</span>
-
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:404,</span> in <span class="ni">parent</span><span class="nt">(self)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;statsmodels&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_credentials</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;aws_rds_credentials.json&quot;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_credentials</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;aws_rds_credentials.json&quot;</span><span class="p">):</span>
      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
           <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 
@@ -576,7 +546,7 @@ One of the key features of LightGBM is its ability to handle large datasets with
 <span class="n">aws_rds_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;postgresql://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">?sslmode=require&quot;</span>
 
 <span class="c1"># Load a sample dataset</span>
-<span class="k">def</span> <span class="nf">load_data</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_data</span><span class="p">():</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">aws_rds_url</span><span class="p">)</span>
     <span class="n">sql_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT size_title, color1, brand_title, price_numeric, status, catalog_id, package_size_id, country, product_id</span>
 <span class="s2">                    FROM public.tracking_staging </span>
@@ -1586,7 +1556,7 @@ Mean Squared Error for catalog_id &#39;529&#39;: 11.26923076923077
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1694,8 +1664,8 @@ By Miguel Silva
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

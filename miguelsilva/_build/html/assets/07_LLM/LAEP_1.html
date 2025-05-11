@@ -1,0 +1,1182 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Recreating Airbnb LAEP system in portuguese real estate agency listings &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assets/07_LLM/LAEP_1';</script>
+    <script src="../../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../07_LLM/Airbnb_NER.html">Wisdom of unstructured data: Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fassets/07_LLM/LAEP_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/assets/07_LLM/LAEP_1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Recreating Airbnb LAEP system in portuguese real estate agency listings</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition">Named Entity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets-overview">📊 Datasets Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#airbnb-dataset">Airbnb Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imovirtual-dataset">Imovirtual Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-pipeline-and-transfer-learning">Preprocessing pipeline and transfer-learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-details">Implementation details</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resulting-dataset">Resulting dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-statistics">Label Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#top-20-most-common-entities">Top 20 Most Common Entities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-annotations">LLM annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-before-bio-conversion">Structured output (Before BIO conversion)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">Pretrain BERT with MLM + Multiclass objective on language corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dont-stop-pretraining">Don’t Stop Pretraining</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-general-language-features-and-tasks-specific-features">Learning general language features and tasks specific features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-flow">Gradient flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-issues">Possible issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-space-quality-validation">Embeddings Space quality validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning">Finetuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-metrics">Label metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-well-does-the-model-knowledge-transfer-to-our-target-data">How well does the model knowledge transfer to our target data?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="recreating-airbnb-laep-system-in-portuguese-real-estate-agency-listings">
+<h1>Recreating Airbnb LAEP system in portuguese real estate agency listings<a class="headerlink" href="#recreating-airbnb-laep-system-in-portuguese-real-estate-agency-listings" title="Link to this heading">#</a></h1>
+<p>The LAEP system - Listing Attribute Extraction Platform is a machine learning system that extracts structured information from unstructured text data about Airbnb listings into structured taxonomy labels.
+It consists of 3 main components:</p>
+<ol class="arabic simple">
+<li><p>Named Entity Recognition (NER)</p></li>
+</ol>
+<ul class="simple">
+<li><p>Identifies and classifies specific phrases (entities) into labels</p></li>
+<li><p>Detects 5 types of entities: Amenities, Facilities, Hospitality, Location Features and Structured details</p></li>
+<li><p>Uses a CNN framework to process tokenized text and identify entity spans</p></li>
+<li><p>Trained on 30k labeled examples from different text channels (House descriptions, Summary, Owner description, User reviews, Location description)</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Entity Mapping (EM)</p></li>
+</ol>
+<ul class="simple">
+<li><p>Mapping maps the detected entities from NER to taxonomy classes in Airbnb classification system</p></li>
+<li><p>Handles variations of how people describe the same thing differently (lockbox = lock-box = lock box)</p></li>
+<li><p>Uses cosine similarity, returns label if Cosine Similarity &gt; threshold</p></li>
+<li><p>Assigns confidence scores to mappings</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Entity Scores</p></li>
+</ol>
+<ul class="simple">
+<li><p>Determines if mapped attributes actually exist in a listing</p></li>
+<li><p>Uses a fine tuned BERT model for text classification (next sentence prediction objective)</p></li>
+<li><p>Provides three possible outputs: YES (attribute present), NO (not present), or Unknown</p></li>
+<li><p>Analyzes local context (65 words around the detected phrase)</p></li>
+<li><p>Includes confidence scores for its determinations</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="named-entity-recognition">
+<h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading">#</a></h1>
+<p>For this task we are using two different datasets:</p>
+<ul class="simple">
+<li><p>Airbnb open source datasets in kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description</p></li>
+<li><p>Imovirtual scraped rental descriptions</p></li>
+</ul>
+<p>The workflow encompasses the following steps:</p>
+<ul class="simple">
+<li><p>Translate airbnb listing details to portuguese</p></li>
+<li><p>Pretrain our NER transformer with MLM + Multiclass objective in our airbnb dataset</p></li>
+<li><p>Employ a LLM as a NER labeler using few shot prompt</p></li>
+<li><p>Fine tuning our labeled dataset, using SVM classifier as novelty detection</p></li>
+<li><p>Generate BIO format datasets for entity recognition</p></li>
+<li><p>Train our pretrained NER BERT in our labeled dataset (‘cross domain data’)</p></li>
+<li><p>Evaluate the performance of the NER in our imovirtual descriptions</p></li>
+</ul>
+<section id="datasets-overview">
+<h2>📊 Datasets Overview<a class="headerlink" href="#datasets-overview" title="Link to this heading">#</a></h2>
+<section id="airbnb-dataset">
+<h3>Airbnb Dataset<a class="headerlink" href="#airbnb-dataset" title="Link to this heading">#</a></h3>
+<p><em>Open source dataset from Kaggle</em></p>
+<ul class="simple">
+<li><p>Airbnb open source datasets in kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description.</p></li>
+</ul>
+<p><img alt="Alt text" src="../../_images/pic1.png" /></p>
+<p><strong>Key Statistics:</strong></p>
+<ul class="simple">
+<li><p>Rows: <code class="docutils literal notranslate"><span class="pre">20,000</span></code></p></li>
+<li><p>Total Words: <code class="docutils literal notranslate"><span class="pre">20M+</span></code></p></li>
+<li><p>Average Length: <code class="docutils literal notranslate"><span class="pre">1,000</span> <span class="pre">words/entry</span></code></p></li>
+</ul>
+<p><strong>Columns:</strong></p>
+<ul class="simple">
+<li><p>Description</p></li>
+<li><p>Space</p></li>
+<li><p>Summary</p></li>
+<li><p>Neighborhood</p></li>
+<li><p>Transit</p></li>
+<li><p>Reviews Description</p></li>
+</ul>
+</section>
+<section id="imovirtual-dataset">
+<h3>Imovirtual Dataset<a class="headerlink" href="#imovirtual-dataset" title="Link to this heading">#</a></h3>
+<p><em>Scraped rental descriptions</em></p>
+<p><strong>Key Statistics:</strong></p>
+<ul class="simple">
+<li><p>Rows: <code class="docutils literal notranslate"><span class="pre">8,000</span></code></p></li>
+<li><p>Total Words: <code class="docutils literal notranslate"><span class="pre">4M+</span></code></p></li>
+<li><p>Average Length: <code class="docutils literal notranslate"><span class="pre">600</span> <span class="pre">words/entry</span></code></p></li>
+</ul>
+<p><strong>Content:</strong>
+Collection of descriptions, prices, and property characteristics from all available rentals to date.</p>
+</section>
+<section id="preprocessing-pipeline-and-transfer-learning">
+<h3>Preprocessing pipeline and transfer-learning<a class="headerlink" href="#preprocessing-pipeline-and-transfer-learning" title="Link to this heading">#</a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    A[Translation] --&gt; B[Duplicate Removal]
+    B --&gt; C[Sentence Splitting]
+    C --&gt; D[Labeling]
+    D --&gt; E[BIO Structuring]
+    E --&gt; F[Validation]
+</pre></div>
+</div>
+</section>
+<section id="implementation-details">
+<h3>Implementation details<a class="headerlink" href="#implementation-details" title="Link to this heading">#</a></h3>
+<p><strong>Translation:</strong></p>
+<ul class="simple">
+<li><p>Using Google Translate API</p></li>
+<li><p>Focuses on maintaining semantic accuracy</p></li>
+</ul>
+<p><strong>Labeling:</strong></p>
+<ul class="simple">
+<li><p>Powered by Gemini 2.0 flash</p></li>
+<li><p>Implements few-shot learning approach</p></li>
+</ul>
+<div class="alert alert-warning" role="alert" style="background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px; padding: 1rem; margin: 1rem 0;">
+    <h4 style="color: #856404; margin-top: 0;">⚠️ Known Issues</h4>
+    <ul style="margin-bottom: 0; padding-left: 20px;">
+        <li><strong>Translation:</strong> Quality maintenance challenges during translation, cultural accuracy issues between colloquial Portuguese and translated Portuguese/Brazilian</li>
+        <li><strong>Duplicate removal:</strong> Needs fuzzy logic implementation for near-duplicate detection</li>
+        <li><strong>Sentence splitting:</strong> Context loss due to simple end-character detection, needs i-1 and i+1 sentence consideration</li>
+        <li><strong>Labeling:</strong> Potential low-quality datasets from LLM labelers</li>
+    </ul>
+</div>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart TD
+    subgraph Input
+        A[Raw Text Data]
+    end
+
+    subgraph Translation Process
+        B[Translation Module]
+    end
+
+    subgraph Deduplication
+        C[Exact Match Deduplication]
+    end
+
+    subgraph Text Processing
+        D[Sentence Splitting]
+        D1[Boundary Detection]
+    end
+
+    subgraph Entity Labeling
+        E[LLM Entity Labeling]
+    end
+
+    subgraph BIO Conversion
+        F[BIO Structuring]
+        F1[Token Segmentation]
+        F2[Label Assignment]
+        F3[Structure Validation]
+        F --&gt; F1 --&gt; F2 --&gt; F3
+    end
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; D1
+    D1 --&gt; E
+    E --&gt; F
+    
+    style Input fill:#e1f5fe
+    style Translation Process fill:#fff3e0
+    style Deduplication fill:#f1f8e9
+    style Text Processing fill:#f3e5f5
+    style Entity Labeling fill:#fff3e0
+    style BIO Conversion fill:#e8eaf6
+</pre></div>
+</div>
+</section>
+<section id="resulting-dataset">
+<h3>Resulting dataset<a class="headerlink" href="#resulting-dataset" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Total Entities</p></td>
+<td><p>10941</p></td>
+</tr>
+<tr class="row-odd"><td><p>Unique Entities</p></td>
+<td><p>5176</p></td>
+</tr>
+<tr class="row-even"><td><p>Unique Labels</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Average Entity Length</p></td>
+<td><p>15.03</p></td>
+</tr>
+<tr class="row-even"><td><p>Most Common Label</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>Most Common Entity</p></td>
+<td><p>apartamento</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="label-statistics">
+<h3>Label Statistics<a class="headerlink" href="#label-statistics" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Label</p></th>
+<th class="head"><p>Count</p></th>
+<th class="head"><p>Percentage</p></th>
+<th class="head"><p>Unique Entities</p></th>
+<th class="head"><p>Avg Length</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Amenity</p></td>
+<td><p>376</p></td>
+<td><p>3.44</p></td>
+<td><p>221</p></td>
+<td><p>15.02</p></td>
+</tr>
+<tr class="row-odd"><td><p>Appliances</p></td>
+<td><p>1319</p></td>
+<td><p>12.06</p></td>
+<td><p>498</p></td>
+<td><p>13.46</p></td>
+</tr>
+<tr class="row-even"><td><p>Facility</p></td>
+<td><p>4203</p></td>
+<td><p>38.42</p></td>
+<td><p>1551</p></td>
+<td><p>13.61</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hospitality</p></td>
+<td><p>2236</p></td>
+<td><p>20.44</p></td>
+<td><p>1349</p></td>
+<td><p>15.39</p></td>
+</tr>
+<tr class="row-even"><td><p>Location Features</p></td>
+<td><p>2807</p></td>
+<td><p>25.66</p></td>
+<td><p>1714</p></td>
+<td><p>17.59</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="top-20-most-common-entities">
+<h3>Top 20 Most Common Entities<a class="headerlink" href="#top-20-most-common-entities" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Entity</p></th>
+<th class="head"><p>Count</p></th>
+<th class="head"><p>Label</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>apartamento</p></td>
+<td><p>198</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>banheiro</p></td>
+<td><p>190</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>cozinha</p></td>
+<td><p>187</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>sala de estar</p></td>
+<td><p>172</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>quarto</p></td>
+<td><p>166</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>chuveiro</p></td>
+<td><p>84</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>Amsterdã</p></td>
+<td><p>82</p></td>
+<td><p>Location Features</p></td>
+</tr>
+<tr class="row-odd"><td><p>cama de casal</p></td>
+<td><p>78</p></td>
+<td><p>Hospitality</p></td>
+</tr>
+<tr class="row-even"><td><p>varanda</p></td>
+<td><p>74</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>banheira</p></td>
+<td><p>70</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>forno</p></td>
+<td><p>66</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-odd"><td><p>micro-ondas</p></td>
+<td><p>62</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-even"><td><p>restaurantes</p></td>
+<td><p>58</p></td>
+<td><p>Location Features</p></td>
+</tr>
+<tr class="row-odd"><td><p>jardim</p></td>
+<td><p>56</p></td>
+<td><p>Amenity</p></td>
+</tr>
+<tr class="row-even"><td><p>máquina de lavar</p></td>
+<td><p>54</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-odd"><td><p>geladeira</p></td>
+<td><p>53</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-even"><td><p>máquina de lavar louça</p></td>
+<td><p>53</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-odd"><td><p>centro da cidade</p></td>
+<td><p>48</p></td>
+<td><p>Location Features</p></td>
+</tr>
+<tr class="row-even"><td><p>lava-louças</p></td>
+<td><p>44</p></td>
+<td><p>Appliances</p></td>
+</tr>
+<tr class="row-odd"><td><p>quarto principal</p></td>
+<td><p>43</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>Vondelpark</p></td>
+<td><p>42</p></td>
+<td><p>Location Features</p></td>
+</tr>
+<tr class="row-odd"><td><p>vaso sanitário</p></td>
+<td><p>42</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-even"><td><p>primeiro andar</p></td>
+<td><p>42</p></td>
+<td><p>Facility</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wi-Fi</p></td>
+<td><p>41</p></td>
+<td><p>Amenity</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="llm-annotations">
+<h3>LLM annotations<a class="headerlink" href="#llm-annotations" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">A</span> <span class="n">beleza</span> <span class="n">do</span> <span class="n">apartamento</span> <span class="n">é</span> <span class="n">que</span> <span class="n">depois</span> <span class="n">de</span> <span class="n">um</span> <span class="n">dia</span> <span class="n">maravilhoso</span> <span class="n">na</span> <span class="n">vibrante</span> <span class="n">e</span> <span class="n">movimentada</span> <span class="p">[</span><span class="n">Amsterdã</span><span class="p">](</span><span class="n">Location</span> <span class="n">Features</span><span class="p">),</span> <span class="n">você</span> <span class="n">volta</span> <span class="n">para</span> <span class="n">casa</span> <span class="n">depois</span> <span class="n">de</span> <span class="n">uma</span> <span class="n">curta</span> <span class="n">caminhada</span> <span class="n">ou</span> <span class="n">uma</span> <span class="p">[</span><span class="n">viagem</span> <span class="n">de</span> <span class="n">ônibus</span><span class="o">/</span><span class="n">bonde</span><span class="p">](</span><span class="n">Location</span> <span class="n">Features</span><span class="p">)</span> <span class="n">neste</span> <span class="n">adorável</span> <span class="n">apartamento</span> <span class="n">tranquilo</span><span class="o">.</span> <span class="n">Assista</span> <span class="n">a</span> <span class="n">um</span> <span class="n">filme</span> <span class="n">na</span> <span class="p">[</span><span class="n">Netflix</span><span class="p">]</span> <span class="p">(</span><span class="n">Appliances</span><span class="p">),</span> <span class="n">beba</span> <span class="n">um</span> <span class="n">vinho</span> <span class="n">na</span> <span class="p">[</span><span class="n">varanda</span><span class="p">]</span> <span class="p">(</span><span class="n">Facility</span><span class="p">)</span> <span class="n">ou</span> <span class="n">vá</span> <span class="n">direto</span> <span class="n">para</span> <span class="n">a</span> <span class="p">[</span><span class="n">cama</span><span class="p">]</span> <span class="p">(</span><span class="n">Hospitality</span><span class="p">)</span> <span class="n">em</span> <span class="n">um</span> <span class="n">de</span> <span class="n">nossos</span> <span class="n">dois</span> <span class="p">[</span><span class="n">aconchegantes</span> <span class="n">quartos</span><span class="p">]</span> <span class="p">(</span><span class="n">Facility</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h3>
+<p><strong>Original</strong>: - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada [Amsterdã](Location Features), você volta para casa depois de uma curta caminhada ou uma [viagem de ônibus/bonde](Location Features) neste adorável apartamento tranquilo. Assista a um filme na [Netflix] (Appliances), beba um vinho na [varanda] (Facility) ou vá direto para a [cama] (Hospitality) em um de nossos dois [aconchegantes quartos] (Facility).</p>
+<p><strong>Cleaned</strong>: - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada Amsterdã, você volta para casa depois de uma curta caminhada ou uma viagem de ônibus/bonde neste adorável apartamento tranquilo. Assista a um filme na Netflix, beba um vinho na varanda ou vá direto para a cama em um de nossos dois aconchegantes quartos.</p>
+<p>Entities:</p>
+<ul class="simple">
+<li><p>Entity: Amsterdã
+Label: Location Features
+Position 87:95: ‘Amsterdã’ ✓</p></li>
+<li><p>Entity: viagem de ônibus/bonde
+Label: Location Features
+Position 155:177: ‘viagem de ônibus/bonde’ ✓</p></li>
+<li><p>Entity: Netflix
+Label: Appliances
+Position 238:245: ‘Netflix’ ✓</p></li>
+<li><p>Entity: varanda
+Label: Facility
+Position 264:271: ‘varanda’ ✓</p></li>
+<li><p>Entity: cama
+Label: Hospitality
+Position 292:296: ‘cama’ ✓</p></li>
+<li><p>Entity: aconchegantes quartos
+Label: Facility
+Position 318:339: ‘aconchegantes quartos’ ✓</p></li>
+</ul>
+</section>
+<section id="structured-output-before-bio-conversion">
+<h3>Structured output (Before BIO conversion)<a class="headerlink" href="#structured-output-before-bio-conversion" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Compartilharemos a [sala de estar](Facility), [cozinha](Facility), [banheiro](Facility) e [banheiro](Facility)&quot;</span><span class="p">,</span>
+<span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sala de estar&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozinha&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">68</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;banheiro&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;banheiro&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">
+<h2>Pretrain BERT with MLM + Multiclass objective on language corpus<a class="headerlink" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus" title="Link to this heading">#</a></h2>
+<section id="dont-stop-pretraining">
+<h3>Don’t Stop Pretraining<a class="headerlink" href="#dont-stop-pretraining" title="Link to this heading">#</a></h3>
+<p>This aligns with findings from the paper “Don’t Stop Pretraining”, which emphasizes that adapting language models to domains improves downstream task performance by up to 30% [<a class="reference external" href="https://www.sbert.net/examples/unsupervised_learning/MLM/README.html">https://www.sbert.net/examples/unsupervised_learning/MLM/README.html</a>]. For Airbnb, a model pretrained on property descriptions, reviews, and booking data would better capture terms like “amenities,” “host policies,” or regional lodging trends compared to generic text.</p>
+<ul class="simple">
+<li><p>Improves performance on tasks on that domain and across domains</p></li>
+<li><p>Increases the available dataset for training tasks and generalization</p></li>
+</ul>
+<p>[insert reasoning on why we added multiclass objective leveraging the existent airbnb classification system]</p>
+</section>
+<section id="learning-general-language-features-and-tasks-specific-features">
+<h3>Learning general language features and tasks specific features<a class="headerlink" href="#learning-general-language-features-and-tasks-specific-features" title="Link to this heading">#</a></h3>
+<p>The addition of a multiclass objective—using Airbnb’s classification system (e.g., property types, pricing tiers, labels)—serves two purposes:</p>
+<ul class="simple">
+<li><p><strong>Task Specific Adapatation</strong>: we are leveraging the pretraining phase to tune on labeled data, which might further enhance pretraining</p></li>
+<li><p><strong>Data Efficiency</strong>: reduce downstream fine tuning costs (model already encodes task relevant features at pretraining).</p></li>
+</ul>
+<p>[explain how multiclass objective might help with gradient flow]</p>
+</section>
+<section id="gradient-flow">
+<h3>Gradient flow<a class="headerlink" href="#gradient-flow" title="Link to this heading">#</a></h3>
+<p>Mixing unsupervised learning (MLM) and supervised learning (multiclassification) adds different learning signals which may improve gradient flow by injecting gradient diversity and model robustness, reducing the likelihood model stays stuck at local minima and acting as a regularization as well.</p>
+<p>This mirrors BERT original training where MLM and Next Sentene Prediction (NSP) are jointly used [<a class="reference external" href="https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115">https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115</a>]. The principle of multtask-driven gradient flow improvement is well estabilished during transformer pretraining.</p>
+</section>
+<section id="possible-issues">
+<h3>Possible issues<a class="headerlink" href="#possible-issues" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The cross domain dataset used for pretrained might not be representative of our original dataset</p></li>
+<li><p>Multiobjective learning functions add a bigger computational costs</p></li>
+<li><p>Multiclass head adds additional overhead</p></li>
+<li><p>MLM with multiobjective might compete and not converge if labels are noisy or misaligned</p>
+<ul>
+<li><p>Implemented a <em>beta</em> factor for multiclass objective</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Before pretraining</p></th>
+<th class="head text-center"><p>After pretraining</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Before pretraining" src="../../_images/ner_default_embeddings.png" /></p></td>
+<td class="text-center"><p><img alt="After pretraining" src="../../_images/ner_fine_tuned_embeddings.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="embeddings-space-quality-validation">
+<h4>Embeddings Space quality validation<a class="headerlink" href="#embeddings-space-quality-validation" title="Link to this heading">#</a></h4>
+<table>
+  <tr>
+    <td width="70%"><img src="svm_decision_boundaries.png" alt="After pretraining" width="100%"></td>
+    <td width="30%" style="font-size: 0.65em; vertical-align: top; padding: 0;">
+      <table style="font-size: 0.65em; border-collapse: collapse; width: 100%;">
+        <tr style="line-height: 1.1;"><th style="padding: 1px;">Class</th><th style="padding: 1px;">Precision</th><th style="padding: 1px;">Recall</th><th style="padding: 1px;">F1 Score</th><th style="padding: 1px;">Support</th></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Amenity</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">221</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Appliances</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.69</td><td style="padding: 1px;">0.74</td><td style="padding: 1px;">498</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Facility</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.83</td><td style="padding: 1px;">0.81</td><td style="padding: 1px;">1551</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Hospital</td><td style="padding: 1px;">0.74</td><td style="padding: 1px;">0.77</td><td style="padding: 1px;">0.75</td><td style="padding: 1px;">1349</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Location</td><td style="padding: 1px;">0.83</td><td style="padding: 1px;">0.89</td><td style="padding: 1px;">0.86</td><td style="padding: 1px;">1714</td></tr>
+        <tr style="line-height: 0.5;"><td colspan="5" style="padding: 0px;"></td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Accuracy</td><td colspan="2" style="padding: 1px;"></td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">5333</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Macro</td><td style="padding: 1px;">0.63</td><td style="padding: 1px;">0.64</td><td style="padding: 1px;">0.63</td><td style="padding: 1px;">5333</td></tr>
+        <tr style="line-height: 1.1;"><td style="padding: 1px;">Weighted</td><td style="padding: 1px;">0.76</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.77</td><td style="padding: 1px;">5333</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<p>The pretrained encoder should create semantically meaningful embeddings. These embeddings should show clearn clusters by entity types and a classification algorithm such as SVM decision boundaries should be able to help validate these clusters semantic sense.</p>
+<p>Outliers might indicate data quality issues:</p>
+<ul class="simple">
+<li><p>mislabled entities in training data</p></li>
+<li><p>unusual but valid entities which are feature rich</p></li>
+<li><p>noise that should be cleaned</p></li>
+</ul>
+<p>Data quality improvement actions:</p>
+<ul class="simple">
+<li><p>Review entity’s label accuracy</p></li>
+<li><p>Identify systematic labeling errors</p></li>
+<li><p>Remove or relabel incorrect instances</p></li>
+</ul>
+<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #4B56D2; background-color: #EEF1FF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+  <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #4B56D2; border-bottom: 1px solid rgba(75,86,210,0.2); padding-bottom: 0.4em;">Analysis</p>
+  <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">We can conclude the entities are generally well learnt and with show meaningful representation. Its possible to see clear outliers, that is, entities which are assigned to the wrong label; its possible to see the boundary entities and where each label is semantically connected to other label. However, an important note is the <span style="font-style: italic; background-color: rgba(75,86,210,0.1); padding: 0 3px;">Amenity</span> type label, which is an obvious stand out because it has a sparse representations and its features we're not learnt by the model.
+  Possible cause include: undersampling and under-represented, with only less than 300 samples; its semantic definition is not well defined and overlaps with other labels.</p>
+  <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key observations:</strong></p>
+  <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;">
+    <li>Labels show a very clear definition in the embeddings space</li>
+    <li>Model captured semantic rich patterns and relevant context information</li>
+    <li>Amenity label has no semantical definition and overlaps with other labels, which will be harmful during fine tuning (NER)</li>
+  </ul>
+  <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(75,86,210,0.2); padding-top: 0.6em;">Further investigation into the semantic similarity between frequently confused entities may help improve model performance.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="finetuning">
+<h2>Finetuning<a class="headerlink" href="#finetuning" title="Link to this heading">#</a></h2>
+<p>Training loss looks good, with no signs of overfitting. However, it’s obvious it underfits (the loss is still a bit too high after learning). This is very likely due to mislabeled entities and Amenity label. <strong>F1 Score: 0.8542</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Training/Validation Loss</p></th>
+<th class="head text-center"><p>Semantic learning Animation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="After pretraining" src="../../_images/training_validation_loss.png" /></p></td>
+<td class="text-center"><p><img alt="After pretraining" src="../../_images/embeddings_animation.gif" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="label-metrics">
+<h3>Label metrics<a class="headerlink" href="#label-metrics" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Label Metrics</p></th>
+<th class="head text-center"><p>Confusion Matrix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Entity Metrics" src="../../_images/entity_metrics.png" /></p></td>
+<td class="text-center"><p><img alt="Confusion Matrix" src="../../_images/confusion_matrix.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="how-well-does-the-model-knowledge-transfer-to-our-target-data">
+<h1>How well does the model knowledge transfer to our target data?<a class="headerlink" href="#how-well-does-the-model-knowledge-transfer-to-our-target-data" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Top 20 entities by label</p></th>
+<th class="head text-center"><p>Total entities per label</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Entity Metrics" src="../../_images/top_20_entities_by_label.png" /></p></td>
+<td class="text-center"><p><img alt="Confusion Matrix" src="../../_images/total_entities_per_label.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<table>
+<tr>
+<td><img src="assets/07_LLM/ner_fine_tuned_embeddings.png" alt="NER Fine-Tuned Embeddings" width="400"></td>
+<td><img src="entity_embedding_map.png" alt="Entity Embedding Map" width="400"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Cross-domain dataset (train)</td>
+<td style="text-align: center;">Imovirtual listings (test)</td>
+</tr>
+</table>
+<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #D14B4B; background-color: #FFEFEF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"> <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #D14B4B; border-bottom: 1px solid rgba(209,75,75,0.2); padding-bottom: 0.4em;">Conclusions</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">The target dataset outperforms the translated training dataset in terms of embedding quality and class separation. Clear patterns and semantic alignment indicate a stronger signal-to-noise ratio in the target data.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Translation Losses:</strong> Translated data introduces noise through <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">context loss</span>, <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">idiomatic inaccuracies</span>, and <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">ambiguities</span>, which blur feature distinctions and harm learning.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Ambiguous Expressions:</strong> Less unique entities in the target database ultimately helps. While algorithms might chose different synonyms for the same words, native speakers are usually very keen on using the same expressions.</p> <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key Observations:</strong></p> <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;"> <li>Target embeddings exhibit clearer class definitions and reduced ambiguity.</li> <li>Native Portuguese expressions enhance context relevance and discriminative power.</li> <li>Translated data introduces noise that hampers embedding clarity and model training.</li> </ul> <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(209,75,75,0.2); padding-top: 0.6em;">Translation here acts as a data augmentar and regularization mechanisms as it introduces variability and noise to the data.</p> </div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="future-work">
+<h1>Future work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Improve deduplication algorithm for near duplicates</p></li>
+<li><p>Improve translation algorithm to preserve language and semantics</p></li>
+<li><p>Reassess label classes definition to avoid overlaps, specially on ‘Amenity’</p></li>
+<li><p>Remove or relabel incorrect entities</p></li>
+<li><p>Apply this data mining model to imovirtual joining with the tabular data from the listing to get meaningful data.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./assets/07_LLM"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition">Named Entity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets-overview">📊 Datasets Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#airbnb-dataset">Airbnb Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imovirtual-dataset">Imovirtual Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-pipeline-and-transfer-learning">Preprocessing pipeline and transfer-learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-details">Implementation details</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resulting-dataset">Resulting dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-statistics">Label Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#top-20-most-common-entities">Top 20 Most Common Entities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-annotations">LLM annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-before-bio-conversion">Structured output (Before BIO conversion)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">Pretrain BERT with MLM + Multiclass objective on language corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dont-stop-pretraining">Don’t Stop Pretraining</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-general-language-features-and-tasks-specific-features">Learning general language features and tasks specific features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-flow">Gradient flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-issues">Possible issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-space-quality-validation">Embeddings Space quality validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning">Finetuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-metrics">Label metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-well-does-the-model-knowledge-transfer-to-our-target-data">How well does the model knowledge transfer to our target data?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

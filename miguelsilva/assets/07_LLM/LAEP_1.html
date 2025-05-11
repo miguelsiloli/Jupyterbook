@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCADA Business Benefits Prototype</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 960px; /* Typical slide width */
+            /* height: 540px; */ /* Typical 16:9 aspect ratio - uncomment if fixed height needed */
+            padding: 30px 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-area {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #6a0dad; /* Accent color */
+            padding-bottom: 15px;
+        }
+
+        .title-area h1 {
+            font-size: 1.8em;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .title-area .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            margin: 0;
+        }
+
+        .content-area {
+            display: flex;
+            flex-grow: 1; /* Allow content area to fill space if slide height is fixed */
+            gap: 30px; /* Space between columns */
+        }
+
+        .column {
+            flex: 1; /* Each column takes equal space */
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between pillars in the right column */
+        }
+
+        .pillar {
+            background-color: #f9f2ff; /* Light purple background for pillars */
+            border: 1px solid #e0c6f5;
+            border-radius: 5px;
+            padding: 15px 20px;
+            flex-shrink: 0; /* Prevent pillars from shrinking excessively */
+        }
+
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .pillar-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            color: #6a0dad; /* Accent color */
+            flex-shrink: 0;
+            width: 30px; /* Fixed width for alignment */
+            text-align: center;
+        }
+
+        .pillar-header h2 {
+            font-size: 1.3em;
+            margin: 0;
+            color: #444;
+        }
+
+        .pillar-content .need {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .pillar-content ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 5px;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .pillar-content li {
+            font-size: 0.95em;
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 18px; /* Space for custom bullet */
+            color: #333;
+        }
+
+        .pillar-content li::before {
+            content: '✓'; /* Custom bullet */
+            position: absolute;
+            left: 0;
+            color: #5a9e44; /* Green checkmark */
+            font-weight: bold;
+        }
+
+        .pillar-content li strong {
+             color: #6a0dad; /* Accent color for keywords */
+        }
+
+        .pillar-content .impact {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #4a4a4a;
+            margin-top: 10px;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        /* Simple adjustments for potentially smaller screens if needed */
+       /* @media (max-width: 768px) {
+            .slide { width: 95%; padding: 20px; }
+            .content-area { flex-direction: column; gap: 20px; }
+            .pillar-header h2 { font-size: 1.2em; }
+            .title-area h1 { font-size: 1.6em; }
+        } */
+
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <div class="title-area">
+            <h1>Driving Manufacturing Excellence: The Strategic Imperative for SCADA</h1>
+            <p class="subtitle">Achieve Real-Time Control, Data-Driven Optimization, and Enhanced Safety</p>
+        </div>
+
+        <div class="content-area">
+            <div class="column column-left">
+                <div class="pillar">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">⚙️</span> <!-- Placeholder Icon -->
+                        <h2>1. Real-Time Operational Command & Performance</h2>
+                    </div>
+                    <div class="pillar-content">
+                        <p class="need"><strong>Business Need:</strong> Inability to see and react instantly to live production conditions leads to inefficiency, waste, and lost opportunities.</p>
+                        <ul>
+                            <li><strong>Centralized Visibility:</strong> Provides a unified, real-time view of all critical assets and processes.</li>
+                            <li><strong>Immediate Control:</strong> Enables operators to monitor and adjust process parameters instantly.</li>
+                            <li><strong>Boosted Throughput:</strong> Helps identify and resolve bottlenecks quickly, minimizing downtime.</li>
+                            <li><strong>Resource Efficiency:</strong> Allows monitoring and management of energy, water, and materials in real-time.</li>
+                        </ul>
+                        <p class="impact">Impact: Increased agility, reduced operational costs, higher asset utilization, improved responsiveness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column column-right">
+                <div class="pillar">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">📊</span> <!-- Placeholder Icon -->
+                        <h2>2. Data-Driven Intelligence & Optimization</h2>
+                    </div>
+                    <div class="pillar-content">
+                         <p class="need"><strong>Business Need:</strong> Making strategic improvements without reliable data is ineffective; "gut feel" isn't scalable or consistently accurate.</p>
+                        <ul>
+                            <li><strong>Automated Data Acquisition:</strong> Reliably collects and logs vast amounts of accurate process data.</li>
+                            <li><strong>Actionable Insights:</strong> Transforms raw data into trends, KPIs, and reports for informed decisions.</li>
+                            <li><strong>Predictive Capabilities:</strong> Provides data foundation for condition-based & predictive maintenance.</li>
+                            <li><strong>Quality & Traceability:</strong> Enables detailed tracking, supporting quality control & root cause analysis.</li>
+                        </ul>
+                        <p class="impact">Impact: Smarter strategic decisions, continuous improvement culture, enhanced product quality, optimized maintenance.</p>
+                    </div>
+                </div>
+
+                <div class="pillar">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">🛡️</span> <!-- Placeholder Icon -->
+                        <h2>3. Proactive Safety & Compliance Assurance</h2>
+                    </div>
+                    <div class="pillar-content">
+                         <p class="need"><strong>Business Need:</strong> Ensuring workforce safety, protecting assets, and meeting regulatory standards are non-negotiable requirements.</p>
+                        <ul>
+                            <li><strong>Instant Hazard Alerting:</strong> Provides immediate alarms for abnormal or unsafe conditions.</li>
+                            <li><strong>Reduced Exposure:</strong> Enables remote monitoring and control, minimizing personnel in hazardous areas.</li>
+                            <li><strong>Compliance Recordkeeping:</strong> Creates secure, auditable logs for regulatory reporting.</li>
+                            <li><strong>Procedural Enforcement:</strong> Helps ensure standard operating procedures are followed via monitoring.</li>
+                        </ul>
+                        <p class="impact">Impact: Lower incident rates, improved worker safety, reduced compliance risk & costs, enhanced corporate reputation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

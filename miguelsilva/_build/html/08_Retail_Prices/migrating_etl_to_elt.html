@@ -1,0 +1,693 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Migrating ETL to ELT pipeline &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '08_Retail_Prices/migrating_etl_to_elt';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/00_intro.html">01: Overview of the Vinted Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_vinted_api.html">02: Vinted API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/02_pipeline_design.html">03: Pipeline Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F08_Retail_Prices/migrating_etl_to_elt.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/08_Retail_Prices/migrating_etl_to_elt.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Migrating ETL to ELT pipeline</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-erd">Pipeline ERD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-class-diagram">Pipeline Class Diagram</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="migrating-etl-to-elt-pipeline">
+<h1>Migrating ETL to ELT pipeline<a class="headerlink" href="#migrating-etl-to-elt-pipeline" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<p>Problem: Migrate a resource constrainted pipeline to Google Cloud. The current pipeline is hosted in BlackBlaze for blob storage and Supabase for SQL database (postgres). The bottleneck is currently the the SQL database and the BlackBlaze 1GB day networking.</p>
+<p>Current design:
+Scraping (GitHub Actions): Generates raw data as numerous small CSVs, logically grouped by category.</p>
+<p>ETL Bottleneck (GitHub Actions): A Python script transforms these CSVs into structured dataframes and attempts to load them into Supabase Postgres. This critical step is chained to the scraping job.
+Serving Layer (REST API): Connects directly to the constrained Supabase DB.</p>
+<p>Issues:
+The Egress Chokehold: BlackBlaze’s 1GB daily limit isn’t just a constraint; it’s a hard stop, often hit mid-process during essential backfills or large updates.</p>
+<p>Database Dead End: The 500MB Supabase limit means we’re constantly managing data size instead of focusing on value. Scaling isn’t an option here.</p>
+<p>I/O &amp; Network Thrashing: Processing hundreds or thousands of tiny CSVs hammers both storage I/O and network bandwidth unnecessarily.</p>
+<p>ETL Fragility &amp; The Atomicity Trap: The “all-or-nothing” nature of the current ETL job means a single failure in processing one category’s CSVs often halts the entire batch, leading to data gaps, manual reruns, and operational headaches. This tight coupling and pre-load transformation is brittle.</p>
+<p>Pipeline Observability: it’s awful not to use a traditional data engineering tool such as dagster, airflow, prefect, etc.</p>
+<p>Fix:</p>
+<ul class="simple">
+<li><p>Solve the Egress/Networking limits: Post process raw .csv into a compiled parquet file before uploading to file storage (ensures backward compatibility, reduces IO network operations)</p></li>
+<li><p>Postgres + Dbt: Move ETL job to SQL with ELT approach</p></li>
+<li><p>Get rid of tight coupling jobs: Decouple jobs by implementing partial (differential lods) by ingestion date.</p></li>
+</ul>
+<section id="pipeline-erd">
+<h2>Pipeline ERD<a class="headerlink" href="#pipeline-erd" title="Link to this heading">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    %% Define subgraphs for each schema
+    subgraph SOURCE[&quot;SOURCE SCHEMA (CSV FILES)&quot;]
+        SOURCE_GENERIC[&quot;SOURCE_GENERIC&lt;br/&gt;product_id&lt;br/&gt;product_name&lt;br/&gt;product_price&lt;br/&gt;product_category&lt;br/&gt;product_category2&lt;br/&gt;product_category3&lt;br/&gt;product_image&lt;br/&gt;product_urls&lt;br/&gt;product_ratings&lt;br/&gt;source&lt;br/&gt;timestamp&quot;]
+        SOURCE_AUCHAN[&quot;SOURCE_AUCHAN&lt;br/&gt;Product_Name&lt;br/&gt;Product_ID&lt;br/&gt;Price&lt;br/&gt;Price_per_unit&lt;br/&gt;Brand&lt;br/&gt;Category&lt;br/&gt;Image_URL&lt;br/&gt;Product_Link&lt;br/&gt;source&lt;br/&gt;tracking_date&quot;]
+        SOURCE_CONTINENTE[&quot;SOURCE_CONTINENTE&lt;br/&gt;product_id&lt;br/&gt;product_name&lt;br/&gt;product_price&lt;br/&gt;product_image&lt;br/&gt;product_url&lt;br/&gt;product_rating&lt;br/&gt;source&lt;br/&gt;timestamp&quot;]
+        SOURCE_PINGO_DOCE[&quot;SOURCE_PINGO_DOCE&lt;br/&gt;product_id&lt;br/&gt;product_name&lt;br/&gt;product_price&lt;br/&gt;product_image&lt;br/&gt;product_url&lt;br/&gt;product_rating&lt;br/&gt;source&lt;br/&gt;timestamp&quot;]
+    end
+
+    subgraph STAGING[&quot;STAGING SCHEMA&quot;]
+        OUTER_JOIN_STAGING[&quot;OUTER_JOIN_STAGING&lt;br/&gt;product_id&lt;br/&gt;product_name&lt;br/&gt;product_price&lt;br/&gt;category_level1&lt;br/&gt;category_level2&lt;br/&gt;category_level3&lt;br/&gt;image_url&lt;br/&gt;product_url&lt;br/&gt;rating&lt;br/&gt;brand&lt;br/&gt;source&lt;br/&gt;timestamp&quot;]
+    end
+
+    subgraph STRUCTURED[&quot;STRUCTURED SCHEMA (NORMALIZED TABLES)&quot;]
+        PRODUCT[&quot;PRODUCT&lt;br/&gt;product_id_pk (PK)&lt;br/&gt;product_id&lt;br/&gt;product_name&lt;br/&gt;source&lt;br/&gt;brand&lt;br/&gt;image_url&lt;br/&gt;product_url&quot;]
+        CATEGORY_HIERARCHY[&quot;CATEGORY_HIERARCHY&lt;br/&gt;category_id (PK)&lt;br/&gt;category_level1&lt;br/&gt;category_level2&lt;br/&gt;category_level3&quot;]
+        PRODUCT_CATEGORY[&quot;PRODUCT_CATEGORY&lt;br/&gt;product_id_pk (PK, FK)&lt;br/&gt;category_id (FK)&quot;]
+        PRODUCT_PRICING[&quot;PRODUCT_PRICING&lt;br/&gt;product_id_pk (PK, FK)&lt;br/&gt;price_integer&lt;br/&gt;price_decimal&lt;br/&gt;price_currency&lt;br/&gt;price_per_unit&lt;br/&gt;timestamp (PK)&quot;]
+        PRODUCT_RATING[&quot;PRODUCT_RATING&lt;br/&gt;product_id_pk (PK, FK)&lt;br/&gt;rating_value&lt;br/&gt;timestamp (PK)&quot;]
+        PRODUCT_ATTRIBUTES[&quot;PRODUCT_ATTRIBUTES&lt;br/&gt;product_id_pk (PK, FK)&lt;br/&gt;product_type&lt;br/&gt;quantity_weight&lt;br/&gt;quantity_units&lt;br/&gt;units&lt;br/&gt;timestamp&quot;]
+    end
+
+    %% Define relationships between schemas (cross-schema)
+    SOURCE_GENERIC -- &quot;transformed to&quot; --&gt; OUTER_JOIN_STAGING
+    SOURCE_AUCHAN -- &quot;transformed to&quot; --&gt; OUTER_JOIN_STAGING
+    SOURCE_CONTINENTE -- &quot;transformed to&quot; --&gt; OUTER_JOIN_STAGING
+    SOURCE_PINGO_DOCE -- &quot;transformed to&quot; --&gt; OUTER_JOIN_STAGING
+
+    OUTER_JOIN_STAGING -- &quot;loads&quot; --&gt; PRODUCT
+    OUTER_JOIN_STAGING -- &quot;extracts categories&quot; --&gt; CATEGORY_HIERARCHY
+    OUTER_JOIN_STAGING -- &quot;extracts pricing&quot; --&gt; PRODUCT_PRICING
+    OUTER_JOIN_STAGING -- &quot;extracts ratings&quot; --&gt; PRODUCT_RATING
+    OUTER_JOIN_STAGING -- &quot;extracts attributes&quot; --&gt; PRODUCT_ATTRIBUTES
+
+    %% Define relationships within structured schema
+    PRODUCT -- &quot;has&quot; --&gt; PRODUCT_CATEGORY
+    CATEGORY_HIERARCHY -- &quot;belongs to&quot; --&gt; PRODUCT_CATEGORY
+    PRODUCT -- &quot;has&quot; --&gt; PRODUCT_PRICING
+    PRODUCT -- &quot;has&quot; --&gt; PRODUCT_RATING
+    PRODUCT -- &quot;has&quot; --&gt; PRODUCT_ATTRIBUTES
+
+    %% Styling
+    classDef sourceClass fill:#e6f7ff,stroke:#1890ff
+    classDef stagingClass fill:#fff7e6,stroke:#fa8c16
+    classDef structuredClass fill:#f6ffed,stroke:#52c41a
+
+    class SOURCE_GENERIC,SOURCE_AUCHAN,SOURCE_CONTINENTE,SOURCE_PINGO_DOCE sourceClass
+    class OUTER_JOIN_STAGING stagingClass
+    class PRODUCT,CATEGORY_HIERARCHY,PRODUCT_CATEGORY,PRODUCT_PRICING,PRODUCT_RATING,PRODUCT_ATTRIBUTES structuredClass
+</pre></div>
+</div>
+</section>
+<section id="pipeline-class-diagram">
+<h2>Pipeline Class Diagram<a class="headerlink" href="#pipeline-class-diagram" title="Link to this heading">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>classDiagram
+    %% Source Dataclasses (Input)
+    class SourceGenericData {
+        +str product_id
+        +str product_name
+        +str product_price
+        +str product_category
+        +str product_category2
+        +str product_category3
+        +str product_image
+        +str product_urls
+        +str product_ratings
+        +str product_labels
+        +str product_promotions
+        +str source
+        +str timestamp
+    }
+
+    class SourceAuchanData {
+        +str Product_Name
+        +str Product_ID
+        +float Price
+        +str Price_per_unit
+        +str Brand
+        +str Category
+        +str Image_URL
+        +int Minimum_Quantity
+        +str Product_Link
+        +str cgid
+        +str tracking_date
+        +str source
+    }
+
+    class SourceContinenteData {
+        +str product_id
+        +str product_name
+        +float product_price
+        +str product_image
+        +str product_url
+        +str product_rating
+        +str source
+        +str timestamp
+    }
+
+    class SourcePingDoceData {
+        +str product_id
+        +str product_name
+        +float product_price
+        +str product_image
+        +str product_url
+        +str product_rating
+        +str source
+        +str timestamp
+    }
+
+    %% Staging Dataclass (Output)
+    class StagingData {
+        +str product_id
+        +str product_name
+        +float product_price
+        +str category_level1
+        +str category_level2 
+        +str category_level3
+        +str image_url
+        +str product_url
+        +str rating
+        +str brand
+        +str source
+        +datetime timestamp
+    }
+
+    %% Main Standardizer Class
+    class ProductDataStandardizer {
+        +dict FIELD_MAPPINGS
+        +static extract_price(str price_str) float
+        +static standardize_timestamp(str timestamp_str) datetime
+        +static split_categories(DataFrame df) DataFrame
+        +text_to_integer_encoding(str text) int
+        +standardize_data(DataFrame df, str source) DataFrame
+        +standardize_generic(SourceGenericData data) StagingData
+        +standardize_auchan(SourceAuchanData data) StagingData
+        +standardize_continente(SourceContinenteData data) StagingData
+        +standardize_pingo_doce(SourcePingDoceData data) StagingData
+    }
+
+    %% Relationships
+    SourceGenericData ..&gt; ProductDataStandardizer : input to
+    SourceAuchanData ..&gt; ProductDataStandardizer : input to
+    SourceContinenteData ..&gt; ProductDataStandardizer : input to
+    SourcePingDoceData ..&gt; ProductDataStandardizer : input to
+    ProductDataStandardizer ..&gt; StagingData : produces
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./08_Retail_Prices"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-erd">Pipeline ERD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-class-diagram">Pipeline Class Diagram</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

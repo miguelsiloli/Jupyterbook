@@ -14,40 +14,39 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -72,27 +71,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -114,8 +109,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -141,6 +141,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../intro.html">
   
@@ -162,7 +164,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -187,12 +189,25 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
 </ul>
 
     </div>
@@ -208,7 +223,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -217,14 +232,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -349,10 +364,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -360,14 +375,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -404,11 +419,11 @@ document.write(`
 <h1>05: Covariance based clustering<a class="headerlink" href="#covariance-based-clustering" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">tslearn.clustering</span> <span class="kn">import</span> <span class="n">TimeSeriesKMeans</span>
-<span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.clustering</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesKMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;training_pivot.csv&quot;</span><span class="p">,</span> 
                    <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
@@ -420,352 +435,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.clustering</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesKMeans</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">tslearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesScalerMeanVariance</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>date</th>
-      <th>2018-01-31</th>
-      <th>2018-02-28</th>
-      <th>2018-03-31</th>
-      <th>2018-04-30</th>
-      <th>2018-05-31</th>
-      <th>2018-06-30</th>
-      <th>2018-07-31</th>
-      <th>2018-08-31</th>
-      <th>2018-09-30</th>
-      <th>2018-10-31</th>
-      <th>2018-11-30</th>
-      <th>2018-12-31</th>
-      <th>2019-01-31</th>
-      <th>2019-02-28</th>
-      <th>2019-03-31</th>
-      <th>2019-04-30</th>
-      <th>2019-05-31</th>
-      <th>2019-06-30</th>
-      <th>2019-07-31</th>
-      <th>2019-08-31</th>
-      <th>2019-09-30</th>
-      <th>2019-10-31</th>
-      <th>2019-11-30</th>
-      <th>2019-12-31</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Total</th>
-      <td>43347.4855</td>
-      <td>23756.7667</td>
-      <td>37784.6243</td>
-      <td>19860.4246</td>
-      <td>34531.2473</td>
-      <td>2363.1088</td>
-      <td>9649.4321</td>
-      <td>9881.8506</td>
-      <td>11306.1056</td>
-      <td>16066.5439</td>
-      <td>12118.2309</td>
-      <td>6529.3997</td>
-      <td>2171.4008</td>
-      <td>4638.9813</td>
-      <td>3394.3797</td>
-      <td>1482.344</td>
-      <td>6240.3639</td>
-      <td>6227.278</td>
-      <td>9508.7676</td>
-      <td>6331.2085</td>
-      <td>7236.5693</td>
-      <td>13691.0258</td>
-      <td>7062.9143</td>
-      <td>3678.0051</td>
-    </tr>
-    <tr>
-      <th>Artigos Decorativos</th>
-      <td>24.0525</td>
-      <td>461.5050</td>
-      <td>622.0800</td>
-      <td>126.3650</td>
-      <td>54.4850</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>5.2250</td>
-      <td>0.0000</td>
-      <td>97.4050</td>
-      <td>24.6400</td>
-      <td>20.9000</td>
-      <td>0.0000</td>
-      <td>38.7200</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>655.8850</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>26.2680</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>Bases e Floreiras</th>
-      <td>525.7350</td>
-      <td>394.3500</td>
-      <td>379.1060</td>
-      <td>371.2700</td>
-      <td>16.5000</td>
-      <td>0.0000</td>
-      <td>15.5840</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>327.7580</td>
-      <td>101.7500</td>
-      <td>0.0000</td>
-      <td>136.0360</td>
-      <td>633.0000</td>
-      <td>7.9750</td>
-      <td>106.700</td>
-      <td>0.0000</td>
-      <td>38.500</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>55.0275</td>
-      <td>133.6500</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>Casa</th>
-      <td>0.0000</td>
-      <td>49.3250</td>
-      <td>0.0000</td>
-      <td>49.5160</td>
-      <td>0.0000</td>
-      <td>24.3350</td>
-      <td>0.0000</td>
-      <td>101.7500</td>
-      <td>0.0000</td>
-      <td>184.8200</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>31.1850</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>Flores</th>
-      <td>3538.5955</td>
-      <td>1526.6135</td>
-      <td>6407.9869</td>
-      <td>378.2920</td>
-      <td>862.7100</td>
-      <td>655.7890</td>
-      <td>157.4625</td>
-      <td>297.1860</td>
-      <td>302.4660</td>
-      <td>466.9227</td>
-      <td>349.3346</td>
-      <td>202.2325</td>
-      <td>322.0722</td>
-      <td>310.7750</td>
-      <td>187.5870</td>
-      <td>178.981</td>
-      <td>193.4625</td>
-      <td>147.246</td>
-      <td>727.3420</td>
-      <td>971.0250</td>
-      <td>134.3540</td>
-      <td>113.2245</td>
-      <td>148.3870</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>5995.0</th>
-      <td>0.0000</td>
-      <td>149.2760</td>
-      <td>0.0000</td>
-      <td>183.6860</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>322.030</td>
-      <td>153.1620</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>168.9000</td>
-      <td>72.5200</td>
-      <td>11.5731</td>
-    </tr>
-    <tr>
-      <th>5996.0</th>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>329.7000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>37.8800</td>
-      <td>0.0000</td>
-      <td>24.6000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>5997.0</th>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>190.6730</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>748.3200</td>
-      <td>0.0000</td>
-      <td>601.1300</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>269.3922</td>
-      <td>64.3060</td>
-      <td>0.000</td>
-      <td>140.5100</td>
-      <td>0.000</td>
-      <td>195.7500</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>5998.0</th>
-      <td>942.7000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>375.2490</td>
-      <td>0.0000</td>
-      <td>695.5960</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>151.2610</td>
-      <td>274.790</td>
-      <td>0.0000</td>
-      <td>816.6800</td>
-      <td>1001.4000</td>
-      <td>201.0030</td>
-      <td>295.2180</td>
-      <td>0.0000</td>
-    </tr>
-    <tr>
-      <th>5999.0</th>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>1019.2600</td>
-      <td>0.0000</td>
-      <td>1902.1036</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>905.1600</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.000</td>
-      <td>0.0000</td>
-      <td>2144.000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-    </tr>
-  </tbody>
-</table>
-<p>125 rows × 24 columns</p>
-</div></div></div>
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tslearn&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -802,12 +483,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b88e8bac05f07e04342bd46eea565e6d74f7035c71355464259e10d71a7f1ea7.png" src="../../_images/b88e8bac05f07e04342bd46eea565e6d74f7035c71355464259e10d71a7f1ea7.png" />
+<img alt="../../_images/d04f317450dfffe345247b8d3275c81de7661ed199ad41251c124cfd92d0865a.png" src="../../_images/d04f317450dfffe345247b8d3275c81de7661ed199ad41251c124cfd92d0865a.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="n">flattened_data</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -824,7 +505,57 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5286d27f27dd159b6e9e65d635f789a9b8d0831d7c0e2db44d35a8d8ca4491a4.png" src="../../_images/5286d27f27dd159b6e9e65d635f789a9b8d0831d7c0e2db44d35a8d8ca4491a4.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+</pre></div>
+</div>
+<img alt="../../_images/d30b2e95ec6104f7b6e0033d1baec797adcbe7fcff53279c1c157c9752d29978.png" src="../../_images/d30b2e95ec6104f7b6e0033d1baec797adcbe7fcff53279c1c157c9752d29978.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -846,13 +577,63 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/930cdfd9e668d89ad7abdd310ca5c116bbbcdfe9fb09b10ef77062197a935b7f.png" src="../../_images/930cdfd9e668d89ad7abdd310ca5c116bbbcdfe9fb09b10ef77062197a935b7f.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+</pre></div>
+</div>
+<img alt="../../_images/e44800a483be4c260632597f33d22b342895cb167481dd611e396ac3720c0728.png" src="../../_images/e44800a483be4c260632597f33d22b342895cb167481dd611e396ac3720c0728.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">covariance</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">cluster</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">covariance</span>
 
 <span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">edge_model</span> <span class="o">=</span> <span class="n">covariance</span><span class="o">.</span><span class="n">GraphicalLassoCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">)</span>
@@ -867,7 +648,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\numpy\core\_methods.py:173: RuntimeWarning: invalid value encountered in subtract
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\numpy\core\_methods.py:173: RuntimeWarning: invalid value encountered in subtract
   x = asanyarray(arr - arrmean)
 </pre></div>
 </div>
@@ -921,7 +702,7 @@ Cluster 26: 3042.0, 4906.0, 5999.0
 <h2>2D linear manifold and partial correlation strength<a class="headerlink" href="#d-linear-manifold-and-partial-correlation-strength" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">manifold</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">manifold</span>
 
 <span class="n">node_position_model</span> <span class="o">=</span> <span class="n">manifold</span><span class="o">.</span><span class="n">LocallyLinearEmbedding</span><span class="p">(</span>
     <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">eigen_solver</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">6</span>
@@ -929,9 +710,9 @@ Cluster 26: 3042.0, 4906.0, 5999.0
 
 <span class="n">embedding</span> <span class="o">=</span> <span class="n">node_position_model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_reshaped</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="c1"># color and thickness is deternmined by strength of correlation</span>
-<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">LineCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineCollection</span>
 
 <span class="n">min_partial_corr</span> <span class="o">=</span> <span class="mf">0.07</span>
 
@@ -1025,7 +806,7 @@ Cluster 26: 3042.0, 4906.0, 5999.0
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.24572712746944725, 0.22887236265426197)
 </pre></div>
 </div>
-<img alt="../../_images/46209055bf6345cdd036c1f0d15883917f9ab0d9e73169a8d48a4e34eb66aa83.png" src="../../_images/46209055bf6345cdd036c1f0d15883917f9ab0d9e73169a8d48a4e34eb66aa83.png" />
+<img alt="../../_images/b245282ba38b9996ded61f5ddffeae067624c9dffb0ee1ec6713265f8603864d.png" src="../../_images/b245282ba38b9996ded61f5ddffeae067624c9dffb0ee1ec6713265f8603864d.png" />
 </div>
 </div>
 </section>
@@ -1044,7 +825,7 @@ Cluster 26: 3042.0, 4906.0, 5999.0
         },
         kernelOptions: {
             name: "python3",
-            path: "./04_Time_Series\02_Time_Series_Clustering"
+            path: "./04_Time_Series/02_Time_Series_Clustering"
         },
         predefinedOutput: true
     }
@@ -1058,7 +839,7 @@ Cluster 26: 3042.0, 4906.0, 5999.0
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -1126,8 +907,8 @@ By Miguel Silva
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

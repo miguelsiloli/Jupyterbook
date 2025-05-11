@@ -14,40 +14,39 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -72,27 +71,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -114,8 +109,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -141,6 +141,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../intro.html">
   
@@ -162,7 +164,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -187,12 +189,25 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
 </ul>
 
     </div>
@@ -208,7 +223,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -217,14 +232,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -349,10 +364,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -360,14 +375,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -416,16 +431,16 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">skforecast.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_pacf</span>
-<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
-<span class="kn">import</span> <span class="nn">plotly.offline</span> <span class="k">as</span> <span class="nn">poff</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">ruptures</span> <span class="k">as</span> <span class="nn">rpt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skforecast.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_pacf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.offline</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">poff</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ruptures</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpt</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">templates</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;seaborn&quot;</span>
 <span class="n">poff</span><span class="o">.</span><span class="n">init_notebook_mode</span><span class="p">(</span><span class="n">connected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-darkgrid&#39;</span><span class="p">)</span>
@@ -441,80 +456,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">        <script type="text/javascript">
-        window.PlotlyConfig = {MathJaxConfig: 'local'};
-        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
-        if (typeof require !== 'undefined') {
-        require.undef("plotly");
-        requirejs.config({
-            paths: {
-                'plotly': ['https://cdn.plot.ly/plotly-2.27.0.min']
-            }
-        });
-        require(['plotly'], function(Plotly) {
-            window._Plotly = Plotly;
-        });
-        }
-        </script>
-        </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bike_sharing
-------------
-Hourly usage of the bike share system in the city of Washington D.C. during the
-years 2011 and 2012. In addition to the number of users per hour, information
-about weather conditions and holidays is available.
-Fanaee-T,Hadi. (2013). Bike Sharing Dataset. UCI Machine Learning Repository.
-https://doi.org/10.24432/C5W894.
-Shape of the dataset: (17544, 12)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">skforecast.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;skforecast&#39;
 </pre></div>
 </div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>users</th>
-    </tr>
-    <tr>
-      <th>date_time</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2011-01-01 00:00:00</th>
-      <td>16.0</td>
-    </tr>
-    <tr>
-      <th>2011-01-01 01:00:00</th>
-      <td>40.0</td>
-    </tr>
-    <tr>
-      <th>2011-01-01 02:00:00</th>
-      <td>32.0</td>
-    </tr>
-    <tr>
-      <th>2011-01-01 03:00:00</th>
-      <td>13.0</td>
-    </tr>
-    <tr>
-      <th>2011-01-01 04:00:00</th>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -527,7 +480,7 @@ Shape of the dataset: (17544, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c01fa56c53e9738479ecaf52420a0a8470b9076a00dbd3a203f0d74977016ca0.png" src="../../_images/c01fa56c53e9738479ecaf52420a0a8470b9076a00dbd3a203f0d74977016ca0.png" />
+<img alt="../../_images/9d4c84fed78878ce8c6788afde8053bf8c3bf46edfdeda2d6e6d9ff7f485ef4f.png" src="../../_images/9d4c84fed78878ce8c6788afde8053bf8c3bf46edfdeda2d6e6d9ff7f485ef4f.png" />
 </div>
 </div>
 <section id="moving-average-365-days">
@@ -551,7 +504,7 @@ Shape of the dataset: (17544, 12)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Bike Users - 365-Day Moving Average&#39;}, xlabel=&#39;date_time&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/610c431367ffa1f313f3806a52c861d81f76d530acd577c6649d701e44f0597d.png" src="../../_images/610c431367ffa1f313f3806a52c861d81f76d530acd577c6649d701e44f0597d.png" />
+<img alt="../../_images/b4a5866d534ead0c31011a18a280eec71d41f39dafe21b9ba006e40a3983d328.png" src="../../_images/b4a5866d534ead0c31011a18a280eec71d41f39dafe21b9ba006e40a3983d328.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -575,38 +528,10 @@ Shape of the dataset: (17544, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">~\AppData\Local\Temp\ipykernel_1300\1868564388.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Model Inputs</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;users&quot;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Define and fit model (window with 90 width and l2 loss)</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">algo</span> <span class="o">=</span> <span class="n">rpt</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;l2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;users&quot;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Predict breakpoints - either manually or via penalization factor (this example)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">breakpoints</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># just an example, see docs for more information.</span>
-
-<span class="nn">~\AppData\Local\Programs\Python\Python310\lib\site-packages\ruptures\detection\window.py</span> in <span class="ni">?</span><span class="nt">(self, signal)</span>
-<span class="g g-Whitespace">    </span><span class="mi">110</span>             <span class="bp">self</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">112</span><span class="s2">         # update some params</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span><span class="s2">         if signal.ndim == 1:</span>
-<span class="ne">--&gt; </span><span class="mi">114</span><span class="s2">             self.signal = signal.reshape(-1, 1)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span><span class="s2">         else:</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span><span class="s2">             self.signal = signal</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span><span class="s2">         self.n_samples, _ = self.signal.shape</span>
-
-<span class="nn">~\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\core\generic.py</span> in <span class="ni">?</span><span class="nt">(self, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6200</span><span class="s2">             and name not in self._accessors</span>
-<span class="g g-Whitespace">   </span><span class="mi">6201</span><span class="s2">             and self._info_axis._can_hold_identifiers_and_holds_name(name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6202</span><span class="s2">         ):</span>
-<span class="g g-Whitespace">   </span><span class="mi">6203</span><span class="s2">             return self[name]</span>
-<span class="ne">-&gt; </span><span class="mi">6204</span><span class="s2">         return object.__getattribute__(self, name)</span>
-
-<span class="ne">AttributeError</span>: &#39;Series&#39; object has no attribute &#39;reshape&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Change Point Detection: Window-Based Search With Penalty Factor&#39;)
 </pre></div>
 </div>
+<img alt="../../_images/712ab857f7ea6d99776655cb483e8c725effb15019f3b77ac0e9e582734150d2.png" src="../../_images/712ab857f7ea6d99776655cb483e8c725effb15019f3b77ac0e9e582734150d2.png" />
 </div>
 </div>
 </section>
@@ -674,7 +599,7 @@ Shape of the dataset: (17544, 12)
         },
         kernelOptions: {
             name: "python3",
-            path: "./04_Time_Series\00_TimeSeriesBasics"
+            path: "./04_Time_Series/00_TimeSeriesBasics"
         },
         predefinedOutput: true
     }
@@ -688,7 +613,7 @@ Shape of the dataset: (17544, 12)
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -757,8 +682,8 @@ By Miguel Silva
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

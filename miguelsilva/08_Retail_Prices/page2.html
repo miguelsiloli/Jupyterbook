@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: ETL to Cloud ELT Migration (GCP)</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --primary-light: #cfe2ff;
+            --secondary: #17a2b8;
+            --success: #20c997;
+            --danger: #dc3545;
+            --danger-light: #f8d7da;
+            --warning: #ffc107;
+            --warning-light: #fff3cd;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            font-size: 14px;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+            color: white;
+            padding: 0.25rem 0;
+            margin-bottom: 0.25rem;
+        }
+        
+        .card {
+            height: 100%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-left {
+            border-top-color: var(--primary);
+        }
+        
+        .card-middle {
+            border-top-color: var(--secondary);
+        }
+        
+        .card-right {
+            border-top-color: var(--success);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 2px solid #eef2f7;
+            position: relative;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .tech-badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .tech-badge:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .benefit-item {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            background-color: rgba(13, 110, 253, 0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .benefit-item:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .benefit-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+        
+        .section-accent {
+            background-color: rgba(13, 110, 253, 0.05);
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        /* Before/After Architecture Slider */
+        .architecture-container {
+            position: relative;
+            border-radius: 0.375rem;
+            border: 1px solid #dee2e6;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .architecture-slider-controls {
+            position: relative;
+            z-index: 20;
+            text-align: center;
+            padding: 1rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .architecture-slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+        }
+        
+        .architecture-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            z-index: 10;
+            transition: clip-path 0.3s ease;
+        }
+        
+        .architecture-before {
+            background-color: #fff5f5;
+            z-index: 5;
+            clip-path: inset(0 50% 0 0);
+        }
+        
+        .architecture-after {
+            background-color: #f5f9ff;
+            z-index: 6;
+            clip-path: inset(0 0 0 50%);
+        }
+        
+        .arch-label {
+            position: absolute;
+            top: 70px;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 0.25rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .arch-label-before {
+            left: 1rem;
+            border-left: 3px solid var(--danger);
+            color: var(--danger);
+        }
+        
+        .arch-label-after {
+            right: 1rem;
+            border-left: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .divider::before {
+            top: -15px;
+        }
+        
+        .divider::after {
+            bottom: -15px;
+        }
+        
+        .slide-caption {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        /* Mermaid overrides for better visibility */
+        .architecture-slide .mermaid {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mermaid svg {
+            max-width: 100%;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">ETL → Cloud ELT Migration</h1>
+            <p class="lead">Scalable Data Infrastructure on Google Cloud Platform</p>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+            <!-- Left Column -->
+            <div class="col-4">
+                <div class="card card-left h-100">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Challenge & Context</h2>
+                    </div><div class="card-body py-3">
+                        <div class="section-accent p-2 rounded mb-3" style="background-color: #f8f9fa; border-left: 4px solid #dc3545;">
+                          <div class="d-flex align-items-center">
+                            <i class="bi bi-exclamation-circle-fill text-danger me-2" style="font-size: 1.1rem;"></i>
+                            <p class="mb-0 small fw-bold">Legacy pipeline facing networking/storage limitations, poor observability and pipeline breaks.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                          <div class="col"><div class="d-flex align-items-start">
+                            <i class="bi bi-cloud-slash-fill text-danger me-2"></i>
+                            <div class="small"><strong>Egress Cap:</strong> 1GB/day Blackbaze limit</div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <i class="bi bi-database-slash text-danger me-2"></i>
+                            <div class="small"><strong>DB Limit:</strong> 500MB Supabase Postgres</div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <i class="bi bi-hdd-network-fill text-danger me-2"></i>
+                            <div class="small"><strong>I/O Thrashing:</strong> Small CSVs bottlenecks</div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <i class="bi bi-file-earmark-break-fill text-danger me-2"></i>
+                            <div class="small"><strong>ETL Fragility:</strong> "All-or-nothing" failures</div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <i class="bi bi-eye-slash-fill text-danger me-2"></i>
+                            <div class="small"><strong>Poor Observability:</strong> Limited monitoring</div>
+                          </div></div>
+                        </div>
+                        
+                        <div class="border-top pt-2 mb-2">
+                          <h6 class="d-flex align-items-center mb-2">
+                            <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                            Solution Approach
+                          </h6>
+                        </div>
+                        
+                        <div class="row row-cols-1 row-cols-md-2 g-2">
+                          <div class="col"><div class="d-flex align-items-start">
+                            <span class="badge bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 20px; height: 20px; min-width: 20px;">1</span>
+                            <div class="small">
+                              <strong><i class="bi bi-cloud-arrow-up-fill text-success"></i> Optimized Ingestion:</strong>
+                              <span>CSVs to <strong>Parquet</strong> on GCS</span>
+                            </div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <span class="badge bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 20px; height: 20px; min-width: 20px;">2</span>
+                            <div class="small">
+                              <strong><i class="bi bi-database-fill-up text-success"></i> Scalable Warehouse:</strong>
+                              <span>Parquet to BigQuery</span>
+                            </div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <span class="badge bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 20px; height: 20px; min-width: 20px;">3</span>
+                            <div class="small">
+                              <strong><i class="bi bi-gear-fill text-success"></i> In-Warehouse Transform:</strong>
+                              <span>BigQuery SQL via <strong>dbt</strong></span>
+                            </div>
+                          </div></div>
+                          <div class="col"><div class="d-flex align-items-start">
+                            <span class="badge bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 20px; height: 20px; min-width: 20px;">4</span>
+                            <div class="small">
+                              <strong><i class="bi bi-diagram-3-fill text-success"></i> Decoupled Workflow:</strong>
+                              <span>Partial loads, better resilience</span>
+                            </div>
+                            
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="mt-4">
+                        <div class="card-header">
+                            <h2 class="h4 mb-0">Data Model</h2>
+                        </div>
+                        <div class="mermaid">
+graph TD
+subgraph "Structured Schema (BigQuery)"
+    style Structured fill:#f6ffed,stroke:#52c41a
+    P[DIM_PRODUCT<br/>product_sk PK<br/>...]
+    C[DIM_CATEGORY<br/>category_sk PK<br/>...]
+    PC[BRIDGE_PRODUCT_CATEGORY<br/>product_sk FK<br/>category_sk FK]
+    FP[FACT_PRODUCT_PRICING<br/>product_sk FK<br/>price<br/>event_timestamp]
+    FR[FACT_PRODUCT_RATING<br/>product_sk FK<br/>rating<br/>event_timestamp]
+end
+
+P -- "1..*" --> PC
+C -- "1..*" --> PC
+P -- "1..*" --> FP
+P -- "1..*" --> FR
+                        </div>
+                        <p class="text-center text-muted mt-2 small">Simplified Dimensional Model in BigQuery</p>
+                    </div>
+                    <div class="card-header">
+                      <h2 class="h4 mb-0">Infrastructure</h2>
+                    </div>
+                    <div class="card-body">
+                      <img src="infra.png" class="img-fluid w-100 rounded shadow" alt="Continente Workflow Diagram">
+                      <div class="text-center text-muted small mt-2">
+                      <em>Minimum infrastructure pipeline</em>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            
+            <!-- Middle Column -->
+            <div class="col-4">
+                <div class="card card-middle h-100">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Architecture Design</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- Bootstrap Slider for Before/After Architecture -->
+                        <div class="architecture-container">
+                            <div class="architecture-slider-controls">
+                                <label class="form-label mb-2 fw-bold">Slide to compare architectures</label>
+                                <input type="range" class="form-range w-75 mx-auto" id="arch-slider" min="0" max="100" value="50">
+                                <div class="d-flex justify-content-between px-5 mt-1">
+                                    <span class="badge bg-danger">BEFORE</span>
+                                    <span class="badge bg-primary">AFTER</span>
+                                </div>
+                            </div>
+                            
+                            <div class="architecture-slider-wrapper">
+                                <!-- Before Architecture -->
+                                <div class="architecture-slide architecture-before">
+                                    <div class="arch-label arch-label-before">
+                                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Legacy ETL
+                                    </div>
+                                    <div class="mermaid">
+graph TD
+    subgraph Input ["Data Sources"]
+        SCRAPE["Web Scraping<br/>(e.g., GH Actions)"]
+    end
+
+    subgraph Legacy_Pipeline ["Legacy Pipeline"]
+        subgraph BB ["Blackblaze Storage"]
+            CSV["Multiple CSV Files<br/>(Limited by 1GB/day egress)"]
+        end
+        
+        subgraph PG ["Supabase Postgres"]
+            ETL["ETL Processing<br/>(All-or-nothing transformations)"]
+            DB["Database<br/>(500MB limit)"]
+        end
+        
+        subgraph Processing ["GitHub Actions"]
+            JOBS["CI/CD Jobs<br/>(Fragile/No Partial Recovery)"]
+        end
+        
+        API["REST API<br/>(Limited data volume)"]
+    end
+    
+    SCRAPE -- "uploads" --> CSV
+    CSV -- "download/transform<br/>(I/O bottleneck)" --> ETL
+    JOBS -- "triggers" --> ETL
+    ETL -- "inserts" --> DB
+    DB -- "serves" --> API
+    
+    style BB fill:#f8d7da,stroke:#dc3545
+    style PG fill:#f8d7da,stroke:#dc3545
+    style Processing fill:#fff3cd,stroke:#ffc107
+    style API fill:#f0f0f0,stroke:#888
+                                    </div>
+                                    <div class="slide-caption">
+                                        Legacy ETL Architecture with bottlenecks in Blackblaze storage (CSV) and Supabase Postgres
+                                    </div>
+                                </div>
+                                
+                                <!-- After Architecture -->
+                                <div class="architecture-slide architecture-after">
+                                    <div class="arch-label arch-label-after">
+                                        <i class="bi bi-cloud-check-fill me-2"></i>Cloud ELT
+                                    </div>
+                                    <div class="mermaid">
+graph TD
+    subgraph Input ["Data Sources"]
+        SCRAPE["Web Scraping<br/>(e.g., GH Actions)"]
+    end
+
+    subgraph GCP_Pipeline ["Google Cloud Platform"]
+        subgraph GCS ["GCS Storage"]
+            PARQUET["Consolidated Parquet Files"]
+        end
+        
+        subgraph BQ ["BigQuery Warehouse"]
+            STG["Staging Tables<br/>(Raw/Cleaned)"] --> MART["Data Mart<br/>(Normalized/Dimensional)"]
+        end
+        
+        subgraph Processing ["Transformation/Orchestration"]
+            DBT["dbt Models<br/>(SQL Transforms)"]
+            ORCH["Orchestrator<br/>(e.g., Composer/Dagster)"] -- "triggers" --> DBT
+        end
+        
+        API["REST API<br/>(e.g., Cloud Run)"]
+    end
+    
+    SCRAPE -- "posts" --> PARQUET
+    PARQUET -- "Load (EL)" --> STG
+    ORCH -- "runs" --> DBT
+    DBT -- "Transform (T)" --> STG
+    DBT -- "Transform (T)" --> MART
+    MART -- "Serves" --> API
+    
+    style GCS fill:#e6f7ff,stroke:#1890ff
+    style BQ fill:#f6ffed,stroke:#52c41a
+    style Processing fill:#fff7e6,stroke:#fa8c16
+    style API fill:#f0f0f0,stroke:#888
+                                    </div>
+                                    <div class="slide-caption">
+                                        Modern ELT Architecture on GCP with Google Cloud Storage (Parquet) and BigQuery
+                                    </div>
+                                </div>
+                                
+                                <!-- Divider line -->
+                                <div class="divider" id="arch-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="col-4">
+                <!-- First Card - Benefits & Implementation -->
+                <div class="card card-right mb-3">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Benefits & Implementation</h2>
+                </div>
+                <div class="card-body">
+                    <img src="continente_workflow.png" class="img-fluid w-100 rounded shadow" alt="Continente Workflow Diagram">
+                    <div class="text-center text-muted small mt-2">
+                    <em>Continente Retail Price Tracking Workflow Example</em>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Performance Results</h2>
+                </div>
+                <div class="card-body p-3">
+                  <div class="row g-2">
+                    <!-- Before/After Comparison -->
+                    <div class="col-12 d-flex">
+                      <div class="flex-grow-1 me-1 p-2 bg-light rounded border-start border-5 border-danger">
+                        <div class="d-flex justify-content-between">
+                          <span class="fw-bold text-danger">Before</span>
+                          <span class="small text-muted">data_pipeline.yml</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-1">
+                          <span class="badge bg-danger">41% Failures</span>
+                          <span class="badge bg-secondary">54m 35s</span>
+                          <span class="badge bg-secondary">58MB Files</span>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-1 p-2 bg-light rounded border-start border-5 border-success">
+                        <div class="d-flex justify-content-between">
+                          <span class="fw-bold text-success">After</span>
+                          <span class="small text-muted">scrap_to_gcs.yml</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-1">
+                          <span class="badge bg-success">11% Failures</span>
+                          <span class="badge bg-secondary">44m 35s</span>
+                          <span class="badge bg-secondary">9MB Files</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Improvements -->
+                    <div class="col-12">
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="small">Improvements:</span>
+                        <div>
+                          <span class="badge bg-success">-73% Failures</span>
+                          <span class="badge bg-success">-18% Runtime</span>
+                          <span class="badge bg-success">-86% Storage</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-header">
+                  <h2 class="h4 mb-0">Future Work</h2>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i><strong>Apply Single Responsibility Principle:</strong> Refactor components to ensure each function has one clear responsibility</li>
+                    <li class="mb-2"><i class="bi bi-layers-fill text-primary me-2"></i><strong>Decouple Core Services:</strong> Separate logging and credential management from business logic</li>
+                    <li class="mb-2"><i class="bi bi-file-earmark-text-fill text-primary me-2"></i><strong>Improve Documentation:</strong> Create comprehensive guides for tasks and workflow processes</li>
+                    <li class="mb-2"><i class="bi bi-shield-check text-primary me-2"></i><strong>Expand Test Coverage:</strong> Implement unit, integration, and end-to-end testing framework</li>
+                  </ul>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer class="mt-4">
+        <div class="container text-center">
+            <div>ETL to Cloud ELT Migration Project | 2023-2024</div>
+            <div class="mt-2 small">Your Name • your.email@example.com • github.com/yourusername</div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Mermaid
+            mermaid.initialize({ 
+                startOnLoad: true, 
+                theme: 'neutral',
+                themeVariables: { 
+                    'primaryColor': '#e6f7ff', 
+                    'primaryBorderColor': '#1890ff', 
+                    'lineColor': '#555'
+                },
+                flowchart: {
+                    htmlLabels: true,
+                    curve: 'basis'
+                }
+            });
+            
+            // Slider functionality
+            const slider = document.getElementById('arch-slider');
+            const beforeSlide = document.querySelector('.architecture-before');
+            const afterSlide = document.querySelector('.architecture-after');
+            const divider = document.getElementById('arch-divider');
+            
+            slider.addEventListener('input', function() {
+                const value = this.value;
+                beforeSlide.style.clipPath = `inset(0 ${100-value}% 0 0)`;
+                afterSlide.style.clipPath = `inset(0 0 0 ${value}%)`;
+                divider.style.left = `${value}%`;
+            });
+        });
+    </script>
+</body>
+</html>

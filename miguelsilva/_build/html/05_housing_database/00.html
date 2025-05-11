@@ -14,40 +14,39 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -58,15 +57,19 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '05_housing_database/00';</script>
     <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="In sample regressor for house rent prices" href="02_price_regression_idealista.html" />
-    <link rel="prev" title="05: Clustering users using KMeans and t-SNE" href="../03_Vinted_Data_Science/05_user_clustering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -76,27 +79,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,8 +117,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -127,6 +131,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -142,6 +148,8 @@
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -164,7 +172,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -189,12 +197,25 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
 </ul>
 
     </div>
@@ -210,7 +231,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -219,14 +240,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -351,10 +372,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -362,14 +383,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -451,8 +472,8 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 </ul>
 <section id="process">
 <h3>Process<a class="headerlink" href="#process" title="Link to this heading">#</a></h3>
-<div class="mermaid">
-            sequenceDiagram
+<pre  class="mermaid">
+        sequenceDiagram
     participant HTMLFiles as HTML Files&lt;br&gt;(Local or Cloud)
     participant Parser Script
     participant ChunkReader as HTML File Chunk&lt;br&gt;Reader
@@ -465,12 +486,12 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
     Parser Script -&gt;&gt; DaskTasks: Processed and Merged DataFrames
     DaskTasks --&gt;&gt; Parser Script: DataFrames
     Parser Script -&gt;&gt; Database: SQL Commands&lt;br&gt;Bulk Insert
-        </div></section>
+    </pre></section>
 </section>
 <section id="data-structure">
 <h2>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h2>
-<div class="mermaid">
-            erDiagram
+<pre  class="mermaid">
+        erDiagram
     LISTINGS {
         string title
         string home_type
@@ -485,18 +506,18 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
         boolean elevator
         float price_per_sqr_meter
     }
-        </div><div class="cell docutils container">
+    </pre><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-<span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">duckdb</span>
-<span class="kn">import</span> <span class="nn">dask</span>
-<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
-<span class="kn">import</span> <span class="nn">line_profiler</span>
-<span class="kn">from</span> <span class="nn">duck_handler</span> <span class="kn">import</span> <span class="n">DatabaseConnection</span>
-<span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask.dataframe</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">line_profiler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">duck_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatabaseConnection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.diagnostics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProgressBar</span>
 <span class="o">%</span><span class="k">load_ext</span> line_profiler
 </pre></div>
 </div>
@@ -504,14 +525,14 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">line_profiler</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">duck_handler</span> <span class="kn">import</span> <span class="n">DatabaseConnection</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;load_ext&#39;</span><span class="p">,</span> <span class="s1">&#39;line_profiler&#39;</span><span class="p">)</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span><span class="w"> </span><span class="nn">dask</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">dask.dataframe</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dd</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span><span class="w"> </span><span class="nn">line_profiler</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span><span class="w"> </span><span class="nn">duck_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatabaseConnection</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span><span class="w"> </span><span class="nn">dask.diagnostics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProgressBar</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;duck_handler&#39;
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;line_profiler&#39;
 </pre></div>
 </div>
 </div>
@@ -521,7 +542,7 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 <h2>Pandas with BS4 parsing function<a class="headerlink" href="#pandas-with-bs4-parsing-function" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">html_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
@@ -600,7 +621,7 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data_pandas</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_data_pandas</span><span class="p">():</span>
     <span class="n">directory_path</span> <span class="o">=</span> <span class="s2">&quot;raw/idealista&quot;</span>
 
     <span class="c1"># List HTML files in the directory</span>
@@ -640,7 +661,7 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 
 <span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
 <span class="o">==============================================================</span>
-     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data_pandas</span><span class="p">():</span>
+     <span class="mi">1</span>                                           <span class="k">def</span><span class="w"> </span><span class="nf">process_data_pandas</span><span class="p">():</span>
      <span class="mi">2</span>         <span class="mi">1</span>          <span class="mf">4.0</span>      <span class="mf">4.0</span>      <span class="mf">0.0</span>      <span class="n">directory_path</span> <span class="o">=</span> <span class="s2">&quot;idealista&quot;</span>
      <span class="mi">3</span>                                           
      <span class="mi">4</span>                                               <span class="c1"># List HTML files in the directory</span>
@@ -667,7 +688,7 @@ Our problem consists in parsing hundreds of raw html files with a similar struct
 <h2><a id='toc1_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask with BS4 parsing function</span></a><a class="headerlink" href="#dask-with-bs4-parsing-function" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">):</span>
     <span class="c1"># Check connection first</span>
     <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
@@ -786,10 +807,10 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">aiofiles</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">aiofiles</span>
 
-<span class="k">async</span> <span class="k">def</span> <span class="nf">read_html_files_async</span><span class="p">(</span><span class="n">directory_path</span><span class="p">):</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_html_files_async</span><span class="p">(</span><span class="n">directory_path</span><span class="p">):</span>
     <span class="n">html_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">html_files</span>
 </pre></div>
@@ -798,7 +819,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_floor</span><span class="p">(</span><span class="n">details</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_floor</span><span class="p">(</span><span class="n">details</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">details</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">&#39;andar&#39;</span> <span class="ow">in</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">details</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">None</span>
@@ -808,7 +829,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -827,7 +848,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_price</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_price</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
     <span class="n">price_info</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-price&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">price_info</span><span class="p">:</span>
         <span class="n">numeric_price</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">price_info</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
@@ -839,7 +860,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
     <span class="n">listing_info</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">title_link</span> <span class="o">:=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;item-link&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
         <span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.idealista.pt&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">title_link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">title_link</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
@@ -855,7 +876,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">parse_html_to_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
     <span class="c1"># Read the HTML file</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
@@ -877,7 +898,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chunk_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">chunk_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">):</span>
     <span class="c1"># Generator that yields chunks of files, more efficient that list comprehension</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">),</span> <span class="n">chunk_size</span><span class="p">):</span>
         <span class="k">yield</span> <span class="n">file_list</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">]</span>
@@ -887,7 +908,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
     <span class="c1"># This function processes a batch of HTML files and returns a DataFrame</span>
     <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -903,7 +924,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
     <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
         <span class="c1"># List HTML files in the directory</span>
@@ -987,7 +1008,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 
 <span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
 <span class="o">==============================================================</span>
-     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+     <span class="mi">1</span>                                           <span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
      <span class="mi">2</span>         <span class="mi">1</span>         <span class="mf">50.0</span>     <span class="mf">50.0</span>      <span class="mf">0.0</span>      <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
      <span class="mi">3</span>         <span class="mi">2</span>    <span class="mf">2785587.0</span>    <span class="mf">1e+06</span>      <span class="mf">0.1</span>      <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
      <span class="mi">4</span>                                                   <span class="c1"># List HTML files in the directory</span>
@@ -1015,8 +1036,8 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </section>
 <section id="dask-and-lxml-for-parsing">
 <h2><a id='toc1_3_'></a><a class="reference internal" href="#toc0_"><span class="xref myst">Dask and lxml for parsing</span></a><a class="headerlink" href="#dask-and-lxml-for-parsing" title="Link to this heading">#</a></h2>
-<div class="mermaid">
-            graph LR
+<pre  class="mermaid">
+        graph LR
     A[Raw HTML Files] --&gt; B[Python Script&lt;br&gt;with lxml &amp; Dask]
     B --&gt; C[Extract Data]
     C --&gt; D[Transform to Structured Format]
@@ -1033,11 +1054,11 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     G --&gt;|Processed Data| H
     H --&gt;|DataFrames| I
     I --&gt; E
-        </div><div class="cell docutils container">
+    </pre><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">html</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lxml</span><span class="w"> </span><span class="kn">import</span> <span class="n">html</span>
 
-<span class="k">def</span> <span class="nf">parse_html_files_to_dataframe</span><span class="p">(</span><span class="n">file_paths</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_html_files_to_dataframe</span><span class="p">(</span><span class="n">file_paths</span><span class="p">):</span>
     <span class="n">listings</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_paths</span><span class="p">:</span>
@@ -1057,7 +1078,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
         <span class="n">df</span> <span class="o">=</span> <span class="n">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 
-<span class="k">def</span> <span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_listing_info</span><span class="p">(</span><span class="n">article</span><span class="p">):</span>
     <span class="c1"># Extracts data from an article and returns a dictionary of listing info</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@title&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[@class=&quot;item-link&quot;]/@title&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -1068,13 +1089,13 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
         <span class="s1">&#39;additional_details&#39;</span><span class="p">:</span> <span class="n">article</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//span[@class=&quot;item-detail&quot;]/text()&#39;</span><span class="p">)</span>
     <span class="p">}</span>
 
-<span class="k">def</span> <span class="nf">extract_price</span><span class="p">(</span><span class="n">price_texts</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_price</span><span class="p">(</span><span class="n">price_texts</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">price_texts</span><span class="p">:</span>
         <span class="n">numeric_price</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">price_texts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">numeric_price</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">numeric_price</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="kc">None</span>
 
-<span class="k">def</span> <span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;home_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;additional_details&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">&#39;andar&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -1091,7 +1112,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
         <span class="c1"># List HTML files in the directory</span>
@@ -1122,7 +1143,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_html_files</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
     <span class="c1"># This function processes a batch of HTML files and returns a DataFrame</span>
     <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -1136,15 +1157,15 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 </div>
 </div>
-<div class="mermaid">
-            graph TD;
+<pre  class="mermaid">
+        graph TD;
     A[parse_html_files_to_df&lt;br&gt;Input: list of strings&lt;br&gt;Output: DataFrame] --&gt; C[extract_listing_info&lt;br&gt;Input: lxml html Element&lt;br&gt;Output: dictionary];
     C --&gt; D[extract_price&lt;br&gt;Input: list of strings&lt;br&gt;Output: Optional int];
     D --&gt; E[Database Insertion&lt;br&gt;Input: DataFrame&lt;br&gt;Output: None];
     A --&gt; B[process_dataframe&lt;br&gt;Input: DataFrame&lt;br&gt;Output: DataFrame];
     B --&gt; E;
 
-        </div><div class="cell docutils container">
+    </pre><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">lprun</span> -f process_data process_data(parse_html_to_dataframe)
 </pre></div>
@@ -1240,7 +1261,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 
 <span class="n">Line</span> <span class="c1">#      Hits         Time  Per Hit   % Time  Line Contents</span>
 <span class="o">==============================================================</span>
-     <span class="mi">1</span>                                           <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+     <span class="mi">1</span>                                           <span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">parsing_function</span><span class="p">,</span> <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;idealista&quot;</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
      <span class="mi">2</span>         <span class="mi">1</span>         <span class="mf">41.0</span>     <span class="mf">41.0</span>      <span class="mf">0.0</span>      <span class="n">db</span> <span class="o">=</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="s1">&#39;house_prices.db&#39;</span><span class="p">)</span>
      <span class="mi">3</span>         <span class="mi">2</span>    <span class="mf">2080322.0</span>    <span class="mf">1e+06</span>      <span class="mf">0.9</span>      <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">managed_cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
      <span class="mi">4</span>                                                   <span class="c1"># List HTML files in the directory</span>
@@ -1352,27 +1373,9 @@ delayed_dataframes = [dask.delayed(process_html_files)(parsing_function, chunk) 
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../03_Vinted_Data_Science/05_user_clustering.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="02_price_regression_idealista.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">In sample regressor for house rent prices</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1453,8 +1456,8 @@ By Miguel Silva
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

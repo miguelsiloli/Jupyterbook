@@ -1,26 +1,56 @@
-# Recreating Airbnb LAEP system in portuguese real estate agency listings
+#  Wisdom of unstructured data
+> Recreating Airbnb LAEP system in portuguese real estate agency listings
 
-The LAEP system - Listing Attribute Extraction Platform is a machine learning system that extracts structured information from unstructured text data about Airbnb listings into structured taxonomy labels.
+The LAEP system - Listing Attribute Extraction Platform is a machine learning system that extracts structured information from unstructured text data about Airbnb listings into structured taxonomy labels (reference https://medium.com/airbnb-engineering/wisdom-of-unstructured-data-building-airbnbs-listing-knowledge-from-big-text-data-7c533466a63c).
+
+![alt text](../assets/07_LLM/LAEP.png)
+
+
 It consists of 3 main components:
 
-1. Named Entity Recognition (NER)
-- Identifies and classifies specific phrases (entities) into labels
-- Detects 5 types of entities: Amenities, Facilities, Hospitality, Location Features and Structured details
-- Uses a CNN framework to process tokenized text and identify entity spans
-- Trained on 30k labeled examples from different text channels (House descriptions, Summary, Owner description, User reviews, Location description)
-
-2. Entity Mapping (EM)
-- Mapping maps the detected entities from NER to taxonomy classes in Airbnb classification system
-- Handles variations of how people describe the same thing differently (lockbox = lock-box = lock box)
-- Uses cosine similarity, returns label if Cosine Similarity > threshold
-- Assigns confidence scores to mappings
-
-3. Entity Scores
-- Determines if mapped attributes actually exist in a listing
-- Uses a fine tuned BERT model for text classification (next sentence prediction objective)
-- Provides three possible outputs: YES (attribute present), NO (not present), or Unknown
-- Analyzes local context (65 words around the detected phrase)
-- Includes confidence scores for its determinations
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>1. Named Entity Recognition (NER)</h4>
+      </th>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>2. Entity Mapping (EM)</h4>
+      </th>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>3. Entity Scores</h4>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Identifies & classifies phrases (entities) into labels.</li>
+          <li><strong>Detects:</strong> 5 entity types (Amenities, Facilities, Hospitality, Location Features, Structured details).</li>
+          <li><strong>Method:</strong> CNN framework processes tokenized text to find entity spans.</li>
+          <li><strong>Training:</strong> 30k labeled examples (from House descriptions, Summaries, Owner notes, Reviews, Location info).</li>
+        </ul>
+      </td>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Maps detected NER entities to Airbnb taxonomy classes.</li>
+          <li><strong>Handles:</strong> Variations in descriptions (e.g., <em>lockbox = lock-box = lock box</em>).</li>
+          <li><strong>Method:</strong> Cosine Similarity; returns label if score > threshold.</li>
+          <li><strong>Output:</strong> Mapped entities with confidence scores.</li>
+        </ul>
+      </td>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Determines if mapped attributes actually exist in a listing.</li>
+          <li><strong>Method:</strong> Fine-tuned BERT model (Next Sentence Prediction objective).</li>
+          <li><strong>Context:</strong> Analyzes local context (65 words around detected phrase).</li>
+          <li><strong>Output:</strong> YES (present), NO (not present), or UNKNOWN, with confidence scores.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 # Named Entity Recognition
@@ -31,51 +61,82 @@ For this task we are using two different datasets:
 
 
 The workflow encompasses the following steps:
-- Translate airbnb listing details to portuguese
-- Pretrain our NER transformer with MLM + Multiclass objective in our airbnb dataset
-- Employ a LLM as a NER labeler using few shot prompt
-- Fine tuning our labeled dataset, using SVM classifier as novelty detection
-- Generate BIO format datasets for entity recognition
-- Train our pretrained NER BERT in our labeled dataset ('cross domain data')
-- Evaluate the performance of the NER in our imovirtual descriptions
+<table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h4 style="margin-top:0; margin-bottom:8px;">Pretrain (AirBnB dataset)</h4>
+      <ol style="margin-top:0; margin-bottom:0; padding-left:25px; list-style-position: outside;">
+        <li style="margin-bottom:4px;">Concat columns [<code>"name"</code>, <code>"summary"</code>, <code>"space"</code>, <code>"neighborhood_overview"</code>, <code>"interaction"</code>, <code>"house_rules"</code>]</li>
+        <li style="margin-bottom:4px;"><strong>Translate airbnb listings</strong> details to portuguese</li>
+        <li style="margin-bottom:4px;">Split into <strong>2048 token chunks</strong></li>
+        <li style="margin-bottom:4px;">Get the most frequent <strong>amenities</strong> as one-hot labels</li>
+        <li style="margin-bottom:0;"><strong>Pretrain</strong> our NER transformer with MLM + Multiclass objective with amenities</li>
+      </ol>
+    </td>
+    <td style="width:48%; vertical-align:top; padding-left:2%;">
+      <h4 style="margin-top:0; margin-bottom:8px;">Fine tune (imovirtual dataset)</h4>
+      <ol style="margin-top:0; margin-bottom:0; padding-left:25px; list-style-position: outside;">
+        <li style="margin-bottom:4px;">Mine the imovirtual listings descriptions</li>
+        <li style="margin-bottom:4px;">Employ a foundational model as a <strong>NER labeler</strong> using few shot prompt</li>
+        <li style="margin-bottom:4px;"><strong>Refine and preprocess our labeled dataset</strong>, using SVM classifier as novelty detection</li>
+        <li style="margin-bottom:4px;"><strong>Generate BIO format</strong> datasets for entity recognition</li>
+        <li style="margin-bottom:4px;"><strong>Fine tune our pretrained BERT</strong> in our labeled dataset ('cross domain data') with NER (classification objective)</li>
+        <li style="margin-bottom:0;"><strong>Evaluate the performance</strong> of the NER in our imovirtual descriptions</li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
 ## 📊 Datasets Overview
 
-### Airbnb Dataset
-*Open source dataset from Kaggle*
+![Alt text](../assets/07_LLM/pic1.png)
 
-- Airbnb open source datasets in kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description.
+<table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h3 style="margin-top:0; margin-bottom:5px;">Airbnb Dataset (training dataset)</h3>
+      <p style="margin-top:0; margin-bottom:8px; font-size:0.9em;"><em>Open source dataset from Kaggle</em></p>
+      <p style="margin-top:0; margin-bottom:8px;">Airbnb open source datasets in Kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description.</p>
 
-![Alt text](pic1.png)
+  <strong style="display:block; margin-bottom:3px;">Key Statistics:</strong>
+  <ul style="margin-top:0; margin-bottom:8px; padding-left:20px; list-style-position: outside;">
+    <li style="margin-bottom:2px;">Rows: <code>20,000</code></li>
+    <li style="margin-bottom:2px;">Total Words: <code>20M+</code></li>
+    <li style="margin-bottom:0;">Average Length: <code>1,000 words/entry</code></li>
+    </ul>
 
-**Key Statistics:**
-- Rows: `20,000`
-- Total Words: `20M+`
-- Average Length: `1,000 words/entry`
+  <strong style="display:block; margin-bottom:3px;">Columns:</strong>
+    <ul style="margin-top:0; margin-bottom:0; padding-left:20px; list-style-position: outside;">
+    <li style="margin-bottom:2px;">Description</li>
+    <li style="margin-bottom:2px;">Space</li>
+    <li style="margin-bottom:2px;">Summary</li>
+      <li style="margin-bottom:2px;">Neighborhood</li>
+      <li style="margin-bottom:2px;">Transit</li>
+      <li style="margin-bottom:0;">Reviews Description</li>
+    </ul>
+  </td>
+  <td style="width:48%; vertical-align:top; padding-left:2%;">
+    <h3 style="margin-top:0; margin-bottom:5px;">Imovirtual Dataset (fine tune dataset)</h3>
+    <p style="margin-top:0; margin-bottom:8px; font-size:0.9em;"><em>Scraped rental descriptions</em></p>
 
-**Columns:**
-- Description
-- Space
-- Summary
-- Neighborhood
-- Transit
-- Reviews Description
+  <strong style="display:block; margin-bottom:3px;">Key Statistics:</strong>
+    <ul style="margin-top:0; margin-bottom:8px; padding-left:20px; list-style-position: outside;">
+      <li style="margin-bottom:2px;">Rows: <code>8,000</code></li>
+      <li style="margin-bottom:2px;">Total Words: <code>4M+</code></li>
+      <li style="margin-bottom:0;">Average Length: <code>600 words/entry</code></li>
+    </ul>
 
-### Imovirtual Dataset 
-*Scraped rental descriptions*
+  <strong style="display:block; margin-bottom:3px;">Content:</strong>
+    <p style="margin-top:0; margin-bottom:0;">Collection of descriptions, prices, and property characteristics from all available rentals to date.</p>
+  </td>
+  </tr>
+</table>
 
-**Key Statistics:**
-- Rows: `8,000`
-- Total Words: `4M+`
-- Average Length: `600 words/entry`
-
-**Content:**
-Collection of descriptions, prices, and property characteristics from all available rentals to date.
-
+# Part I - Pretraining
 
 ### Preprocessing pipeline and transfer-learning
 
-```mermaid
+```{mermaid}
 graph TD
     A[Translation] --> B[Duplicate Removal]
     B --> C[Sentence Splitting]
@@ -103,7 +164,50 @@ graph TD
     </ul>
 </div>
 
-```mermaid
+
+## Pretrain BERT with MLM + Multiclass objective on language corpus
+
+### Don’t Stop Pretraining
+
+This aligns with findings from the paper "Don’t Stop Pretraining", which emphasizes that adapting language models to domains improves downstream task performance by up to 30% [https://www.sbert.net/examples/unsupervised_learning/MLM/README.html]. For Airbnb, a model pretrained on property descriptions, reviews, and booking data would better capture terms like "amenities," "host policies," or regional lodging trends compared to generic text.
+- Improves performance on tasks on that domain and across domains
+- Increases the available dataset for training tasks and generalization
+
+$$
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{MLM}} + \beta \cdot \mathcal{L}_{\text{MC}}
+$$
+
+**In summary, the overall objective is:**
+
+$$
+\mathcal{L}_{\text{total}}(\theta) = - \sum_{i \in \text{masked\_tokens}} \log P(w_i | \text{context}_i; \theta) - \beta \sum_{j \in \text{sequences}} \sum_{c \in \text{classes}} y_{j,c} \log P(\text{class}_c | \text{sequence}_j; \theta)
+$$
+
+It maximizes the likelihood of predicting masked tokens based on the conditional support of unmasked tokens (MLM) and predicting the amenity class given the full context.
+
+### Learning general language features and tasks specific features
+
+The addition of a multiclass objective—using Airbnb’s classification system (e.g., property types, pricing tiers, labels)—serves two purposes:
+- **Task Specific Adapatation**: we are leveraging the pretraining phase to tune on labeled data, which might further enhance pretraining
+- **Data Efficiency**: reduce downstream fine tuning costs (model already encodes task relevant features at pretraining).
+
+### Gradient flow
+
+Mixing unsupervised learning (MLM) and supervised learning (multiclassification) adds different learning signals which may improve gradient flow by injecting gradient diversity and model robustness, reducing the likelihood model stays stuck at local minima and acting as a regularization as well.
+
+This mirrors BERT original training where MLM and Next Sentene Prediction (NSP) are jointly used [https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115]. The principle of multtask-driven gradient flow improvement is well estabilished during transformer pretraining.
+
+### Possible issues
+
+- The cross domain dataset used for pretrained might not be representative of our original dataset
+- Multiobjective learning functions add a bigger computational costs
+- Multiclass head adds additional overhead
+- MLM with multiobjective might compete and not converge if labels are noisy or misaligned
+    - Implemented a *beta* factor for multiclass objective
+
+# Part II - Finetuning
+
+```{mermaid}
 flowchart TD
     subgraph Input
         A[Raw Text Data]
@@ -149,88 +253,165 @@ flowchart TD
     style BIO Conversion fill:#e8eaf6
 ```
 
-### Resulting dataset
-
-| Metric | Value |
-|--------|--------|
-| Total Entities | 10941 |
-| Unique Entities | 5176 |
-| Unique Labels | 5 |
-| Average Entity Length | 15.03 |
-| Most Common Label | Facility |
-| Most Common Entity | apartamento |
-
-### Label Statistics
-
-| Label | Count | Percentage | Unique Entities | Avg Length |
-|-------|--------|------------|-----------------|------------|
-| Amenity | 376 | 3.44 | 221 | 15.02 |
-| Appliances | 1319 | 12.06 | 498 | 13.46 |
-| Facility | 4203 | 38.42 | 1551 | 13.61 |
-| Hospitality | 2236 | 20.44 | 1349 | 15.39 |
-| Location Features | 2807 | 25.66 | 1714 | 17.59 |
-
-### Top 20 Most Common Entities
-
-| Entity | Count | Label |
-|--------|--------|--------|
-| apartamento | 198 | Facility |
-| banheiro | 190 | Facility |
-| cozinha | 187 | Facility |
-| sala de estar | 172 | Facility |
-| quarto | 166 | Facility |
-| chuveiro | 84 | Facility |
-| Amsterdã | 82 | Location Features |
-| cama de casal | 78 | Hospitality |
-| varanda | 74 | Facility |
-| banheira | 70 | Facility |
-| forno | 66 | Appliances |
-| micro-ondas | 62 | Appliances |
-| restaurantes | 58 | Location Features |
-| jardim | 56 | Amenity |
-| máquina de lavar | 54 | Appliances |
-| geladeira | 53 | Appliances |
-| máquina de lavar louça | 53 | Appliances |
-| centro da cidade | 48 | Location Features |
-| lava-louças | 44 | Appliances |
-| quarto principal | 43 | Facility |
-| Vondelpark | 42 | Location Features |
-| vaso sanitário | 42 | Facility |
-| primeiro andar | 42 | Facility |
-| Wi-Fi | 41 | Amenity |
+<table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h3>Resulting dataset</h3>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Metric</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Total Entities</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">10941</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Unique Entities</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">5176</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Unique Labels</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">5</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Average Entity Length</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.03</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Most Common Label</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Facility</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Most Common Entity</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">apartamento</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="width:48%; vertical-align:top; padding-left:2%;">
+      <h3>Label Statistics</h3>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Label</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Count</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Percentage</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Unique Entities</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Avg Length</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Amenity</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">376</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">3.44</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">221</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.02</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Appliances</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1319</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">12.06</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">498</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">13.46</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Facility</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">4203</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">38.42</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1551</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">13.61</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Hospitality</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">2236</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">20.44</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1349</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.39</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Location Features</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">2807</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">25.66</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1714</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">17.59</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
 
 ### LLM annotations
 
-```
+```{plaintext}
 - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada [Amsterdã](Location Features), você volta para casa depois de uma curta caminhada ou uma [viagem de ônibus/bonde](Location Features) neste adorável apartamento tranquilo. Assista a um filme na [Netflix] (Appliances), beba um vinho na [varanda] (Facility) ou vá direto para a [cama] (Hospitality) em um de nossos dois [aconchegantes quartos] (Facility).
 ```
 
 ### Validation
 
-**Original**: - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada [Amsterdã](Location Features), você volta para casa depois de uma curta caminhada ou uma [viagem de ônibus/bonde](Location Features) neste adorável apartamento tranquilo. Assista a um filme na [Netflix] (Appliances), beba um vinho na [varanda] (Facility) ou vá direto para a [cama] (Hospitality) em um de nossos dois [aconchegantes quartos] (Facility).
+<div style="font-family: sans-serif; line-height: 1.6;">
+  <div style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+    <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">Entity Recognition Example</h3>
 
+  <div style="margin-bottom: 20px;">
+    <h4 style="margin-bottom: 5px; color: #444;">Original Text (with annotations):</h4>
+    <p style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px; border-radius: 5px; font-size: 0.95em; color: #333;">
+      - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada <span style="background-color: #FFF3CD; color: #856404; padding: 2px 4px; border-radius: 3px; border: 1px solid #FFEEBA;">Amsterdã</span><span style="font-size: 0.8em; color: #6c757d;"> (Location Features)</span>, você volta para casa depois de uma curta caminhada ou uma <span style="background-color: #FFF3CD; color: #856404; padding: 2px 4px; border-radius: 3px; border: 1px solid #FFEEBA;">viagem de ônibus/bonde</span><span style="font-size: 0.8em; color: #6c757d;"> (Location Features)</span> neste adorável apartamento tranquilo. Assista a um filme na <span style="background-color: #D4EDDA; color: #155724; padding: 2px 4px; border-radius: 3px; border: 1px solid #C3E6CB;">Netflix</span><span style="font-size: 0.8em; color: #6c757d;"> (Appliances)</span>, beba um vinho na <span style="background-color: #D1ECF1; color: #0C5460; padding: 2px 4px; border-radius: 3px; border: 1px solid #BEE5EB;">varanda</span><span style="font-size: 0.8em; color: #6c757d;"> (Facility)</span> ou vá direto para a <span style="background-color: #F8D7DA; color: #721C24; padding: 2px 4px; border-radius: 3px; border: 1px solid #F5C6CB;">cama</span><span style="font-size: 0.8em; color: #6c757d;"> (Hospitality)</span> em um de nossos dois <span style="background-color: #D1ECF1; color: #0C5460; padding: 2px 4px; border-radius: 3px; border: 1px solid #BEE5EB;">aconchegantes quartos</span><span style="font-size: 0.8em; color: #6c757d;"> (Facility)</span>.
+    </p>
+  </div>
 
-**Cleaned**: - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada Amsterdã, você volta para casa depois de uma curta caminhada ou uma viagem de ônibus/bonde neste adorável apartamento tranquilo. Assista a um filme na Netflix, beba um vinho na varanda ou vá direto para a cama em um de nossos dois aconchegantes quartos.
+  <div style="margin-bottom: 25px;">
+    <h4 style="margin-bottom: 5px; color: #444;">Cleaned Text (input to model):</h4>
+    <p style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px; border-radius: 5px; font-size: 0.95em; color: #333;">
+      - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada Amsterdã, você volta para casa depois de uma curta caminhada ou uma viagem de ônibus/bonde neste adorável apartamento tranquilo. Assista a um filme na Netflix, beba um vinho na varanda ou vá direto para a cama em um de nossos dois aconchegantes quartos.
+    </p>
+  </div>
 
-Entities:
-- Entity: Amsterdã
-  Label: Location Features
-  Position 87:95: 'Amsterdã' ✓
-- Entity: viagem de ônibus/bonde
-  Label: Location Features
-  Position 155:177: 'viagem de ônibus/bonde' ✓
-- Entity: Netflix
-  Label: Appliances
-  Position 238:245: 'Netflix' ✓
-- Entity: varanda
-  Label: Facility
-  Position 264:271: 'varanda' ✓
-- Entity: cama
-  Label: Hospitality
-  Position 292:296: 'cama' ✓
-- Entity: aconchegantes quartos
-  Label: Facility
-  Position 318:339: 'aconchegantes quartos' ✓
+  <h4 style="margin-bottom: 10px; color: #444; border-top: 1px dashed #ccc; padding-top: 15px;">Identified Entities (from Cleaned Text):</h4>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'Amsterdã'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Location Features</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 87:95</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'viagem de ônibus/bonde'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Location Features</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 155:177</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'Netflix'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Appliances</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 238:245</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'varanda'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Facility</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 264:271</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'cama'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Hospitality</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 292:296</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 0px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;"> <!-- Reduced margin-bottom for the last item -->
+    <span style="font-weight: bold; color: #0056b3;">'aconchegantes quartos'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Facility</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 318:339</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  </div>
+</div>
+
 
 ### Structured output (Before BIO conversion)
 
@@ -266,76 +447,186 @@ Entities:
 }
 ```
 
+Training loss looks good, with no signs of overfitting. However, it's obvious it underfits (the loss is still a bit too high after learning). This is very likely due to mislabeled entities and Amenity label. **F1 Score: 0.8542**
 
-## Pretrain BERT with MLM + Multiclass objective on language corpus
+| Training/Validation Loss | Semantic learning Animation |
+|:---:|:---:|
+| ![After pretraining](../assets/07_LLM/training_validation_loss.png) | ![After pretraining](../assets/07_LLM/embeddings_animation.gif) |
 
-### Don’t Stop Pretraining
+### Label metrics
 
-This aligns with findings from the paper "Don’t Stop Pretraining", which emphasizes that adapting language models to domains improves downstream task performance by up to 30% [https://www.sbert.net/examples/unsupervised_learning/MLM/README.html]. For Airbnb, a model pretrained on property descriptions, reviews, and booking data would better capture terms like "amenities," "host policies," or regional lodging trends compared to generic text.
-- Improves performance on tasks on that domain and across domains
-- Increases the available dataset for training tasks and generalization
+| Label Metrics | Confusion Matrix |
+|:---:|:---:|
+| ![Entity Metrics](../assets/07_LLM/entity_metrics.png) | ![Confusion Matrix](../assets/07_LLM/confusion_matrix.png) |
 
-[insert reasoning on why we added multiclass objective leveraging the existent airbnb classification system]
+# How well does the model knowledge transfer to our target data?
 
-### Learning general language features and tasks specific features
+| Top 20 entities by label | Total entities per label |
+|:---:|:---:|
+| ![Entity Metrics](../assets/07_LLM/top_20_entities_by_label.png) | ![Confusion Matrix](../assets/07_LLM/total_entities_per_label.png) |
 
-The addition of a multiclass objective—using Airbnb’s classification system (e.g., property types, pricing tiers, labels)—serves two purposes:
-- **Task Specific Adapatation**: we are leveraging the pretraining phase to tune on labeled data, which might further enhance pretraining
-- **Data Efficiency**: reduce downstream fine tuning costs (model already encodes task relevant features at pretraining).
+<table>
+<tr>
+<td><img src="../assets/07_LLM/ner_fine_tuned_embeddings.png" alt="NER Fine-Tuned Embeddings" width="400"></td>
+<td><img src="../assets/07_LLM/entity_embedding_map.png" alt="Entity Embedding Map" width="400"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Cross-domain dataset (train dataset)</td>
+<td style="text-align: center;">Imovirtual listings (test dataset)</td>
+</tr>
+</table>
 
-[explain how multiclass objective might help with gradient flow]
-### Gradient flow
-
-Mixing unsupervised learning (MLM) and supervised learning (multiclassification) adds different learning signals which may improve gradient flow by injecting gradient diversity and model robustness, reducing the likelihood model stays stuck at local minima and acting as a regularization as well.
 
 
-This mirrors BERT original training where MLM and Next Sentene Prediction (NSP) are jointly used [https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115]. The principle of multtask-driven gradient flow improvement is well estabilished during transformer pretraining.
-
-### Possible issues
-
-- The cross domain dataset used for pretrained might not be representative of our original dataset
-- Multiobjective learning functions add a bigger computational costs
-- Multiclass head adds additional overhead
-- MLM with multiobjective might compete and not converge if labels are noisy or misaligned
-    - Implemented a *beta* factor for multiclass objective
-
+<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #D14B4B; background-color: #FFEFEF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"> <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #D14B4B; border-bottom: 1px solid rgba(209,75,75,0.2); padding-bottom: 0.4em;">Conclusions</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">The target dataset outperforms the translated training dataset in terms of embedding quality and class separation. Clear patterns and semantic alignment indicate a stronger signal-to-noise ratio in the target data.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Translation Losses:</strong> Translated data introduces noise through <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">context loss</span>, <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">idiomatic inaccuracies</span>, and <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">ambiguities</span>, which blur feature distinctions and harm learning.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Ambiguous Expressions:</strong> Less unique entities in the target database ultimately helps. While algorithms might chose different synonyms for the same words, native speakers are usually very keen on using the same expressions.</p> <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key Observations:</strong></p> <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;"> <li>Target embeddings exhibit clearer class definitions and reduced ambiguity.</li> <li>Native Portuguese expressions enhance context relevance and discriminative power.</li> <li>Translated data introduces noise that hampers embedding clarity and model training.</li> </ul> <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(209,75,75,0.2); padding-top: 0.6em;">Translation here acts as a data augmentar and regularization mechanisms as it introduces variability and noise to the data.</p> </div>
 
 ### Results
 
 | Before pretraining | After pretraining |
 |:------------------:|:-----------------:|
-| ![Before pretraining](ner_default_embeddings.png) | ![After pretraining](ner_fine_tuned_embeddings.png) |
+| ![Before pretraining](../assets/07_LLM/ner_default_embeddings.png) | ![After pretraining](../assets/07_LLM/ner_fine_tuned_embeddings.png) |
 
 #### Embeddings Space quality validation
 
-<table>
-  <tr>
-    <td width="70%"><img src="svm_decision_boundaries.png" alt="After pretraining" width="100%"></td>
-    <td width="30%" style="font-size: 0.65em; vertical-align: top; padding: 0;">
-      <table style="font-size: 0.65em; border-collapse: collapse; width: 100%;">
-        <tr style="line-height: 1.1;"><th style="padding: 1px;">Class</th><th style="padding: 1px;">Precision</th><th style="padding: 1px;">Recall</th><th style="padding: 1px;">F1 Score</th><th style="padding: 1px;">Support</th></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Amenity</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">0.00</td><td style="padding: 1px;">221</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Appliances</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.69</td><td style="padding: 1px;">0.74</td><td style="padding: 1px;">498</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Facility</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.83</td><td style="padding: 1px;">0.81</td><td style="padding: 1px;">1551</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Hospital</td><td style="padding: 1px;">0.74</td><td style="padding: 1px;">0.77</td><td style="padding: 1px;">0.75</td><td style="padding: 1px;">1349</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Location</td><td style="padding: 1px;">0.83</td><td style="padding: 1px;">0.89</td><td style="padding: 1px;">0.86</td><td style="padding: 1px;">1714</td></tr>
-        <tr style="line-height: 0.5;"><td colspan="5" style="padding: 0px;"></td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Accuracy</td><td colspan="2" style="padding: 1px;"></td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">5333</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Macro</td><td style="padding: 1px;">0.63</td><td style="padding: 1px;">0.64</td><td style="padding: 1px;">0.63</td><td style="padding: 1px;">5333</td></tr>
-        <tr style="line-height: 1.1;"><td style="padding: 1px;">Weighted</td><td style="padding: 1px;">0.76</td><td style="padding: 1px;">0.79</td><td style="padding: 1px;">0.77</td><td style="padding: 1px;">5333</td></tr>
+![SVM boundaries](../assets/07_LLM/svm_decision_boundaries.png)
+
+<div style="font-family: sans-serif; line-height: 1.6;">
+  <h2 style="text-align: center; margin-bottom: 20px;">Model Performance Comparison</h2>
+  <div style="display: flex; justify-content: space-between; gap: 20px; margin-bottom: 30px;">
+    <div style="flex: 1; border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+      <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">LAEP-CNN Model Baseline Scores</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Entity</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Precision</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Recall</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">F1 Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Overall</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.95%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.70%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.32%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Amenity</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">80.75%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">84.38%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">82.52%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Facility</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.15%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">67.66%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">70.76%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Hospitality</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">61.99%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">58.47%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">60.18%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Location features</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">71.80%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.19%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">67.22%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Structural details</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">72.66%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">68.49%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">70.51%</td>
+          </tr>
+        </tbody>
       </table>
-    </td>
-  </tr>
-</table>
+    </div>
 
-
-
+  <div style="flex: 1; border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+      <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">Our BERT Model Scores</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Class</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Precision</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Recall</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">F1 Score</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Support</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Amenity</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">47.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">57.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">221</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Appliances</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">69.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">498</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Facility</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">83.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">81.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1551</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Hospital</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">77.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1349</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Location</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">83.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">89.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">86.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1714</td>
+          </tr>
+          <tr style="line-height: 0.5;">
+            <td colspan="5" style="padding: 0px; border: none;"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Accuracy</td>
+            <td colspan="2" style="border: 1px solid #ddd; padding: 8px; text-align: left;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Macro</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">64.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Weighted</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">77.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 The pretrained encoder should create semantically meaningful embeddings. These embeddings should show clearn clusters by entity types and a classification algorithm such as SVM decision boundaries should be able to help validate these clusters semantic sense.
 
 Outliers might indicate data quality issues:
-- mislabled entities in training data
+- **mislabled entities** in training data
 - unusual but valid entities which are feature rich
-- noise that should be cleaned
+- **noise** that should be cleaned
 
 Data quality improvement actions:
 - Review entity's label accuracy
@@ -354,41 +645,6 @@ Data quality improvement actions:
   </ul>
   <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(75,86,210,0.2); padding-top: 0.6em;">Further investigation into the semantic similarity between frequently confused entities may help improve model performance.</p>
 </div>
-
-## Finetuning
-
-Training loss looks good, with no signs of overfitting. However, it's obvious it underfits (the loss is still a bit too high after learning). This is very likely due to mislabeled entities and Amenity label. **F1 Score: 0.8542**
-
-| Training/Validation Loss | Semantic learning Animation |
-|:---:|:---:|
-| ![After pretraining](training_validation_loss.png) | ![After pretraining](embeddings_animation.gif) |
-
-### Label metrics
-
-| Label Metrics | Confusion Matrix |
-|:---:|:---:|
-| ![Entity Metrics](entity_metrics.png) | ![Confusion Matrix](confusion_matrix.png) |
-
-# How well does the model knowledge transfer to our target data?
-
-| Top 20 entities by label | Total entities per label |
-|:---:|:---:|
-| ![Entity Metrics](top_20_entities_by_label.png) | ![Confusion Matrix](total_entities_per_label.png) |
-
-<table>
-<tr>
-<td><img src="ner_fine_tuned_embeddings.png" alt="NER Fine-Tuned Embeddings" width="400"></td>
-<td><img src="entity_embedding_map.png" alt="Entity Embedding Map" width="400"></td>
-</tr>
-<tr>
-<td style="text-align: center;">Cross-domain dataset (train)</td>
-<td style="text-align: center;">Imovirtual listings (test)</td>
-</tr>
-</table>
-
-
-
-<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #D14B4B; background-color: #FFEFEF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"> <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #D14B4B; border-bottom: 1px solid rgba(209,75,75,0.2); padding-bottom: 0.4em;">Conclusions</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">The target dataset outperforms the translated training dataset in terms of embedding quality and class separation. Clear patterns and semantic alignment indicate a stronger signal-to-noise ratio in the target data.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Translation Losses:</strong> Translated data introduces noise through <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">context loss</span>, <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">idiomatic inaccuracies</span>, and <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">ambiguities</span>, which blur feature distinctions and harm learning.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Ambiguous Expressions:</strong> Less unique entities in the target database ultimately helps. While algorithms might chose different synonyms for the same words, native speakers are usually very keen on using the same expressions.</p> <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key Observations:</strong></p> <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;"> <li>Target embeddings exhibit clearer class definitions and reduced ambiguity.</li> <li>Native Portuguese expressions enhance context relevance and discriminative power.</li> <li>Translated data introduces noise that hampers embedding clarity and model training.</li> </ul> <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(209,75,75,0.2); padding-top: 0.6em;">Translation here acts as a data augmentar and regularization mechanisms as it introduces variability and noise to the data.</p> </div>
 
 # Future work
 

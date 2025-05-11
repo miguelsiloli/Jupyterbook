@@ -14,40 +14,39 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -58,15 +57,19 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '05_housing_database/02_price_regression_idealista';</script>
     <script src="../_static/js/mermaid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Mining on Imovirtual" href="03_unravelling_imovirtual.html" />
-    <link rel="prev" title="01: Improving the efficiency of HTML parsers" href="00.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -76,27 +79,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,8 +117,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -127,6 +131,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -142,6 +148,8 @@
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -164,7 +172,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -189,12 +197,25 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Data Science</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/01_price_prediction.html"><span class="xref myst">01: Price Regression with LightGBM</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_catalog_clustering.html"><span class="xref myst">02: Clustering of product catalogs with Agglomerative Clustering and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/05_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Vinted_Deep_Learning/01_vinted_dataset.html">01: Creating a Image Classification Dataset from Vinted Images</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Recreating Airbnb LAEP system in portuguese real estate agency listings</a></li>
+
+
+
 </ul>
 
     </div>
@@ -210,7 +231,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -219,14 +240,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -351,10 +372,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -362,14 +383,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -497,8 +518,8 @@ document.write(`
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>The first data model derived from the source data was this table. We used some simple preprocessing functions to remove any outliers and then fit the model.</p>
-<div class="mermaid">
-            erDiagram
+<pre  class="mermaid">
+        erDiagram
     LISTINGS {
         string garage
         int price
@@ -511,7 +532,7 @@ document.write(`
         float price_per_sqr_meter
         string neighborhood
     }
-        </div></section>
+    </pre></section>
 <section id="data-collection-and-preparation">
 <h2>Data Collection and Preparation<a class="headerlink" href="#data-collection-and-preparation" title="Link to this heading">#</a></h2>
 <p>After the inital EDA of the data, the preprocessing approach was to filter the values by quantiles, grouped by city and home sizes.</p>
@@ -524,7 +545,7 @@ document.write(`
 </ul>
 <details>
 <summary><b>Code</b></summary>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_city_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">filter_city_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
     <span class="c1"># Calculate quantiles within each group</span>
     <span class="n">c1</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;price_per_sqr_meter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
     <span class="n">c2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
@@ -580,7 +601,7 @@ document.write(`
 </div>
 <section id="results">
 <h4>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h4>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>Value</p></th>
@@ -613,6 +634,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <p>For the first model we went super simple with a super out of the box approach. In addition, the EDA made me realize ‘tweedie’ objective function made more sense than regression.</p>
 <p>The results are pretty decent. We can already tell the features in our dataset are somewhat meaningful to model rent prices by the r2_score. However, max error is crazy big and MAE and MEDAE are substancial.</p>
 </section>
@@ -624,8 +646,8 @@ document.write(`
 <h3>Feature engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h3>
 <p>For the feature engineering, we decided to create a new variable “street_names” by extracting it from the title using a mix of pretrained Spacy Named Entity Recognition model and a fixed regex match for a list of special keywords.</p>
 <p>street_keywords = {‘rua’, ‘avenida’, ‘beco’, ‘praça’, ‘travessa’, ‘estrada’, ‘alameda’, ‘largo’, ‘caminho’}</p>
-<div class="mermaid">
-            graph TD
+<pre  class="mermaid">
+        graph TD
     A[Start] --&gt; B[Preprocess Text]
     B --&gt; C{Extract Street Name}
     C --&gt; D{Entity Label is LOC?}
@@ -671,9 +693,9 @@ document.write(`
     L
     M
     end
-        </div><details>
+    </pre><details>
 <summary><b>Code</b></summary>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">preprocess_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Preprocesses the given text string by:</span>
 <span class="sd">    - Stripping whitespace from start and end.</span>
@@ -714,7 +736,7 @@ document.write(`
 </div>
 <section id="extract-street-names-from-title">
 <h4>Extract street names from title<a class="headerlink" href="#extract-street-names-from-title" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_name</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_street_name</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extracts the street name from a given text.</span>
 <span class="sd">    </span>
@@ -733,7 +755,7 @@ document.write(`
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_neighborhood_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">remove_words</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_neighborhood_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">remove_words</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clean a single neighborhood name by removing specified words.</span>
 
@@ -759,7 +781,7 @@ document.write(`
 </section>
 <section id="id1">
 <h4>Extract street names from title<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_street_names</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_street_names</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="c1"># Process the text</span>
     <span class="c1"># doc = nlp(text)</span>
 
@@ -784,13 +806,13 @@ document.write(`
 <p>Built a wrapper over optuna trials to find the best booster given the search space shown below. Optuna works by using an algorithm to go over the search space defined and then return the best score for the objective metrics.</p>
 <details>
 <summary><b>Code</b></summary>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback_model</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">trial</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">callback_model</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">trial</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="n">trial</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
         <span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;best_booster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">trial</span><span class="o">.</span><span class="n">user_attrs</span><span class="p">[</span><span class="s2">&quot;best_booster&quot;</span><span class="p">])</span>
 
 <span class="c1"># Assuming X_train and y_train are already defined and available</span>
 <span class="n">evals</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># initializing in global scope</span>
-<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
     <span class="c1"># Train/test split</span>
     <span class="n">X_train_split</span><span class="p">,</span> <span class="n">X_val_split</span><span class="p">,</span> <span class="n">y_train_split</span><span class="p">,</span> <span class="n">y_val_split</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
     <span class="n">evals</span> <span class="o">=</span> <span class="p">{}</span>
@@ -860,7 +882,7 @@ document.write(`
 </section>
 <section id="id2">
 <h3>Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>Value</p></th>
@@ -893,6 +915,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 </section>
 <section id="lightgbm-finetuning-2-data-structure-reworked">
@@ -901,19 +924,19 @@ document.write(`
 <h3>Developing a new datastructure: natural linkage<a class="headerlink" href="#developing-a-new-datastructure-natural-linkage" title="Link to this heading">#</a></h3>
 <p>The purpose of this new datastructure is to create a proper linkage between pages in the different levels of hierarchy of housing location.</p>
 <p><strong>Before</strong></p>
-<div class="mermaid">
-            graph LR
+<pre  class="mermaid">
+        graph LR
     A[city] --&gt; B[Neighborhood]
     B --&gt; C[street_name]
-        </div><p><strong>After</strong></p>
-<div class="mermaid">
-            graph LR
+    </pre><p><strong>After</strong></p>
+<pre  class="mermaid">
+        graph LR
     A[District] --&gt; B[Municipality]
     B --&gt; C[Parish]
     C --&gt; D[Neighborhood]
     D --&gt; E[Neighborhood Link]
     E --&gt; F[Neighborhood Link: page n]
-        </div><p>Basically I <strong>kept the same parsing class, but changed the parsing scope</strong> to a lower hierarchy level. Given that my parsing class takes a list of links, I just changed my list of links by creating a catalog.</p>
+    </pre><p>Basically I <strong>kept the same parsing class, but changed the parsing scope</strong> to a lower hierarchy level. Given that my parsing class takes a list of links, I just changed my list of links by creating a catalog.</p>
 <p><strong>Data catalog</strong></p>
 <p><img alt="raw" src="../_images/catalog.png" /></p>
 <p>In addition, this data catalog parsed every possible href in the website which resulted in more data points.</p>
@@ -923,10 +946,10 @@ document.write(`
 <p>Instead of using a combinatorial searching algorithm, I used the LightGBMTuner which is a sequential tuning algorithm. It’s much faster.</p>
 <details>
 <summary><b>Code</b></summary>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">optuna.integration</span> <span class="kn">import</span> <span class="n">LightGBMTuner</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">optuna.integration</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightGBMTuner</span>
 <span class="n">optuna</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">tune_hyperparameters</span><span class="p">(</span><span class="n">d_train</span><span class="p">,</span> <span class="n">d_valid</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tune_hyperparameters</span><span class="p">(</span><span class="n">d_train</span><span class="p">,</span> <span class="n">d_valid</span><span class="p">):</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;tweedie&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;tweedie&#39; or any other suitable according to your task</span>
         <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;rmse&#39;</span><span class="p">,</span>           <span class="c1"># Evaluation metric</span>
@@ -959,7 +982,7 @@ document.write(`
 </section>
 <section id="id3">
 <h3>Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>Value</p></th>
@@ -992,13 +1015,14 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 </section>
 <section id="id4">
 <h2>Results<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <section id="model-performance-metrics">
 <h3>Model Performance Metrics<a class="headerlink" href="#model-performance-metrics" title="Link to this heading">#</a></h3>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>First Model</p></th>
@@ -1049,6 +1073,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>First and Second Model share the same data structure, Second model has an additional engineered feature.</p>
@@ -1071,8 +1096,8 @@ document.write(`
 </section>
 <section id="bonus-regression-on-a-different-source">
 <h2>Bonus: Regression on a different source<a class="headerlink" href="#bonus-regression-on-a-different-source" title="Link to this heading">#</a></h2>
-<div class="mermaid">
-            erDiagram
+<pre  class="mermaid">
+        erDiagram
     PROPERTY {
         int id
         string title
@@ -1131,13 +1156,13 @@ document.write(`
         string rentPrice_currency
         date date
     }
-        </div><p>This source has a GraphQL endpoint which makes this task much more convinient. The fact we get structured data out of the box is <em>chefs kiss</em>.
+    </pre><p>This source has a GraphQL endpoint which makes this task much more convinient. The fact we get structured data out of the box is <em>chefs kiss</em>.
 I will apply the last model build out of the box. For the regressor, I picked the following features:</p>
 <p>The reason why I picked these features is because there are quite a few attributes with lots of missing data (I’m assuming they are optional in the listings). I kept the maximum data possible.</p>
 <p><strong>Dataset size</strong></p>
 <p><em>4040 rows</em></p>
-<div class="mermaid">
-            erDiagram
+<pre  class="mermaid">
+        erDiagram
     PROPERTY {
         string estate
         int developmentId
@@ -1150,9 +1175,9 @@ I will apply the last model build out of the box. For the regressor, I picked th
         string agency_name
         string agency_type
     }
-        </div><section id="id5">
+    </pre><section id="id5">
 <h3>Results<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>Value</p></th>
@@ -1185,7 +1210,8 @@ I will apply the last model build out of the box. For the regressor, I picked th
 </tr>
 </tbody>
 </table>
-<table class="table">
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metric</p></th>
 <th class="head"><p>LightGBM + Raw</p></th>
@@ -1221,6 +1247,7 @@ I will apply the last model build out of the box. For the regressor, I picked th
 </tr>
 </tbody>
 </table>
+</div>
 <p><img alt="raw" src="../_images/results_data2.png" /></p>
 <p>Haven’t look at this with attention to detail so it’s hard to compare datasets. They are somewhat of a similar size however.</p>
 </section>
@@ -1268,27 +1295,9 @@ This is how I would improve this model:</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="00.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">01: Improving the efficiency of HTML parsers</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="03_unravelling_imovirtual.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Mining on Imovirtual</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1388,8 +1397,8 @@ By Miguel Silva
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

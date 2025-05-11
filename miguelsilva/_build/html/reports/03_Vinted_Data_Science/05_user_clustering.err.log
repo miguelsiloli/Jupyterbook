@@ -1,37 +1,92 @@
 Traceback (most recent call last):
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 782, in _async_poll_for_reply
-    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_core\utils\__init__.py", line 198, in ensure_async
-    result = await obj
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_client\channels.py", line 315, in get_msg
-    raise Empty
-_queue.Empty
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+  File "/home/miguel/.local/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 1314, in execute
+  File "/home/miguel/.local/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/miguel/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 646, in run_until_complete
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
     return future.result()
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 709, in async_execute
+           ^^^^^^^^^^^^^^^
+  File "/home/miguel/.local/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 1005, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 806, in _async_poll_for_reply
-    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
-  File "C:\Users\Miguel\AppData\Local\Programs\Python\Python310\lib\site-packages\nbclient\client.py", line 856, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-['import pandas as pd', 'from sqlalchemy import create_engine', 'import os', 'import json', 'from sklearn.cluster import KMeans']
-...
-['from sklearn.preprocessing import MinMaxScaler', 'from sklearn.manifold import TSNE', 'import plotly.express as px', 'import plotly.graph_objects as go', 'import seaborn as sns']
--------------------
+  File "/home/miguel/.local/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/miguel/.local/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def load_credentials(path = "aws_rds_credentials.json"):
+     with open(path, 'r') as file:
+          config = json.load(file)
+
+     # set up credentials
+     for key in config.keys():
+          os.environ[key] = config[key]
+
+     return
+
+
+load_credentials()
+
+aws_rds_url = f"postgresql://{os.environ['user']}:{os.environ['password']}@{os.environ['host']}:{os.environ['port']}/{os.environ['database']}?sslmode=require"
+
+# Load a sample dataset
+def load_data():
+    engine = create_engine(aws_rds_url)
+    sql_query = """
+        SELECT t1.user_id, 
+            COUNT(DISTINCT(t1.product_id)) as count_products, 
+            SUM(t1.price_numeric) as sum_price, 
+            AVG(t1.price_numeric) as avg_price, 
+            AVG(t1.package_size_id) as avg_package_size, 
+            SUM(t1.view_count) as total_views,
+            AVG(t1.view_count) as avg_views,
+            SUM(t1.favourite_count) as total_favourite,
+            AVG(t1.favourite_count) as avg_favourite
+        FROM public.tracking_staging  t1
+        JOIN (
+            SELECT product_id, MAX(date) AS latest_date
+            FROM public.tracking_staging 
+            GROUP BY product_id
+        ) t2 ON t1.product_id = t2.product_id AND t1.date = t2.latest_date
+        GROUP BY user_id
+    """
+    #sql_query = "select * from public.tracking_staging limit 100"
+    df = pd.read_sql(sql_query, engine)
+    return (df)
+
+data = load_data()
+print(f"The dataframe has {len(data)} columns")
+data.head(5)
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mFileNotFoundError[39m                         Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 12[39m
+[32m      7[39m           os.environ[key] = config[key]
+[32m      9[39m      [38;5;28;01mreturn[39;00m
+[32m---> [39m[32m12[39m [43mload_credentials[49m[43m([49m[43m)[49m
+[32m     14[39m aws_rds_url = [33mf[39m[33m"[39m[33mpostgresql://[39m[38;5;132;01m{[39;00mos.environ[[33m'[39m[33muser[39m[33m'[39m][38;5;132;01m}[39;00m[33m:[39m[38;5;132;01m{[39;00mos.environ[[33m'[39m[33mpassword[39m[33m'[39m][38;5;132;01m}[39;00m[33m@[39m[38;5;132;01m{[39;00mos.environ[[33m'[39m[33mhost[39m[33m'[39m][38;5;132;01m}[39;00m[33m:[39m[38;5;132;01m{[39;00mos.environ[[33m'[39m[33mport[39m[33m'[39m][38;5;132;01m}[39;00m[33m/[39m[38;5;132;01m{[39;00mos.environ[[33m'[39m[33mdatabase[39m[33m'[39m][38;5;132;01m}[39;00m[33m?sslmode=require[39m[33m"[39m
+[32m     16[39m [38;5;66;03m# Load a sample dataset[39;00m
+
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 2[39m, in [36mload_credentials[39m[34m(path)[39m
+[32m      1[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mload_credentials[39m(path = [33m"[39m[33maws_rds_credentials.json[39m[33m"[39m):
+[32m----> [39m[32m2[39m      [38;5;28;01mwith[39;00m [38;5;28;43mopen[39;49m[43m([49m[43mpath[49m[43m,[49m[43m [49m[33;43m'[39;49m[33;43mr[39;49m[33;43m'[39;49m[43m)[49m [38;5;28;01mas[39;00m file:
+[32m      3[39m           config = json.load(file)
+[32m      5[39m      [38;5;66;03m# set up credentials[39;00m
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/IPython/core/interactiveshell.py:326[39m, in [36m_modified_open[39m[34m(file, *args, **kwargs)[39m
+[32m    319[39m [38;5;28;01mif[39;00m file [38;5;129;01min[39;00m {[32m0[39m, [32m1[39m, [32m2[39m}:
+[32m    320[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[32m    321[39m         [33mf[39m[33m"[39m[33mIPython won[39m[33m'[39m[33mt let you open fd=[39m[38;5;132;01m{[39;00mfile[38;5;132;01m}[39;00m[33m by default [39m[33m"[39m
+[32m    322[39m         [33m"[39m[33mas it is likely to crash IPython. If you know what you are doing, [39m[33m"[39m
+[32m    323[39m         [33m"[39m[33myou can use builtins[39m[33m'[39m[33m open.[39m[33m"[39m
+[32m    324[39m     )
+[32m--> [39m[32m326[39m [38;5;28;01mreturn[39;00m [43mio_open[49m[43m([49m[43mfile[49m[43m,[49m[43m [49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+
+[31mFileNotFoundError[39m: [Errno 2] No such file or directory: 'aws_rds_credentials.json'
 
