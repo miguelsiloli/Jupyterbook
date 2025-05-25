@@ -5,24 +5,19 @@ format: jb-book
 root: intro
 
 parts:
-  - caption: Vinted Data Engineering
+  - caption: Vinted
     chapters:
     # - file: 01_Vinted_Data_Engineering/00_intro
     # - file: 01_Vinted_Data_Engineering/01_vinted_api    
     - file: 01_Vinted_Data_Engineering/01_pipeline_design
-
-  - caption: Vinted Data Science
-    chapters:
-    - file: 03_Vinted_Data_Science/01_price_prediction
-    # - file: 03_Vinted_Data_Science/02_catalog_clustering
     - file: 03_Vinted_Data_Science/02_optimization-book
     - file: 03_Vinted_Data_Science/03_user_clustering
 
-  # - caption: Housing Project
-  #   chapters:
-  #   - file: 05_housing_database/00
-  #   - file: 05_housing_database/02_price_regression_idealista
-  #   - file: 05_housing_database/03_unravelling_imovirtual
+  - caption: Housing Project
+    chapters:
+    - file: 05_housing_database/00_lxml
+    - file: 05_housing_database/01_unravelling_imovirtual
+    - file: 05_housing_database/02_EDA
 
   # - caption: Vinted Deep Learning
   #   chapters:
@@ -39,3 +34,4 @@ parts:
   - caption: LinkedIn
     chapters:
     - file: 09_Linkedin/01_pipeline
+    - file: 09_Linkedin/02_job_EDA

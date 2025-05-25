@@ -27,7 +27,7 @@ $q_{ij}=\frac{
 (1+||\mathbf{y}_k-\mathbf{y}_l||^2)^{-1}
 }$
 
-![Application of both methods on 5000 samples from the MNIST handwritten digit dataset.](assets/pca_tSNE.png)
+![Application of both methods on 5000 samples from the MNIST handwritten digit dataset.](miguelsilva/assets/07_LLM/pca_tSNE.png)
 
 ### Perplexity
 

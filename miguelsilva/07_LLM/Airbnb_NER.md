@@ -598,7 +598,7 @@ Training loss looks good, with no signs of overfitting. However, it's obvious it
           </tr>
           <tr>
             <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Macro</td>
-            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
             <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">64.00%</td>
             <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.00%</td>
             <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>

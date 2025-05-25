@@ -1,4 +1,4 @@
-# Meet the market: pipeline
+# Part I: Meet the market
 > Using Foundational Models to Extract Career Guiding Insights from LinkedIn Listings
 
 ---
@@ -191,6 +191,19 @@ classDiagram
 ```
 
 #### Augmented Normalized
+
+We are trying to figure some very relevant categories of information about these listings:
+- Job Summary: includes general information such as role title, objective and seniority
+- COmpany information: company activity type (consulting, saas, etc) and company values 
+- Location and work model: flexibility, remote status and locations
+- Required qualifications: experience, educations, soft and hard skills and technologies
+  - Technical skills: splits the technologies details into sublevels of cloud related, frameworks and libraries, databases, cloud services, etc
+  - Programming languages: data manipulation (sql, dax), scripting, frontend, infrastructure (ansible), CICD (git)
+  - Data architecture concepts: data modeling, ELT vs ETL preference, data lake, batch vs streaming, optimization, architecture patterns, etc
+- Role context: whats the main drivers, objectives and colleagues (stakeholders)
+- Job related benefits (self explanatory)
+
+So, as we can see we have a grained analysis at technical qualifications level.
 
 ```{mermaid}
 classDiagram

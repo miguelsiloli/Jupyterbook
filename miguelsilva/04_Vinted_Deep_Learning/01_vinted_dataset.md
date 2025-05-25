@@ -6,7 +6,7 @@ In this chapter I'm going to show how I built an image clothing dataset from my 
 
 As referenced in my Vinted Data Engineering Chapter, one of the data pipelines developed stored the item images in S3 buckets. About 10k images were collected during the short run of the pipeline (it's no longer active) with over 500 classes. That's a huge problem, the dataset is way too small to create a good classifier at first glance (it's pretty obvious, right?).
 
-![vinted](..\assets\vinted-images\vintedimgs.png)
+![vinted](miguelsilva/assets/vinted-images/vintedimgs.png)
 
 In addition, there is another very obvious issue with the images which is its lack of standardization.
 
