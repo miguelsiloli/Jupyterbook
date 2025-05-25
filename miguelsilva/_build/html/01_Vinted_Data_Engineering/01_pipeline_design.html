@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>03: Pipeline Design &#8212; Visualization Curriculum</title>
+    <title>Vinted Pipeline Design &#8212; Visualization Curriculum</title>
   
   
   
@@ -70,7 +70,7 @@ window.addEventListener("load", () => mermaid.run());
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="03: Product basket optimization approach using mean-variance optimization" href="../03_Vinted_Data_Science/02_optimization-book.html" />
+    <link rel="next" title="05: Clustering users using KMeans and t-SNE" href="../03_Vinted_Data_Science/03_user_clustering.html" />
     <link rel="prev" title="Introduction" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,15 +191,8 @@ window.addEventListener("load", () => mermaid.run());
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">03: Pipeline Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/02_optimization-book.html">03: Product basket optimization approach using mean-variance optimization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Vinted Pipeline Design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Housing Project</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">01: Improving the efficiency of HTML parsers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
@@ -207,6 +200,8 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">01: Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
 
 
@@ -406,7 +401,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>03: Pipeline Design</h1>
+    <h1>Vinted Pipeline Design</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -467,8 +462,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pipeline-design">
-<h1>03: Pipeline Design<a class="headerlink" href="#pipeline-design" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="vinted-pipeline-design">
+<h1>Vinted Pipeline Design<a class="headerlink" href="#vinted-pipeline-design" title="Link to this heading">#</a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Our data pipeline wants to capture the stream of new items being added to Vinted’s marketplace in real time. This was the initial idea but it’s not possible to do it due to Vinted API request limits - having a streaming connection would quickly result in me getting timed out or banned.</p>
@@ -1021,11 +1016,11 @@ External connections are passed as argument to code blocks. Vinted and engine ar
       </div>
     </a>
     <a class="right-next"
-       href="../03_Vinted_Data_Science/02_optimization-book.html"
+       href="../03_Vinted_Data_Science/03_user_clustering.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">03: Product basket optimization approach using mean-variance optimization</p>
+        <p class="prev-next-title"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

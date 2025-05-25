@@ -10,14 +10,8 @@ parts:
     # - file: 01_Vinted_Data_Engineering/00_intro
     # - file: 01_Vinted_Data_Engineering/01_vinted_api    
     - file: 01_Vinted_Data_Engineering/01_pipeline_design
-    - file: 03_Vinted_Data_Science/02_optimization-book
+    # - file: 03_Vinted_Data_Science/02_optimization-book
     - file: 03_Vinted_Data_Science/03_user_clustering
-
-  - caption: Housing Project
-    chapters:
-    - file: 05_housing_database/00_lxml
-    - file: 05_housing_database/01_unravelling_imovirtual
-    - file: 05_housing_database/02_EDA
 
   # - caption: Vinted Deep Learning
   #   chapters:
@@ -29,7 +23,10 @@ parts:
 
   - caption: Imovirtual
     chapters:
+    - file: 05_housing_database/00_lxml
+    - file: 05_housing_database/01_unravelling_imovirtual
     - file: 07_LLM/Airbnb_NER
+    - file: 05_housing_database/02_EDA
 
   - caption: LinkedIn
     chapters:

@@ -1,5 +1,5 @@
 
-# 03: Pipeline Design
+# Vinted Pipeline Design
 
 ## Introduction
 
