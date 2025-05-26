@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>01: Improving the efficiency of HTML parsers &#8212; Visualization Curriculum</title>
+    <title>On Improving the efficiency of HTML parsers &#8212; Visualization Curriculum</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -192,7 +192,7 @@ window.addEventListener("load", () => mermaid.run());
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vinted</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../01_Vinted_Data_Engineering/01_pipeline_design.html">Vinted Pipeline Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_user_clustering.html"><span class="xref myst">05: Clustering users using KMeans and t-SNE</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Vinted_Data_Science/03_user_clustering.html">Clustering users using KMeans and t-SNE</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
 <ul class="nav bd-sidenav">
@@ -200,13 +200,14 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">01: Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">On Improving the efficiency of HTML parsers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
 
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
 <ul class="nav bd-sidenav">
@@ -401,7 +402,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>01: Improving the efficiency of HTML parsers</h1>
+    <h1>On Improving the efficiency of HTML parsers</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -438,8 +439,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="improving-the-efficiency-of-html-parsers">
-<h1>01: Improving the efficiency of HTML parsers<a class="headerlink" href="#improving-the-efficiency-of-html-parsers" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="on-improving-the-efficiency-of-html-parsers">
+<h1>On Improving the efficiency of HTML parsers<a class="headerlink" href="#on-improving-the-efficiency-of-html-parsers" title="Link to this heading">#</a></h1>
 <p>The context of this post is to explore and find a solution to the costly text parsing of html files. This is crucial when developing a webscraper. There are arguably decent solutions such as the Scrapy infrastructure which can parse nodes and data based on their own custom dataclasses. This solution is interesting as it provides an incremental approach (the bulk parsing is done sequentially for each html page parsed), however from a POV of Data Engineering, the good practice should be to parse the raw data as a whole to assure consistency, availability and the ability to do some backfilling if the html content changes.</p>
 <p>For this analysis we are using <strong>line_profiler</strong> package.</p>
 <p><strong>Keywords</strong>: webscraping, html-parsing, beautifulsoup4, dask, lxml</p>
