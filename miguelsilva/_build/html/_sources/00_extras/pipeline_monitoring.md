@@ -1,4 +1,4 @@
-## Introduction
+## Prometheus-Grafana overview
 
 *   Why do we *need* to monitor CI/CD and data pipelines?
     *   Slow feedback loops: feedback mainly comes from technical support, client feedback or cascading issues.

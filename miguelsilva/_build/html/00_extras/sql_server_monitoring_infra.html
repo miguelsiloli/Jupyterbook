@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DMAIC: Visibility into our SQL servers &amp; VMware &#8212; Visualization Curriculum</title>
+    <title>SQL servers &amp; VMware observability &#8212; Visualization Curriculum</title>
   
   
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mining in Wallapop 2024 Edition" href="../06_Wallapop/01_exploration.html" />
-    <link rel="prev" title="Introduction" href="pipeline_monitoring.html" />
+    <link rel="prev" title="Prometheus-Grafana overview" href="pipeline_monitoring.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,10 +181,10 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="pipeline_monitoring.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline_monitoring.html">Prometheus-Grafana overview</a></li>
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SQL servers &amp; VMware observability</a></li>
 
 
 </ul>
@@ -392,7 +392,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DMAIC: Visibility into our SQL servers & VMware</h1>
+    <h1>SQL servers & VMware observability</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,7 +402,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SQL servers &amp; VMware observability</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana-prometheus">Grafana + Prometheus</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The Architecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slis-and-slos">SLI’s and SLO’s</a></li>
@@ -426,8 +426,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="dmaic-visibility-into-our-sql-servers-vmware">
-<h1>DMAIC: Visibility into our SQL servers &amp; VMware<a class="headerlink" href="#dmaic-visibility-into-our-sql-servers-vmware" title="Link to this heading">#</a></h1>
+  <section id="sql-servers-vmware-observability">
+<h1>SQL servers &amp; VMware observability<a class="headerlink" href="#sql-servers-vmware-observability" title="Link to this heading">#</a></h1>
 <p>In the current setup we have 10+ different VM’s, each with a SQL Server node, spread accross factory plants. It’s very hard to monitor the infrastructure and SQL Server SLO’s, specially during specific events (rollover of new changes, deployments, etc). We need to ssh to each machine and monitor the status of each machine/server and it’s a pain.</p>
 <p>I propose the following objectives:</p>
 <ul class="simple">
@@ -693,7 +693,7 @@ SQL Exporter:
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">Prometheus-Grafana overview</p>
       </div>
     </a>
     <a class="right-next"
@@ -721,7 +721,7 @@ SQL Exporter:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SQL servers &amp; VMware observability</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana-prometheus">Grafana + Prometheus</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The Architecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slis-and-slos">SLI’s and SLO’s</a></li>

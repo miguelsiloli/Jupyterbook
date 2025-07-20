@@ -1,4 +1,4 @@
-## DMAIC: Visibility into our SQL servers \& VMware
+## SQL servers \& VMware observability
 
 In the current setup we have 10+ different VM's, each with a SQL Server node, spread accross factory plants. It's very hard to monitor the infrastructure and SQL Server SLO's, specially during specific events (rollover of new changes, deployments, etc). We need to ssh to each machine and monitor the status of each machine/server and it's a pain.
 
