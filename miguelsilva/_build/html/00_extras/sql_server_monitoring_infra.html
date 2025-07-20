@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DMAIC: Visibility into our SQL servers &amp; VMware &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_extras/sql_server_monitoring_infra';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mining in Wallapop 2024 Edition" href="../06_Wallapop/01_exploration.html" />
+    <link rel="prev" title="Introduction" href="pipeline_monitoring.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pipeline_monitoring.html">Introduction</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">On Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/01_pipeline.html">Part I: Meet the market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/02_job_EDA.html">Part II: Meet the market</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F00_extras/sql_server_monitoring_infra.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/00_extras/sql_server_monitoring_infra.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DMAIC: Visibility into our SQL servers & VMware</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana-prometheus">Grafana + Prometheus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slis-and-slos">SLI’s and SLO’s</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupling-changes-into-organizational-dynamics">Coupling changes into Organizational Dynamics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-mockup">Docker Compose Mockup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dmaic-visibility-into-our-sql-servers-vmware">
+<h1>DMAIC: Visibility into our SQL servers &amp; VMware<a class="headerlink" href="#dmaic-visibility-into-our-sql-servers-vmware" title="Link to this heading">#</a></h1>
+<p>In the current setup we have 10+ different VM’s, each with a SQL Server node, spread accross factory plants. It’s very hard to monitor the infrastructure and SQL Server SLO’s, specially during specific events (rollover of new changes, deployments, etc). We need to ssh to each machine and monitor the status of each machine/server and it’s a pain.</p>
+<p>I propose the following objectives:</p>
+<ul class="simple">
+<li><p><strong>Toil reduction</strong> - eliminating repetitive manual monitoring tasks</p></li>
+<li><p><strong>Incident response</strong> - faster MTTR (Mean Time To Recovery) through better observability and alerts</p></li>
+<li><p><strong>Reliability engineering</strong> - using data to make systems more reliable (ensure there is enough disk space and physical resources to satisfy the workloads)</p></li>
+<li><p><strong>Tracking VM’s user metrics</strong> - it’s very common to have users with “sleeping” sessions, consuming RAM and clogging up other processes</p></li>
+</ul>
+<p>We also propose an overarching goals of:</p>
+<ul class="simple">
+<li><p><strong>Alert system</strong> - not only alert the support colleagues about SQL/functional issues but infrastructure concerns (as issues are often cascading if you consider infrastructure the bottleneck)</p></li>
+<li><p><strong>Integrate the system in the team Ticket system</strong> - priority tasks trigger action by support team (usually tasks which result in operational issues), non priority tasks go to a backlog of Tickets (care client approval)</p></li>
+</ul>
+<p>Other objectives not in the scope (future work):</p>
+<ul class="simple">
+<li><p><strong>Text based logging</strong> - we have a table COMMON.ERROR_LOG, which records the messages for failed runs (mainly stored procedures)</p></li>
+</ul>
+<p>We propose the usage of prometheus + grafana, to pull data into a unified server which will host these tools and use the alerts in grafana to notify the support about system overheating. We also setup a baseline for a better system management, as support for decisions such as splitting workloads accross VM’s, scaling requirements, need to clean up/free resources and generally a better way to troubleshoot problems.</p>
+<p><img alt="alt text" src="../_images/dmaic.svg" /></p>
+<blockquote>
+<div><p>Note: these SLI metrics are fictional as they have different figures within the project context.</p>
+</div></blockquote>
+<section id="grafana-prometheus">
+<h2>Grafana + Prometheus<a class="headerlink" href="#grafana-prometheus" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Better visibility with near zero performance footprint</p>
+</div></blockquote>
+<p><img alt="alt text" src="../_images/pull-based-system.svg" /></p>
+<p>One huge concern is to absolutely avoid solutions which can further clog the servers.</p>
+<ul class="simple">
+<li><p><strong>Pull based system</strong>: Grafana pulls data, not the other way. This is important since in push based system, it’s the source server that pushes the data to the consumer. This can generate 2-5% CPU overhead, in servers that already might be struggling. Grafana pulls from Prometheus, and prometheus scrapes the data when available. If Prometheus is busy, it skips the scrape.</p></li>
+<li><p><strong>Passive vs Active Exporters</strong>: Since the Prometheus Exporters are passive by nature, they stand idle unless requested. In comparison, active exporters permanentely allocate a resource overhead to expose the data 24/7.</p></li>
+</ul>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>Traditional Monitoring Agent:
+├── Background Service: 50-100MB RAM
+├── CPU Usage: 2-5% constantly 
+├── Disk I/O: Continuous log writing
+├── Network: Constant outbound connections
+└── Storage: Local buffering when monitoring is down
+
+SQL Exporter:
+├── Memory Usage: 10-20MB RAM
+├── CPU Usage: &lt;0.1% (only during scrapes)
+├── Disk I/O: None (stateless)
+├── Network: Only responds to incoming requests
+└── Storage: Zero local storage needed
+</pre></div>
+</div>
+</section>
+<section id="the-architecture">
+<h2>The Architecture<a class="headerlink" href="#the-architecture" title="Link to this heading">#</a></h2>
+<p><img alt="alt text" src="../_images/monitoring-architecture-servers.svg" /></p>
+<p>It’s worth to note the infrastructure lives inside the company’s VPN, so the sensible solution is to keep it so and allocate a new VM as the orchestrator (Monitor Hub) and ssh this machine for infrastructure visibility. Each VM will have an exporter daemon to access as the metrics endpoint interface between SQL Server as well as Windows metrics and Prometheus.</p>
+</section>
+<section id="slis-and-slos">
+<h2>SLI’s and SLO’s<a class="headerlink" href="#slis-and-slos" title="Link to this heading">#</a></h2>
+<p><strong>SQL Server Key Metrics</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Why You Should Track It</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Number of Databases</strong></p></td>
+<td><p>Inventory &amp; Scope</p></td>
+<td><p>Good to compare different databases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Total Database Size</strong></p></td>
+<td><p>Capacity Planning</p></td>
+<td><p>Capacity provisioning and management</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Number of User Objects</strong></p></td>
+<td><p>Change &amp; Complexity Tracking</p></td>
+<td><p>Tracking system objects such as views, table and stored procedures.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Number of Stored Procedures</strong></p></td>
+<td><p>Code Deployment Tracking</p></td>
+<td><p>Similar to above, but focused on programmable objects. Useful for correlating a new deployment with a change in performance.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Number of SQL Agent Jobs</strong></p></td>
+<td><p>Operational Awareness</p></td>
+<td><p>Tracks your automation and how jobs affect servers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Buffer Cache Hit Ratio</strong></p></td>
+<td><p>Operational Measure</p></td>
+<td><p>Shows the percentage of data requests that are served from fast RAM instead of disk.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Active User Connections</strong></p></td>
+<td><p>Load &amp; Connection Pooling</p></td>
+<td><p>Tracks how many connections are active. Helps diagnose connection leaks from applications or validate the health of connection pooling.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>VMWare Key Metrics</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>User Concern</p></th>
+<th class="head"><p>SLI (The Measurement)</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Availability</strong></p></td>
+<td><p>VM Uptime</p></td>
+<td><p>The percentage of time the virtual machine’s operating system is running and reachable by the monitoring agent (windows_exporter).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>CPU Saturation</strong></p></td>
+<td><p>Non-Saturated CPU Time</p></td>
+<td><p>The percentage of time that the total CPU usage is below a critical threshold (e.g., 95%). This directly measures whether the VM has sufficient CPU headroom to service new requests without queuing, which prevents application-level latency.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Memory Saturation</strong></p></td>
+<td><p>Sufficient Memory Availability Rate</p></td>
+<td><p>The percentage of time the operating system has more than a minimum required amount of free physical memory (e.g., 500MB).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Disk Latency</strong></p></td>
+<td><p>Fast Disk I/O Rate</p></td>
+<td><p>The percentage of individual disk read and write operations that complete under a specific latency threshold (e.g., 20 milliseconds).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Disk Saturation</strong></p></td>
+<td><p>Non-Saturated Disk Time</p></td>
+<td><p>The percentage of time that the disk queue (the number of I/O requests waiting to be serviced) is below a low threshold (e.g., 2). This indicates the storage can keep up with the demand from the application without causing I/O waits.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>SQL Server Alert System</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>High-Urgency Condition (Pager)</p></th>
+<th class="head"><p>Low-Urgency Condition (Ticket/Slack)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>VM Uptime (Availability)</strong></p></td>
+<td><p>VM is down for more than 3 minutes</p></td>
+<td><p>(Not applicable. This is a binary state.)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>CPU Saturation</strong></p></td>
+<td><p>Total CPU Usage &gt; 95% for more than 10 minutes</p></td>
+<td><p>Total CPU Usage &gt; 85% for more than 60 minutes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Memory Saturation</strong></p></td>
+<td><p>Available Memory &lt; 500MB for more than 5 minutes</p></td>
+<td><p>Available Memory &lt; 1GB for more than 30 minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Disk Saturation</strong></p></td>
+<td><p>Disk Queue Length &gt; 10 for more than 5 minutes</p></td>
+<td><p>Disk Queue Length &gt; 2 for more than 15 minutes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Disk Latency</strong></p></td>
+<td><p>Average Disk Latency &gt; 100ms for more than 5 minutes</p></td>
+<td><p>Average Disk Latency &gt; 20ms for more than 30 minutes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Windows Alert System</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>High-Urgency Condition (Pager)</p></th>
+<th class="head"><p>Low-Urgency Condition (Ticket/Slack)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>VM Uptime (Availability)</strong></p></td>
+<td><p>VM is down for more than 3 minutes</p></td>
+<td><p>(Not applicable. This is a binary state.)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>CPU Saturation</strong></p></td>
+<td><p>Total CPU Usage &gt; 95% for more than 10 minutes</p></td>
+<td><p>Total CPU Usage &gt; 85% for more than 60 minutes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Memory Saturation</strong></p></td>
+<td><p>Available Memory &lt; 500MB for more than 5 minutes</p></td>
+<td><p>Available Memory &lt; 1GB for more than 30 minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Disk Saturation</strong></p></td>
+<td><p>Disk Queue Length &gt; 10 for more than 5 minutes</p></td>
+<td><p>Disk Queue Length &gt; 2 for more than 15 minutes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Disk Latency</strong></p></td>
+<td><p>Average Disk Latency &gt; 100ms for more than 5 minutes</p></td>
+<td><p>Average Disk Latency &gt; 20ms for more than 30 minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Active User Connections</strong></p></td>
+<td><p>Number of connections &gt; Max Pool Size + 20% for more than 2 minutes</p></td>
+<td><p>(Not typically needed. Connection counts are usually either normal or pathologically high.)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Buffer Cache Hit Ratio</strong></p></td>
+<td><p>(Not recommended as a high-urgency alert.)</p></td>
+<td><p>Buffer Cache Hit Ratio &lt; 95% for more than 15 minutes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="coupling-changes-into-organizational-dynamics">
+<h2>Coupling changes into Organizational Dynamics<a class="headerlink" href="#coupling-changes-into-organizational-dynamics" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section id="docker-compose-mockup">
+<h1>Docker Compose Mockup<a class="headerlink" href="#docker-compose-mockup" title="Link to this heading">#</a></h1>
+<p>In order to test this architecture, we created a mockup with docker compose. We spin off a couple of SQL Server containers, cAdvisor to monitor container metrics and SQL Server exporter image.</p>
+<p><img alt="alt text" src="00_extras/monitoring-architecture.svg" /></p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>3 SQL server containers</p></li>
+<li><p>3 Exporter containers</p></li>
+<li><p>1 cAdvisor container</p></li>
+<li><p>1 grafana container</p></li>
+<li><p>1 prometheus container</p></li>
+<li><p>A simple powershell code to mimick some work in the database containers</p></li>
+</ul>
+<p><strong>Screenshots</strong></p>
+<p><img alt="alt text" src="../_images/grafana-dashboard.png" /></p>
+</section>
+</section>
+<section id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h1>
+<p><img alt="alt text" src="../_images/workflow.svg" /></p>
+<p>All in all, we show how the implementation of these solutions links to the <strong>organization</strong>. We don’t only throw some tech stack into it, we considered the functional concerns of Senior Engineers (functional requirements and minimizing overhead), we fit into the team budget leveraging existential capabilities and we also propose a framework to integrate the stakeholders and collaborators by incorporating into the Pager/Ticket system.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_extras"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pipeline_monitoring.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../06_Wallapop/01_exploration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mining in Wallapop 2024 Edition</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DMAIC: Visibility into our SQL servers &amp; VMware</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana-prometheus">Grafana + Prometheus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slis-and-slos">SLI’s and SLO’s</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupling-changes-into-organizational-dynamics">Coupling changes into Organizational Dynamics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-mockup">Docker Compose Mockup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

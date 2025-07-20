@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: ETL to Cloud ELT Migration (GCP)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            background-color: #f9fafc;
+            color: #333;
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0056b3 0%, #0088e0 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-weight: 300;
+            margin-top: 5px;
+            font-size: 1.1em;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 25px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 25px;
+            flex: 1;
+        }
+        
+        .column {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h2 {
+            color: #0056b3;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eef2f7;
+            font-size: 1.4em;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 60px;
+            height: 2px;
+            background-color: #0088e0;
+        }
+        
+        h3 {
+            color: #17a2b8;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: #0056b3;
+            font-weight: 600;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            flex: 1;
+        }
+        
+        .section-accent {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0088e0;
+        }
+        
+        .mermaid {
+            text-align: center;
+            margin: 15px 0;
+            background-color: #fdfdfd;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eef0f2;
+            overflow-x: auto;
+        }
+        
+        figure {
+            margin: 0 0 20px 0;
+        }
+        
+        figcaption {
+            text-align: center;
+            font-size: 0.85em;
+            font-style: italic;
+            margin-top: 8px;
+            color: #666;
+        }
+        
+        .tech-stack ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-stack li {
+            background-color: #eef2f7;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #0056b3;
+            margin-bottom: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .tech-stack li:hover {
+            background-color: #0088e0;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .benefit-icon {
+            color: #0088e0;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        footer {
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            margin-top: auto;
+        }
+        
+        .contact-info {
+            margin-top: 10px;
+        }
+        
+        .column-left {
+            border-top: 4px solid #0056b3;
+        }
+        
+        .column-middle {
+            border-top: 4px solid #17a2b8;
+        }
+        
+        .column-right {
+            border-top: 4px solid #20c997;
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .column {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <h1>ETL → Cloud ELT Migration & Optimization</h1>
+            <div class="subtitle">Scalable Data Infrastructure on Google Cloud Platform</div>
+        </header>
+        
+        <div class="container">
+            <div class="column column-left">
+                <section class="section">
+                    <h2>Challenge & Context</h2>
+                    <div class="section-accent">
+                        <p>Legacy pipeline faced critical scaling issues with multiple bottlenecks hampering data delivery and reliability.</p>
+                    </div>
+                    <ul>
+                        <li><strong>Egress Cap:</strong> 1GB/day Blackbaze limit halted large loads/backfills.</li>
+                        <li><strong>DB Limit:</strong> 500MB Supabase Postgres restricted data volume & scaling.</li>
+                        <li><strong>I/O Thrashing:</strong> Numerous small CSVs caused network/storage bottlenecks.</li>
+                        <li><strong>ETL Fragility:</strong> "All-or-nothing" GitHub jobs led to frequent failures & data gaps.</li>
+                        <li><strong>Poor Observability:</strong> Lack of dedicated orchestration tools hindered monitoring/debugging.</li>
+                    </ul>
+                </section>
+                
+                <section class="section">
+                    <h2>Solution Approach</h2>
+                    <ol>
+                        <li><strong>Optimized Ingestion (GCS):</strong> Consolidated raw CSVs into <strong>Parquet</strong> files on Google Cloud Storage, reducing size/count & solving egress limits.</li>
+                        <li><strong>Scalable Warehouse (BigQuery):</strong> Loaded Parquet directly into BigQuery, removing database size constraints.</li>
+                        <li><strong>In-Warehouse Transformation (ELT):</strong> Re-implemented logic using <strong>BigQuery SQL</strong> (managed via <strong>dbt</strong>), leveraging its power and scalability.</li>
+                        <li><strong>Decoupled Workflow:</strong> Enabled partial/differential loads and improved resilience (using orchestrator patterns).</li>
+                    </ol>
+                </section>
+                
+                <section class="section tech-stack">
+                    <h2>Technology Stack</h2>
+                    <ul>
+                        <li>GCP</li>
+                        <li>GCS</li>
+                        <li>BigQuery</li>
+                        <li>SQL</li>
+                        <li>dbt</li>
+                        <li>Parquet</li>
+                        <li>Python</li>
+                        <li>GitHub Actions</li>
+                        <li>REST API</li>
+                        <li>Cloud Composer</li>
+                        <li>Dagster</li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="column column-middle">
+                <section class="section">
+                    <h2>Architecture Design</h2>
+                    <figure>
+                        <div class="mermaid">
+                            graph TD
+                            subgraph Input ["Data Sources"]
+                                SCRAPE["Web Scraping<br/>(e.g., GH Actions)"]
+                            end
+                        
+                            subgraph GCP_Pipeline ["Google Cloud Platform"]
+                                subgraph GCS ["GCS Storage"]
+                                    PARQUET["Consolidated Parquet Files"]
+                                end
+                                
+                                subgraph BQ ["BigQuery Warehouse"]
+                                    STG["Staging Tables<br/>(Raw/Cleaned)"] --> MART["Data Mart<br/>(Normalized/Dimensional)"]
+                                end
+                                
+                                subgraph Processing ["Transformation/Orchestration"]
+                                    DBT["dbt Models<br/>(SQL Transforms)"]
+                                    ORCH["Orchestrator<br/>(e.g., Composer/Dagster)"] -- "triggers" --> DBT
+                                end
+                                
+                                API["REST API<br/>(e.g., Cloud Run)"]
+                            end
+                            
+                            SCRAPE -- "posts" --> PARQUET
+                            PARQUET -- "Load (EL)" --> STG
+                            ORCH -- "runs" --> DBT
+                            DBT -- "Transform (T)" --> STG
+                            DBT -- "Transform (T)" --> MART
+                            MART -- "Serves" --> API
+                            
+                            style GCS fill:#e6f7ff,stroke:#1890ff
+                            style BQ fill:#f6ffed,stroke:#52c41a
+                            style Processing fill:#fff7e6,stroke:#fa8c16
+                            style API fill:#f0f0f0,stroke:#888
+                        </div>
+                        <figcaption>High-level GCP ELT Pipeline Flow</figcaption>
+                    </figure>
+                </section>
+                
+                <section class="section">
+                    <h2>Data Model</h2>
+                    <figure>
+                        <div class="mermaid">
+graph TD
+    subgraph "Structured Schema (BigQuery)"
+        style Structured fill:#f6ffed,stroke:#52c41a
+        P[DIM_PRODUCT<br/>product_sk PK<br/>...]
+        C[DIM_CATEGORY<br/>category_sk PK<br/>...]
+        PC[BRIDGE_PRODUCT_CATEGORY<br/>product_sk FK<br/>category_sk FK]
+        FP[FACT_PRODUCT_PRICING<br/>product_sk FK<br/>price<br/>event_timestamp]
+        FR[FACT_PRODUCT_RATING<br/>product_sk FK<br/>rating<br/>event_timestamp]
+    end
+
+    P -- "1..*" --> PC
+    C -- "1..*" --> PC
+    P -- "1..*" --> FP
+    P -- "1..*" --> FR
+                        </div>
+                        <figcaption>Simplified Dimensional Model Snippet</figcaption>
+                    </figure>
+                </section>
+                
+                <section class="section">
+                    <h2>Skills Demonstrated</h2>
+                    <ul>
+                        <li><strong>Cloud Migration:</strong> Successfully transitioned from on-prem to GCP</li>
+                        <li><strong>ELT Architecture:</strong> Modern data warehouse pattern design</li>
+                        <li><strong>Data Warehousing:</strong> BigQuery implementation & optimization</li>
+                        <li><strong>Data Modeling:</strong> Dimensional modeling for analytics</li>
+                        <li><strong>Performance Optimization:</strong> Parquet format, SQL tuning</li>
+                        <li><strong>CI/CD:</strong> Automated workflows with GitHub Actions</li>
+                        <li><strong>Problem Solving:</strong> Bottleneck analysis & elimination</li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="column column-right">
+                <section class="section">
+                    <h2>Key Benefits & Outcomes</h2>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">↗️</div>
+                        <div class="benefit-text">
+                            <strong>Scalability Achieved</strong>
+                            <p>Eliminated previous limits, enabling processing of large data volumes without constraints.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔄</div>
+                        <div class="benefit-text">
+                            <strong>Enhanced Reliability</strong>
+                            <p>Reduced failures via Parquet format, robust BigQuery loading & decoupled transformations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-text">
+                            <strong>Performance Boost</strong>
+                            <p>Significantly faster processing with columnar storage & BigQuery's distributed architecture.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💰</div>
+                        <div class="benefit-text">
+                            <strong>Cost Optimization</strong>
+                            <p>More efficient storage (GCS/Parquet) & compute (BigQuery) with pay-as-you-go model.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔍</div>
+                        <div class="benefit-text">
+                            <strong>Improved Observability</strong>
+                            <p>Better monitoring, logging and debugging capabilities with GCP tooling.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🧩</div>
+                        <div class="benefit-text">
+                            <strong>Improved Maintainability</strong>
+                            <p>Clearer ELT pattern, potential for dbt testing/docs, and modular architecture.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2>Implementation Process</h2>
+                    <ol>
+                        <li><strong>Assessment:</strong> Identified bottlenecks & limitations in existing pipeline</li>
+                        <li><strong>Architecture Design:</strong> Created GCP-based ELT architecture</li>
+                        <li><strong>Data Migration:</strong> Converted & transferred data to GCS/BigQuery</li>
+                        <li><strong>Transform Migration:</strong> Reimplemented transformation logic in dbt</li>
+                        <li><strong>Testing & Validation:</strong> Verified data quality & performance</li>
+                        <li><strong>Monitoring Setup:</strong> Implemented observability systems</li>
+                    </ol>
+                </section>
+                
+                <section class="section">
+                    <h2>Future Enhancements</h2>
+                    <ul>
+                        <li>Implement full CI/CD pipeline for dbt models</li>
+                        <li>Add comprehensive data quality testing</li>
+                        <li>Integrate advanced monitoring & alerting</li>
+                        <li>Deploy serverless API for data access</li>
+                        <li>Implement a managed orchestration solution</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        
+        <footer>
+            <div>ETL to Cloud ELT Migration Project | 2023-2024</div>
+            <div class="contact-info">Your Name • your.email@example.com • github.com/yourusername</div>
+        </footer>
+    </div>
+
+    <!-- Include Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'neutral',
+            themeVariables: { 
+                'primaryColor': '#e6f7ff', 
+                'primaryBorderColor': '#1890ff', 
+                'lineColor': '#555'
+            } 
+        });
+    </script>
+</body>
+</html>

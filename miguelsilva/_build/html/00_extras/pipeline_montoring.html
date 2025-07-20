@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_extras/pipeline_montoring';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pipeline_monitoring.html">Part I: Understanding the Core Monitoring Stack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">On Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/01_pipeline.html">Part I: Meet the market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/02_job_EDA.html">Part II: Meet the market</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F00_extras/pipeline_montoring.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/00_extras/pipeline_montoring.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><strong>Introduction</strong></p>
+<ul class="simple">
+<li><p><strong>The “Why”: The Importance of Pipeline Observability</strong></p>
+<ul>
+<li><p>Start with the pain points: Why do we <em>need</em> to monitor CI/CD and data pipelines?</p>
+<ul>
+<li><p>Slow feedback loops.</p></li>
+<li><p>Debugging failures is time-consuming.</p></li>
+<li><p>Understanding resource consumption and identifying bottlenecks.</p></li>
+<li><p>Ensuring reliability and efficiency.</p></li>
+<li><p>Impact of pipeline health on downstream processes/products.</p></li>
+</ul>
+</li>
+<li><p>Briefly introduce the goal: achieving a unified view of pipeline health and performance.</p></li>
+</ul>
+</li>
+<li><p><strong>Introducing the Solution Stack:</strong> Briefly mention Grafana, Prometheus, and how they’ll be used with Prefect 2.x and GitHub Actions API.</p></li>
+<li><p><strong>Article Roadmap:</strong> What will the reader learn? (e.g., setup, architecture, benefits, case study).</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Part I: Understanding the Core Monitoring Stack</strong></p>
+<ol class="arabic simple">
+<li><p><strong>The Power Duo: Grafana + Prometheus for Observability</strong></p>
+<ul class="simple">
+<li><p><strong>1.1. Brief Overview of Prometheus</strong></p>
+<ul>
+<li><p>What it is: Time-series database, metrics collection, alerting.</p></li>
+<li><p>Key concepts: Metrics, labels, pull model (scraping), PromQL, exporters, Alertmanager (briefly).</p></li>
+<li><p>Problem it solves: Reliable collection and storage of numerical operational data.</p></li>
+</ul>
+</li>
+<li><p><strong>1.2. Brief Overview of Grafana</strong></p>
+<ul>
+<li><p>What it is: Visualization and analytics platform.</p></li>
+<li><p>Key concepts: Data sources, dashboards, panels, querying, alerting, plugins.</p></li>
+<li><p>Problem it solves: Making sense of complex data from multiple sources through rich visualizations.</p></li>
+</ul>
+</li>
+<li><p><strong>1.3. The Synergy: Why Prometheus and Grafana Work So Well Together</strong></p>
+<ul>
+<li><p>Complementary roles: Prometheus for backend data, Grafana for frontend visualization.</p></li>
+<li><p>Strong community and widespread adoption.</p></li>
+</ul>
+</li>
+<li><p><strong>1.4. Basic Setup Architecture of Grafana + Prometheus (Your bland diagram fits here)</strong></p>
+<ul>
+<li><p>Diagram: [Exporter(s)] -&gt; Prometheus -&gt; Grafana -&gt; User</p></li>
+<li><p>Brief explanation of the data flow in this generic setup.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p><strong>Part II: Case Study - Monitoring Prefect 2.x and GitHub Actions Pipelines</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Our Specific Challenge: Why We Need Observability for <em>These</em> Pipelines</strong></p>
+<ul class="simple">
+<li><p><strong>Context of your project(s):</strong> What do these pipelines do? (e.g., data ingestion, ETL, model training, CI/CD for applications).</p></li>
+<li><p><strong>Specific observability needs (Your points - elaborate on each):</strong></p>
+<ul>
+<li><p><strong>Runner Tempo/Efficiency:</strong> How quickly are jobs picked up? Are runners overloaded? (Relates to queue times, number of active runners if you can get that).</p></li>
+<li><p><strong>Resource Consumption:</strong> (This is harder to get directly from GitHub API or Prefect Cloud API for the runners themselves, but you can discuss <em>pipeline duration</em> as a proxy for resource usage over time). If self-hosting runners, this would be more direct.</p></li>
+<li><p><strong>Pipeline Status (Failed, Success, Cancelled, etc.):</strong> Critical for reliability. Error rates, success trends.</p></li>
+<li><p><strong>Pipeline Duration:</strong> Identifying slow pipelines or performance regressions.</p></li>
+<li><p><strong>Frequency of Runs:</strong> Understanding load and activity.</p></li>
+<li><p><strong>(Optional) Cost Implications:</strong> How pipeline efficiency/failures might relate to cloud costs (if applicable).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>The Implemented Solution Architecture (Your detailed Mermaid diagram fits here)</strong></p>
+<ul class="simple">
+<li><p><strong>Diagram:</strong> Insert your Mermaid diagram.</p></li>
+<li><p><strong>Explanation of the Architecture (Your points - elaborate):</strong></p>
+<ul>
+<li><p><strong>Data Sources:</strong></p>
+<ul>
+<li><p>GitHub API: For CI/CD workflow execution details.</p></li>
+<li><p>Prefect Cloud API <code class="docutils literal notranslate"><span class="pre">/metrics</span></code>: For Prefect’s view of flow/task orchestration (mention the 404 issue and that this is a target for future resolution).</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">github_middlelayer</span></code> (Custom Prometheus Exporter - The Flask App):</strong></p>
+<ul>
+<li><p>Role: Translator, API poller, metrics converter.</p></li>
+<li><p>Why it’s needed (can’t scrape GitHub API directly with Prometheus).</p></li>
+<li><p>Key functionalities: Authentication (PAT), fetching runs, processing JSON, exposing Prometheus metrics.</p></li>
+<li><p>Briefly mention the Python libraries used (<code class="docutils literal notranslate"><span class="pre">requests</span></code>, <code class="docutils literal notranslate"><span class="pre">prometheus_client</span></code>, <code class="docutils literal notranslate"><span class="pre">flask</span></code>/<code class="docutils literal notranslate"><span class="pre">gunicorn</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>Prometheus Container:</strong></p>
+<ul>
+<li><p>How it’s configured to scrape <code class="docutils literal notranslate"><span class="pre">github_middlelayer</span></code> (and potentially Prefect Cloud).</p></li>
+<li><p>Role in storing metrics and providing PromQL.</p></li>
+</ul>
+</li>
+<li><p><strong>Grafana Container:</strong></p>
+<ul>
+<li><p>How it connects to Prometheus.</p></li>
+<li><p>Role in dashboarding and visualization.</p></li>
+</ul>
+</li>
+<li><p><strong>Docker Compose:</strong></p>
+<ul>
+<li><p>How it orchestrates all these containerized services on the host VM.</p></li>
+<li><p>Benefits of containerization for this setup (portability, isolation, defined environment).</p></li>
+</ul>
+</li>
+<li><p><strong>Host VM (e.g., GCP Compute Engine):</strong> The underlying infrastructure.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Configuration Deep Dive</strong></p>
+<ul class="simple">
+<li><p><strong>3.1. <code class="docutils literal notranslate"><span class="pre">github_middlelayer</span></code> (Flask App) Metrics:</strong></p>
+<ul>
+<li><p>List the key custom metrics being exposed (e.g., <code class="docutils literal notranslate"><span class="pre">github_actions_workflow_runs_total_beta_total</span></code>, <code class="docutils literal notranslate"><span class="pre">github_actions_workflow_run_duration_seconds_beta</span></code>, <code class="docutils literal notranslate"><span class="pre">github_exporter_up_beta</span></code>, <code class="docutils literal notranslate"><span class="pre">github_api_rate_limit_remaining_beta</span></code>).</p></li>
+<li><p>Explain the labels for each and what they represent.</p></li>
+<li><p>Briefly touch upon the Python script’s logic for fetching and generating these.</p></li>
+</ul>
+</li>
+<li><p><strong>3.2. Prometheus Configuration (<code class="docutils literal notranslate"><span class="pre">prometheus.yml</span></code>):</strong></p>
+<ul>
+<li><p>Show snippets of the scrape job configurations for:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">github_middlelayer</span></code> exporter.</p></li>
+<li><p>(Optionally) The (currently problematic) Prefect Cloud endpoint, explaining the intent.</p></li>
+</ul>
+</li>
+<li><p>Mention key settings like <code class="docutils literal notranslate"><span class="pre">scrape_interval</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>3.3. Grafana Provisioning (Optional but good practice):</strong></p>
+<ul>
+<li><p>Briefly explain how data sources (<code class="docutils literal notranslate"><span class="pre">datasource.yml</span></code>) and dashboards (dashboard JSON + <code class="docutils literal notranslate"><span class="pre">dashboard_provider.yml</span></code>) can be provisioned automatically. This adds to the “automated workflow” theme.</p></li>
+</ul>
+</li>
+<li><p><strong>3.4. Other Important Considerations (Your points - elaborate):</strong></p>
+<ul>
+<li><p><strong>Scrape Intervals:</strong> Balancing data freshness with load on APIs/exporter.</p></li>
+<li><p><strong>GitHub API Limitations:</strong></p>
+<ul>
+<li><p>Rate limits (and how the PAT helps, but limits still exist).</p></li>
+<li><p>Pagination mechanics (<code class="docutils literal notranslate"><span class="pre">Link</span></code> header, <code class="docutils literal notranslate"><span class="pre">per_page</span></code>).</p></li>
+<li><p>How the exporter attempts to handle these (e.g., fetching only new runs for counters, periodic full fetches for gauges if needed, politeness sleeps).</p></li>
+<li><p>Mention the <code class="docutils literal notranslate"><span class="pre">X-RateLimit-Remaining</span></code> metric you added.</p></li>
+</ul>
+</li>
+<li><p><strong>Potential for API Depletion &amp; Mitigation:</strong></p>
+<ul>
+<li><p>This is where your suggestion for <strong>caching</strong> comes in.</p></li>
+<li><p><strong>Suggesting a Caching Layer:</strong> Explain <em>why</em> (reduce API hits, improve exporter resilience).</p>
+<ul>
+<li><p>Briefly discuss options: In-memory TTL cache (simple), ETag-based caching (more API-friendly), external cache like Redis (more robust, handles restarts).</p></li>
+<li><p>Acknowledge the trade-off: added complexity vs. benefits. (You decided to keep it simple for now, which is fine for the article’s current scope, but it’s a good discussion point).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Results: Visualizing Pipeline Health in Grafana</strong></p>
+<ul class="simple">
+<li><p><strong>Showcase your Dashboard!</strong></p>
+<ul>
+<li><p>Include screenshots of the key panels you’ve built (overall stats, run counts by conclusion, top failing workflows, etc.).</p></li>
+<li><p>For each screenshot, explain what the panel shows and how it helps monitor pipeline health.</p></li>
+<li><p>Highlight how the dashboard addresses the observability needs defined in section II.1.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpreting the Data:</strong> Give examples of how one might use the dashboard (e.g., “A spike in failed runs on this panel, correlated with the duration increase on another, led us to investigate X”).</p></li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p><strong>Part III: Benefits, Challenges, and Future Enhancements</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Benefits Achieved</strong></p>
+<ul class="simple">
+<li><p>Improved visibility into GitHub Actions.</p></li>
+<li><p>Faster identification of failing or slow pipelines.</p></li>
+<li><p>Ability to track trends in pipeline performance and reliability.</p></li>
+<li><p>Foundation for proactive alerting.</p></li>
+<li><p>Single pane of glass (once Prefect Cloud is integrated).</p></li>
+</ul>
+</li>
+<li><p><strong>Challenges Encountered &amp; Lessons Learned</strong></p>
+<ul class="simple">
+<li><p>(Be honest!) e.g., Debugging the Prefect Cloud 404, YAML syntax issues, understanding Prometheus/exporter patterns, GitHub API intricacies. This makes the article relatable.</p></li>
+<li><p>Initial data backfilling limitations of the current exporter.</p></li>
+</ul>
+</li>
+<li><p><strong>Future Enhancements &amp; Roadmap</strong></p>
+<ul class="simple">
+<li><p>Resolving Prefect Cloud metrics integration.</p></li>
+<li><p>Implementing the suggested caching layer for the GitHub exporter.</p></li>
+<li><p>Adding more granular job/step level metrics from GitHub Actions.</p></li>
+<li><p>Persistent state for the exporter.</p></li>
+<li><p>More sophisticated alerting rules in Alertmanager/Grafana.</p></li>
+<li><p>Integrating log aggregation (Loki/Elasticsearch).</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Conclusion</strong></p>
+<ul class="simple">
+<li><p>Recap the value of the implemented observability solution.</p></li>
+<li><p>Reinforce the power of combining open-source tools like Prometheus and Grafana with custom exporters.</p></li>
+<li><p>Final thoughts or call to action for readers (e.g., encourage them to build similar setups).</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Additional Topics You Might Weave In:</strong></p>
+<ul class="simple">
+<li><p><strong>Security:</strong> Storing the GitHub PAT securely (e.g., using Docker secrets, HashiCorp Vault, or just environment variables in a controlled environment, and the importance of PAT scopes and rotation).</p></li>
+<li><p><strong>Cost:</strong> Briefly touch on the cost of the GCP VM and any potential costs associated with high API usage if not managed.</p></li>
+<li><p><strong>Alternatives Considered:</strong> Did you consider other tools before settling on this stack? Why this stack? (e.g., GitHub’s built-in insights vs. more control with Prometheus/Grafana).</p></li>
+</ul>
+<p>This structure provides a logical flow from the general concepts to your specific implementation and its outcomes. Feel free to adjust, add, or remove sections based on the aspects you want to emphasize most! Good luck with the article!</p>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_extras"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

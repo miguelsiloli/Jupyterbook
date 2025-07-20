@@ -1,0 +1,1588 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Part II: Meet the market &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '09_Linkedin/02_job_EDA';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Part I: Meet the market" href="01_pipeline.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_extras/pipeline_monitoring.html">Part I: Understanding the Core Monitoring Stack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">On Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_pipeline.html">Part I: Meet the market</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Part II: Meet the market</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F09_Linkedin/02_job_EDA.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/09_Linkedin/02_job_EDA.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Part II: Meet the market</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meaningful-findings">Meaningful findings:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-i-job-profile-demographics">Chapter I: Job Profile &amp; Demographics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-responsabilities-per-role-specialization">Key responsabilities per role specialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-objectives">Role objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-role-seniority">Distribution of Role seniority</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visa-sponsorship">Visa Sponsorship</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#company-insights">Company Insights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-company-values-keywords">Top company values keywords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-work">Remote Work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-work-locations">Top work locations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#job-flexibility">Job flexibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-ii-qualifications-deep-dive">Chapter II: Qualifications Deep Dive</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-experience-vs-role-seniority">Min experience vs Role Seniority</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-skills">Technical Skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-skills">Soft skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-iii-role-context-responsibilities">Chapter III: Role Context &amp; Responsibilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-iv-benefits-perks">Chapter IV: Benefits &amp; Perks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-benefits">Other benefits</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="part-ii-meet-the-market">
+<h1>Part II: Meet the market<a class="headerlink" href="#part-ii-meet-the-market" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Exploratory Data Analysis</p>
+</div></blockquote>
+<p>Source data: snapshot from May 02 2025</p>
+<section id="meaningful-findings">
+<h2>Meaningful findings:<a class="headerlink" href="#meaningful-findings" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The Portuguese and european data landscape are dominated by Azure, which comes a little surprising to me since AWS and GCP have much higher global market shares (Why is that?)</p></li>
+<li><p>Junior roles are very rare and sparsely occurring (which is not so surprising given that Data Engineering role is almost 50% of the job listings currently)</p></li>
+<li><p>Most firms are system integrators/consulting firms and do not have their own products. That’s really shameful</p></li>
+<li><p>There are still over 60% jobs as hybrid, meaning that the on site jobs are within 30-40%</p></li>
+<li><p>Porto and Lisbon dominate the portuguese landscape with almost on pair of number of job openings. It makes me realize that although Lisbon has almost 3x the metro of Porto, Lisbon is not competitive for high skill jobs as probably its high costs of living and low wages hurt its technological competitiveness. On the other hand its surprising to see Porto as a technological hub of Portugal.</p></li>
+<li><p>Mid level roles are looking for 2-4 years relevant experience in average while senior roles are more diverse but I would guess between 3-5 years experience. Note that</p></li>
+</ul>
+<div class="cell docutils container">
+</div>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 2301 entries, 0 to 2300
+Data columns (total 8 columns):
+ #   Column                    Non-Null Count  Dtype 
+---  ------                    --------------  ----- 
+ 0   job_summary               2301 non-null   object
+ 1   company_information       2301 non-null   object
+ 2   location_and_work_model   2301 non-null   object
+ 3   required_qualifications   2301 non-null   object
+ 4   preferred_qualifications  2301 non-null   object
+ 5   role_context              2301 non-null   object
+ 6   benefits                  2301 non-null   object
+ 7   job_id                    2301 non-null   object
+dtypes: object(8)
+memory usage: 143.9+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_summary</th>
+      <th>company_information</th>
+      <th>location_and_work_model</th>
+      <th>required_qualifications</th>
+      <th>preferred_qualifications</th>
+      <th>role_context</th>
+      <th>benefits</th>
+      <th>job_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'role_title': 'DevOps Engineer', 'role_object...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '0', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'Not Sp...</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4203796028</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{'role_title': 'Software Developer', 'role_obj...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '3', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'Intere...</td>
+      <td>{'collaboration_with': ['Network', 'Security',...</td>
+      <td>{'training_development': 'Support the resoluti...</td>
+      <td>4209830737</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['Vertex AI', 'dbt (Data B...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['DBT', 'Vertex AI'], 'oth...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['DBT', 'Vertex AI'], 'oth...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+</div>
+<div class="cell docutils container">
+</div>
+</section>
+<section id="chapter-i-job-profile-demographics">
+<h2>Chapter I: Job Profile &amp; Demographics<a class="headerlink" href="#chapter-i-job-profile-demographics" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Role Titles &amp; Seniority</p>
+<h2 class="rubric" id="distribution-of-role-titles">Distribution of Role Titles:</h2>
+</li>
+</ol>
+<p>The distribution of role titles is heavily biased towards Data Engineering side (remember we are parsing Data Engineer OR Machine Learning Engineer OR Data Scientist roles). There doesn’t seem to be a lot of job opening for Data Science/ML, surprisingly.</p>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/0356113e88366d30157f574ef7d3066b7995e8ca43620e8d0a785990d9767d3e.png" src="../_images/0356113e88366d30157f574ef7d3066b7995e8ca43620e8d0a785990d9767d3e.png" />
+</div>
+</div>
+</section>
+<section id="key-responsabilities-per-role-specialization">
+<h2>Key responsabilities per role specialization<a class="headerlink" href="#key-responsabilities-per-role-specialization" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_summary</th>
+      <th>company_information</th>
+      <th>location_and_work_model</th>
+      <th>required_qualifications</th>
+      <th>preferred_qualifications</th>
+      <th>role_context</th>
+      <th>benefits</th>
+      <th>job_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'role_title': 'DevOps Engineer', 'role_object...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '0', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'Not Sp...</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4203796028</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{'role_title': 'Software Developer', 'role_obj...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '3', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'Intere...</td>
+      <td>{'collaboration_with': ['Network', 'Security',...</td>
+      <td>{'training_development': 'Support the resoluti...</td>
+      <td>4209830737</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['Vertex AI', 'dbt (Data B...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['DBT', 'Vertex AI'], 'oth...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{'role_title': 'Machine Learning Engineer', 'r...</td>
+      <td>{'company_type': 'Unspecified / Generic Tech',...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['DBT', 'Vertex AI'], 'oth...</td>
+      <td>{'collaboration_with': ['cross-functional team...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4194898848</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2296</th>
+      <td>{'role_title': 'Software Engineer', 'role_obje...</td>
+      <td>{'company_type': 'AI / Data Science Focused', ...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '0', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'None'}</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'None', 'learning_pla...</td>
+      <td>4204842868</td>
+    </tr>
+    <tr>
+      <th>2297</th>
+      <td>{'role_title': 'Software Engineer', 'role_obje...</td>
+      <td>{'company_type': 'AI / Data Science Focused', ...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '0', 'experience_year...</td>
+      <td>{'skills_keywords': [], 'other_notes': 'taxas ...</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'string', 'learning_p...</td>
+      <td>4204842827</td>
+    </tr>
+    <tr>
+      <th>2298</th>
+      <td>{'role_title': 'Data Engineer', 'role_objectiv...</td>
+      <td>{'company_type': 'Banking / Financial Institut...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['Open-Source Contribution...</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4214749312</td>
+    </tr>
+    <tr>
+      <th>2299</th>
+      <td>{'role_title': 'Data Engineer', 'role_objectiv...</td>
+      <td>{'company_type': 'Banking / Financial Institut...</td>
+      <td>{'specification_level': 'Specific Location / R...</td>
+      <td>{'experience_years_min': '8', 'experience_year...</td>
+      <td>{'skills_keywords': ['Snowflake', 'Column-orie...</td>
+      <td>{'collaboration_with': [], 'team_structure': '...</td>
+      <td>{'training_development': 'Not Specified', 'lea...</td>
+      <td>4214749312</td>
+    </tr>
+    <tr>
+      <th>2300</th>
+      <td>{'role_title': 'Data Engineer', 'role_objectiv...</td>
+      <td>{'company_type': 'AI / Data Science Focused', ...</td>
+      <td>{'specification_level': 'Not Specified', 'remo...</td>
+      <td>{'experience_years_min': '3', 'experience_year...</td>
+      <td>{'skills_keywords': ['Azure Data Factory', 'Az...</td>
+      <td>{'collaboration_with': ['AI teams', 'product t...</td>
+      <td>{'training_development': 'Professional develop...</td>
+      <td>4214189924</td>
+    </tr>
+  </tbody>
+</table>
+<p>2301 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 3 roles selected: [&#39;data engineer&#39;, &#39;software engineer&#39;, &#39;cloud engineer&#39;]
+</pre></div>
+</div>
+<div class="output text_html"><h2 style="text-align:center; color:#333; font-family: Arial, sans-serif;">Key Responsibilities Breakdown for Top Job Roles</h2></div><div class="output text_html"><style type="text/css">
+#T_d495a th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 10px;
+  border: 1px solid #0056b3;
+}
+#T_d495a td {
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 600px;
+}
+#T_d495a_row0_col0, #T_d495a_row1_col0, #T_d495a_row2_col0, #T_d495a_row3_col0, #T_d495a_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+  vertical-align: top;
+}
+#T_d495a_row0_col1, #T_d495a_row1_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 100.0%, transparent 100.0%);
+}
+#T_d495a_row2_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 90.9%, transparent 90.9%);
+}
+#T_d495a_row3_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 81.8%, transparent 81.8%);
+}
+#T_d495a_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 77.3%, transparent 77.3%);
+}
+</style>
+<table id="T_d495a" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top 5 Responsibilities for Data Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_d495a_level0_col0" class="col_heading level0 col0" >Responsibility</th>
+      <th id="T_d495a_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_d495a_row0_col0" class="data row0 col0" >recommend ways to efficiently provide quality data and added value.</td>
+      <td id="T_d495a_row0_col1" class="data row0 col1" >22</td>
+    </tr>
+    <tr>
+      <td id="T_d495a_row1_col0" class="data row1 col0" >develop, maintain, and support data pipelines.</td>
+      <td id="T_d495a_row1_col1" class="data row1 col1" >22</td>
+    </tr>
+    <tr>
+      <td id="T_d495a_row2_col0" class="data row2 col0" >ensure architecture meets business requirements.</td>
+      <td id="T_d495a_row2_col1" class="data row2 col1" >20</td>
+    </tr>
+    <tr>
+      <td id="T_d495a_row3_col0" class="data row3 col0" >prioritize and manage multiple projects simultaneously, meeting deadlines and delivering high-quality results.</td>
+      <td id="T_d495a_row3_col1" class="data row3 col1" >18</td>
+    </tr>
+    <tr>
+      <td id="T_d495a_row4_col0" class="data row4 col0" >extraction of data from various sources, including databases, file systems, and apis</td>
+      <td id="T_d495a_row4_col1" class="data row4 col1" >17</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"><style type="text/css">
+#T_f12ad th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 10px;
+  border: 1px solid #0056b3;
+}
+#T_f12ad td {
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 600px;
+}
+#T_f12ad_row0_col0, #T_f12ad_row1_col0, #T_f12ad_row2_col0, #T_f12ad_row3_col0, #T_f12ad_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+  vertical-align: top;
+}
+#T_f12ad_row0_col1, #T_f12ad_row1_col1, #T_f12ad_row2_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 100.0%, transparent 100.0%);
+}
+#T_f12ad_row3_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 90.9%, transparent 90.9%);
+}
+#T_f12ad_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 63.6%, transparent 63.6%);
+}
+</style>
+<table id="T_f12ad" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top 5 Responsibilities for Software Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_f12ad_level0_col0" class="col_heading level0 col0" >Responsibility</th>
+      <th id="T_f12ad_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_f12ad_row0_col0" class="data row0 col0" >avaliar e classificar os códigos gerados por modelos de ia.</td>
+      <td id="T_f12ad_row0_col1" class="data row0 col1" >11</td>
+    </tr>
+    <tr>
+      <td id="T_f12ad_row1_col0" class="data row1 col0" >criar e responder a perguntas relacionadas à ciência da computação para ajudar no treinamento de modelos de ia.</td>
+      <td id="T_f12ad_row1_col1" class="data row1 col1" >11</td>
+    </tr>
+    <tr>
+      <td id="T_f12ad_row2_col0" class="data row2 col0" >actively participate in code and design reviews to maintain exceptional quality and deepen your understanding of the system architecture and implementation</td>
+      <td id="T_f12ad_row2_col1" class="data row2 col1" >11</td>
+    </tr>
+    <tr>
+      <td id="T_f12ad_row3_col0" class="data row3 col0" >helping grow the team by participating in recruiting, mentoring and developing best practices</td>
+      <td id="T_f12ad_row3_col1" class="data row3 col1" >10</td>
+    </tr>
+    <tr>
+      <td id="T_f12ad_row4_col0" class="data row4 col0" >integrating third-party apis from exchanges, wallets, and infrastructure providers</td>
+      <td id="T_f12ad_row4_col1" class="data row4 col1" >7</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"><style type="text/css">
+#T_40d20 th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 10px;
+  border: 1px solid #0056b3;
+}
+#T_40d20 td {
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 600px;
+}
+#T_40d20_row0_col0, #T_40d20_row1_col0, #T_40d20_row2_col0, #T_40d20_row3_col0, #T_40d20_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+  vertical-align: top;
+}
+#T_40d20_row0_col1, #T_40d20_row1_col1, #T_40d20_row2_col1, #T_40d20_row3_col1, #T_40d20_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 10em;
+  background: linear-gradient(90deg, #28a745 100.0%, transparent 100.0%);
+}
+</style>
+<table id="T_40d20" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top 5 Responsibilities for Cloud Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_40d20_level0_col0" class="col_heading level0 col0" >Responsibility</th>
+      <th id="T_40d20_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_40d20_row0_col0" class="data row0 col0" >monitoring, troubleshooting, and optimizing aws infrastructure and services to ensure maximum performance and reliability.</td>
+      <td id="T_40d20_row0_col1" class="data row0 col1" >8</td>
+    </tr>
+    <tr>
+      <td id="T_40d20_row1_col0" class="data row1 col0" >developing and maintaining ci/cd pipelines using jenkins to streamline deployment processes.</td>
+      <td id="T_40d20_row1_col1" class="data row1 col1" >8</td>
+    </tr>
+    <tr>
+      <td id="T_40d20_row2_col0" class="data row2 col0" >automating infrastructure provisioning and configuration management using tools like ansible and terraform.</td>
+      <td id="T_40d20_row2_col1" class="data row2 col1" >8</td>
+    </tr>
+    <tr>
+      <td id="T_40d20_row3_col0" class="data row3 col0" >ensuring compliance with security best practices and helping implement robust access controls using iam, kms, and other aws security services.</td>
+      <td id="T_40d20_row3_col1" class="data row3 col1" >8</td>
+    </tr>
+    <tr>
+      <td id="T_40d20_row4_col0" class="data row4 col0" >creating and maintaining infrastructure as code (iac) with cloudformation or terraform to ensure consistent and reproducible deployments.</td>
+      <td id="T_40d20_row4_col1" class="data row4 col1" >8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="role-objectives">
+<h2>Role objectives<a class="headerlink" href="#role-objectives" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 3 roles selected for objectives analysis: [&#39;data engineer&#39;, &#39;software engineer&#39;, &#39;cloud engineer&#39;]
+
+--- Top 5 Role Objectives for: Data Engineer ---
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+#T_58d58 th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+}
+#T_58d58 td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 500px;
+}
+#T_58d58_row0_col0, #T_58d58_row1_col0, #T_58d58_row2_col0, #T_58d58_row3_col0, #T_58d58_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+}
+#T_58d58_row0_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 100.0%, transparent 100.0%);
+}
+#T_58d58_row1_col1, #T_58d58_row2_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 50.0%, transparent 50.0%);
+}
+#T_58d58_row3_col1, #T_58d58_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 40.9%, transparent 40.9%);
+}
+</style>
+<table id="T_58d58" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top Objectives for Data Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_58d58_level0_col0" class="col_heading level0 col0" >Objective</th>
+      <th id="T_58d58_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_58d58_row0_col0" class="data row0 col0" >this role is focused on designing, developing, and maintaining the data platform required for data storage, processing, orchestration, and analysis.</td>
+      <td id="T_58d58_row0_col1" class="data row0 col1" >22</td>
+    </tr>
+    <tr>
+      <td id="T_58d58_row1_col0" class="data row1 col0" >in this role, you will be instrumental in designing, building, and maintaining robust data infrastructures that support our clients' data-driven initiatives.</td>
+      <td id="T_58d58_row1_col1" class="data row1 col1" >11</td>
+    </tr>
+    <tr>
+      <td id="T_58d58_row2_col0" class="data row2 col0" >vamos reforçar a nossa área de data&ai, que tem suportado milhares de clientes na evolução/criação das suas plataformas de dados, analítica e ia</td>
+      <td id="T_58d58_row2_col1" class="data row2 col1" >11</td>
+    </tr>
+    <tr>
+      <td id="T_58d58_row3_col0" class="data row3 col0" >help them launch innovative digital products that interact with hundreds of millions of customers, transactions and data points.</td>
+      <td id="T_58d58_row3_col1" class="data row3 col1" >9</td>
+    </tr>
+    <tr>
+      <td id="T_58d58_row4_col0" class="data row4 col0" >utilise advanced data analytics to grow canonical's product adoption and market penetration</td>
+      <td id="T_58d58_row4_col1" class="data row4 col1" >9</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Top 5 Role Objectives for: Software Engineer ---
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+#T_12cc7 th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+}
+#T_12cc7 td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 500px;
+}
+#T_12cc7_row0_col0, #T_12cc7_row1_col0, #T_12cc7_row2_col0, #T_12cc7_row3_col0, #T_12cc7_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+}
+#T_12cc7_row0_col1, #T_12cc7_row1_col1, #T_12cc7_row2_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 100.0%, transparent 100.0%);
+}
+#T_12cc7_row3_col1, #T_12cc7_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 75.0%, transparent 75.0%);
+}
+</style>
+<table id="T_12cc7" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top Objectives for Software Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_12cc7_level0_col0" class="col_heading level0 col0" >Objective</th>
+      <th id="T_12cc7_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_12cc7_row0_col0" class="data row0 col0" >building dremio parts and features which will power our ability to serve data as data products assisted by ai.</td>
+      <td id="T_12cc7_row0_col1" class="data row0 col1" >4</td>
+    </tr>
+    <tr>
+      <td id="T_12cc7_row1_col0" class="data row1 col0" >your role will contribute to shaping ai-powered customer experiences and enhancing the efficiency of our service platforms.</td>
+      <td id="T_12cc7_row1_col1" class="data row1 col1" >4</td>
+    </tr>
+    <tr>
+      <td id="T_12cc7_row2_col0" class="data row2 col0" >help build and maintain one of our most important internal systems - a platform responsible for orchestrating and automating the movement of assets across exchanges, wallets, and custodians such as binance, okx, fireblocks, kucoin, and coinbase</td>
+      <td id="T_12cc7_row2_col1" class="data row2 col1" >4</td>
+    </tr>
+    <tr>
+      <td id="T_12cc7_row3_col0" class="data row3 col0" >design, develop, and implement java-based applications for our automotive distribution and retail systems</td>
+      <td id="T_12cc7_row3_col1" class="data row3 col1" >3</td>
+    </tr>
+    <tr>
+      <td id="T_12cc7_row4_col0" class="data row4 col0" >expanding and enhancing our leading 'miles enterprise' solution.</td>
+      <td id="T_12cc7_row4_col1" class="data row4 col1" >3</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Top 5 Role Objectives for: Cloud Engineer ---
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+#T_a3d61 th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+}
+#T_a3d61 td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 500px;
+}
+#T_a3d61_row0_col0, #T_a3d61_row1_col0, #T_a3d61_row2_col0, #T_a3d61_row3_col0, #T_a3d61_row4_col0 {
+  text-align: left;
+  font-size: 0.95em;
+}
+#T_a3d61_row0_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 100.0%, transparent 100.0%);
+}
+#T_a3d61_row1_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 77.8%, transparent 77.8%);
+}
+#T_a3d61_row2_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 55.6%, transparent 55.6%);
+}
+#T_a3d61_row3_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 44.4%, transparent 44.4%);
+}
+#T_a3d61_row4_col1 {
+  text-align: center;
+  font-weight: bold;
+  width: 10em;
+  background: linear-gradient(90deg, #5cb85c 33.3%, transparent 33.3%);
+}
+</style>
+<table id="T_a3d61" style="border-collapse: collapse; width: 95%; margin: 20px auto; font-family: Arial, sans-serif; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);">
+  <caption>Top Objectives for Cloud Engineer</caption>
+  <thead>
+    <tr>
+      <th id="T_a3d61_level0_col0" class="col_heading level0 col0" >Objective</th>
+      <th id="T_a3d61_level0_col1" class="col_heading level0 col1" >Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_a3d61_row0_col0" class="data row0 col0" >collaborating with development teams to design, implement, and optimize highly available, scalable, and secure cloud solutions on aws.</td>
+      <td id="T_a3d61_row0_col1" class="data row0 col1" >9</td>
+    </tr>
+    <tr>
+      <td id="T_a3d61_row1_col0" class="data row1 col0" >play a pivotal role in designing, implementing, and maintaining robust cloud solutions in aws</td>
+      <td id="T_a3d61_row1_col1" class="data row1 col1" >7</td>
+    </tr>
+    <tr>
+      <td id="T_a3d61_row2_col0" class="data row2 col0" >estamos a reforçar a nossa equipa para um projeto inovador e de grande impacto, onde terás a oportunidade de trabalhar num ambiente dinâmico, desafiante e tecnologicamente avançado.</td>
+      <td id="T_a3d61_row2_col1" class="data row2 col1" >5</td>
+    </tr>
+    <tr>
+      <td id="T_a3d61_row3_col0" class="data row3 col0" >integrar um projeto aliciante em lisboa.</td>
+      <td id="T_a3d61_row3_col1" class="data row3 col1" >4</td>
+    </tr>
+    <tr>
+      <td id="T_a3d61_row4_col0" class="data row4 col0" >desenvolver e otimizar pipelines de dados na aws</td>
+      <td id="T_a3d61_row4_col1" class="data row4 col1" >3</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribution-of-role-seniority">
+<h2>Distribution of Role seniority<a class="headerlink" href="#distribution-of-role-seniority" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/135c78dafa71aea06f38659d50144a7e3bd708fab7cdf8caa0449fb53dacda03.png" src="../_images/135c78dafa71aea06f38659d50144a7e3bd708fab7cdf8caa0449fb53dacda03.png" />
+<div class="output text_html"><h3 style="text-align:center; color:#333; font-family: Arial, sans-serif; margin-top: 20px;">Summary of Minimum Experience Requirements</h3></div><div class="output text_html"><style type="text/css">
+#T_2d54f th {
+  background-color: #6c757d;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 8px;
+  border: 1px solid #5a6268;
+}
+#T_2d54f td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: right;
+}
+#T_2d54f th.row_heading {
+  text-align: left;
+  font-weight: bold;
+}
+#T_2d54f_row0_col1, #T_2d54f_row0_col2, #T_2d54f_row0_col3, #T_2d54f_row0_col4, #T_2d54f_row1_col1, #T_2d54f_row1_col2, #T_2d54f_row1_col3, #T_2d54f_row1_col4, #T_2d54f_row2_col1, #T_2d54f_row2_col2, #T_2d54f_row2_col3, #T_2d54f_row2_col4, #T_2d54f_row3_col1, #T_2d54f_row3_col2, #T_2d54f_row3_col3, #T_2d54f_row3_col4, #T_2d54f_row4_col1, #T_2d54f_row4_col2, #T_2d54f_row4_col3, #T_2d54f_row4_col4, #T_2d54f_row5_col1, #T_2d54f_row5_col2, #T_2d54f_row5_col3, #T_2d54f_row5_col4, #T_2d54f_row6_col1, #T_2d54f_row6_col2, #T_2d54f_row6_col3, #T_2d54f_row6_col4, #T_2d54f_row7_col1, #T_2d54f_row7_col2, #T_2d54f_row7_col3, #T_2d54f_row7_col4, #T_2d54f_row8_col1, #T_2d54f_row8_col2, #T_2d54f_row8_col3, #T_2d54f_row8_col4, #T_2d54f_row9_col1, #T_2d54f_row9_col2, #T_2d54f_row9_col3, #T_2d54f_row9_col4 {
+  text-align: center;
+}
+</style>
+<table id="T_2d54f" style="border-collapse: collapse; width: 80%; margin: 25px auto; font-family: Arial, sans-serif; box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1);">
+  <caption>Summary Statistics for Minimum Experience Years by Seniority</caption>
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_2d54f_level0_col0" class="col_heading level0 col0" >Count</th>
+      <th id="T_2d54f_level0_col1" class="col_heading level0 col1" >Mean</th>
+      <th id="T_2d54f_level0_col2" class="col_heading level0 col2" >Q1</th>
+      <th id="T_2d54f_level0_col3" class="col_heading level0 col3" >Median</th>
+      <th id="T_2d54f_level0_col4" class="col_heading level0 col4" >Q3</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >seniority</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+      <th class="blank col4" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_2d54f_level0_row0" class="row_heading level0 row0" >mid-level</th>
+      <td id="T_2d54f_row0_col0" class="data row0 col0" >558</td>
+      <td id="T_2d54f_row0_col1" class="data row0 col1" >3.0</td>
+      <td id="T_2d54f_row0_col2" class="data row0 col2" >2.0</td>
+      <td id="T_2d54f_row0_col3" class="data row0 col3" >3.0</td>
+      <td id="T_2d54f_row0_col4" class="data row0 col4" >4.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row1" class="row_heading level0 row1" >senior</th>
+      <td id="T_2d54f_row1_col0" class="data row1 col0" >432</td>
+      <td id="T_2d54f_row1_col1" class="data row1 col1" >3.8</td>
+      <td id="T_2d54f_row1_col2" class="data row1 col2" >1.0</td>
+      <td id="T_2d54f_row1_col3" class="data row1 col3" >4.0</td>
+      <td id="T_2d54f_row1_col4" class="data row1 col4" >5.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row2" class="row_heading level0 row2" >lead</th>
+      <td id="T_2d54f_row2_col0" class="data row2 col0" >55</td>
+      <td id="T_2d54f_row2_col1" class="data row2 col1" >2.7</td>
+      <td id="T_2d54f_row2_col2" class="data row2 col2" >0.0</td>
+      <td id="T_2d54f_row2_col3" class="data row2 col3" >3.0</td>
+      <td id="T_2d54f_row2_col4" class="data row2 col4" >5.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row3" class="row_heading level0 row3" >principal</th>
+      <td id="T_2d54f_row3_col0" class="data row3 col0" >15</td>
+      <td id="T_2d54f_row3_col1" class="data row3 col1" >7.0</td>
+      <td id="T_2d54f_row3_col2" class="data row3 col2" >5.0</td>
+      <td id="T_2d54f_row3_col3" class="data row3 col3" >5.0</td>
+      <td id="T_2d54f_row3_col4" class="data row3 col4" >10.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row4" class="row_heading level0 row4" >manager</th>
+      <td id="T_2d54f_row4_col0" class="data row4 col0" >9</td>
+      <td id="T_2d54f_row4_col1" class="data row4 col1" >3.3</td>
+      <td id="T_2d54f_row4_col2" class="data row4 col2" >2.0</td>
+      <td id="T_2d54f_row4_col3" class="data row4 col3" >3.0</td>
+      <td id="T_2d54f_row4_col4" class="data row4 col4" >5.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row5" class="row_heading level0 row5" >not specified</th>
+      <td id="T_2d54f_row5_col0" class="data row5 col0" >1163</td>
+      <td id="T_2d54f_row5_col1" class="data row5 col1" >1.6</td>
+      <td id="T_2d54f_row5_col2" class="data row5 col2" >0.0</td>
+      <td id="T_2d54f_row5_col3" class="data row5 col3" >0.0</td>
+      <td id="T_2d54f_row5_col4" class="data row5 col4" >3.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row6" class="row_heading level0 row6" >junior</th>
+      <td id="T_2d54f_row6_col0" class="data row6 col0" >48</td>
+      <td id="T_2d54f_row6_col1" class="data row6 col1" >0.8</td>
+      <td id="T_2d54f_row6_col2" class="data row6 col2" >0.0</td>
+      <td id="T_2d54f_row6_col3" class="data row6 col3" >0.0</td>
+      <td id="T_2d54f_row6_col4" class="data row6 col4" >2.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row7" class="row_heading level0 row7" >staff</th>
+      <td id="T_2d54f_row7_col0" class="data row7 col0" >12</td>
+      <td id="T_2d54f_row7_col1" class="data row7 col1" >6.0</td>
+      <td id="T_2d54f_row7_col2" class="data row7 col2" >3.8</td>
+      <td id="T_2d54f_row7_col3" class="data row7 col3" >8.0</td>
+      <td id="T_2d54f_row7_col4" class="data row7 col4" >8.5</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row8" class="row_heading level0 row8" >internship</th>
+      <td id="T_2d54f_row8_col0" class="data row8 col0" >5</td>
+      <td id="T_2d54f_row8_col1" class="data row8 col1" >0.0</td>
+      <td id="T_2d54f_row8_col2" class="data row8 col2" >0.0</td>
+      <td id="T_2d54f_row8_col3" class="data row8 col3" >0.0</td>
+      <td id="T_2d54f_row8_col4" class="data row8 col4" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_2d54f_level0_row9" class="row_heading level0 row9" >consultant</th>
+      <td id="T_2d54f_row9_col0" class="data row9 col0" >2</td>
+      <td id="T_2d54f_row9_col1" class="data row9 col1" >2.0</td>
+      <td id="T_2d54f_row9_col2" class="data row9 col2" >2.0</td>
+      <td id="T_2d54f_row9_col3" class="data row9 col3" >2.0</td>
+      <td id="T_2d54f_row9_col4" class="data row9 col4" >2.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="visa-sponsorship">
+<h2>Visa Sponsorship<a class="headerlink" href="#visa-sponsorship" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/cc15394712d5e8b3e727c060e83a8aefe82f1e1010ac032c728bc30f6eff096e.png" src="../_images/cc15394712d5e8b3e727c060e83a8aefe82f1e1010ac032c728bc30f6eff096e.png" />
+</div>
+</div>
+</section>
+<section id="company-insights">
+<h2>Company Insights<a class="headerlink" href="#company-insights" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/cf44f9912d8c17d9a78817d9174da93622df6e25070b8f8a786141e991c3dc8c.png" src="../_images/cf44f9912d8c17d9a78817d9174da93622df6e25070b8f8a786141e991c3dc8c.png" />
+</div>
+</div>
+</section>
+<section id="top-company-values-keywords">
+<h2>Top company values keywords<a class="headerlink" href="#top-company-values-keywords" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/2ef6f483bfd23c76d547d21b795b2f86e10f041a837e44f34a093bfbd7a8a9f1.png" src="../_images/2ef6f483bfd23c76d547d21b795b2f86e10f041a837e44f34a093bfbd7a8a9f1.png" />
+</div>
+</div>
+</section>
+<section id="remote-work">
+<h2>Remote Work<a class="headerlink" href="#remote-work" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/ceb54e5891afb11d94d4649e2c42d7f377e582dcf1a965a7900e090875e2e843.png" src="../_images/ceb54e5891afb11d94d4649e2c42d7f377e582dcf1a965a7900e090875e2e843.png" />
+</div>
+</div>
+</section>
+<section id="top-work-locations">
+<h2>Top work locations<a class="headerlink" href="#top-work-locations" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/ae3b6e986b76f346db3a3ffe2cb107e059899cb38b597bb74a7981ae1e41dd07.png" src="../_images/ae3b6e986b76f346db3a3ffe2cb107e059899cb38b597bb74a7981ae1e41dd07.png" />
+</div>
+</div>
+</section>
+<section id="job-flexibility">
+<h2>Job flexibility<a class="headerlink" href="#job-flexibility" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/0e4942172e0e58c49f4333b73c5dd984b64556ceb52ca093e6924f29985b6e31.png" src="../_images/0e4942172e0e58c49f4333b73c5dd984b64556ceb52ca093e6924f29985b6e31.png" />
+</div>
+</div>
+</section>
+<section id="chapter-ii-qualifications-deep-dive">
+<h2>Chapter II: Qualifications Deep Dive<a class="headerlink" href="#chapter-ii-qualifications-deep-dive" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Experience Levels</p>
+<h2 class="rubric" id="distribution-of-min-years-of-experience-required-histogram">Distribution of Min. Years of Experience Required (Histogram):</h2>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/7b25cb0da3b861ef13674c12371ea228ea7fdd9876dcd735df129c8944f2831e.png" src="../_images/7b25cb0da3b861ef13674c12371ea228ea7fdd9876dcd735df129c8944f2831e.png" />
+</div>
+</div>
+</section>
+<section id="min-experience-vs-role-seniority">
+<h2>Min experience vs Role Seniority<a class="headerlink" href="#min-experience-vs-role-seniority" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/827adf6e26182f6913a9a4660b62c703ae12a7c9d924f9123f8de949182f59ff.png" src="../_images/827adf6e26182f6913a9a4660b62c703ae12a7c9d924f9123f8de949182f59ff.png" />
+</div>
+</div>
+</section>
+<section id="technical-skills">
+<h2>Technical Skills<a class="headerlink" href="#technical-skills" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/fa1ce7d935a7f4c643f711243c177d102ad4670a7d43b2c828a9e9fe9554f7d5.png" src="../_images/fa1ce7d935a7f4c643f711243c177d102ad4670a7d43b2c828a9e9fe9554f7d5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/cf6ebdebd3c155c0eff8f657237ffd3d1b11180e8a64b020ed6742132d4acc77.png" src="../_images/cf6ebdebd3c155c0eff8f657237ffd3d1b11180e8a64b020ed6742132d4acc77.png" />
+</div>
+</div>
+</section>
+<section id="soft-skills">
+<h2>Soft skills<a class="headerlink" href="#soft-skills" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/2e6f42490c711fb19c08229a0f1009b6aaab8a7e602886b2c0bc2ec2431d2a72.png" src="../_images/2e6f42490c711fb19c08229a0f1009b6aaab8a7e602886b2c0bc2ec2431d2a72.png" />
+</div>
+</div>
+</section>
+<section id="chapter-iii-role-context-responsibilities">
+<h2>Chapter III: Role Context &amp; Responsibilities<a class="headerlink" href="#chapter-iii-role-context-responsibilities" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Collaboration Patterns</p>
+<h2 class="rubric" id="top-collaboration-teams-entities">Top Collaboration Teams/Entities:</h2>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/606619ebb582e54ad998445bd61961481f431b5ee4f55cc6d12c10aaa30c7dd1.png" src="../_images/606619ebb582e54ad998445bd61961481f431b5ee4f55cc6d12c10aaa30c7dd1.png" />
+</div>
+</div>
+</section>
+<section id="chapter-iv-benefits-perks">
+<h2>Chapter IV: Benefits &amp; Perks<a class="headerlink" href="#chapter-iv-benefits-perks" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Training &amp; Development</p>
+<h2 class="rubric" id="top-learning-platforms-mentioned">Top Learning Platforms Mentioned:</h2>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/dd8d8a312052716afc93002212d77c4ed5372f59c2caa27461cdd768c15fb129.png" src="../_images/dd8d8a312052716afc93002212d77c4ed5372f59c2caa27461cdd768c15fb129.png" />
+</div>
+</div>
+</section>
+<section id="other-benefits">
+<h2>Other benefits<a class="headerlink" href="#other-benefits" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/1d5d79b73de12dc2e9f337b2faf08eca26a7d9c8eae62468423257d52ae02f08.png" src="../_images/1d5d79b73de12dc2e9f337b2faf08eca26a7d9c8eae62468423257d52ae02f08.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./09_Linkedin"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_pipeline.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Part I: Meet the market</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meaningful-findings">Meaningful findings:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-i-job-profile-demographics">Chapter I: Job Profile &amp; Demographics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-responsabilities-per-role-specialization">Key responsabilities per role specialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-objectives">Role objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-role-seniority">Distribution of Role seniority</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visa-sponsorship">Visa Sponsorship</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#company-insights">Company Insights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-company-values-keywords">Top company values keywords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-work">Remote Work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-work-locations">Top work locations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#job-flexibility">Job flexibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-ii-qualifications-deep-dive">Chapter II: Qualifications Deep Dive</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-experience-vs-role-seniority">Min experience vs Role Seniority</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-skills">Technical Skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-skills">Soft skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-iii-role-context-responsibilities">Chapter III: Role Context &amp; Responsibilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-iv-benefits-perks">Chapter IV: Benefits &amp; Perks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-benefits">Other benefits</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

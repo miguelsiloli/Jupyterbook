@@ -1,0 +1,116 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- SQL Server 1 -->
+  <rect x="50" y="50" width="200" height="200" fill="#607d8b" stroke="#37474f" stroke-width="3" rx="10"/>
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">SQL Server</text>
+  <text x="60" y="95" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Under Stress</text>
+  
+  <text x="60" y="120" font-family="Arial, sans-serif" font-size="12" fill="white">[CPU: 95%]</text>
+  <text x="60" y="140" font-family="Arial, sans-serif" font-size="12" fill="white">[Memory: 92%]</text>
+  
+  <!-- SQL Exporter 1 -->
+  <rect x="70" y="170" width="160" height="60" fill="#4caf50" stroke="#2e7d32" stroke-width="2" rx="5"/>
+  <text x="80" y="190" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">SQL Exporter</text>
+  <text x="80" y="205" font-family="Arial, sans-serif" font-size="10" fill="white">Passively</text>
+  <text x="80" y="218" font-family="Arial, sans-serif" font-size="10" fill="white">exposes :9398</text>
+  <text x="80" y="231" font-family="Arial, sans-serif" font-size="10" fill="white">(Minimal CPU)</text>
+
+  <!-- SQL Server 2 -->
+  <rect x="350" y="50" width="200" height="200" fill="#607d8b" stroke="#37474f" stroke-width="3" rx="10"/>
+  <text x="360" y="75" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">SQL Server</text>
+  <text x="360" y="95" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Under Stress</text>
+  
+  <text x="360" y="120" font-family="Arial, sans-serif" font-size="12" fill="white">[CPU: 90%]</text>
+  <text x="360" y="140" font-family="Arial, sans-serif" font-size="12" fill="white">[Memory: 89%]</text>
+  
+  <!-- SQL Exporter 2 -->
+  <rect x="370" y="170" width="160" height="60" fill="#4caf50" stroke="#2e7d32" stroke-width="2" rx="5"/>
+  <text x="380" y="190" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">SQL Exporter</text>
+  <text x="380" y="205" font-family="Arial, sans-serif" font-size="10" fill="white">Passively</text>
+  <text x="380" y="218" font-family="Arial, sans-serif" font-size="10" fill="white">exposes :9399</text>
+  <text x="380" y="231" font-family="Arial, sans-serif" font-size="10" fill="white">(Minimal CPU)</text>
+
+  <!-- SQL Server 3 -->
+  <rect x="650" y="50" width="200" height="200" fill="#607d8b" stroke="#37474f" stroke-width="3" rx="10"/>
+  <text x="660" y="75" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">SQL Server</text>
+  <text x="660" y="95" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Under Stress</text>
+  
+  <text x="660" y="120" font-family="Arial, sans-serif" font-size="12" fill="white">[CPU: 88%]</text>
+  <text x="660" y="140" font-family="Arial, sans-serif" font-size="12" fill="white">[Memory: 94%]</text>
+  
+  <!-- SQL Exporter 3 -->
+  <rect x="670" y="170" width="160" height="60" fill="#4caf50" stroke="#2e7d32" stroke-width="2" rx="5"/>
+  <text x="680" y="190" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">SQL Exporter</text>
+  <text x="680" y="205" font-family="Arial, sans-serif" font-size="10" fill="white">Passively</text>
+  <text x="680" y="218" font-family="Arial, sans-serif" font-size="10" fill="white">exposes :9400</text>
+  <text x="680" y="231" font-family="Arial, sans-serif" font-size="10" fill="white">(Minimal CPU)</text>
+
+  <!-- Prometheus Server -->
+  <rect x="200" y="400" width="400" height="120" fill="#e91e63" stroke="#ad1457" stroke-width="3" rx="10"/>
+  <text x="220" y="430" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Prometheus Server</text>
+  <text x="220" y="455" font-family="Arial, sans-serif" font-size="14" fill="white">(Controls the conversation)</text>
+  <text x="220" y="480" font-family="Arial, sans-serif" font-size="12" fill="white">"I'll ask when I'm ready to handle the data"</text>
+
+  <!-- Arrow definitions -->
+  <defs>
+    <marker id="pullArrow" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0,0 0,10 12,5" fill="#333" stroke="#333" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <!-- Pull arrows from Prometheus to each SQL Exporter -->
+  <line x1="280" y1="400" x2="150" y2="250" stroke="#333" stroke-width="3" marker-end="url(#pullArrow)"/>
+  <line x1="400" y1="400" x2="450" y2="250" stroke="#333" stroke-width="3" marker-end="url(#pullArrow)"/>
+  <line x1="520" y1="400" x2="750" y2="250" stroke="#333" stroke-width="3" marker-end="url(#pullArrow)"/>
+
+  <!-- Pull labels -->
+  <text x="170" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">PULL</text>
+  <text x="170" y="345" font-family="Arial, sans-serif" font-size="11" fill="#666">(On demand)</text>
+
+  <text x="410" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">PULL</text>
+  <text x="410" y="345" font-family="Arial, sans-serif" font-size="11" fill="#666">(On demand)</text>
+
+  <text x="700" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">PULL</text>
+  <text x="700" y="345" font-family="Arial, sans-serif" font-size="11" fill="#666">(On demand)</text>
+
+  <!-- CPU/Memory bars for visual emphasis -->
+  <!-- Server 1 CPU bar (95%) -->
+  <rect x="270" y="110" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="271" y="111" width="57" height="10" fill="#f44336"/>
+  <text x="335" y="120" font-family="Arial, sans-serif" font-size="9" fill="white">95%</text>
+
+  <!-- Server 1 Memory bar (92%) -->
+  <rect x="270" y="130" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="271" y="131" width="55" height="10" fill="#ff9800"/>
+  <text x="335" y="140" font-family="Arial, sans-serif" font-size="9" fill="white">92%</text>
+
+  <!-- Server 2 CPU bar (90%) -->
+  <rect x="570" y="110" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="571" y="111" width="54" height="10" fill="#ff5722"/>
+  <text x="635" y="120" font-family="Arial, sans-serif" font-size="9" fill="white">90%</text>
+
+  <!-- Server 2 Memory bar (89%) -->
+  <rect x="570" y="130" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="571" y="131" width="53" height="10" fill="#ff9800"/>
+  <text x="635" y="140" font-family="Arial, sans-serif" font-size="9" fill="white">89%</text>
+
+  <!-- Server 3 CPU bar (88%) -->
+  <rect x="870" y="110" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="871" y="111" width="53" height="10" fill="#ff5722"/>
+  <text x="935" y="120" font-family="Arial, sans-serif" font-size="9" fill="white">88%</text>
+
+  <!-- Server 3 Memory bar (94%) -->
+  <rect x="870" y="130" width="60" height="12" fill="none" stroke="white" stroke-width="1"/>
+  <rect x="871" y="131" width="56" height="10" fill="#f44336"/>
+  <text x="935" y="140" font-family="Arial, sans-serif" font-size="9" fill="white">94%</text>
+
+  <!-- Stress indicators -->
+  <circle cx="240" cy="70" r="8" fill="#f44336" stroke="white" stroke-width="2"/>
+  <text x="236" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">!</text>
+
+  <circle cx="540" cy="70" r="8" fill="#ff9800" stroke="white" stroke-width="2"/>
+  <text x="536" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">!</text>
+
+  <circle cx="840" cy="70" r="8" fill="#ff9800" stroke="white" stroke-width="2"/>
+  <text x="836" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">!</text>
+
+</svg>

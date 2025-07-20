@@ -1,0 +1,1705 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Part I: Meet the market &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '09_Linkedin/01_pipeline';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Part II: Meet the market" href="02_job_EDA.html" />
+    <link rel="prev" title="Portuguese Housing Market EDA: A Tale of Two Cities" href="../05_housing_database/02_EDA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_extras/pipeline_monitoring.html">Part I: Understanding the Core Monitoring Stack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">On Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_LLM/Airbnb_NER.html">Wisdom of unstructured data</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Part I: Meet the market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_job_EDA.html">Part II: Meet the market</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F09_Linkedin/01_pipeline.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/09_Linkedin/01_pipeline.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Part I: Meet the market</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-challenge">Introduction &amp; Challenge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model">Data Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#staging">Staging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-normalized">Augmented Normalized</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-1-scraping-and-initial-storage">Phase 1: Scraping and Initial Storage</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data-in-linkedin-staging">Example data in linkedin_staging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation-example">Data Transformation &amp; Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-2-data-cleansing-and-normalization">Phase 2: Data Cleansing and Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scraped-description">Example Scraped Description</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-gemini-augmentation">Part II: Gemini Augmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt">Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-schema-template">OpenAI schema template</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example output</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="part-i-meet-the-market">
+<h1>Part I: Meet the market<a class="headerlink" href="#part-i-meet-the-market" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Using Foundational Models to Extract Career Guiding Insights from LinkedIn Listings</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="introduction-challenge">
+<h2>Introduction &amp; Challenge<a class="headerlink" href="#introduction-challenge" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>💡 <strong>As a junior developer, how can I optimize my specialization path based on the assumption that not all skills are equally valuable?</strong></p>
+</div></blockquote>
+<p>This project addresses the challenge of navigating today’s complex job market by leveraging large language models to extract actionable insights from LinkedIn job listings.</p>
+<ul class="simple">
+<li><p>🔍 <strong>Market Navigation:</strong> Understanding job requirements</p></li>
+<li><p>🏆 <strong>Skill Prioritization:</strong> Identifying valuable skills</p></li>
+<li><p>📈 <strong>Career Planning:</strong> Optimizing learning path</p></li>
+<li><p>💡 <strong>Opportunity Spotting:</strong> Finding real demands</p></li>
+</ul>
+<p>This is going to be split into two parts: traditional <strong>pipeline setup</strong> and <strong>gemini augmentation architecture</strong>.</p>
+</section>
+<section id="architecture-overview">
+<h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://app.eraser.io/workspace/L6NaMhN79etO75ci6TWx?elements=v2IerBw6zG3liAsf_yPNyA">View on Eraser<img alt="" src="https://app.eraser.io/workspace/L6NaMhN79etO75ci6TWx/preview?elements=v2IerBw6zG3liAsf_yPNyA&amp;type=embed" /></a></p>
+<section id="components">
+<h3>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h3>
+<p><strong>Tech Stack:</strong> <code class="docutils literal notranslate"><span class="pre">GitHub</span> <span class="pre">Actions</span></code>, <code class="docutils literal notranslate"><span class="pre">Python</span></code>, <code class="docutils literal notranslate"><span class="pre">Selenium</span></code>, <code class="docutils literal notranslate"><span class="pre">GCP</span></code>, <code class="docutils literal notranslate"><span class="pre">BigQuery</span></code>, <code class="docutils literal notranslate"><span class="pre">Dataform</span></code>, <code class="docutils literal notranslate"><span class="pre">Parquet</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Component</p></th>
+<th class="head text-left"><p>Technology</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Runner Environment</strong></p></td>
+<td class="text-left"><p>GitHub Cloud</p></td>
+<td class="text-left"><p>Executing pipeline processes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Orchestrator</strong></p></td>
+<td class="text-left"><p>GitHub Actions</p></td>
+<td class="text-left"><p>Scheduling pipeline executions</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Web Scraping</strong></p></td>
+<td class="text-left"><p>Python + Selenium</p></td>
+<td class="text-left"><p>Extract data from LinkedIn</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Object Storage</strong></p></td>
+<td class="text-left"><p>Google Cloud Storage</p></td>
+<td class="text-left"><p>Staging raw scraped data</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Data Warehousing</strong></p></td>
+<td class="text-left"><p>Google BigQuery</p></td>
+<td class="text-left"><p>Structured job data storage</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Training Hardware</strong></p></td>
+<td class="text-left"><p>NVIDIA P100</p></td>
+<td class="text-left"><p>GPU-accelerated ML training</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="pipelines">
+<h3>Pipelines<a class="headerlink" href="#pipelines" title="Link to this heading">#</a></h3>
+<p>Each workflow is a github actions yml.</p>
+<p>Scrape and Ingest GCS &gt;&gt; GCS to BQ sink &gt;&gt; Gemini Augmentation</p>
+<pre  class="mermaid">
+        graph TD
+    %% Workflow 3
+    subgraph W3[Workflow 3: Gemini Augmentation]
+        A3[Staging Updated Event]
+        A3 --&gt; W3_Entry[Start Augment]
+        W3_Entry --&gt; W3_S1[Select job_ids]
+        W3_S1 --&gt; W3_S2[Call Gemini API]
+        W3_S2 --&gt; W3_S3[Store Results]
+        W3_S3 --&gt; W3_Output[Augmented Ready]
+    end
+    %% Workflow 2
+    subgraph W2[Workflow 2: GCS to BQ sink]
+        A2[GCS Event: New Parquet]
+        A2 --&gt; W2_Entry[Start BQ Load]
+        W2_Entry --&gt; W2_S1[Fetch Parquet]
+        W2_S1 --&gt; W2_S2[Load to Temp Table]
+        W2_S2 --&gt; W2_S3[Merge to Staging]
+        W2_S3 --&gt; W2_Output[Staging Updated]
+    end
+    %% Workflow 1
+    subgraph W1[Workflow 1: Scrape and Ingest GCS]
+        A1[External Job Listings]
+        A1 --&gt; W1_Entry[Start Scrape]
+        W1_Entry --&gt; W1_S1[Scrape Listings]
+        W1_S1 --&gt; W1_S2[Store HTML]
+        W1_S2 --&gt; W1_S3[HTML to Parquet]
+        W1_S3 --&gt; W1_S4[Upload to GCS]
+        W1_S4 --&gt; W1_Output[GCS Ready]
+    end
+    
+    %% Styling
+    style W1_Entry fill:#4285F4,stroke:#333,stroke-width:2px,color:#fff
+    style W1_Output fill:#2E7D32,stroke:#333,stroke-width:2px,color:#fff
+    style W2_Entry fill:#EA4335,stroke:#333,stroke-width:2px,color:#fff
+    style W2_Output fill:#2E7D32,stroke:#333,stroke-width:2px,color:#fff
+    style W3_Entry fill:#34A853,stroke:#333,stroke-width:2px,color:#fff
+    style W3_Output fill:#2E7D32,stroke:#333,stroke-width:2px,color:#fff
+    
+    %% Node styles
+    classDef w1_nodes_style fill:#81D4FA,stroke:#01579B,color:#000
+    classDef w2_nodes_style fill:#FFCDD2,stroke:#B71C1C,color:#000
+    classDef w3_nodes_style fill:#C8E6C9,stroke:#1B5E20,color:#000
+    class W1_S1,W1_S2,W1_S3,W1_S4 w1_nodes_style
+    class W2_S1,W2_S2,W2_S3 w2_nodes_style
+    class W3_S1,W3_S2,W3_S3 w3_nodes_style
+    class A1,A2,A3 fill:#FBBC05,stroke:#333,stroke-width:2px,color:#000
+    
+    %% Subgraph styles
+    classDef workflow1 fill:#E3F2FD,stroke:#1976D2,color:#000
+    classDef workflow2 fill:#FFEBEE,stroke:#C62828,color:#000
+    classDef workflow3 fill:#E8F5E9,stroke:#2E7D32,color:#000
+    class W1 workflow1
+    class W2 workflow2
+    class W3 workflow3
+    </pre></section>
+<section id="data-model">
+<h3>Data Model<a class="headerlink" href="#data-model" title="Link to this heading">#</a></h3>
+<section id="staging">
+<h4>Staging<a class="headerlink" href="#staging" title="Link to this heading">#</a></h4>
+<pre  class="mermaid">
+        classDiagram
+    class SchemaLinkedInSink {
+        &lt;&lt;Schema&gt;&gt;
+    }
+    
+    class SchemaLinkedInDataform {
+        &lt;&lt;Schema&gt;&gt;
+    }
+    
+    class linkedin_jobs_staging {
+        +string job_id PK
+        +string job_title
+        +string company_name
+        +string location
+        +string employment_type
+        +string experience_level
+        +string workplace_type
+        +string job_description
+        +date ingestionDate PK
+    }
+    
+    class linkedin_augmented_staging {
+        +string job_id PK
+        +struct job_summary
+        +struct company_information
+        +struct location_and_work_model
+        +struct required_qualifications
+        +struct preferred_qualifications
+        +struct role_context
+        +struct benefits
+    }
+    
+    class stg_linkedin_tech_cloud_platforms {
+        +string job_id FK
+        +string technology_category
+        +string technology_name
+    }
+    
+    class stg_linkedin_tech_cloud_services_tools {
+        +string job_id FK
+        +string technology_category
+        +string technology_name
+    }
+    
+    class stg_linkedin_tech_data_architecture {
+        +string job_id FK
+        +string technology_category
+        +string technology_name
+    }
+    
+    class stg_linkedin_tech_programming_languages {
+        +string job_id FK
+        +string technology_category
+        +string technology_name
+    }
+    
+    class int_linkedin_tech_all_categories {
+        +string job_id FK
+        +string technology_category
+        +string technology_name
+    }
+    
+    %% Schema relationships
+    SchemaLinkedInSink -- linkedin_jobs_staging : contains
+    SchemaLinkedInSink -- linkedin_augmented_staging : contains
+    
+    SchemaLinkedInDataform -- stg_linkedin_tech_cloud_platforms : contains
+    SchemaLinkedInDataform -- stg_linkedin_tech_cloud_services_tools : contains
+    SchemaLinkedInDataform -- stg_linkedin_tech_data_architecture : contains
+    SchemaLinkedInDataform -- stg_linkedin_tech_programming_languages : contains
+    SchemaLinkedInDataform -- int_linkedin_tech_all_categories : contains
+    
+    %% Table relationships
+    linkedin_jobs_staging -- linkedin_augmented_staging : job_id
+    
+    linkedin_augmented_staging --&gt; stg_linkedin_tech_cloud_platforms : extract
+    linkedin_augmented_staging --&gt; stg_linkedin_tech_cloud_services_tools : extract
+    linkedin_augmented_staging --&gt; stg_linkedin_tech_data_architecture : extract
+    linkedin_augmented_staging --&gt; stg_linkedin_tech_programming_languages : extract
+    
+    stg_linkedin_tech_cloud_platforms --&gt; int_linkedin_tech_all_categories : &quot;UNION ALL&quot;
+    stg_linkedin_tech_cloud_services_tools --&gt; int_linkedin_tech_all_categories : &quot;UNION ALL&quot;
+    stg_linkedin_tech_data_architecture --&gt; int_linkedin_tech_all_categories : &quot;UNION ALL&quot;
+    stg_linkedin_tech_programming_languages --&gt; int_linkedin_tech_all_categories : &quot;UNION ALL&quot;
+    </pre></section>
+<section id="augmented-normalized">
+<h4>Augmented Normalized<a class="headerlink" href="#augmented-normalized" title="Link to this heading">#</a></h4>
+<p>We are trying to figure some very relevant categories of information about these listings:</p>
+<ul class="simple">
+<li><p>Job Summary: includes general information such as role title, objective and seniority</p></li>
+<li><p>COmpany information: company activity type (consulting, saas, etc) and company values</p></li>
+<li><p>Location and work model: flexibility, remote status and locations</p></li>
+<li><p>Required qualifications: experience, educations, soft and hard skills and technologies</p>
+<ul>
+<li><p>Technical skills: splits the technologies details into sublevels of cloud related, frameworks and libraries, databases, cloud services, etc</p></li>
+<li><p>Programming languages: data manipulation (sql, dax), scripting, frontend, infrastructure (ansible), CICD (git)</p></li>
+<li><p>Data architecture concepts: data modeling, ELT vs ETL preference, data lake, batch vs streaming, optimization, architecture patterns, etc</p></li>
+</ul>
+</li>
+<li><p>Role context: whats the main drivers, objectives and colleagues (stakeholders)</p></li>
+<li><p>Job related benefits (self explanatory)</p></li>
+</ul>
+<p>So, as we can see we have a grained analysis at technical qualifications level.</p>
+<pre  class="mermaid">
+        classDiagram
+    class JobDescriptionSchema {
+        +job_summary
+        +company_information
+        +location_and_work_model
+        +required_qualifications
+        +preferred_qualifications
+        +role_context
+        +benefits
+    }
+    
+    class JobSummary {
+        +String role_title
+        +String role_objective
+        +String role_seniority
+    }
+    
+    class CompanyInformation {
+        +String company_type
+        +String[] company_values_keywords
+    }
+    
+    class LocationAndWorkModel {
+        +String specification_level
+        +String remote_status
+        +String[] flexibility
+        +String[] locations
+    }
+    
+    class RequiredQualifications {
+        +Number experience_years_min
+        +Number experience_years_max
+        +String experience_description
+        +String education_requirements
+        +TechnicalSkills technical_skills
+        +String[] methodologies_practices
+        +String[] soft_skills_keywords
+    }
+    
+    class TechnicalSkills {
+        +ProgrammingLanguages programming_languages
+        +String[] cloud_platforms
+        +String[] cloud_services_tools
+        +String[] databases
+        +DataArchitectureConcepts data_architecture_concepts
+        +String[] etl_integration_tools
+        +String[] data_visualization_bi_tools
+        +String[] devops_mlops_ci_cd_tools
+        +String[] orchestration_workflow_tools
+        +String[] other_tools
+    }
+    
+    class ProgrammingLanguages {
+        +String[] general_purpose
+        +String[] scripting_frontend
+        +String[] query
+        +String[] data_ml_libs
+        +String[] platform_runtime
+        +String[] configuration
+        +String[] other_specialized
+    }
+    
+    class DataArchitectureConcepts {
+        +String[] data_modeling
+        +String[] data_storage_paradigms
+        +String[] etl_elt_pipelines
+        +String[] data_governance_quality
+        +String[] architecture_patterns
+        +String[] big_data_concepts
+        +String[] cloud_data_architecture
+        +String[] ml_ai_data_concepts
+        +String[] core_principles_optimization
+    }
+    
+    class PreferredQualifications {
+        +String[] skills_keywords
+        +String other_notes
+    }
+    
+    class RoleContext {
+        +String[] collaboration_with
+        +String team_structure
+        +String project_scope
+        +String[] key_responsibilities
+    }
+    
+    class Benefits {
+        +String training_development
+        +String[] other_benefits
+    }
+    
+    JobDescriptionSchema -- JobSummary
+    JobDescriptionSchema -- CompanyInformation
+    JobDescriptionSchema -- LocationAndWorkModel
+    JobDescriptionSchema -- RequiredQualifications
+    JobDescriptionSchema -- PreferredQualifications
+    JobDescriptionSchema -- RoleContext
+    JobDescriptionSchema -- Benefits
+    RequiredQualifications -- TechnicalSkills
+    TechnicalSkills -- ProgrammingLanguages
+    TechnicalSkills -- DataArchitectureConcepts
+    </pre></section>
+<section id="phase-1-scraping-and-initial-storage">
+<h4>Phase 1: Scraping and Initial Storage<a class="headerlink" href="#phase-1-scraping-and-initial-storage" title="Link to this heading">#</a></h4>
+<p>The first major step is getting the raw job data from LinkedIn. We use a GitHub Actions workflow, aptly named “Scrape and Parse to GCS”, to manage this.</p>
+<ol class="arabic simple">
+<li><p><strong>Environment &amp; Dependencies</strong>
+The workflow runs on an <code class="docutils literal notranslate"><span class="pre">ubuntu-latest</span></code> GitHub runner with Python 3.10.6 and Google Chrome for Selenium.</p></li>
+<li><p><strong>LinkedIn Scraping &amp; On-the-Fly Parsing</strong>
+Uses Selenium to control Chrome, extracting and structuring data from LinkedIn job listings.</p></li>
+<li><p><strong>Loading to Data Warehouse</strong>
+Efficiently batch-loads the parsed data from GCS into Google BigQuery for analysis.</p></li>
+</ol>
+</section>
+<section id="example-data-in-linkedin-staging">
+<h4>Example data in linkedin_staging<a class="headerlink" href="#example-data-in-linkedin-staging" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Row</p></th>
+<th class="head"><p>job_id</p></th>
+<th class="head"><p>job_title</p></th>
+<th class="head"><p>company_name</p></th>
+<th class="head"><p>location</p></th>
+<th class="head"><p>employment_type</p></th>
+<th class="head"><p>experience_level</p></th>
+<th class="head"><p>workplace_type</p></th>
+<th class="head"><p>applicant_count</p></th>
+<th class="head"><p>reposted_info</p></th>
+<th class="head"><p>skills_summary</p></th>
+<th class="head"><p>application_type</p></th>
+<th class="head"><p>job_description</p></th>
+<th class="head"><p>job_link</p></th>
+<th class="head"><p>company_logo_url</p></th>
+<th class="head"><p>source_file</p></th>
+<th class="head"><p>ingestionDate</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>linkedin_Data Science OR Data Engineer _Portugal_page_34_job_4209744798.html</p></td>
+<td><p>2025-05-02</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>4214667742</p></td>
+<td><p>DevOps Engineer Mid</p></td>
+<td><p>None</p></td>
+<td><p>Porto, Porto, Portugal</p></td>
+<td><p>None</p></td>
+<td><p>Mid-Senior level</p></td>
+<td><p>Full-time</p></td>
+<td><p>6 people clicked apply</p></td>
+<td><p>1 week ago</p></td>
+<td><p>Skills: DevOps, Infrastructure as code (IaC), +8 more</p></td>
+<td><p>Apply</p></td>
+<td><p>About Vaibe<br>Vaibe is a leading B2B white-label software gamification venture of Körber Digital, envisions a future where every software provider seamlessly integrates gamification software features tailored to their unique needs and brand identity. Through strategic partnerships and collaboration, w…</p></td>
+<td><p>DevOps Engineer Mid</p></td>
+<td><p>None</p></td>
+<td><p>linkedin_Data Science OR Data Engineer _Portugal_page_16_job_4214667742.html</p></td>
+<td><p>2025-05-02</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4214667742</p></td>
+<td><p>DevOps Engineer Mid</p></td>
+<td><p>None</p></td>
+<td><p>Porto, Porto, Portugal</p></td>
+<td><p>None</p></td>
+<td><p>Mid-Senior level</p></td>
+<td><p>Full-time</p></td>
+<td><p>5 people clicked apply</p></td>
+<td><p>5 days ago</p></td>
+<td><p>None</p></td>
+<td><p>Apply</p></td>
+<td><p>About Vaibe<br>Vaibe is a leading B2B white-label software gamification venture of Körber Digital, envisions a future where every software provider seamlessly integrates gamification software features tailored to their unique needs and brand identity. Through strategic partnerships and collaboration, w…</p></td>
+<td><p>DevOps Engineer Mid</p></td>
+<td><p>None</p></td>
+<td><p>linkedin_Data Science OR Data Engineer _Portugal_page_06_job_4214667742.html</p></td>
+<td><p>2025-05-02</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="data-transformation-example">
+<h2>Data Transformation &amp; Example<a class="headerlink" href="#data-transformation-example" title="Link to this heading">#</a></h2>
+<section id="phase-2-data-cleansing-and-normalization">
+<h3>Phase 2: Data Cleansing and Normalization<a class="headerlink" href="#phase-2-data-cleansing-and-normalization" title="Link to this heading">#</a></h3>
+<p>Raw data, even after initial parsing, is rarely perfect. To prepare it for meaningful analysis and LLM fine-tuning, we employ Dataform for in-warehouse transformations within BigQuery.</p>
+<blockquote>
+<div><p><strong>Key Transformations:</strong></p>
+<ul class="simple">
+<li><p><strong>Normalizing Technology Names:</strong> Standardizing variations like “python”, “Python3”, “python 3.x” to “python”</p></li>
+<li><p><strong>Downcasing Text:</strong> Converting all relevant text fields to lowercase</p></li>
+<li><p><strong>Removing Extra Spaces and Special Characters:</strong> Cleaning up text fields</p></li>
+</ul>
+</div></blockquote>
+<pre  class="mermaid">
+        erDiagram
+    linkedin_jobs_staging {
+        STRING job_id PK &quot;Unique identifier&quot;
+        DATE ingestionDate PK &quot;Partition key&quot;
+        STRING job_title
+        STRING company_name
+        STRING location
+        STRING job_description
+    }
+
+    linkedin_augmented_staging {
+        STRING job_id PK &quot;Links to staging&quot;
+        STRUCT job_summary &quot;Title, objective, seniority&quot;
+        STRUCT required_qualifications &quot;Experience, skills&quot;
+        STRUCT preferred_qualifications &quot;Skills, notes&quot;
+    }
+
+    linkedin_jobs_staging ||--o{ linkedin_augmented_staging : &quot;1-to-1&quot;
+    </pre></section>
+<section id="example-scraped-description">
+<h3>Example Scraped Description<a class="headerlink" href="#example-scraped-description" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-ii-gemini-augmentation">
+<h2>Part II: Gemini Augmentation<a class="headerlink" href="#part-ii-gemini-augmentation" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Distilled from Gemini-2.0-flash for structured information extraction</p>
+</div></blockquote>
+<section id="prompt">
+<h3>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JOB_DESCRIPTION_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are an expert AI assistant tasked with parsing job descriptions and extracting key information into a structured JSON format based on the predefined schema below. Analyze the input job description text carefully, standardize relevant terms (like tool names, locations, role titles), apply controlled vocabularies where specified, and generate the corresponding JSON output. Ensure lists contain standardized values and are empty `[]` if no relevant information is found.</span>
+
+<span class="s2">**JSON Schema Definition:**</span>
+
+<span class="s2">{</span>
+<span class="s2">  &quot;_comment&quot;: &quot;Schema for storing structured job description data.&quot;,</span>
+<span class="s2">  &quot;job_summary&quot;: {</span>
+<span class="s2">    &quot;role_title&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Standardized primary role title inferred from the description (e.g., &#39;Data Engineer&#39;, &#39;Data Scientist&#39;, &#39;Cloud Engineer&#39;, &#39;BI Developer&#39;). Use the most specific fitting category.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;role_objective&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;A concise summary or direct quote of the primary goal or objective of the role as stated in the description.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;role_seniority&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Inferred or stated seniority level. Use one of: [&#39;Internship&#39;, &#39;Junior&#39;, &#39;Mid-Level&#39;, &#39;Senior&#39;, &#39;Lead&#39;, &#39;Staff&#39;, &#39;Principal&#39;, &#39;Manager&#39;, &#39;Director&#39;, &#39;Executive&#39;, &#39;Not Specified&#39;].&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;visa_sponsorship&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;boolean&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Set to true if the company explicitly states they Concepts&quot;, &quot;NoSQL Concepts&quot;, &quot;Other&quot;]</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;data_architecture_concepts&quot;: {</span>
+<span class="s2">          &quot;type&quot;: &quot;object&quot;,</span>
+<span class="s2">           &quot;properties&quot;: {</span>
+<span class="s2">                &quot;data_modeling&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Data modeling techniques.&quot;},</span>
+<span class="s2">                &quot;data_storage_paradigms&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Data storage concepts/systems.&quot;},</span>
+<span class="s2">                &quot;etl_elt_pipelines&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Data movement/transformation concepts.&quot;},</span>
+<span class="s2">                &quot;data_governance_quality&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Data governance/quality concepts.&quot;},</span>
+<span class="s2">                &quot;architecture_patterns&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Data architecture patterns.&quot;},</span>
+<span class="s2">                &quot;big_data_concepts&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Big Data specific concepts.&quot;},</span>
+<span class="s2">                &quot;cloud_data_architecture&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Cloud-specific data architecture concepts.&quot;},</span>
+<span class="s2">                &quot;ml_ai_data_concepts&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;ML/AI infrastructure/data concepts.&quot;},</span>
+<span class="s2">                &quot;core_principles_optimization&quot;: { &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;Core design/optimization principles.&quot;}</span>
+<span class="s2">           },</span>
+<span class="s2">          &quot;description&quot;: &quot;Categorized required knowledge of data architecture concepts.&quot;</span>
+<span class="s2">          // Possible Values within sub-arrays: Standardized concepts like &quot;Dimensional Modeling&quot;, &quot;Data Lake Architecture&quot;, &quot;ETL Design &amp; Development&quot;, &quot;Data Quality Management&quot;, &quot;Medallion Architecture&quot;, etc.</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;etl_integration_tools&quot;: {</span>
+<span class="s2">          &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">          &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">          &quot;description&quot;: &quot;List specific ETL, ELT, or Data Integration tools required.&quot;</span>
+<span class="s2">          // Possible Values: Standardized tool names like &quot;Azure Data Factory&quot;, &quot;AWS Glue&quot;, &quot;dbt (Data Build Tool)&quot;, &quot;Informatica PowerCenter / IDMC&quot;, &quot;Talend&quot;, &quot;Microsoft SSIS&quot;, &quot;Airbyte&quot;, &quot;Fivetran&quot;, &quot;Matillion&quot;, etc.</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;data_visualization_bi_tools&quot;: {</span>
+<span class="s2">          &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">          &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">          &quot;description&quot;: &quot;List specific Business Intelligence or Data Visualization tools required.&quot;</span>
+<span class="s2">          // Possible Values: Standardized tool names like &quot;Tableau&quot;, &quot;Microsoft Power BI&quot;, &quot;Looker / Looker Studio&quot;, &quot;QlikView / Qlik Sense&quot;, &quot;MicroStrategy&quot;, &quot;Apache Superset&quot;, &quot;Metabase&quot;, &quot;Grafana&quot;, &quot;Kibana&quot;, &quot;Power Query (Excel/Power BI)&quot;, &quot;DAX&quot;, &quot;LookML&quot;, etc.</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;devops_mlops_ci_cd_tools&quot;: {</span>
+<span class="s2">          &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">          &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">          &quot;description&quot;: &quot;List specific DevOps, MLOps, CI/CD, IaC, or Monitoring tools required.&quot;</span>
+<span class="s2">           // Possible Values: Standardized tool names like &quot;Git&quot;, &quot;Jenkins&quot;, &quot;Terraform&quot;, &quot;Kubernetes&quot;, &quot;Docker&quot;, &quot;Azure DevOps&quot;, &quot;GitHub Actions&quot;, &quot;MLflow&quot;, &quot;Kubeflow&quot;, &quot;Datadog&quot;, &quot;Prometheus&quot;, &quot;Boto3 (AWS SDK for Python)&quot;, etc.</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;orchestration_workflow_tools&quot;: {</span>
+<span class="s2">          &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">          &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">          &quot;description&quot;: &quot;List specific workflow orchestration tools required.&quot;</span>
+<span class="s2">          // Possible Values: Standardized tool names like &quot;Apache Airflow&quot;, &quot;Prefect&quot;, &quot;Dagster&quot;, &quot;Luigi&quot;, &quot;AWS Step Functions&quot;, &quot;Azure Logic Apps&quot;, etc.</span>
+<span class="s2">      },</span>
+<span class="s2">      &quot;other_tools&quot;: {</span>
+<span class="s2">          &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">          &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">          &quot;description&quot;: &quot;List other relevant tools not offer visa sponsorship for this role, false if they state they do not. Null if not mentioned.&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  },</span>
+<span class="s2">  &quot;company_information&quot;: {</span>
+<span class="s2">    &quot;company_type&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Categorize the company based on its primary business model or industry. Use one of: [&#39;Software Product / SaaS&#39;, &#39;E-commerce / Marketplace Platform&#39;, &#39;Fintech&#39;, &#39;Gaming Company / GameTech&#39;, &#39;IT Consulting / System Integration&#39;, &#39;IT Outsourcing / Nearshore / Dev Shop&#39;, &#39;Managed Service Provider (MSP)&#39;, &#39;AI / Data Science Focused&#39;, &#39;Open Source Software Company&#39;, &#39;Low-Code / No-Code Platform&#39;, &#39;Cloud / IT Infrastructure Services&#39;, &#39;Digital Services / Agency&#39;, &#39;Tech Hub / Academy / Recruitment&#39;, &#39;Testing / Inspection / Certification&#39;, &#39;Banking / Financial Institution&#39;, &#39;Healthcare / Pharma / Biotech&#39;, &#39;Automotive / Mobility Provider&#39;, &#39;Manufacturing / Industrial&#39;, &#39;Logistics / Transportation&#39;, &#39;Energy&#39;, &#39;Telecommunications&#39;, &#39;Engineering Services (Non-IT specific)&#39;, &#39;Internal IT / Shared Services&#39;, &#39;Unspecified / Generic Tech&#39;, &#39;Not Specified / Other&#39;].&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;company_values_keywords&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">      &quot;description&quot;: &quot;List keywords or short phrases representing explicitly stated company values or culture aspects (e.g., &#39;Inovação&#39;, &#39;Collaboration&#39;, &#39;Transparency&#39;, &#39;Work-life balance&#39;).&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  },</span>
+<span class="s2">  &quot;location_and_work_model&quot;: {</span>
+<span class="s2">    &quot;specification_level&quot;: {</span>
+<span class="s2">        &quot;type&quot;: &quot;string&quot;,</span>
+<span class="s2">        &quot;enum&quot;: [&quot;Specific Location / Remote Status Identified&quot;, &quot;Not Specified&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Indicates if specific location, remote status, or &#39;Global&#39; was identified.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;remote_status&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Identify the primary work model. Use one of: [&#39;Fully Remote&#39;, &#39;Remote (Region Specific)&#39;, &#39;Hybrid&#39;, &#39;Office-based&#39;, &#39;Not Specified&#39;].&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;flexibility&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">      &quot;description&quot;: &quot;List specific flexibility options mentioned, e.g., [&#39;Flexible Schedule&#39;].&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;locations&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">      &quot;description&quot;: &quot;List standardized, Title Cased locations (Cities, Countries, Regions, &#39;Global&#39;) mentioned. Sort alphabetically.&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  },</span>
+<span class="s2">  &quot;required_qualifications&quot;: {</span>
+<span class="s2">    &quot;experience_years_min&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;integer&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Minimum years of experience required (e.g., from &#39;1-6 years&#39; extract 1, from &#39;3+ years&#39; extract 3).&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;experience_years_max&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;integer&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Maximum years of experience specified (e.g., from &#39;1-6 years&#39; extract 6). Null if only minimum or range isn&#39;t specified.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;experience_description&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;The raw text describing the experience requirement (e.g., &#39;1 e 6 anos em projetos de Data&#39;, &#39;3+ years of hands-on experience&#39;).&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;education_requirements&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;description&quot;: &quot;Required level of education or field of study (e.g., &#39;BSc Computer Science&#39;, &#39;Licenciatura/ Mestrado nas áreas de Engenharia Informática...&#39;).&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;technical_skills&quot;: {</span>
+<span class="s2">      &quot;programming_languages&quot;: {</span>
+<span class="s2">        &quot;type&quot;: &quot;object&quot;,</span>
+<span class="s2">        &quot;properties&quot;: {</span>
+<span class="s2">            &quot;general_purpose&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List standardized general-purpose languages (e.g., Python, Java, Scala, Go, C#, R).&quot;},</span>
+<span class="s2">            &quot;scripting_frontend&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List standardized scripting or frontend languages/frameworks (e.g., Bash / Shell Scripting, JavaScript, TypeScript, Angular).&quot;},</span>
+<span class="s2">            &quot;query&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List standardized query languages (e.g., SQL, T-SQL, PL/SQL, Spark SQL, DAX, MDX, Power Query (M)).&quot;},</span>
+<span class="s2">            &quot;data_ml_libs&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List standardized data/ML specific libraries/frameworks (e.g., Pandas, PySpark, Scikit-learn, PyTorch, TensorFlow, R Shiny). Note: Base frameworks like Spark/Flink go here too.&quot;},</span>
+<span class="s2">            &quot;platform_runtime&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List specific platforms/runtimes like &#39;.NET Platform&#39;.&quot;},</span>
+<span class="s2">            &quot;configuration&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List configuration languages like &#39;YAML&#39;.&quot;},</span>
+<span class="s2">            &quot;other_specialized&quot;: {&quot;type&quot;: [&quot;array&quot;, &quot;null&quot;], &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;description&quot;: &quot;List other specialized languages like &#39; fitting neatly into the above categories (e.g., IDEs, Data Catalogs, Vector DBs).&quot;</span>
+<span class="s2">          // Possible Values: Standardized tool names like &quot;Jupyter Notebooks/Lab&quot;, &quot;Alation (Data Catalog)&quot;, &quot;Dataiku&quot;, &quot;VS Code&quot;, &quot;Weaviate (Vector DB)&quot;, &quot;Pinecone (Vector DB)&quot;, &quot;Minio&quot;, &quot;ActiveMQ&quot;, &quot;RabbitMQ&quot;, etc.</span>
+<span class="s2">      }</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;methodologies_practices&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">      &quot;description&quot;: &quot;List required development methodologies or practices.&quot;</span>
+<span class="s2">      // Possible Values: [&quot;Agile Principles&quot;, &quot;Scrum&quot;, &quot;Kanban&quot;, &quot;Extreme Programming (XP)&quot;, &quot;Lean Principles&quot;, &quot;SAFe&quot;, &quot;LeSS&quot;, &quot;Waterfall&quot;, &quot;DevOps Culture/Practices&quot;, &quot;Test-Driven Development (TDD)&quot;, &quot;Behavior-Driven Development (BDD)&quot;, &quot;CI/CD Practices&quot;, &quot;A/B Testing&quot;]</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;soft_skills_keywords&quot;: {</span>
+<span class="s2">      &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">      &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">      &quot;description&quot;: &quot;List required soft skills or general keywords.&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  },</span>
+
+<span class="s2">  &quot;preferred_qualifications&quot;: {</span>
+<span class="s2">    &quot;_comment&quot;: &quot;Nice-to-have skills and qualifications.&quot;,</span>
+<span class="s2">    &quot;skills_keywords&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">        &quot;description&quot;: &quot;List of preferred skills, tools, languages, or concepts.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;other_notes&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Any other text describing preferred qualifications.&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  },</span>
+
+<span class="s2">  &quot;role_context&quot;: {</span>
+<span class="s2">     &quot;_comment&quot;: &quot;Information about the role&#39;s interactions and scope.&quot;,</span>
+<span class="s2">     &quot;collaboration_with&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">        &quot;description&quot;: &quot;List of teams or roles this position collaborates with.&quot;</span>
+<span class="s2">     },</span>
+<span class="s2">     &quot;team_structure&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Description of the team structure or context.&quot;</span>
+<span class="s2">     },</span>
+<span class="s2">     &quot;project_scope&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Description of the type or scope of projects involved.&quot;</span>
+<span class="s2">     },</span>
+<span class="s2">     &quot;key_responsibilities&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">        &quot;description&quot;: &quot;List of key tasks and responsibilities mentioned.&quot;</span>
+<span class="s2">     }</span>
+<span class="s2">  },</span>
+
+<span class="s2">  &quot;benefits&quot;: {</span>
+<span class="s2">    &quot;_comment&quot;: &quot;Perks and benefits offered.&quot;,</span>
+<span class="s2">    &quot;training_development&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Description of training and development opportunities.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;learning_platforms&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">        &quot;description&quot;: &quot;List specific learning platforms mentioned by name (e.g., &#39;Udemy&#39;, &#39;LinkedIn Learning&#39;).&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;paid_time_off_days&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;integer&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;description&quot;: &quot;Specific number of paid time off days mentioned.&quot;</span>
+<span class="s2">    },</span>
+<span class="s2">    &quot;other_benefits_keywords&quot;: {</span>
+<span class="s2">        &quot;type&quot;: [&quot;array&quot;, &quot;null&quot;],</span>
+<span class="s2">        &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; },</span>
+<span class="s2">        &quot;description&quot;: &quot;List keywords for other benefits (e.g., &#39;Health Insurance&#39;, &#39;Meal Allowance&#39;, &#39;Well-being Program&#39;).&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">  }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="openai-schema-template">
+<h3>OpenAI schema template<a class="headerlink" href="#openai-schema-template" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JOB_RESPONSE_SCHEMA</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+    <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># === Job Summary ===</span>
+        <span class="s1">&#39;job_summary&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;High-level information about the role.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;role_title&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Standardized primary role title inferred from the description (e.g., &#39;Data Engineer&#39;, &#39;Data Scientist&#39;).&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;role_objective&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A concise summary or direct quote of the primary goal or objective of the role.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;role_seniority&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Inferred or stated seniority level (e.g., &#39;Internship&#39;, &#39;Junior&#39;, &#39;Mid-Level&#39;, &#39;Senior&#39;, &#39;Lead&#39;, &#39;Manager&#39;, &#39;Not Specified&#39;).&quot;</span>
+                    <span class="c1"># Enum constraint typically handled by validation after extraction or in the prompt</span>
+                <span class="p">),</span>
+                 <span class="s1">&#39;visa_sponsorship&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">BOOLEAN</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Set to true if the company explicitly states they offer visa sponsorship for this role, false if they state they do not. Null if not mentioned.&quot;</span>
+                 <span class="p">)</span>
+            <span class="p">}</span>
+            <span class="c1"># Optionality implied by not being in a top-level &#39;required&#39; list if one were defined</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Company Information ===</span>
+        <span class="s1">&#39;company_information&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Details about the hiring company.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;company_type&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Categorization of the company&#39;s primary business model or industry.&quot;</span>
+                    <span class="c1"># Enum constraint handled by validation/prompt.</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;company_values_keywords&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of explicitly stated company values or cultural keywords.&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Location and Work Model ===</span>
+        <span class="s1">&#39;location_and_work_model&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Where the role is based and the work model.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;specification_level&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Indicates if specific location or remote status was found (&#39;Specific Location / Remote Status Identified&#39; or &#39;Not Specified&#39;).&quot;</span>
+                    <span class="c1"># Enum constraint handled by validation/prompt.</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;remote_status&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Primary work model regarding location (&#39;Fully Remote&#39;, &#39;Remote (Region Specific)&#39;, &#39;Hybrid&#39;, &#39;Office-based&#39;, &#39;Not Specified&#39;).&quot;</span>
+                    <span class="c1"># Enum constraint handled by validation/prompt.</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;flexibility&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List flags indicating schedule flexibility (e.g., [&#39;Flexible Schedule&#39;]).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Standardized list of mentioned Cities, Countries, or Regions (e.g., [&#39;Lisbon&#39;, &#39;Portugal&#39;, &#39;EMEA&#39;, &#39;Global&#39;]). Sorted alphabetically.&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Required Qualifications ===</span>
+        <span class="s1">&#39;required_qualifications&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Mandatory requirements for the role.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;experience_years_min&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Minimum years of experience required.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;experience_years_max&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Maximum years of experience specified.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;experience_description&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Raw text describing the experience requirement.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;education_requirements&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Required level of education or field of study text.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;technical_skills&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Specific technical tools, platforms, languages, and concepts.&quot;</span><span class="p">,</span>
+                    <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s1">&#39;programming_languages&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Categorized required programming languages and related libraries/frameworks.&quot;</span><span class="p">,</span>
+                            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s1">&#39;general_purpose&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of general-purpose backend/versatile languages.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;scripting_frontend&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of scripting/frontend languages or frameworks.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of query languages.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;data_ml_libs&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of data/ML libraries or related frameworks.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;platform_runtime&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of specific platforms/runtimes like .NET.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;configuration&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of configuration/markup languages.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;other_specialized&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of other specialized languages.&quot;</span><span class="p">)</span>
+                            <span class="p">}</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;cloud_platforms&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of major cloud providers or core data platforms mentioned (e.g., AWS, Azure, GCP, Snowflake, Databricks).&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;cloud_services_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of specific cloud services or tools identified (e.g., S3, ADF, Glue, Lambda, GCS, BigQuery).&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;database_technologies&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of specific database technologies or general concepts required.&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;data_architecture_concepts&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Categorized required knowledge of data architecture concepts.&quot;</span><span class="p">,</span>
+                            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s1">&#39;data_modeling&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data modeling techniques.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;data_storage_paradigms&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data storage concepts/systems.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;etl_elt_pipelines&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data movement/transformation concepts.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;data_governance_quality&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data governance/quality concepts.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;architecture_patterns&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data architecture patterns.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;big_data_concepts&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Big Data specific concepts.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;cloud_data_architecture&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Cloud-specific data architecture concepts.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;ml_ai_data_concepts&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;ML/AI infrastructure/data concepts.&quot;</span><span class="p">),</span>
+                                <span class="s1">&#39;core_principles_optimization&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Core design/optimization principles.&quot;</span><span class="p">)</span>
+                            <span class="p">}</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;etl_integration_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List specific ETL, ELT, or Data Integration tools required.&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;data_visualization_bi_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List specific Business Intelligence or Data Visualization tools required.&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;devops_mlops_ci_cd_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List specific DevOps, MLOps, CI/CD, IaC, or Monitoring tools required.&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;orchestration_workflow_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List specific workflow orchestration tools required.&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">),</span>
+                        <span class="s1">&#39;other_tools&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List other relevant tools not fitting neatly into the above categories (e.g., IDEs, Data Catalogs, Vector DBs).&quot;</span><span class="p">,</span>
+                            <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;methodologies_practices&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List required development methodologies or practices (e.g., &#39;Agile Principles&#39;, &#39;Scrum&#39;, &#39;TDD&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;soft_skills_keywords&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List required soft skills or general keywords (e.g., &#39;Communication&#39;, &#39;Teamwork&#39;, &#39;English&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Preferred Qualifications ===</span>
+        <span class="s1">&#39;preferred_qualifications&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Nice-to-have skills and qualifications.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;skills_keywords&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of preferred skills, tools, languages, or concepts (e.g., &#39;French&#39;, &#39;Certifications&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;other_notes&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Any other text describing preferred qualifications.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Role Context ===</span>
+        <span class="s1">&#39;role_context&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Information about the role&#39;s interactions and scope.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;collaboration_with&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of teams or roles this position collaborates with (e.g., &#39;Stakeholders&#39;, &#39;Data Scientists&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;team_structure&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of the team structure or context.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;project_scope&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of the type or scope of projects involved.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;key_responsibilities&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of key tasks and responsibilities mentioned.&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="c1"># === Benefits ===</span>
+        <span class="s1">&#39;benefits&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Perks and benefits offered.&quot;</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;training_development&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of training and development opportunities.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;learning_platforms&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List specific learning platforms mentioned by name (e.g., &#39;Udemy&#39;, &#39;LinkedIn Learning&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;paid_time_off_days&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Specific number of paid time off days mentioned.&quot;</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;other_benefits_keywords&#39;</span><span class="p">:</span> <span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ARRAY</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List keywords for other benefits (e.g., &#39;Health Insurance&#39;, &#39;Meal Allowance&#39;, &#39;Well-being Program&#39;).&quot;</span><span class="p">,</span>
+                    <span class="n">items</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">genai</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-output">
+<h3>Example output<a class="headerlink" href="#example-output" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;job_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;role_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DevOps Engineer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;role_objective&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To help scale, automate, and optimize our cloud infrastructure. Responsible for designing, implementing, and maintaining CI/CD pipelines, managing Azure cloud infrastructure, and ensuring smooth deployments using Terraform and GitHub Actions.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;role_seniority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mid-Level&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;visa_sponsorship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;company_information&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;company_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Software Product / SaaS&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;company_values_keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Agile&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Collaboration&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Fun Environment&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Future-Oriented&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Growth&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Innovation&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;location_and_work_model&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;specification_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Specific Location / Remote Status Identified&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;remote_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hybrid&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flexibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Flexible Schedule&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;locations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;required_qualifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;experience_years_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;experience_years_max&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;experience_description&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;education_requirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;technical_skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;programming_languages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;general_purpose&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Python&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;scripting_frontend&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Bash / Shell Scripting&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;PowerShell&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;data_ml_libs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;platform_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;configuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;other_specialized&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;cloud_platforms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;iaas_paas_providers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Microsoft Azure&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;specific_cloud_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Azure App Services&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure DevOps&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure Kubernetes Service (AKS)&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure Networking&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure Storage&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;containerization_orchestration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Docker&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Kubernetes&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;serverless_faas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;database_storage_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;networking_security_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Azure Firewall&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure RBAC&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure VPN Gateway&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Azure Virtual Network (vNET)&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;monitoring_logging_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Azure Monitor&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;data_analytics_ai_ml_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;iot_other_specialized_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;data_storage_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;relational_sql_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;nosql_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;data_warehouses_lakes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;search_engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;message_queues_streaming&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;file_object_storage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;Azure Blob Storage / Azure Files&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;graph_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;time_series_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;vector_databases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;other_db_storage_systems&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;data_processing_frameworks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;operating_systems&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Linux&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;foundational_concepts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Networking Concepts&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Security Concepts&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;data_architecture_concepts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;data_modeling&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;data_storage_paradigms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;etl_elt_pipelines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;data_governance_quality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;architecture_patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;big_data_concepts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;cloud_data_architecture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;ml_ai_data_concepts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;core_principles_optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;etl_integration_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;data_visualization_bi_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;devops_mlops_ci_cd_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Azure DevOps&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Docker&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;GitHub Actions&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Grafana&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Kubernetes&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Prometheus&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Terraform&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;orchestration_workflow_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;other_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;methodologies_practices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;DevOps Culture/Practices&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;soft_skills_keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Collaboration&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;preferred_qualifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;skills_keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;SOC 2 Compliance&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Security Best Practices&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;other_notes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Experience with SOC 2 compliance and security best practices&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;role_context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;collaboration_with&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Software Engineers&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;team_structure&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project_scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Scaling, automating, and optimizing cloud infrastructure; designing and maintaining CI/CD pipelines and Azure infrastructure.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;key_responsibilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Infrastructure as Code (IaC): Design, implement, and maintain Azure infrastructure using Terraform.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;CI/CD Automation: Build and manage GitHub Actions workflows to streamline deployments and testing.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Cloud Operations: Ensure high availability, security, and performance of our Azure-based environments.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Monitoring &amp; Observability: Set up logging, monitoring, and alerting solutions to proactively identify issues.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Security &amp; Compliance: Implement best practices for identity management, role-based access control (RBAC), and security policies in Azure.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Collaboration: Work closely with software engineers to improve deployment strategies and DevOps best practices.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Troubleshooting &amp; Optimization: Identify performance bottlenecks and optimize cloud resources.&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;benefits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;training_development&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Professional development opportunities for training to advance your career.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;learning_platforms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;paid_time_off_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_benefits_keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;Caring Benefits&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Competitive Salary&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Dental Insurance&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Extra Days Off&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Flexible Working Hours&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Health Insurance&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Partner Discounts&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Performance Bonus&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Perks Package&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Remote Work Options&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Team Building Activities&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./09_Linkedin"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../05_housing_database/02_EDA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Portuguese Housing Market EDA: A Tale of Two Cities</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_job_EDA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Part II: Meet the market</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-challenge">Introduction &amp; Challenge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model">Data Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#staging">Staging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-normalized">Augmented Normalized</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-1-scraping-and-initial-storage">Phase 1: Scraping and Initial Storage</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data-in-linkedin-staging">Example data in linkedin_staging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation-example">Data Transformation &amp; Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-2-data-cleansing-and-normalization">Phase 2: Data Cleansing and Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scraped-description">Example Scraped Description</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-gemini-augmentation">Part II: Gemini Augmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt">Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-schema-template">OpenAI schema template</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example output</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

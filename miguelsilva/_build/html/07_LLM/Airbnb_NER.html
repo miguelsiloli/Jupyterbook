@@ -1,0 +1,1266 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Wisdom of unstructured data &#8212; Visualization Curriculum</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '07_LLM/Airbnb_NER';</script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Portuguese Housing Market EDA: A Tale of Two Cities" href="../05_housing_database/02_EDA.html" />
+    <link rel="prev" title="Data Mining on Imovirtual" href="../05_housing_database/01_unravelling_imovirtual.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Visualization Curriculum - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Visualization Curriculum - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_extras/pipeline_monitoring.html">Part I: Understanding the Core Monitoring Stack</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wallapop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_Wallapop/01_exploration.html">Mining in Wallapop 2024 Edition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Imovirtual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/00_lxml.html">On Improving the efficiency of HTML parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/01_unravelling_imovirtual.html">Data Mining on Imovirtual</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Wisdom of unstructured data</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../05_housing_database/02_EDA.html">Portuguese Housing Market EDA: A Tale of Two Cities</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LinkedIn</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/01_pipeline.html">Part I: Meet the market</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_Linkedin/02_job_EDA.html">Part II: Meet the market</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F07_LLM/Airbnb_NER.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/07_LLM/Airbnb_NER.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Wisdom of unstructured data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Wisdom of unstructured data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition">Named Entity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets-overview">📊 Datasets Overview</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-pretraining">Part I - Pretraining</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-pipeline-and-transfer-learning">Preprocessing pipeline and transfer-learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-details">Implementation details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">Pretrain BERT with MLM + Multiclass objective on language corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dont-stop-pretraining">Don’t Stop Pretraining</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-general-language-features-and-tasks-specific-features">Learning general language features and tasks specific features</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-flow">Gradient flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-issues">Possible issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-finetuning">Part II - Finetuning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-annotations">LLM annotations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-before-bio-conversion">Structured output (Before BIO conversion)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-metrics">Label metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wisdom-of-unstructured-data">
+<h1>Wisdom of unstructured data<a class="headerlink" href="#wisdom-of-unstructured-data" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Recreating Airbnb LAEP system in portuguese real estate agency listings</p>
+</div></blockquote>
+<p>The LAEP system - Listing Attribute Extraction Platform is a machine learning system that extracts structured information from unstructured text data about Airbnb listings into structured taxonomy labels (reference <a class="reference external" href="https://medium.com/airbnb-engineering/wisdom-of-unstructured-data-building-airbnbs-listing-knowledge-from-big-text-data-7c533466a63c">https://medium.com/airbnb-engineering/wisdom-of-unstructured-data-building-airbnbs-listing-knowledge-from-big-text-data-7c533466a63c</a>).</p>
+<p><img alt="alt text" src="../_images/LAEP.png" /></p>
+<p>It consists of 3 main components:</p>
+<table style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>1. Named Entity Recognition (NER)</h4>
+      </th>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>2. Entity Mapping (EM)</h4>
+      </th>
+      <th style="width:33%; padding:10px; border: 1px solid #ddd; text-align:left; vertical-align:top; background-color:#f9f9f9;">
+        <h4>3. Entity Scores</h4>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Identifies & classifies phrases (entities) into labels.</li>
+          <li><strong>Detects:</strong> 5 entity types (Amenities, Facilities, Hospitality, Location Features, Structured details).</li>
+          <li><strong>Method:</strong> CNN framework processes tokenized text to find entity spans.</li>
+          <li><strong>Training:</strong> 30k labeled examples (from House descriptions, Summaries, Owner notes, Reviews, Location info).</li>
+        </ul>
+      </td>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Maps detected NER entities to Airbnb taxonomy classes.</li>
+          <li><strong>Handles:</strong> Variations in descriptions (e.g., <em>lockbox = lock-box = lock box</em>).</li>
+          <li><strong>Method:</strong> Cosine Similarity; returns label if score > threshold.</li>
+          <li><strong>Output:</strong> Mapped entities with confidence scores.</li>
+        </ul>
+      </td>
+      <td style="padding:10px; border: 1px solid #ddd; vertical-align:top;">
+        <ul style="margin-top:0; padding-left: 20px;">
+          <li><strong>Function:</strong> Determines if mapped attributes actually exist in a listing.</li>
+          <li><strong>Method:</strong> Fine-tuned BERT model (Next Sentence Prediction objective).</li>
+          <li><strong>Context:</strong> Analyzes local context (65 words around detected phrase).</li>
+          <li><strong>Output:</strong> YES (present), NO (not present), or UNKNOWN, with confidence scores.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="named-entity-recognition">
+<h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading">#</a></h1>
+<p>For this task we are using two different datasets:</p>
+<ul class="simple">
+<li><p>Airbnb open source datasets in kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description</p></li>
+<li><p>Imovirtual scraped rental descriptions</p></li>
+</ul>
+<p>The workflow encompasses the following steps:</p>
+<table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h4 style="margin-top:0; margin-bottom:8px;">Pretrain (AirBnB dataset)</h4>
+      <ol style="margin-top:0; margin-bottom:0; padding-left:25px; list-style-position: outside;">
+        <li style="margin-bottom:4px;">Concat columns [<code>"name"</code>, <code>"summary"</code>, <code>"space"</code>, <code>"neighborhood_overview"</code>, <code>"interaction"</code>, <code>"house_rules"</code>]</li>
+        <li style="margin-bottom:4px;"><strong>Translate airbnb listings</strong> details to portuguese</li>
+        <li style="margin-bottom:4px;">Split into <strong>2048 token chunks</strong></li>
+        <li style="margin-bottom:4px;">Get the most frequent <strong>amenities</strong> as one-hot labels</li>
+        <li style="margin-bottom:0;"><strong>Pretrain</strong> our NER transformer with MLM + Multiclass objective with amenities</li>
+      </ol>
+    </td>
+    <td style="width:48%; vertical-align:top; padding-left:2%;">
+      <h4 style="margin-top:0; margin-bottom:8px;">Fine tune (imovirtual dataset)</h4>
+      <ol style="margin-top:0; margin-bottom:0; padding-left:25px; list-style-position: outside;">
+        <li style="margin-bottom:4px;">Mine the imovirtual listings descriptions</li>
+        <li style="margin-bottom:4px;">Employ a foundational model as a <strong>NER labeler</strong> using few shot prompt</li>
+        <li style="margin-bottom:4px;"><strong>Refine and preprocess our labeled dataset</strong>, using SVM classifier as novelty detection</li>
+        <li style="margin-bottom:4px;"><strong>Generate BIO format</strong> datasets for entity recognition</li>
+        <li style="margin-bottom:4px;"><strong>Fine tune our pretrained BERT</strong> in our labeled dataset ('cross domain data') with NER (classification objective)</li>
+        <li style="margin-bottom:0;"><strong>Evaluate the performance</strong> of the NER in our imovirtual descriptions</li>
+      </ol>
+    </td>
+  </tr>
+</table>
+<section id="datasets-overview">
+<h2>📊 Datasets Overview<a class="headerlink" href="#datasets-overview" title="Link to this heading">#</a></h2>
+<p><img alt="Alt text" src="../_images/pic1.png" /></p>
+<table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h3 style="margin-top:0; margin-bottom:5px;">Airbnb Dataset (training dataset)</h3>
+      <p style="margin-top:0; margin-bottom:8px; font-size:0.9em;"><em>Open source dataset from Kaggle</em></p>
+      <p style="margin-top:0; margin-bottom:8px;">Airbnb open source datasets in Kaggle, containing about 6 columns of listing details including description, space, summary, neightboorhood, transit and reviews description.</p>
+<p><strong style="display:block; margin-bottom:3px;">Key Statistics:</strong></p>
+  <ul style="margin-top:0; margin-bottom:8px; padding-left:20px; list-style-position: outside;">
+    <li style="margin-bottom:2px;">Rows: <code>20,000</code></li>
+    <li style="margin-bottom:2px;">Total Words: <code>20M+</code></li>
+    <li style="margin-bottom:0;">Average Length: <code>1,000 words/entry</code></li>
+    </ul>
+<p><strong style="display:block; margin-bottom:3px;">Columns:</strong>
+<ul style="margin-top:0; margin-bottom:0; padding-left:20px; list-style-position: outside;">
+<li style="margin-bottom:2px;">Description</li>
+<li style="margin-bottom:2px;">Space</li>
+<li style="margin-bottom:2px;">Summary</li>
+<li style="margin-bottom:2px;">Neighborhood</li>
+<li style="margin-bottom:2px;">Transit</li>
+<li style="margin-bottom:0;">Reviews Description</li>
+</ul></p>
+  </td>
+  <td style="width:48%; vertical-align:top; padding-left:2%;">
+    <h3 style="margin-top:0; margin-bottom:5px;">Imovirtual Dataset (fine tune dataset)</h3>
+    <p style="margin-top:0; margin-bottom:8px; font-size:0.9em;"><em>Scraped rental descriptions</em></p>
+<p><strong style="display:block; margin-bottom:3px;">Key Statistics:</strong>
+<ul style="margin-top:0; margin-bottom:8px; padding-left:20px; list-style-position: outside;">
+<li style="margin-bottom:2px;">Rows: <code>8,000</code></li>
+<li style="margin-bottom:2px;">Total Words: <code>4M+</code></li>
+<li style="margin-bottom:0;">Average Length: <code>600 words/entry</code></li>
+</ul></p>
+<p><strong style="display:block; margin-bottom:3px;">Content:</strong>
+<p style="margin-top:0; margin-bottom:0;">Collection of descriptions, prices, and property characteristics from all available rentals to date.</p></p>
+  </td>
+  </tr>
+</table>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="part-i-pretraining">
+<h1>Part I - Pretraining<a class="headerlink" href="#part-i-pretraining" title="Link to this heading">#</a></h1>
+<section id="preprocessing-pipeline-and-transfer-learning">
+<h2>Preprocessing pipeline and transfer-learning<a class="headerlink" href="#preprocessing-pipeline-and-transfer-learning" title="Link to this heading">#</a></h2>
+<pre  class="mermaid">
+        graph TD
+    A[Translation] --&gt; B[Duplicate Removal]
+    B --&gt; C[Sentence Splitting]
+    C --&gt; D[Labeling]
+    D --&gt; E[BIO Structuring]
+    E --&gt; F[Validation]
+    </pre></section>
+<section id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Link to this heading">#</a></h2>
+<p><strong>Translation:</strong></p>
+<ul class="simple">
+<li><p>Using Google Translate API</p></li>
+<li><p>Focuses on maintaining semantic accuracy</p></li>
+</ul>
+<p><strong>Labeling:</strong></p>
+<ul class="simple">
+<li><p>Powered by Gemini 2.0 flash</p></li>
+<li><p>Implements few-shot learning approach</p></li>
+</ul>
+<div class="alert alert-warning" role="alert" style="background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px; padding: 1rem; margin: 1rem 0;">
+    <h4 style="color: #856404; margin-top: 0;">⚠️ Known Issues</h4>
+    <ul style="margin-bottom: 0; padding-left: 20px;">
+        <li><strong>Translation:</strong> Quality maintenance challenges during translation, cultural accuracy issues between colloquial Portuguese and translated Portuguese/Brazilian</li>
+        <li><strong>Duplicate removal:</strong> Needs fuzzy logic implementation for near-duplicate detection</li>
+        <li><strong>Sentence splitting:</strong> Context loss due to simple end-character detection, needs i-1 and i+1 sentence consideration</li>
+        <li><strong>Labeling:</strong> Potential low-quality datasets from LLM labelers</li>
+    </ul>
+</div>
+</section>
+<section id="pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">
+<h2>Pretrain BERT with MLM + Multiclass objective on language corpus<a class="headerlink" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus" title="Link to this heading">#</a></h2>
+<section id="dont-stop-pretraining">
+<h3>Don’t Stop Pretraining<a class="headerlink" href="#dont-stop-pretraining" title="Link to this heading">#</a></h3>
+<p>This aligns with findings from the paper “Don’t Stop Pretraining”, which emphasizes that adapting language models to domains improves downstream task performance by up to 30% [<a class="reference external" href="https://www.sbert.net/examples/unsupervised_learning/MLM/README.html">https://www.sbert.net/examples/unsupervised_learning/MLM/README.html</a>]. For Airbnb, a model pretrained on property descriptions, reviews, and booking data would better capture terms like “amenities,” “host policies,” or regional lodging trends compared to generic text.</p>
+<ul class="simple">
+<li><p>Improves performance on tasks on that domain and across domains</p></li>
+<li><p>Increases the available dataset for training tasks and generalization</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{MLM}} + \beta \cdot \mathcal{L}_{\text{MC}}
+\]</div>
+<p><strong>In summary, the overall objective is:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_{\text{total}}(\theta) = - \sum_{i \in \text{masked\_tokens}} \log P(w_i | \text{context}_i; \theta) - \beta \sum_{j \in \text{sequences}} \sum_{c \in \text{classes}} y_{j,c} \log P(\text{class}_c | \text{sequence}_j; \theta)
+\]</div>
+<p>It maximizes the likelihood of predicting masked tokens based on the conditional support of unmasked tokens (MLM) and predicting the amenity class given the full context.</p>
+<section id="learning-general-language-features-and-tasks-specific-features">
+<h4>Learning general language features and tasks specific features<a class="headerlink" href="#learning-general-language-features-and-tasks-specific-features" title="Link to this heading">#</a></h4>
+<p>The addition of a multiclass objective—using Airbnb’s classification system (e.g., property types, pricing tiers, labels)—serves two purposes:</p>
+<ul class="simple">
+<li><p><strong>Task Specific Adapatation</strong>: we are leveraging the pretraining phase to tune on labeled data, which might further enhance pretraining</p></li>
+<li><p><strong>Data Efficiency</strong>: reduce downstream fine tuning costs (model already encodes task relevant features at pretraining).</p></li>
+</ul>
+</section>
+<section id="gradient-flow">
+<h4>Gradient flow<a class="headerlink" href="#gradient-flow" title="Link to this heading">#</a></h4>
+<p>Mixing unsupervised learning (MLM) and supervised learning (multiclassification) adds different learning signals which may improve gradient flow by injecting gradient diversity and model robustness, reducing the likelihood model stays stuck at local minima and acting as a regularization as well.</p>
+<p>This mirrors BERT original training where MLM and Next Sentene Prediction (NSP) are jointly used [<a class="reference external" href="https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115">https://discuss.huggingface.co/t/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp/3115</a>]. The principle of multtask-driven gradient flow improvement is well estabilished during transformer pretraining.</p>
+</section>
+<section id="possible-issues">
+<h4>Possible issues<a class="headerlink" href="#possible-issues" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The cross domain dataset used for pretrained might not be representative of our original dataset</p></li>
+<li><p>Multiobjective learning functions add a bigger computational costs</p></li>
+<li><p>Multiclass head adds additional overhead</p></li>
+<li><p>MLM with multiobjective might compete and not converge if labels are noisy or misaligned</p>
+<ul>
+<li><p>Implemented a <em>beta</em> factor for multiclass objective</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="part-ii-finetuning">
+<h1>Part II - Finetuning<a class="headerlink" href="#part-ii-finetuning" title="Link to this heading">#</a></h1>
+<pre  class="mermaid">
+        flowchart TD
+    subgraph Input
+        A[Raw Text Data]
+    end
+
+    subgraph Translation Process
+        B[Translation Module]
+    end
+
+    subgraph Deduplication
+        C[Exact Match Deduplication]
+    end
+
+    subgraph Text Processing
+        D[Sentence Splitting]
+        D1[Boundary Detection]
+    end
+
+    subgraph Entity Labeling
+        E[LLM Entity Labeling]
+    end
+
+    subgraph BIO Conversion
+        F[BIO Structuring]
+        F1[Token Segmentation]
+        F2[Label Assignment]
+        F3[Structure Validation]
+        F --&gt; F1 --&gt; F2 --&gt; F3
+    end
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; D1
+    D1 --&gt; E
+    E --&gt; F
+    
+    style Input fill:#e1f5fe
+    style Translation Process fill:#fff3e0
+    style Deduplication fill:#f1f8e9
+    style Text Processing fill:#f3e5f5
+    style Entity Labeling fill:#fff3e0
+    style BIO Conversion fill:#e8eaf6
+    </pre><table style="width:100%; border:none;">
+  <tr>
+    <td style="width:48%; vertical-align:top; padding-right:2%;">
+      <h3>Resulting dataset</h3>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Metric</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Total Entities</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">10941</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Unique Entities</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">5176</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Unique Labels</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">5</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Average Entity Length</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.03</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Most Common Label</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Facility</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Most Common Entity</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">apartamento</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="width:48%; vertical-align:top; padding-left:2%;">
+      <h3>Label Statistics</h3>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Label</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Count</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Percentage</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Unique Entities</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Avg Length</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Amenity</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">376</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">3.44</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">221</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.02</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Appliances</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1319</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">12.06</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">498</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">13.46</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Facility</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">4203</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">38.42</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1551</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">13.61</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Hospitality</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">2236</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">20.44</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1349</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">15.39</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Location Features</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">2807</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">25.66</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">1714</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">17.59</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<section id="llm-annotations">
+<h2>LLM annotations<a class="headerlink" href="#llm-annotations" title="Link to this heading">#</a></h2>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h2>
+<div style="font-family: sans-serif; line-height: 1.6;">
+  <div style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+    <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">Entity Recognition Example</h3>
+  <div style="margin-bottom: 20px;">
+    <h4 style="margin-bottom: 5px; color: #444;">Original Text (with annotations):</h4>
+    <p style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px; border-radius: 5px; font-size: 0.95em; color: #333;">
+      - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada <span style="background-color: #FFF3CD; color: #856404; padding: 2px 4px; border-radius: 3px; border: 1px solid #FFEEBA;">Amsterdã</span><span style="font-size: 0.8em; color: #6c757d;"> (Location Features)</span>, você volta para casa depois de uma curta caminhada ou uma <span style="background-color: #FFF3CD; color: #856404; padding: 2px 4px; border-radius: 3px; border: 1px solid #FFEEBA;">viagem de ônibus/bonde</span><span style="font-size: 0.8em; color: #6c757d;"> (Location Features)</span> neste adorável apartamento tranquilo. Assista a um filme na <span style="background-color: #D4EDDA; color: #155724; padding: 2px 4px; border-radius: 3px; border: 1px solid #C3E6CB;">Netflix</span><span style="font-size: 0.8em; color: #6c757d;"> (Appliances)</span>, beba um vinho na <span style="background-color: #D1ECF1; color: #0C5460; padding: 2px 4px; border-radius: 3px; border: 1px solid #BEE5EB;">varanda</span><span style="font-size: 0.8em; color: #6c757d;"> (Facility)</span> ou vá direto para a <span style="background-color: #F8D7DA; color: #721C24; padding: 2px 4px; border-radius: 3px; border: 1px solid #F5C6CB;">cama</span><span style="font-size: 0.8em; color: #6c757d;"> (Hospitality)</span> em um de nossos dois <span style="background-color: #D1ECF1; color: #0C5460; padding: 2px 4px; border-radius: 3px; border: 1px solid #BEE5EB;">aconchegantes quartos</span><span style="font-size: 0.8em; color: #6c757d;"> (Facility)</span>.
+    </p>
+  </div>
+  <div style="margin-bottom: 25px;">
+    <h4 style="margin-bottom: 5px; color: #444;">Cleaned Text (input to model):</h4>
+    <p style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px; border-radius: 5px; font-size: 0.95em; color: #333;">
+      - A beleza do apartamento é que depois de um dia maravilhoso na vibrante e movimentada Amsterdã, você volta para casa depois de uma curta caminhada ou uma viagem de ônibus/bonde neste adorável apartamento tranquilo. Assista a um filme na Netflix, beba um vinho na varanda ou vá direto para a cama em um de nossos dois aconchegantes quartos.
+    </p>
+  </div>
+  <h4 style="margin-bottom: 10px; color: #444; border-top: 1px dashed #ccc; padding-top: 15px;">Identified Entities (from Cleaned Text):</h4>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'Amsterdã'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Location Features</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 87:95</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'viagem de ônibus/bonde'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Location Features</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 155:177</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'Netflix'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Appliances</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 238:245</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'varanda'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Facility</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 264:271</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: #0056b3;">'cama'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Hospitality</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 292:296</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  <div style="background-color: #fff; border: 1px solid #e0e0e0; padding: 10px 15px; margin-bottom: 0px; border-radius: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;"> <!-- Reduced margin-bottom for the last item -->
+    <span style="font-weight: bold; color: #0056b3;">'aconchegantes quartos'</span>
+    <span style="background-color: #e7f3ff; color: #004085; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 500;">Facility</span>
+    <span style="font-style: italic; color: #555; font-size: 0.85em;">Position 318:339</span>
+    <span style="color: green; font-weight: bold; font-size: 1.2em; margin-left: auto;">✓</span>
+  </div>
+  </div>
+</div>
+</section>
+<section id="structured-output-before-bio-conversion">
+<h2>Structured output (Before BIO conversion)<a class="headerlink" href="#structured-output-before-bio-conversion" title="Link to this heading">#</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Compartilharemos a [sala de estar](Facility), [cozinha](Facility), [banheiro](Facility) e [banheiro](Facility)&quot;</span><span class="p">,</span>
+<span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sala de estar&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozinha&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">68</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;banheiro&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facility&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;banheiro&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h2>
+<p>Training loss looks good, with no signs of overfitting. However, it’s obvious it underfits (the loss is still a bit too high after learning). This is very likely due to mislabeled entities and Amenity label. <strong>F1 Score: 0.8542</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Training/Validation Loss</p></th>
+<th class="head text-center"><p>Semantic learning Animation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="After pretraining" src="../_images/training_validation_loss.png" /></p></td>
+<td class="text-center"><p><img alt="After pretraining" src="../_images/embeddings_animation.gif" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Before pretraining</strong>
+<img alt="Before pretraining" src="../_images/ner_default_embeddings.png" /></p>
+<p><strong>After pretraining</strong>
+(theres an error in the title, its pretrained not fine tuned BERT)
+<img alt="After pretraining" src="../_images/ner_fine_tuned_embeddings.png" /></p>
+<p><strong>Embeddings Space quality validation (after pretraining)</strong></p>
+<p><img alt="SVM boundaries" src="../_images/svm_decision_boundaries.png" /></p>
+<p><strong>After fine tuning</strong>
+<img alt="After fine tuning" src="../_images/entity_embedding_map.png" /></p>
+<section id="label-metrics">
+<h3>Label metrics<a class="headerlink" href="#label-metrics" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Label Metrics</p></th>
+<th class="head text-center"><p>Confusion Matrix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Entity Metrics" src="../_images/entity_metrics.png" /></p></td>
+<td class="text-center"><p><img alt="Confusion Matrix" src="../_images/confusion_matrix.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Top 20 entities by label</p></th>
+<th class="head text-center"><p>Total entities per label</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Entity Metrics" src="../_images/top_20_entities_by_label.png" /></p></td>
+<td class="text-center"><p><img alt="Confusion Matrix" src="../_images/total_entities_per_label.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #D14B4B; background-color: #FFEFEF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"> <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #D14B4B; border-bottom: 1px solid rgba(209,75,75,0.2); padding-bottom: 0.4em;">Conclusions</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">The target dataset outperforms the translated training dataset in terms of embedding quality and class separation. Clear patterns and semantic alignment indicate a stronger signal-to-noise ratio in the target data.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Translation Losses:</strong> Translated data introduces noise through <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">context loss</span>, <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">idiomatic inaccuracies</span>, and <span style="font-style: italic; background-color: rgba(209,75,75,0.1); padding: 0 3px;">ambiguities</span>, which blur feature distinctions and harm learning.</p> <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;"><strong style="color: #333;">Ambiguous Expressions:</strong> Less unique entities in the target database ultimately helps. While algorithms might chose different synonyms for the same words, native speakers are usually very keen on using the same expressions.</p> <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key Observations:</strong></p> <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;"> <li>Target embeddings exhibit clearer class definitions and reduced ambiguity.</li> <li>Native Portuguese expressions enhance context relevance and discriminative power.</li> <li>Translated data introduces noise that hampers embedding clarity and model training.</li> </ul> <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(209,75,75,0.2); padding-top: 0.6em;">Translation here acts as a data augmentar and regularization mechanisms as it introduces variability and noise to the data.</p> </div>
+<div style="font-family: sans-serif; line-height: 1.6;">
+  <h2 style="text-align: center; margin-bottom: 20px;">Model Performance Comparison</h2>
+  <div style="display: flex; justify-content: space-between; gap: 20px; margin-bottom: 30px;">
+    <div style="flex: 1; border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+      <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">LAEP-CNN Model Baseline Scores</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Entity</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Precision</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Recall</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">F1 Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Overall</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.95%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.70%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.32%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Amenity</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">80.75%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">84.38%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">82.52%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Facility</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.15%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">67.66%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">70.76%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Hospitality</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">61.99%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">58.47%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">60.18%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Location features</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">71.80%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.19%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">67.22%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>Structural details</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">72.66%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">68.49%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">70.51%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <div style="flex: 1; border: 1px solid #ccc; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+      <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">Our BERT Model Scores</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Class</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Precision</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Recall</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">F1 Score</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left; background-color: #e9e9e9;">Support</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Amenity</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">47.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">57.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">221</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Appliances</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">69.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">498</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Facility</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">83.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">81.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1551</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Hospital</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">74.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">77.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">75.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1349</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Location</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">83.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">89.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">86.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">1714</td>
+          </tr>
+          <tr style="line-height: 0.5;">
+            <td colspan="5" style="padding: 0px; border: none;"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Accuracy</td>
+            <td colspan="2" style="border: 1px solid #ddd; padding: 8px; text-align: left;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Macro</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">64.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">63.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">Weighted</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">76.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">79.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">77.00%</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">5333</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<p><strong>These models are not comparable since the dataset and NER definitions are very different</strong>
+The pretrained encoder should create semantically meaningful embeddings. These embeddings should show clearn clusters by entity types and a classification algorithm such as SVM decision boundaries should be able to help validate these clusters semantic sense.</p>
+<p>Outliers might indicate data quality issues:</p>
+<ul class="simple">
+<li><p><strong>mislabled entities</strong> in training data</p></li>
+<li><p>unusual but valid entities which are feature rich</p></li>
+<li><p><strong>noise</strong> that should be cleaned</p></li>
+</ul>
+<p>Data quality improvement actions:</p>
+<ul class="simple">
+<li><p>Review entity’s label accuracy</p></li>
+<li><p>Identify systematic labeling errors</p></li>
+<li><p>Remove or relabel incorrect instances</p></li>
+</ul>
+<div style="padding: 1.2em; margin: 1.2em 0; border-left: 6px solid #4B56D2; background-color: #EEF1FF; border-radius: 0.3em; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+  <p style="font-weight: bold; font-size: 1.3em; margin-top: 0; margin-bottom: 0.8em; color: #4B56D2; border-bottom: 1px solid rgba(75,86,210,0.2); padding-bottom: 0.4em;">Analysis</p>
+  <p style="margin: 0.6em 0; line-height: 1.5; font-size: 1.05em;">We can conclude the entities are generally well learnt and with show meaningful representation. Its possible to see clear outliers, that is, entities which are assigned to the wrong label; its possible to see the boundary entities and where each label is semantically connected to other label. However, an important note is the <span style="font-style: italic; background-color: rgba(75,86,210,0.1); padding: 0 3px;">Amenity</span> type label, which is an obvious stand out because it has a sparse representations and its features we're not learnt by the model.
+  Possible cause include: undersampling and under-represented, with only less than 300 samples; its semantic definition is not well defined and overlaps with other labels.</p>
+  <p style="margin: 0.8em 0; font-size: 1.1em;"><strong style="color: #333;">Key observations:</strong></p>
+  <ul style="margin: 0.6em 0 0.8em 1.5em; line-height: 1.6;">
+    <li>Labels show a very clear definition in the embeddings space</li>
+    <li>Model captured semantic rich patterns and relevant context information</li>
+    <li>Amenity label has no semantical definition and overlaps with other labels, which will be harmful during fine tuning (NER)</li>
+  </ul>
+  <p style="margin: 0.8em 0; line-height: 1.5; font-size: 1.05em; border-top: 1px solid rgba(75,86,210,0.2); padding-top: 0.6em;">Further investigation into the semantic similarity between frequently confused entities may help improve model performance.</p>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="future-work">
+<h1>Future work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Improve deduplication algorithm for near duplicates</p></li>
+<li><p>Improve translation algorithm to preserve language and semantics</p></li>
+<li><p>Reassess label classes definition to avoid overlaps, specially on ‘Amenity’</p></li>
+<li><p>Remove or relabel incorrect entities</p></li>
+<li><p>Apply this data mining model to imovirtual joining with the tabular data from the listing to get meaningful data.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./07_LLM"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../05_housing_database/01_unravelling_imovirtual.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Mining on Imovirtual</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../05_housing_database/02_EDA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Portuguese Housing Market EDA: A Tale of Two Cities</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Wisdom of unstructured data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition">Named Entity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets-overview">📊 Datasets Overview</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-pretraining">Part I - Pretraining</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-pipeline-and-transfer-learning">Preprocessing pipeline and transfer-learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-details">Implementation details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretrain-bert-with-mlm-multiclass-objective-on-language-corpus">Pretrain BERT with MLM + Multiclass objective on language corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dont-stop-pretraining">Don’t Stop Pretraining</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-general-language-features-and-tasks-specific-features">Learning general language features and tasks specific features</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-flow">Gradient flow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-issues">Possible issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-finetuning">Part II - Finetuning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-annotations">LLM annotations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-before-bio-conversion">Structured output (Before BIO conversion)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-metrics">Label metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-work">Future work</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Miguel Silva
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

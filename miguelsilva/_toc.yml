@@ -1,0 +1,38 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+
+parts:
+  - caption: Extras
+    chapters:
+    - file: 00_extras/pipeline_monitoring
+    - file: 00_extras/sql_server_monitoring_infra
+  # - caption: Vinted
+  #   chapters:
+  #   # - file: 01_Vinted_Data_Engineering/00_intro
+  #   # - file: 01_Vinted_Data_Engineering/01_vinted_api    
+  #   - file: 01_Vinted_Data_Engineering/01_pipeline_design
+  #   # - file: 03_Vinted_Data_Science/02_optimization-book
+  #   - file: 03_Vinted_Data_Science/03_user_clustering
+
+  # - caption: Vinted Deep Learning
+  #   chapters:
+  #   - file: 04_Vinted_Deep_Learning/01_vinted_dataset
+
+  - caption: Wallapop
+    chapters:
+    - file: 06_Wallapop/01_exploration
+
+  - caption: Imovirtual
+    chapters:
+    - file: 05_housing_database/00_lxml
+    - file: 05_housing_database/01_unravelling_imovirtual
+    - file: 07_LLM/Airbnb_NER
+    - file: 05_housing_database/02_EDA
+
+  - caption: LinkedIn
+    chapters:
+    - file: 09_Linkedin/01_pipeline
+    - file: 09_Linkedin/02_job_EDA

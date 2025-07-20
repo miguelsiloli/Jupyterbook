@@ -1,0 +1,90 @@
+<svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- DMAIC phases -->
+  
+  <!-- Define -->
+  <rect x="20" y="40" width="220" height="220" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" rx="10"/>
+  <text x="130" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1976d2" text-anchor="middle">DEFINE</text>
+  
+  <text x="30" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Problem:</text>
+  <text x="30" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">• Manual SSH to 10+ VMs</text>
+  <text x="30" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">• No unified monitoring</text>
+  <text x="30" y="130" font-family="Arial, sans-serif" font-size="12" fill="#666">• Slow incident response</text>
+  
+  <text x="30" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Goal:</text>
+  <text x="30" y="180" font-family="Arial, sans-serif" font-size="12" fill="#666">• Reduce MTTR</text>
+  <text x="30" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">• Eliminate toil</text>
+  <text x="30" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">• Proactive alerts</text>
+  <text x="30" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">• Zero performance impact</text>
+  
+  <!-- Measure -->
+  <rect x="260" y="40" width="220" height="220" fill="#fff3e0" stroke="#f57c00" stroke-width="3" rx="10"/>
+  <text x="370" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#f57c00" text-anchor="middle">MEASURE</text>
+  
+  <text x="270" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Current State:</text>
+  <text x="270" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">• Manual monitoring</text>
+  <text x="270" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">• 45min incident response</text>
+  <text x="270" y="130" font-family="Arial, sans-serif" font-size="12" fill="#666">• 3-4 outages/month</text>
+  
+  <text x="270" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Target Metrics:</text>
+  <text x="270" y="180" font-family="Arial, sans-serif" font-size="12" fill="#666">• CPU under 95%</text>
+  <text x="270" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">• Memory over 500MB free</text>
+  <text x="270" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">• Disk I/O under 20ms</text>
+  <text x="270" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">• Buffer cache over 99%</text>
+  
+  <!-- Analyze -->
+  <rect x="500" y="40" width="220" height="220" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="3" rx="10"/>
+  <text x="610" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#7b1fa2" text-anchor="middle">ANALYZE</text>
+  
+  <text x="510" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Root Causes:</text>
+  <text x="510" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">• No centralized view</text>
+  <text x="510" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">• Reactive monitoring</text>
+  <text x="510" y="130" font-family="Arial, sans-serif" font-size="12" fill="#666">• Resource bottlenecks</text>
+  
+  <text x="510" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Solution:</text>
+  <text x="510" y="180" font-family="Arial, sans-serif" font-size="12" fill="#666">• Pull-based monitoring</text>
+  <text x="510" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">• Passive exporters</text>
+  <text x="510" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">• Unified dashboard</text>
+  <text x="510" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">• Proactive alerting</text>
+  
+  <!-- Improve -->
+  <rect x="740" y="40" width="220" height="220" fill="#e8f5e8" stroke="#4caf50" stroke-width="3" rx="10"/>
+  <text x="850" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4caf50" text-anchor="middle">IMPROVE</text>
+  
+  <text x="750" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Implementation:</text>
+  <text x="750" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">• Central Prometheus + Grafana</text>
+  <text x="750" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">• SQL Exporter per VM</text>
+  <text x="750" y="130" font-family="Arial, sans-serif" font-size="12" fill="#666">• Windows Exporter per VM</text>
+  <text x="750" y="150" font-family="Arial, sans-serif" font-size="12" fill="#666">• Alert rules</text>
+  
+  <text x="750" y="180" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Expected Results:</text>
+  <text x="750" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">• Reduced MTTR</text>
+  <text x="750" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">• Toil reduction for monitoring tasks</text>
+  <text x="750" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">• Integrate in existing ticket/support system</text>
+  
+  <!-- Control -->
+  <rect x="980" y="40" width="200" height="220" fill="#ffebee" stroke="#d32f2f" stroke-width="3" rx="10"/>
+  <text x="1080" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#d32f2f" text-anchor="middle">CONTROL</text>
+  
+  <text x="990" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Monitor:</text>
+  <text x="990" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">• SLI compliance</text>
+  <text x="990" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">• Alert effectiveness</text>
+  <text x="990" y="130" font-family="Arial, sans-serif" font-size="12" fill="#666">• System performance</text>
+  
+  <text x="990" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Maintain:</text>
+  <text x="990" y="180" font-family="Arial, sans-serif" font-size="12" fill="#666">• Dashboard updates</text>
+  <text x="990" y="200" font-family="Arial, sans-serif" font-size="12" fill="#666">• Threshold tuning</text>
+  <text x="990" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">• Quarterly reviews</text>
+  <text x="990" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">• Capacity planning</text>
+  
+  <!-- Arrows between phases -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <line x1="240" y1="150" x2="260" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="150" x2="500" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="720" y1="150" x2="740" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="960" y1="150" x2="980" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
